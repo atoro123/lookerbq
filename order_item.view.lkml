@@ -154,4 +154,25 @@ view: order_item {
     }
   }
 
+  measure: total_recurring_price {
+    type: sum
+    sql: ${total_price} ;;
+    filters: {
+      field: order_order.status
+      value: "5"
+    }
+    filters: {
+      field: subscription_id
+      value: "NOT NULL"
+    }
+
+    filters: {
+      field: is_IU
+      value: "NO"
+    }
+
+    value_format_name: usd
+    drill_fields: [order_details*]
+  }
+
 }
