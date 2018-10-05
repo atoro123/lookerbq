@@ -103,7 +103,8 @@ view: order_item {
     sql: ${one_time} = 1
     or ${order_offer.name} LIKE '%IU%'
     or ${order_offer.name} LIKE '%Impulse Upsell%'
-    or ${order_offer.offer_type} IN ("12","13","14","19","20","23")
+    or ${order_offer.offer_type} IN (12,13,14,19,20,23)
+    or ${subscription_subscription.subscription_type} = 'IU Replenishment'
     ;;
   }
 
