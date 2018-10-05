@@ -193,4 +193,17 @@ view: subscription_subscription {
     type: count
     drill_fields: [id]
   }
+  dimension: clean_cancel {
+    sql: case when left(${cancel_reason},2) = '3|' then 'No Longer Use'
+    when left(${cancel_reason},2) = '11' then 'Shipping Price'
+    when left(${cancel_reason},2) = '1|' then 'Other'
+    when left(${cancel_reason},2) = '25' then 'Online Management Issue'
+    when left(${cancel_reason},2) = '2|' then 'Overstocked'
+    when left(${cancel_reason},2) = '4|' then 'Product Change'
+    when left(${cancel_reason},2) = '6|' then 'Buying Product Elsewhere'
+    when left(${cancel_reason},2) = '7|' then 'General Issue'
+    when left(${cancel_reason},2) = '8|' then 'Too Expensive'
+    ELSE 'Other' END
+          ;;
+  }
 }
