@@ -23,7 +23,6 @@ include: "*.view.lkml"                       # include all views in this project
 
 explore: order_order {
 
-  sql_always_where: ${merchant_id} = '34' ;;
 
   join: order_item {
     sql_on: ${order_order.id} = ${order_item.order_id} ;;
@@ -46,6 +45,17 @@ explore: order_order {
     from: offer_offer
     sql_on: ${order_offer.id} = ${order_item.offer_id}  ;;
 
+  }
+
+  join: customer_customer {
+    sql_on: ${customer_customer.id} = ${subscription_subscription.customer_id}
+    relationship: many_to_one;;
+  }
+
+  join: customer_order {
+    from: customer_customer
+    sql_on: ${customer_customer.id} = ${order_order.customer_id}
+      relationship: many_to_one;;
   }
 
 }

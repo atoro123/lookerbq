@@ -176,5 +176,15 @@ view: order_item {
     value_format_name: usd
     drill_fields: [order_details*]
   }
+  measure: total_gmv {
+    type: sum
+    sql: ${total_price} ;;
+    filters: {
+      field: order_order.status
+      value: "5"
+    }
 
+    value_format_name: usd
+    drill_fields: [order_details*]
+  }
 }
