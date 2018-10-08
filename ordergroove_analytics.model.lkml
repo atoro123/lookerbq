@@ -58,4 +58,7 @@ explore: order_order {
       relationship: many_to_one;;
   }
 
+  join: product_product {
+  sql_on: ${order_item.product_id} = ${product_product.id};;
+  }
 }
