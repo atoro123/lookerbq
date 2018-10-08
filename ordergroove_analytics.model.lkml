@@ -61,4 +61,8 @@ explore: order_order {
   join: product_product {
   sql_on: ${order_item.product_id} = ${product_product.id};;
   }
+
+  join: merchant_merchant {
+    sql_on: ${order_order.merchant_id} = ${merchant_merchant.id} ;;
+  }
 }
