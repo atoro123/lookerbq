@@ -21,6 +21,8 @@ include: "*.view.lkml"                       # include all views in this project
 
 # explore: order_item {}
 
+persist_for: "24 hours"
+
 explore: order_order {
   sql_always_where: ${merchant_id} in ('34' , '9' )    ;;
   view_label: "Order"
