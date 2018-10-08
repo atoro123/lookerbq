@@ -22,7 +22,8 @@ include: "*.view.lkml"                       # include all views in this project
 # explore: order_item {}
 
 explore: order_order {
-
+  view_label: "Order"
+  label: "1) Orders and Subscriptions"
 
   join: order_item {
     sql_on: ${order_order.id} = ${order_item.order_id} ;;
@@ -31,6 +32,7 @@ explore: order_order {
   }
 
   join: subscription_subscription {
+    view_label: "Subscription"
     sql_on: ${order_item.subscription_id} = ${subscription_subscription.id} ;;
     relationship: many_to_one
 
@@ -48,6 +50,7 @@ explore: order_order {
   }
 
   join: customer_customer {
+    view_label: "Customer"
     sql_on: ${customer_customer.id} = ${subscription_subscription.customer_id}
     relationship: many_to_one;;
   }
@@ -55,14 +58,18 @@ explore: order_order {
   join: customer_order {
     from: customer_customer
     sql_on: ${customer_customer.id} = ${order_order.customer_id}
-      relationship: many_to_one;;
+      ;;
+
+    relationship: many_to_one
   }
 
   join: product_product {
+    view_label: "Product"
   sql_on: ${order_item.product_id} = ${product_product.id};;
   }
 
   join: merchant_merchant {
+    view_label: "Merchant"
     sql_on: ${order_order.merchant_id} = ${merchant_merchant.id} ;;
   }
 }
