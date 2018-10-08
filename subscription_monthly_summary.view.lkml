@@ -56,4 +56,28 @@ view: subscription_monthly_summary {
     type: count
     drill_fields: [id]
   }
+  measure: active_end {
+    type:  sum
+    sql: ${active} ;;
+
+  }
+  measure: month_cancels{
+    type: sum
+    sql:  ${cancel} ;;
+
+  }
+  measure: beginning_active {
+  type: number
+  sql:  ${active_end} - ${month_cancels}
+  ;; }
+measure: average_month_base {
+  type: number
+  sql:  (${active_end} + ${beginning_active})/2 ;;
+}
+measure: churn_rate {
+  type:  number
+  sql:  (${month_cancels}/${average_month_base})*100
+  ;;
+  value_format: "0.00%"
+}
 }
