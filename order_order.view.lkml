@@ -1,6 +1,16 @@
 view: order_order {
   sql_table_name: ogv2_production.order_order ;;
 
+
+
+  ## custom dimensions / measures
+
+  dimension: months_since_signup {
+    type: number
+  #  sql: 1.0 * ( DATEDIFF(${created_date} , ${customer_customer.created_date} )) / 30;;
+    sql: TIMESTAMPDIFF(MONTH,${customer_customer.created_date}, ${created_date}) ;;
+
+  }
   dimension: id {
     primary_key: yes
     type: number

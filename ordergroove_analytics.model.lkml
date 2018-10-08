@@ -53,7 +53,8 @@ explore: order_order {
   join: customer_customer {
     view_label: "Customer"
     sql_on: ${customer_customer.id} = ${subscription_subscription.customer_id}
-    relationship: many_to_one;;
+    ;;
+    relationship: many_to_one
   }
 
   join: customer_order {
