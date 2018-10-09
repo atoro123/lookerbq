@@ -206,4 +206,8 @@ view: subscription_subscription {
     ELSE 'Other' END
           ;;
   }
+  dimension: VSI_Store_ID {
+    type: string
+    sql: right(left(${merchant_order_id}, 8 ),4) ;;
+  }
 }
