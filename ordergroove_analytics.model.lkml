@@ -24,7 +24,7 @@ include: "*.view.lkml"                       # include all views in this project
 persist_for: "24 hours"
 
 explore: order_order {
-  sql_always_where: ${merchant_id} in ('34' , '9' )    ;;
+  sql_always_where: ${merchant_id} in ('34' , '9' , '113')    ;;
   view_label: "Order"
   label: "1) Orders and Subscriptions"
 
@@ -72,6 +72,11 @@ explore: order_order {
       ;;
 
     relationship: many_to_one
+  }
+
+  join: customer_info {
+    view_label: "Customer"
+    sql_on: ${customer_customer.id} = ${customer_info.customer_id} ;;
   }
 
   join: product_product {
