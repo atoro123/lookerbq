@@ -59,6 +59,13 @@ explore: order_order {
     relationship: many_to_one
   }
 
+  join: customer_facts {
+    type: left_outer
+    view_label: "Customer"
+    sql_on: ${customer_customer.id} = ${customer_facts.customer_id} ;;
+
+  }
+
   join: customer_order {
     from: customer_customer
     sql_on: ${customer_customer.id} = ${order_order.customer_id}
@@ -76,4 +83,13 @@ explore: order_order {
     view_label: "Merchant"
     sql_on: ${order_order.merchant_id} = ${merchant_merchant.id} ;;
   }
+
+
+  join: subscription_monthly_summary {
+    type: left_outer
+    sql_on: ${subscription_monthly_summary.date_date} = ${subscription_subscription.created_date} ;;
+  }
+
+
+
 }

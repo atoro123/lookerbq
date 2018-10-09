@@ -40,6 +40,8 @@ view: order_order {
       week,
       month,
       quarter,
+      month_num,
+      day_of_month,
       year
     ]
     sql: ${TABLE}.created ;;
