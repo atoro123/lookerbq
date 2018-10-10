@@ -74,10 +74,6 @@ explore: order_order {
     relationship: many_to_one
   }
 
-  join: customer_info {
-    view_label: "Customer"
-    sql_on: ${customer_customer.id} = ${customer_info.customer_id} ;;
-  }
 
   join: product_product {
     view_label: "Product"
