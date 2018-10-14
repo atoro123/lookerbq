@@ -1,9 +1,11 @@
 view: subscriber_monthly_summary {
-  derived_table: {
-    sql: select *
-      from subscriber_monthly_summary
-       ;;
-  }
+#   derived_table: {
+#     sql: select *
+#       from subscriber_monthly_summary
+#        ;;
+#   }
+
+  sql_table_name: subscriber_monthly_summary ;;
 
   dimension: id {
     type: number
