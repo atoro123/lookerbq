@@ -187,4 +187,10 @@ view: order_item {
     value_format_name: usd
     drill_fields: [order_details*]
   }
+
+  dimension: reorder_item {
+    type:  yesno
+    sql:  ${order_offer.name} LIKE '%SMS%'
+    or ${order_offer.name} LIKE '%Reorder%' ;;
+  }
 }
