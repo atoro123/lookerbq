@@ -163,7 +163,7 @@ view: subscription_log {
 
   measure: sum_total_price {
     type: sum
-    label: "Price"
+    label: "Total Activation"
     value_format_name: usd
     sql: ${total_price} ;;
   }
