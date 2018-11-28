@@ -115,4 +115,11 @@ explore: subscription_subscription {
     sql_on: ${merchant_merchant.id} = ${subscription_subscription.merchant_id};;
     relationship: one_to_many
   }
+  join: customer_customer {
+    view_label: "Customer"
+    sql_on: ${customer_customer.id} = ${subscription_subscription.customer_id}
+      ;;
+    relationship: many_to_one
+  }
+
   }
