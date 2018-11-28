@@ -71,6 +71,7 @@ view: order_item {
     sql: ${TABLE}.quantity ;;
   }
 
+
   dimension: subscription_id {
     type: number
     sql: ${TABLE}.subscription_id ;;
@@ -172,7 +173,6 @@ view: order_item {
       field: is_IU
       value: "NO"
     }
-
     value_format_name: usd
     drill_fields: [order_details*]
   }
@@ -186,6 +186,31 @@ view: order_item {
 
     value_format_name: usd
     drill_fields: [order_details*]
+  }
+  measure: sum_IU_onetime_quantity {
+    type: sum
+    sql: ${quantity};;
+    filters: {
+      field: one_time
+      value: "1"
+    }
+    filters: {
+      field: subscription_id
+      value: "NULL"
+    }
+  }
+
+  measure: sum_IU_Recurring_quantity {
+    type: sum
+    sql: ${quantity};;
+    filters: {
+      field: is_IU
+      value: "YES"
+    }
+    filters: {
+      field: subscription_id
+      value: "NOT NULL"
+    }
   }
 
   dimension: reorder_item {
