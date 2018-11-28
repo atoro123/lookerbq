@@ -237,4 +237,11 @@ view: subscription_subscription {
     type: string
     sql: right(left(${merchant_order_id}, 8 ),4) ;;
   }
+
+  dimension: bucket_frequency {
+    type: tier
+    tiers: [0,7,14,28,30,45,60,90,120,150,180,270,365]
+    sql: ${frequency_days};;
+    value_format: "0"
+  }
 }
