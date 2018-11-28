@@ -44,11 +44,13 @@ explore: order_order {
   join: subscription_offer {
     from: offer_offer
     sql_on: ${subscription_offer.id} = ${subscription_subscription.offer_id};;
+    relationship: one_to_many
   }
 
   join: order_offer {
     from: offer_offer
     sql_on: ${order_offer.id} = ${order_item.offer_id}  ;;
+relationship: one_to_many
 
   }
 
