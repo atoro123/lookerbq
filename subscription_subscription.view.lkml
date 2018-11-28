@@ -54,6 +54,11 @@ view: subscription_subscription {
     type: number
     sql: ${TABLE}.customer_id ;;
   }
+  measure: cusotmer_create{
+    type: count_distinct
+    sql: ${customer_id};;
+
+  }
 
   dimension: customer_rep_id {
     type: number

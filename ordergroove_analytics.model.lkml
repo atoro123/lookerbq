@@ -50,6 +50,7 @@ explore: order_order {
   join: order_offer {
     from: offer_offer
     sql_on: ${order_offer.id} = ${order_item.offer_id}  ;;
+relationship: one_to_many
 
   }
 
