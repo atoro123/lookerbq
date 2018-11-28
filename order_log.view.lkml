@@ -1,34 +1,10 @@
-view: order_order {
-  sql_table_name: ogv2_production.order_order ;;
+view: order_log {
+  sql_table_name: og_transactions.order_log ;;
 
-
-
-  ## custom dimensions / measures
-
-  dimension: months_since_signup {
-    type: number
-  #  sql: 1.0 * ( DATEDIFF(${created_date} , ${customer_customer.created_date} )) / 30;;
-    sql: TIMESTAMPDIFF(MONTH,${customer_customer.created_date}, ${created_date}) ;;
-
-  }
   dimension: id {
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
-  }
-
-  dimension_group: cancelled {
-    type: time
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: ${TABLE}.cancelled ;;
   }
 
   dimension_group: created {
@@ -40,8 +16,6 @@ view: order_order {
       week,
       month,
       quarter,
-      month_num,
-      day_of_month,
       year
     ]
     sql: ${TABLE}.created ;;
@@ -57,19 +31,33 @@ view: order_order {
     sql: ${TABLE}.discount_total ;;
   }
 
+  dimension: event_id {
+    type: number
+    sql: ${TABLE}.event_id ;;
+  }
+
   dimension: extra_data {
     type: string
     sql: ${TABLE}.extra_data ;;
   }
 
-  dimension: generic_error_count {
+  dimension: feature_id {
     type: number
-    sql: ${TABLE}.generic_error_count ;;
+    sql: ${TABLE}.feature_id ;;
   }
 
-  dimension: locked {
-    type: yesno
-    sql: ${TABLE}.locked ;;
+  dimension_group: logged {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${TABLE}.logged ;;
   }
 
   dimension: merchant_id {
@@ -80,6 +68,11 @@ view: order_order {
   dimension: oos_free_shipping {
     type: yesno
     sql: ${TABLE}.oos_free_shipping ;;
+  }
+
+  dimension: order_id {
+    type: number
+    sql: ${TABLE}.order_id ;;
   }
 
   dimension: order_merchant_id {
@@ -116,14 +109,14 @@ view: order_order {
     sql: ${TABLE}.rejected_message ;;
   }
 
-  dimension: shipping_address_id {
-    type: number
-    sql: ${TABLE}.shipping_address_id ;;
-  }
-
   dimension: shipping_total {
     type: number
     sql: ${TABLE}.shipping_total ;;
+  }
+
+  dimension: source_id {
+    type: number
+    sql: ${TABLE}.source_id ;;
   }
 
   dimension: status {
@@ -151,19 +144,8 @@ view: order_order {
     sql: ${TABLE}.tries ;;
   }
 
-  dimension: type {
-    type: number
-    sql: ${TABLE}.type ;;
-  }
-
   measure: count {
     type: count
     drill_fields: [id]
-  }
-
-  measure: average_sub_total {
-    type: average
-    value_format_name: usd
-    sql: ${sub_total} ;;
   }
 }

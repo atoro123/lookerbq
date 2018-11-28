@@ -1,30 +1,10 @@
 view: subscriber_monthly_summary {
-#   derived_table: {
-#     sql: select *
-#       from subscriber_monthly_summary
-#        ;;
-#   }
-
-  sql_table_name: subscriber_monthly_summary ;;
+  sql_table_name: og_analytics.subscriber_monthly_summary ;;
 
   dimension: id {
+    primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
-  }
-
-  dimension: date {
-    type: date
-    sql: ${TABLE}.date ;;
-  }
-
-  dimension: merchant_id {
-    type: number
-    sql: ${TABLE}.merchant_id ;;
-  }
-
-  dimension: new {
-    type: number
-    sql: ${TABLE}.new ;;
   }
 
   dimension: active {
@@ -42,15 +22,38 @@ view: subscriber_monthly_summary {
     sql: ${TABLE}.count ;;
   }
 
-  set: detail {
-    fields: [
-      id,
+  dimension_group: date {
+    type: time
+    timeframes: [
+      raw,
       date,
-      merchant_id,
-      new,
-      active,
-      cancel,
-      count
+      week,
+      month,
+      quarter,
+      year
     ]
+    convert_tz: no
+    datatype: date
+    sql: ${TABLE}.date ;;
+  }
+
+  dimension: merchant_id {
+    type: number
+    sql: ${TABLE}.merchant_id ;;
+  }
+
+  dimension: new {
+    type: number
+    sql: ${TABLE}.new ;;
+  }
+
+  measure: count_fields {
+    type: count
+    drill_fields: [id]
+  }
+  measure: active_end {
+    type:  sum
+    sql: ${active} ;;
+
   }
 }

@@ -26,7 +26,7 @@ persist_for: "24 hours"
 explore: order_order {
   sql_always_where: ${merchant_id} in ('34' , '9' , '113')    ;;
   view_label: "Order"
-  label: "1) Orders and Subscriptions"
+  label: "1) Orders"
 
   join: order_item {
     sql_on: ${order_order.id} = ${order_item.order_id} ;;
@@ -79,12 +79,14 @@ relationship: one_to_many
 
   join: product_product {
     view_label: "Product"
-  sql_on: ${order_item.product_id} = ${product_product.id};;
+  sql_on: ${product_product.id} = ${order_item.product_id};;
+    relationship: one_to_many
   }
 
   join: merchant_merchant {
     view_label: "Merchant"
-    sql_on: ${order_order.merchant_id} = ${merchant_merchant.id} ;;
+    sql_on: ${merchant_merchant.id} = ${order_order.merchant_id};;
+    relationship: one_to_many
   }
 
 
@@ -96,3 +98,21 @@ relationship: one_to_many
 
 
 }
+
+explore: subscription_subscription {
+  label: "2) Subscriptions"
+  join: order_item {
+    sql_on: ${subscription_subscription.id} = ${order_item.subscription_id} ;;
+    relationship: many_to_many
+    }
+  join: product_product {
+    view_label: "Product"
+    sql_on: ${product_product.id} = ${subscription_subscription.product_id};;
+    relationship: one_to_many
+  }
+  join: merchant_merchant {
+    view_label: "Merchant"
+    sql_on: ${merchant_merchant.id} = ${subscription_subscription.merchant_id};;
+    relationship: one_to_many
+  }
+  }

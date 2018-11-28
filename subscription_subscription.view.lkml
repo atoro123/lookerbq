@@ -199,20 +199,54 @@ view: subscription_subscription {
     drill_fields: [id]
   }
   dimension: clean_cancel {
-    sql: case when left(${cancel_reason},2) = '3|' then 'No Longer Use'
-    when left(${cancel_reason},2) = '11' then 'Shipping Price'
+    sql:
+    case
     when left(${cancel_reason},2) = '1|' then 'Other'
-    when left(${cancel_reason},2) = '25' then 'Online Management Issue'
     when left(${cancel_reason},2) = '2|' then 'Overstocked'
+    when left(${cancel_reason},2) = '3|' then 'No Longer Use'
     when left(${cancel_reason},2) = '4|' then 'Product Change'
+    when left(${cancel_reason},2) = '5|' then 'Base Unit Change'
     when left(${cancel_reason},2) = '6|' then 'Buying Product Elsewhere'
     when left(${cancel_reason},2) = '7|' then 'General Issue'
     when left(${cancel_reason},2) = '8|' then 'Too Expensive'
+    when left(${cancel_reason},2) = '9|' then 'Price Issue'
+    when left(${cancel_reason},2) = '10' then 'Limited Shopping Choices'
+    when left(${cancel_reason},2) = '11' then 'Shipping Price'
+    when left(${cancel_reason},2) = '12' then 'Product Perpetually Out of Stock'
+    when left(${cancel_reason},2) = '13' then 'Mistake'
+    when left(${cancel_reason},2) = '14' then 'Product different from what ordered'
+    when left(${cancel_reason},2) = '15' then "Tried and don't like"
+    when left(${cancel_reason},2) = '16' then 'Found a better deal'
+    when left(${cancel_reason},2) = '17' then 'Understocked'
+    when left(${cancel_reason},2) = '18' then 'Payment Issue'
+    when left(${cancel_reason},2) = '19' then 'Not enough choice'
+    when left(${cancel_reason},2) = '20' then 'Relocating'
+    when left(${cancel_reason},2) = '21' then 'Switching to Electric Shaving'
+    when left(${cancel_reason},2) = '22' then 'Product Change'
+    when left(${cancel_reason},2) = '23' then 'Pet Passed'
+    when left(${cancel_reason},2) = '24' then 'Allergic Reaction to Product'
+    when left(${cancel_reason},2) = '25' then 'Online Management Issue'
+    when left(${cancel_reason},2) = '26' then 'Issue updating payment'
+    when left(${cancel_reason},2) = '27' then 'Reorganizing Subscriptions'
+    when left(${cancel_reason},2) = '28' then 'Commitment Subscription period end'
+    when left(${cancel_reason},2) = '29' then 'Signed up for the discount'
+    when left(${cancel_reason},2) = '30' then 'Signed up for free shipping'
+    when left(${cancel_reason},2) = '31' then 'Difficulty managing subscription'
+    when left(${cancel_reason},2) = '32' then 'Changed Mind'
+    when left(${cancel_reason},2) = '33' then 'No longer want subscription'
+    when left(${cancel_reason},2) = '34' then 'Easier to pick up in store'
     ELSE 'Other' END
           ;;
   }
   dimension: VSI_Store_ID {
     type: string
     sql: right(left(${merchant_order_id}, 8 ),4) ;;
+  }
+
+  dimension: bucket_frequency {
+    type: tier
+    tiers: [0,7,14,28,30,45,60,90,120,150,180,270,365]
+    sql: ${frequency_days};;
+    value_format: "0"
   }
 }
