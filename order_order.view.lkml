@@ -166,4 +166,16 @@ view: order_order {
     value_format_name: usd
     sql: ${sub_total} ;;
   }
+
+  dimension: clean_rejected {
+    sql:
+    case
+    when ${rejected_message} like '%500%' then 'Payment Expired'
+    when ${rejected_message} like '%520%' then 'Generic Error Code'
+    when ${rejected_message} like '%140%' then 'Payment was declined'
+    when ${rejected_message} like '%130%' then 'Invalid Billing or Shipping Address'
+    when ${rejected_message} like '%120%' then 'Invalid Payment'
+    when ${rejected_message} like '%110%' then 'Invalid Credit Card Number'
+    else 'Other' end;;
+    }
 }
