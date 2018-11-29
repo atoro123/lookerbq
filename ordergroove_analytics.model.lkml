@@ -121,4 +121,11 @@ explore: subscription_subscription {
     relationship: many_to_one
   }
 
+  join: customer_facts {
+    type: left_outer
+    view_label: "Customer"
+    sql_on: ${customer_customer.id} = ${customer_facts.customer_id} ;;
+    relationship: one_to_one
+  }
+
   }
