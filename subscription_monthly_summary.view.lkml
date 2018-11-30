@@ -31,9 +31,19 @@ view: subscription_monthly_summary {
     datatype: date
     sql: ${TABLE}.date ;;
   }
-  dimension: Stagger_Month {
-    type: date_month
-    sql: ${date_month} - 1 ;;
+  dimension_group: Stagger_Month {
+    type: time
+    timeframes: [
+      raw,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    convert_tz: no
+    datatype: date
+    sql: date_sub(${date_raw}, INTERVAL 1 DAY);;
   }
 
   dimension: frequency_days {
