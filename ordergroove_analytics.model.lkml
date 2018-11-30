@@ -120,12 +120,25 @@ explore: subscription_subscription {
       ;;
     relationship: many_to_one
   }
-
+  join: order_order {
+    sql_on: ${order_item.order_id} = ${order_order.id} ;;
+    relationship: many_to_many
+  }
   join: customer_facts {
     type: left_outer
     view_label: "Customer"
     sql_on: ${customer_customer.id} = ${customer_facts.customer_id} ;;
     relationship: one_to_one
   }
+  join: order_offer {
+    from: offer_offer
+    sql_on: ${order_offer.id} = ${order_item.offer_id}  ;;
+    relationship: one_to_many
 
+  }
+  join: subscription_offer {
+    from: offer_offer
+    sql_on: ${subscription_offer.id} = ${subscription_subscription.offer_id};;
+    relationship: one_to_many
+  }
   }
