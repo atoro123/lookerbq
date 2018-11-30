@@ -147,4 +147,8 @@ view: customer_customer {
     type: count
     drill_fields: [id, first_name, last_name]
   }
+  measure: max_cancelled {
+    type: max
+    sql: ${subscription_subscription.cancelled} ;;
+  }
 }

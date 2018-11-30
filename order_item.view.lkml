@@ -101,16 +101,12 @@ view: order_item {
 
   dimension: is_IU {
     type: yesno
-    sql:
-    (${subscription_id} is NOT NULL
-    and
-    (${one_time} = 1
-    or ${order_offer.name} LIKE '%IU%'
-    or ${order_offer.name} LIKE '%Impulse Upsell%'
-    or ${order_offer.offer_type} IN (12,13,14,19,20,23)
-    or ${subscription_subscription.subscription_type} = 'IU Replenishment'))
-    or (${subscription_id} is NULL and ${one_time} = 1)
-    ;;
+   sql: ${one_time} = 1
+    or ${subscription_offer.name} LIKE '%IU%'
+    or ${subscription_offer.name} LIKE '%Impulse Upsell%'
+    or ${subscription_offer.offer_type} IN (12,13,14,19,20,23)
+    or ${subscription_subscription.subscription_type} = 'IU Replenishment';;
+
   }
 
 

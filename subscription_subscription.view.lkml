@@ -250,4 +250,20 @@ view: subscription_subscription {
     sql: ${frequency_days};;
     value_format: "0"
   }
+
+  dimension: 24hr_Cancel {
+    type: yesno
+    sql: case when ${cancelled_date} < (${created_date} + INTERVAL 1 DAY) then 1 else 0 end ;;
+  }
+
+  dimension: created_logic {
+    type: number
+    sql:  case when ${created_date} = ${customer_facts.created_date} then 1 else 0 end ;;
+    hidden: yes
+  }
+
+  dimension: is_min_created {
+    type:  yesno
+    sql: ${created_logic} = 1 ;;
+  }
 }
