@@ -31,6 +31,10 @@ view: subscription_monthly_summary {
     datatype: date
     sql: ${TABLE}.date ;;
   }
+  dimension: Stagger_Month {
+    type: date_month
+    sql: ${date_month} - 1 ;;
+  }
 
   dimension: frequency_days {
     type: number
