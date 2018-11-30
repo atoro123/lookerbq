@@ -31,8 +31,11 @@ view: subscription_monthly_summary {
     datatype: date
     sql: ${TABLE}.date ;;
   }
-  dimension: Stagger_Month {
-    type: date_month
+  dimension_group: Stagger_Month {
+    type: time
+    timeframes: [
+      month
+    ]
     sql: ${date_month} - 1 ;;
   }
 
