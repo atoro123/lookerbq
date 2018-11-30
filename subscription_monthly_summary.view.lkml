@@ -59,17 +59,34 @@ view: subscription_monthly_summary {
   measure: active_end {
     type:  sum
     sql: ${active} ;;
-
+filters: {
+  field: subscription_type
+  value: "NULL"
+}
+filters: {
+  field: frequency_days
+  value: "NULL"
+}
   }
   measure: month_cancels{
     type: sum
     sql:  ${cancel} ;;
-
+filters: {
+  field: subscription_type
+  value: "NULL"
+}
+filters: {
+  field: frequency_days
+  value: "NULL"
+}
   }
   measure: beginning_active {
   type: number
   sql:  ${active_end} - ${month_cancels}
-  ;; }
+  ;;
+
+
+  }
 measure: average_month_base {
   type: number
   sql:  (${active_end} + ${beginning_active})/2 ;;
