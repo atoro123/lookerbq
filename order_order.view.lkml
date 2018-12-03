@@ -178,4 +178,12 @@ view: order_order {
     when ${rejected_message} like '%110%' then 'Invalid Credit Card Number'
     else 'Other' end;;
     }
+
+  measure: completed_orders {
+    type: count
+    filters: {
+      field: status
+      value: "5"
+    }
+  }
 }
