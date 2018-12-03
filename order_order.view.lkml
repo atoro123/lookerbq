@@ -186,4 +186,10 @@ view: order_order {
       value: "5"
     }
   }
+  measure: attempted_orders {
+    type: count
+    filters: {
+      field: status
+      value: "3,5,14"}
+      }
 }
