@@ -56,4 +56,18 @@ view: subscriber_monthly_summary {
     sql: ${active} ;;
 
   }
+  measure: beginning_active {
+    type: number
+    sql: ${active_end} - ${cancel} + ${new} ;;
+  }
+
+  measure:  average_month_base{
+    type: number
+    sql: (${active_end}+${beginning_active})/2 ;;
+  }
+  measure: churn_rate {
+    type: number
+    sql: (${cancel}/${average_month_base})*100 ;;
+    value_format: "0.00%"
+  }
 }

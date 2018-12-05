@@ -96,10 +96,21 @@ filters: {
   }
   measure: beginning_active {
   type: number
-  sql:  ${active_end} - ${month_cancels}
+  sql:  ${active_end} - ${month_cancels} + ${month_adds}
   ;;
+  }
 
-
+  measure: month_adds {
+    type: sum
+    sql: ${new} ;;
+    filters: {
+      field: subscription_type
+      value: "NULL"
+    }
+    filters: {
+      field: frequency_days
+      value: "NULL"
+  }
   }
 measure: average_month_base {
   type: number
