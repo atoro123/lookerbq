@@ -96,7 +96,7 @@ filters: {
   }
   measure: beginning_active {
   type: number
-  sql:  ${active_end} - ${month_cancels} + ${month_adds}
+  sql:  ${active_end} + ${month_cancels} - ${month_adds}
   ;;
   }
 
