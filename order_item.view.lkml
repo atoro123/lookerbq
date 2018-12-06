@@ -132,7 +132,7 @@ view: order_item {
   }
 
   set: order_details {
-    fields: [id, total_price, product_id]
+    fields: [order_id, id, subscription_id, subscription_subscription.customer_id,total_price, product_product.name,is_IU,order_order.Contains_IU]
   }
 
 #   oi.one_time = 1 AND oi.subscription_id IS NULL AND oo.status = 5 AND oo.place
