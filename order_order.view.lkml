@@ -192,4 +192,9 @@ view: order_order {
       field: status
       value: "3,5,14"}
       }
+
+  dimension: clean_order_place {
+    type: string
+    sql: Date_format(${TABLE}.place,'%b %Y');;
+  }
 }
