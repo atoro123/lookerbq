@@ -2521,7 +2521,7 @@
     height: 5
   - name: <font size="6" font-family="Comic Sans MS">Active Snapshot</font>
     type: text
-    title_text: <font size="6">Active Snapshot</font>
+    title_text: <font size="6" font-family="Comic Sans MS">Active Snapshot</font>
     body_text: ''
     row: 4
     col: 0
