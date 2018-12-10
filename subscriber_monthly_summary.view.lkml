@@ -67,7 +67,7 @@ view: subscriber_monthly_summary {
   }
   measure: churn_rate {
     type: number
-    sql: (${cancel}/${average_month_base})*100 ;;
+    sql: (${cancel}/${average_month_base}) ;;
     value_format: "0.00%"
   }
 }
