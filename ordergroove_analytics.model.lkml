@@ -97,6 +97,17 @@ relationship: one_to_many
     sql_on: ${subscription_monthly_summary.date_date} = ${subscription_subscription.created_date} ;;
   }
 
+  join: merchant_merchant_industries {
+    view_label: "Merchant"
+    sql_on: ${merchant_merchant.id} = ${merchant_merchant_industries.merchant_id};;
+    relationship: one_to_one
+  }
+
+  join: merchant_industry {
+    view_label: "Merchant"
+    sql_on: ${merchant_merchant_industries.industry_id} = ${merchant_industry.id};;
+    relationship: one_to_many
+  }
 
 
 }
@@ -142,6 +153,17 @@ explore: subscription_subscription {
   join: subscription_offer {
     from: offer_offer
     sql_on: ${subscription_offer.id} = ${subscription_subscription.offer_id};;
+    relationship: one_to_many
+  }
+  join: merchant_merchant_industries {
+    view_label: "Merchant"
+    sql_on: ${merchant_merchant.id} = ${merchant_merchant_industries.merchant_id};;
+    relationship: one_to_one
+  }
+
+  join: merchant_industry {
+    view_label: "Merchant"
+    sql_on: ${merchant_merchant_industries.industry_id} = ${merchant_industry.id};;
     relationship: one_to_many
   }
   }
