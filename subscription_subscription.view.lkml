@@ -266,4 +266,9 @@ view: subscription_subscription {
     type:  yesno
     sql: ${created_logic} = 1 ;;
   }
+
+  measure: distinct_customers {
+    type: count_distinct
+    sql: ${customer_id} ;;
+  }
 }
