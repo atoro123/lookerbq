@@ -253,7 +253,7 @@ view: subscription_subscription {
 
   dimension: 24hr_Cancel {
     type: yesno
-    sql: case when ${cancelled_date} < (${created_date} + INTERVAL 1 DAY) then 1 else 0 end ;;
+    sql: case when ${cancelled_raw} < (${created_raw} + INTERVAL 1 DAY) then 1 else 0 end ;;
   }
 
   dimension: created_logic {
