@@ -48,8 +48,12 @@ view: subscriber_monthly_summary {
   }
   measure: total_cancels
   {
-    type: sum
+    type: number
     sql: ${cancel} ;;
+  }
+  measure:total_adds  {
+    type: number
+    sql: ${new};;
   }
 
   measure: count_fields {
@@ -57,13 +61,13 @@ view: subscriber_monthly_summary {
     drill_fields: [id]
   }
   measure: active_end {
-    type:  sum
+    type:  number
     sql: ${active} ;;
 
   }
   measure: beginning_active {
     type: number
-    sql: ${active_end} - ${cancel} + ${new} ;;
+    sql: ${active_end} + ${total_cancels} -${total_adds};;
   }
 
   measure:  average_month_base{
@@ -72,7 +76,7 @@ view: subscriber_monthly_summary {
   }
   measure: churn_rate {
     type: number
-    sql: (${cancel}/${average_month_base}) ;;
+    sql: (${total_cancels}/${average_month_base}) ;;
     value_format: "0.00%"
   }
 }
