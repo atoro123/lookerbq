@@ -64,6 +64,7 @@ view: customer_experience_log {
           WHEN merchant_public_id = 'e542f9b6f73111e880f2bc764e10b970' THEN '214'
           WHEN merchant_public_id = '03931c165f8911e8afb2bc764e1107f2' THEN '203'
           WHEN merchant_public_id = '67525f8ca4772569c35f326c274cad70' THEN '2'
+          WHEN merchant_public_id = 'ac4f7938383a11e89ecbbc764e1107f2' THEN '200'
           else null end
           ;;
   }
