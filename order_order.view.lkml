@@ -204,13 +204,14 @@ view: order_order {
 
   dimension: Contains_IU {
     type:  yesno
-    sql: (${order_item.one_time} = 1
+    sql: (${order_item.subscription_id} is not NULL and (
+    ${order_item.one_time} = 1
     or ${subscription_offer.name} LIKE '%IU%'
     or ${subscription_offer.name} LIKE '%Impulse Upsell%'
     or ${subscription_offer.offer_type} IN (12,13,14,19,20,23)
     or ${subscription_subscription.subscription_type} = 'IU Replenishment'
     or ${order_offer.name} like '%IU%'
-    or ${order_offer.name} like '%Impulse Upsell%') or (${order_item.one_time} = 1 and ${order_item.subscription_id} is NULL);;}
+    or ${order_offer.name} like '%Impulse Upsell%')) or (${order_item.one_time} = 1 and ${order_item.subscription_id} is NULL);;}
 
   measure: order_revenue {
     type: sum
