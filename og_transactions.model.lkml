@@ -21,3 +21,7 @@ include: "*.view.lkml"                       # include all views in this project
 explore: subscription_log {
 
 }
+
+explore: customer_experience_log {
+
+}
