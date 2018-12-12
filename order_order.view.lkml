@@ -180,6 +180,7 @@ view: order_order {
     when ${rejected_message} like '%130%' then 'Invalid Billing or Shipping Address'
     when ${rejected_message} like '%120%' then 'Invalid Payment'
     when ${rejected_message} like '%110%' then 'Invalid Credit Card Number'
+    when ${rejected_message} is NULL then NULL
     else 'Other' end;;
     }
 
@@ -189,12 +190,14 @@ view: order_order {
       field: status
       value: "5"
     }
+    drill_fields: [order_details*]
   }
   measure: attempted_orders {
     type: count
     filters: {
       field: status
       value: "3,5,14"}
+    drill_fields: [id,order_merchant_id,customer_id,customer_customer.merchant_user_id,status,sub_total,clean_rejected,rejected_message,place_date]
       }
 
   dimension: clean_order_place {

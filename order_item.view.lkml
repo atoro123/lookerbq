@@ -132,7 +132,7 @@ view: order_item {
   }
 
   set: order_details {
-    fields: [order_id, id, subscription_id, subscription_subscription.customer_id,total_price, product_product.name,is_IU,order_order.Contains_IU]
+    fields: [order_id, id, subscription_id, subscription_subscription.customer_id,total_price, product_product.name,is_IU]
   }
 
 #   oi.one_time = 1 AND oi.subscription_id IS NULL AND oo.status = 5 AND oo.place
@@ -198,6 +198,7 @@ view: order_item {
       field: subscription_id
       value: "NULL"
     }
+    drill_fields: [customer_customer.id,customer_customer.merchant_user_id,product_product.name,product_product.sku,order_order.place_date,price]
   }
 
   measure: sum_IU_Recurring_quantity {
@@ -211,6 +212,7 @@ view: order_item {
       field: subscription_id
       value: "NOT NULL"
     }
+    drill_fields: [subscription_id,customer_customer.id,customer_customer.merchant_user_id,price,product_product.name,product_product.sku,subscription_subscription.frequency,customer_customer.id,customer_customer.merchant_user_id,subscription_subscription.created_date,subscription_subscription.live,order_order.place_date,subscription_subscription.cancelled_date]
   }
 
   dimension: reorder_item {

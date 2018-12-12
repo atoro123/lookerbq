@@ -196,7 +196,7 @@ view: subscription_subscription {
 
   measure: count {
     type: count
-    drill_fields: [id]
+    drill_fields: [customer_id,customer_customer.merchant_user_id,id,product_product.name,product_product.sku,frequency_days,clean_cancel,cancelled_date,created_date,24hr_Cancel]
   }
   dimension: clean_cancel {
     sql:
