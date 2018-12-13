@@ -82,4 +82,9 @@ view: customer_experience_log {
     type: count_distinct
     sql: case when enabled > 0 AND feature_id = 39 THEN merchant_user_id END ;;
   }
+
+  measure: Unenrollments {
+    type: count_distinct
+    sql: case when enabled = 0 AND feature_id = 39 THEN merchant_user_id END ;;
+  }
 }
