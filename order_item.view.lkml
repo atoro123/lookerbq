@@ -220,4 +220,30 @@ view: order_item {
     sql:  ${order_offer.name} LIKE '%SMS%'
     or ${order_offer.name} LIKE '%Reorder%' ;;
   }
+
+  dimension: quickbuy_item {
+    type:  yesno
+    sql:  ${order_offer.name} LIKE '%Quickbuy%';;
+  }
+
+  dimension: quickbuy_or_reorder {
+    type: yesno
+    sql: ${reorder_item} = 'yes' or ${quickbuy_item} = 'yes'  ;;
+  }
+
+  measure: reorder_revenue {
+    type: sum
+    sql: ${total_price} ;;
+    value_format_name: usd
+    filters: {field: reorder_item
+      value: "yes"}
+  }
+
+  measure: quickbuy_revenue {
+    type: sum
+    sql: ${total_price} ;;
+    value_format_name: usd
+    filters: {field: quickbuy_item
+      value: "yes"}
+  }
 }

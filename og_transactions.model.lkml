@@ -25,3 +25,5 @@ explore: subscription_log {
 explore: customer_experience_log {
 
 }
+
+explore: ds_reorder_outcomes_log {}
