@@ -229,4 +229,11 @@ view: order_order {
       value: "5"
     }
   }
+
+  measure: order_processing {
+    type: number
+    sql: ${completed_orders}/${attempted_orders};;
+    value_format: "0.0%"
+    drill_fields: [place_date,customer_id,customer_customer.merchant_user_id,sub_total,status,clean_rejected,rejected_message]
+  }
 }

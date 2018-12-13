@@ -29,6 +29,8 @@ persist_for: "24 hours"
 explore: order_order {
   view_label: "Order"
   label: "1) Orders"
+  access_filter: {field:merchant_id
+    user_attribute:merchant_id}
 
   join: order_item {
     sql_on: ${order_order.id} = ${order_item.order_id} ;;

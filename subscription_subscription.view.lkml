@@ -271,4 +271,11 @@ view: subscription_subscription {
     type: count_distinct
     sql: ${customer_id} ;;
   }
+
+  measure: Sups_per_Sub {
+    type: number
+    value_format: "0.00"
+    sql: ${count}/${distinct_customers} ;;
+    drill_fields: [customer_id,customer_customer.merchant_user_id,count]
+  }
 }
