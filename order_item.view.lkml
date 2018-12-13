@@ -246,4 +246,18 @@ view: order_item {
     filters: {field: quickbuy_item
       value: "yes"}
   }
+
+  measure: reorder_orders {
+    type: count_distinct
+    sql: ${order_id} ;;
+    filters: {field: reorder_item
+      value: "yes"}
+  }
+
+  measure: quickbuy_orders {
+    type: count
+    sql: ${order_id} ;;
+    filters: {field: quickbuy_item
+      value: "yes"}
+  }
 }
