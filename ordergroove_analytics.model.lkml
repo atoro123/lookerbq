@@ -169,3 +169,12 @@ explore: subscription_subscription {
     relationship: one_to_many
   }
   }
+
+explore: customer_customer {
+  label: "3) Customers"
+
+  join: experience_experiencesetting {
+    view_label: "Experience Setting"
+    sql_on: ${customer_customer.merchant_user_id} = ${experience_experiencesetting.merchant_user_id} ;;
+  }
+}
