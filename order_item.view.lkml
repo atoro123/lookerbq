@@ -132,7 +132,7 @@ view: order_item {
   }
 
   set: order_details {
-    fields: [order_id, id, subscription_id, subscription_subscription.customer_id,total_price, product_product.name,is_IU]
+    fields: [order_order.place_date, order_id, id, subscription_id, subscription_subscription.customer_id,customer_customer.merchant_user_id,total_price, product_product.name,is_IU]
   }
 
 #   oi.one_time = 1 AND oi.subscription_id IS NULL AND oo.status = 5 AND oo.place
@@ -215,7 +215,7 @@ view: order_item {
     drill_fields: [subscription_id,customer_customer.id,customer_customer.merchant_user_id,price,product_product.name,product_product.sku,subscription_subscription.frequency,customer_customer.id,customer_customer.merchant_user_id,subscription_subscription.created_date,subscription_subscription.live,order_order.place_date,subscription_subscription.cancelled_date]
   }
 
-  dimension: reorder_item {
+  dimension: sms_item {
     type:  yesno
     sql:  ${order_offer.name} LIKE '%SMS%'
     or ${order_offer.name} LIKE '%Reorder%' ;;
@@ -226,16 +226,17 @@ view: order_item {
     sql:  ${order_offer.name} LIKE '%Quickbuy%';;
   }
 
-  dimension: quickbuy_or_reorder {
+  dimension: reorder {
     type: yesno
-    sql: ${reorder_item} = 'yes' or ${quickbuy_item} = 'yes'  ;;
+    sql: ${sms_item} = 'yes' or ${quickbuy_item} = 'yes'  ;;
   }
 
   measure: reorder_revenue {
     type: sum
     sql: ${total_price} ;;
     value_format_name: usd
-    filters: {field: reorder_item
+    drill_fields: [order_details*]
+    filters: {field: sms_item
       value: "yes"}
   }
 
@@ -243,14 +244,15 @@ view: order_item {
     type: sum
     sql: ${total_price} ;;
     value_format_name: usd
+    drill_fields: [order_details*]
     filters: {field: quickbuy_item
       value: "yes"}
   }
 
-  measure: reorder_orders {
+  measure: sms_orders {
     type: count_distinct
     sql: ${order_id} ;;
-    filters: {field: reorder_item
+    filters: {field: sms_item
       value: "yes"}
   }
 

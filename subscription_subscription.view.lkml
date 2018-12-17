@@ -278,4 +278,11 @@ view: subscription_subscription {
     sql: ${count}/${distinct_customers} ;;
     drill_fields: [customer_id,customer_customer.merchant_user_id,count]
   }
+#
+#   measure: completed_orders{
+#     type: count_distinct
+#     sql: ${order_order.id} ;;
+#     filters: {field: order_order.status
+#       value:"5"}
+#   }
 }
