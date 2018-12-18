@@ -23,6 +23,8 @@ explore: analytics_conversion {  access_filter: {field:merchant_id
 
 explore: subscription_monthly_summary {  access_filter: {field:merchant_id
     user_attribute:merchant_id}
+  access_filter: {field:subscriber_monthly_summary.merchant_id
+    user_attribute:merchant_id}
   join: subscriber_monthly_summary {
     type: left_outer
     sql_on: ${subscription_monthly_summary.date_date} = ${subscriber_monthly_summary.date_date} ;;
