@@ -18,12 +18,15 @@ include: "*.view.lkml"                       # include all views in this project
 #   }
 # }
 
-explore: subscription_log {
+explore: subscription_log {  access_filter: {field:merchant_id
+    user_attribute:merchant_id}
 
 }
 
-explore: customer_experience_log {
+explore: customer_experience_log {  access_filter: {field:merchant_id
+    user_attribute:merchant_id}
 
 }
 
-explore: ds_reorder_outcomes_log {}
+explore: ds_reorder_outcomes_log {  access_filter: {field:merchant_id
+    user_attribute:merchant_id}}
