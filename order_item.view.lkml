@@ -101,6 +101,7 @@ view: order_item {
 
   dimension: is_IU {
     type: yesno
+    description: "Identify an order item as an Impulse Upsell item"
    sql: ${one_time} = 1
     or ${subscription_offer.name} LIKE '%IU%'
     or ${subscription_offer.name} LIKE '%Impulse Upsell%'
@@ -112,6 +113,7 @@ view: order_item {
 
   measure: total_IU_recurring_price {
     type: sum
+    description: "Completed order item revenue for IU Recurring"
     sql: ${total_price} ;;
     filters: {
       field: order_order.status
@@ -140,6 +142,7 @@ view: order_item {
 
   measure: total_IU_onetime_price {
     type: sum
+    description: "Completed order item revenue for IU One-Time"
     value_format_name: usd
     sql: ${total_price} ;;
     drill_fields: [order_details*]
@@ -159,6 +162,7 @@ view: order_item {
 
   measure: total_recurring_price {
     type: sum
+    description: "Completed order item revenue for Recurring Revenue. IU is not included in this total."
     sql: ${total_price} ;;
     filters: {
       field: order_order.status
@@ -178,6 +182,7 @@ view: order_item {
   }
   measure: total_gmv {
     type: sum
+    description: "All order item revenue placed in Ordergroove system"
     sql: ${total_price} ;;
     filters: {
       field: order_order.status
@@ -189,6 +194,7 @@ view: order_item {
   }
   measure: sum_IU_onetime_quantity {
     type: sum
+    description: "Item quantity for IU One-Time"
     sql: ${quantity};;
     filters: {
       field: one_time
@@ -203,6 +209,7 @@ view: order_item {
 
   measure: sum_IU_Recurring_quantity {
     type: sum
+    description: "Item quantity for IU Recurring"
     sql: ${quantity};;
     filters: {
       field: is_IU
@@ -217,21 +224,24 @@ view: order_item {
 
   dimension: sms_item {
     type:  yesno
+    description: "Identifies items created from SMS offer"
     sql:  ${order_offer.name} LIKE '%SMS%'
     or ${order_offer.name} LIKE '%Reorder%' ;;
   }
 
   dimension: quickbuy_item {
     type:  yesno
+    description: "Identifies items created from Quickbuy offer"
     sql:  ${order_offer.name} LIKE '%Quickbuy%';;
   }
 
   dimension: reorder {
     type: yesno
+    description: "Identifies SMS and Quickbuy items"
     sql: ${sms_item} = 'yes' or ${quickbuy_item} = 'yes'  ;;
   }
 
-  measure: reorder_revenue {
+  measure: sms_revenue {
     type: sum
     sql: ${total_price} ;;
     value_format_name: usd
