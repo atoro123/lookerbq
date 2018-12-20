@@ -101,6 +101,7 @@ view: order_item {
 
   dimension: is_IU {
     type: yesno
+    description: "Identify an order item as an Impulse Upsell item"
    sql: ${one_time} = 1
     or ${subscription_offer.name} LIKE '%IU%'
     or ${subscription_offer.name} LIKE '%Impulse Upsell%'
@@ -112,6 +113,7 @@ view: order_item {
 
   measure: total_IU_recurring_price {
     type: sum
+    description: "Completed order item revenue for IU Recurring"
     sql: ${total_price} ;;
     filters: {
       field: order_order.status
@@ -132,7 +134,7 @@ view: order_item {
   }
 
   set: order_details {
-    fields: [order_id, id, subscription_id, subscription_subscription.customer_id,total_price, product_product.name,is_IU]
+    fields: [order_order.place_date, order_id, id, subscription_id, subscription_subscription.customer_id,customer_customer.merchant_user_id,total_price, product_product.name,is_IU]
   }
 
 #   oi.one_time = 1 AND oi.subscription_id IS NULL AND oo.status = 5 AND oo.place
@@ -140,6 +142,7 @@ view: order_item {
 
   measure: total_IU_onetime_price {
     type: sum
+    description: "Completed order item revenue for IU One-Time"
     value_format_name: usd
     sql: ${total_price} ;;
     drill_fields: [order_details*]
@@ -155,10 +158,19 @@ view: order_item {
       field: order_order.status
       value: "5"
     }
+    filters: {
+      field: sms_item
+      value: "no"
+    }
+    filters: {
+      field: quickbuy_item
+      value: "no"
+    }
   }
 
   measure: total_recurring_price {
     type: sum
+    description: "Completed order item revenue for Recurring Revenue. IU is not included in this total."
     sql: ${total_price} ;;
     filters: {
       field: order_order.status
@@ -178,6 +190,7 @@ view: order_item {
   }
   measure: total_gmv {
     type: sum
+    description: "All order item revenue placed in Ordergroove system"
     sql: ${total_price} ;;
     filters: {
       field: order_order.status
@@ -189,6 +202,7 @@ view: order_item {
   }
   measure: sum_IU_onetime_quantity {
     type: sum
+    description: "Item quantity for IU One-Time"
     sql: ${quantity};;
     filters: {
       field: one_time
@@ -203,6 +217,7 @@ view: order_item {
 
   measure: sum_IU_Recurring_quantity {
     type: sum
+    description: "Item quantity for IU Recurring"
     sql: ${quantity};;
     filters: {
       field: is_IU
@@ -215,9 +230,54 @@ view: order_item {
     drill_fields: [subscription_id,customer_customer.id,customer_customer.merchant_user_id,price,product_product.name,product_product.sku,subscription_subscription.frequency,customer_customer.id,customer_customer.merchant_user_id,subscription_subscription.created_date,subscription_subscription.live,order_order.place_date,subscription_subscription.cancelled_date]
   }
 
-  dimension: reorder_item {
+  dimension: sms_item {
     type:  yesno
+    description: "Identifies items created from SMS offer"
     sql:  ${order_offer.name} LIKE '%SMS%'
     or ${order_offer.name} LIKE '%Reorder%' ;;
+  }
+
+  dimension: quickbuy_item {
+    type:  yesno
+    description: "Identifies items created from Quickbuy offer"
+    sql:  ${order_offer.name} LIKE '%Quickbuy%';;
+  }
+
+  dimension: reorder {
+    type: yesno
+    description: "Identifies SMS and Quickbuy items"
+    sql: ${sms_item} = 'yes' or ${quickbuy_item} = 'yes'  ;;
+  }
+
+  measure: sms_revenue {
+    type: sum
+    sql: ${total_price} ;;
+    value_format_name: usd
+    drill_fields: [order_details*]
+    filters: {field: sms_item
+      value: "yes"}
+  }
+
+  measure: quickbuy_revenue {
+    type: sum
+    sql: ${total_price} ;;
+    value_format_name: usd
+    drill_fields: [order_details*]
+    filters: {field: quickbuy_item
+      value: "yes"}
+  }
+
+  measure: sms_orders {
+    type: count_distinct
+    sql: ${order_id} ;;
+    filters: {field: sms_item
+      value: "yes"}
+  }
+
+  measure: quickbuy_orders {
+    type: count
+    sql: ${order_id} ;;
+    filters: {field: quickbuy_item
+      value: "yes"}
   }
 }

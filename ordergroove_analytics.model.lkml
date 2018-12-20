@@ -29,6 +29,8 @@ persist_for: "24 hours"
 explore: order_order {
   view_label: "Order"
   label: "1) Orders"
+  access_filter: {field:merchant_id
+    user_attribute:merchant_id}
 
   join: order_item {
     sql_on: ${order_order.id} = ${order_item.order_id} ;;
@@ -114,6 +116,8 @@ relationship: one_to_many
 
 explore: subscription_subscription {
   label: "2) Subscriptions"
+  access_filter: {field:merchant_id
+    user_attribute:merchant_id}
   join: order_item {
     sql_on: ${subscription_subscription.id} = ${order_item.subscription_id} ;;
     relationship: many_to_many
@@ -167,3 +171,13 @@ explore: subscription_subscription {
     relationship: one_to_many
   }
   }
+
+explore: customer_customer {
+  label: "3) Customers"
+  access_filter: {field:merchant_id
+    user_attribute:merchant_id}
+  join: experience_experiencesetting {
+    view_label: "Experience Setting"
+    sql_on: ${customer_customer.merchant_user_id} = ${experience_experiencesetting.merchant_user_id} ;;
+  }
+}

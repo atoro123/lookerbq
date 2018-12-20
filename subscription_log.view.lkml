@@ -167,4 +167,10 @@ view: subscription_log {
     value_format_name: usd
     sql: ${total_price} ;;
   }
+  measure: Average_subscription_value {
+    type: number
+    value_format_name: usd
+    sql: ${sum_total_price}/${count} ;;
+    drill_fields: [logged_date,sum_total_price,count]
+  }
 }

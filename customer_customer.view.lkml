@@ -23,11 +23,13 @@ view: customer_customer {
 
   dimension: email {
     type: string
+    hidden: yes
     sql: ${TABLE}.email ;;
   }
 
   dimension: email_lowercase {
     type: string
+    hidden: yes
     sql: ${TABLE}.email_lowercase ;;
   }
 
@@ -38,20 +40,24 @@ view: customer_customer {
 
   dimension: first_name {
     type: string
+    hidden: yes
     sql: ${TABLE}.first_name ;;
   }
 
   dimension: full_name {
     type: string
+    hidden: yes
     sql: concat(${first_name} , ' ' ,  ${last_name}) ;;
   }
   dimension: first_name_lowercase {
     type: string
+    hidden: yes
     sql: ${TABLE}.first_name_lowercase ;;
   }
 
   dimension: last_ip {
     type: string
+    hidden: yes
     sql: ${TABLE}.last_ip ;;
   }
 
@@ -71,11 +77,13 @@ view: customer_customer {
 
   dimension: last_name {
     type: string
+    hidden: yes
     sql: ${TABLE}.last_name ;;
   }
 
   dimension: last_name_lowercase {
     type: string
+    hidden: yes
     sql: ${TABLE}.last_name_lowercase ;;
   }
 
