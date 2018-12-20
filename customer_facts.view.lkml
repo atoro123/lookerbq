@@ -12,7 +12,7 @@ view: customer_facts {
        ;;
   }
 
-  measure: count {
+  measure: customer_creation_count {
     type: count
     drill_fields: [detail*]
   }
@@ -34,18 +34,18 @@ view: customer_facts {
     fields: [customer_id, created_time]
   }
 
-#   dimension: Order_statuses {
-#     type: string
-#     sql: group_concat(cast(order_order.status as char) order by order_order.place_raw);;
-#   }
-#
-#   dimension: Disengaged {
-#     type: yesno
-#     sql: ${Order_statuses} LIKE '%3,3,3%' ;;
-#   }
-#
-#   dimension: Currently_Disengaged {
-#     type: yesno
-#     sql: ${Order_statuses} LIKE '%3,3,3,1%' ;;
-#   }
+  dimension: Order_statuses {
+    type: string
+    sql: group_concat(cast(order_order.status as char) order by order_order.place_raw);;
+  }
+
+  dimension: Disengaged {
+    type: yesno
+    sql: ${Order_statuses} LIKE '%3,3,3%' ;;
+  }
+
+  dimension: Currently_Disengaged {
+    type: yesno
+    sql: ${Order_statuses} LIKE '%3,3,3,1%' ;;
+  }
 }
