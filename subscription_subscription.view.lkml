@@ -237,6 +237,7 @@ view: subscription_subscription {
     when left(${cancel_reason},2) = '34' then 'Easier to pick up in store'
     ELSE 'Other' END
           ;;
+          drill_fields: [clean_cancel,cancel_reason,id, created_date, cancelled_date, frequency_days, product_product.name, product_product.sku]
   }
   dimension: VSI_Store_ID {
     type: string
