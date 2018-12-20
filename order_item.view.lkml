@@ -246,7 +246,7 @@ view: order_item {
   dimension: reorder {
     type: yesno
     description: "Identifies SMS and Quickbuy items"
-    sql: ${sms_item} = 'yes' or ${quickbuy_item} = 'yes'  ;;
+    sql: ${sms_item} or ${quickbuy_item};;
   }
 
   measure: sms_revenue {
