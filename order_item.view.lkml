@@ -158,6 +158,10 @@ view: order_item {
       field: order_order.status
       value: "5"
     }
+    filters: {
+      field: reorder
+      value: "no"
+    }
   }
 
   measure: total_recurring_price {
