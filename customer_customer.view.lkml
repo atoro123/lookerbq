@@ -108,6 +108,7 @@ view: customer_customer {
 
   dimension: locale {
     type: number
+    hidden: yes
     sql: ${TABLE}.locale ;;
   }
 
@@ -123,21 +124,25 @@ view: customer_customer {
 
   dimension: password {
     type: string
+    hidden: yes
     sql: ${TABLE}.password ;;
   }
 
   dimension: phone_number {
     type: string
+    hidden: yes
     sql: ${TABLE}.phone_number ;;
   }
 
   dimension: phone_type {
     type: number
+    hidden: yes
     sql: ${TABLE}.phone_type ;;
   }
 
   dimension: price_code {
     type: string
+    hidden: yes
     sql: ${TABLE}.price_code ;;
   }
 
@@ -148,6 +153,7 @@ view: customer_customer {
 
   dimension: user_token_id {
     type: string
+    hidden: yes
     sql: ${TABLE}.user_token_id ;;
   }
 
