@@ -3,7 +3,10 @@ view: customer_facts {
     sql_trigger_value: select current_date ;;
     sql: select
       customer_id
+      , merchant_id
       , min(created) "Created"
+      , max(cancelled) "Cancelled"
+      , max(live) "Live"
 
       from subscription_subscription ss
 
@@ -34,18 +37,34 @@ view: customer_facts {
     fields: [customer_id, created_time]
   }
 
-  dimension: Order_statuses {
-    type: string
-    sql: group_concat(cast(order_order.status as char) order by order_order.place_raw);;
-  }
+#   dimension: Order_statuses {
+#     type: string
+#     sql: group_concat(cast(order_order.status as char) order by order_order.place_raw);;
+#   }
+#
+#   dimension: Disengaged {
+#     type: yesno
+#     sql: ${Order_statuses} LIKE '%3,3,3%' ;;
+#   }
+#
+#   dimension: Currently_Disengaged {
+#     type: yesno
+#     sql: ${Order_statuses} LIKE '%3,3,3,1%' ;;
+#   }
 
-  dimension: Disengaged {
+  dimension: Live {
     type: yesno
-    sql: ${Order_statuses} LIKE '%3,3,3%' ;;
+    sql: ${TABLE}.Live ;;
   }
+  dimension: merchant_id {
+    type: number
+    sql: ${TABLE}.merchant_id ;;
+  }
+  dimension_group: Cancelled {
+    type: time
+    label: "Customer Cancelled"
+    description: "last date that a customer unsubscribed"
+    sql: ${TABLE}.Cancelled;;
+ }
 
-  dimension: Currently_Disengaged {
-    type: yesno
-    sql: ${Order_statuses} LIKE '%3,3,3,1%' ;;
-  }
 }
