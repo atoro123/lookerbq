@@ -180,4 +180,10 @@ explore: customer_customer {
     view_label: "Experience Setting"
     sql_on: ${customer_customer.merchant_user_id} = ${experience_experiencesetting.merchant_user_id} ;;
   }
+  join: customer_facts {
+    type: left_outer
+    view_label: "Customer"
+    sql_on: ${customer_customer.id} = ${customer_facts.customer_id} ;;
+
+  }
 }
