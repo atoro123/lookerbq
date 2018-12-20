@@ -159,7 +159,11 @@ view: order_item {
       value: "5"
     }
     filters: {
-      field: reorder
+      field: sms_item
+      value: "no"
+    }
+    filters: {
+      field: quickbuy_item
       value: "no"
     }
   }
