@@ -67,7 +67,7 @@ view: subscriber_monthly_summary {
   }
   measure: beginning_active {
     type: number
-    sql: ${active_end} + ${total_cancels} -${total_adds};;
+    sql: cast(${active_end} as signed) + cast(${total_cancels} as signed) - cast(${total_adds} as signed);;
   }
 
   measure:  average_month_base{
