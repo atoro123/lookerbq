@@ -6,9 +6,6 @@ derived_table: {
       from order_item i
       join order_order o on o.id=i.order_id
       join subscription_subscription s on s.id=i.subscription_id
-      left join (select subscription_id,max(o.place),o.rejected_message
-                from order_item i
-                join order_order o on o.id=i.order_id where o.status=3 and o.merchant_id = 85 group by 1) z on i.subscription_id = z.subscription_id
       where s.live=1
       group by 2
 
