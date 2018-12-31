@@ -170,6 +170,11 @@ explore: subscription_subscription {
     sql_on: ${merchant_merchant_industries.industry_id} = ${merchant_industry.id};;
     relationship: one_to_many
   }
+
+  join: order_over_order {
+    sql_on: ${order_over_order.subscription_id} = ${subscription_subscription.id};;
+    relationship: one_to_one
+  }
   }
 
 explore: customer_customer {
