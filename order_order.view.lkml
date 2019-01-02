@@ -236,4 +236,9 @@ view: order_order {
     value_format: "0.0%"
     drill_fields: [place_date,customer_id,customer_customer.merchant_user_id,sub_total,status,clean_rejected,rejected_message]
   }
+
+  measure: distinct_order_items {
+    type: count_distinct
+    sql: ${order_item.id} ;;
+  }
 }

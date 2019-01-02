@@ -110,7 +110,7 @@ view: ds_reorder_outcomes_log {
     type: count
     filters: {
       field: outcome_type
-      value: "external purchase"}
+      value: "responded yes"}
   }
 
   dimension: merchant_id {

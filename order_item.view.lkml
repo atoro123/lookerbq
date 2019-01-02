@@ -284,5 +284,6 @@ view: order_item {
   measure: average_item_value {
     type: average
     sql: ${price} ;;
-    value_format:"$#.00"  }
+    value_format:"$#.00"
+    drill_fields:[order_id,price,product_product.name]}
 }
