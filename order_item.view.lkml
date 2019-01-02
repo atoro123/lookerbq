@@ -240,7 +240,7 @@ view: order_item {
   dimension: quickbuy_item {
     type:  yesno
     description: "Identifies items created from Quickbuy offer"
-    sql:  ${order_offer.name} LIKE '%Quickbuy%';;
+    sql:  ${order_offer.name} LIKE '%Quickbuy%' or  ${order_offer.name} LIKE '%Quick Buy%';;
   }
 
   dimension: reorder {
