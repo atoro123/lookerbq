@@ -62,7 +62,7 @@ view: subscriber_monthly_summary {
   }
   measure: active_end {
     type:  number
-    sql: ${active} ;;
+    sql:  cast(${active} as signed) ;;
 
   }
   measure: beginning_active {
