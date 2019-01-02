@@ -280,4 +280,9 @@ view: order_item {
     filters: {field: quickbuy_item
       value: "yes"}
   }
+
+  measure: average_item_value {
+    type: average
+    sql: ${price} ;;
+    value_format:"$#.00"  }
 }
