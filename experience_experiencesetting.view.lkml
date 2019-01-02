@@ -36,4 +36,10 @@ view: experience_experiencesetting {
     type: count
     drill_fields: [id]
   }
+
+
+  dimension: current_date {
+    type: date_month
+    sql: CURDATE() ;;
+  }
 }
