@@ -95,16 +95,19 @@ view: ds_reorder_outcomes_log {
   }
   measure: reminders_sent {
     type: count_distinct
-    sql:  ${decision_id};;
+    sql:  ${conversation_log_id};;
     filters: {
       field: outcome_type
       value: "reminder sent,aggregate reminder sent"}
+    description: "Number of remidners sent. There can be multiple products per reminder"
   }
   measure: SMS_Purchase {
-    type: count
+    type: count_distinct
+    sql:  ${decision_id};;
     filters: {
       field: outcome_type
       value: "responded yes"}
+    description: "Responded yes to text. These are orders created, but not necessarily place. Decisions are on a per product basis"
   }
 
   dimension: merchant_id {
