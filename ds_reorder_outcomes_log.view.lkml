@@ -94,19 +94,13 @@ view: ds_reorder_outcomes_log {
     drill_fields: [id]
   }
   measure: reminders_sent {
-    type: count
+    type: count_distinct
+    sql:  ${decision_id};;
     filters: {
       field: outcome_type
       value: "reminder sent,aggregate reminder sent"}
   }
   measure: SMS_Purchase {
-    type: count
-    filters: {
-      field: outcome_type
-      value: "responded yes"}
-  }
-
-  measure: Reminder_Purchase {
     type: count
     filters: {
       field: outcome_type
