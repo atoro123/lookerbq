@@ -5,6 +5,7 @@ view: merchant_industry {
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
+    hidden: yes
   }
 
   dimension: industry_name {
@@ -15,5 +16,6 @@ view: merchant_industry {
   measure: merchant_industry_count{
     type: count
     drill_fields: [id, industry_name]
+    hidden: yes
   }
 }

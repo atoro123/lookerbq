@@ -23,11 +23,13 @@ view: merchant_merchant {
 
   dimension: email_tokens {
     type: string
+    hidden: yes
     sql: ${TABLE}.email_tokens ;;
   }
 
   dimension: hash_key {
     type: string
+    hidden: yes
     sql: ${TABLE}.hash_key ;;
   }
 
@@ -52,17 +54,20 @@ view: merchant_merchant {
   }
 
   dimension: schema {
+    hidden: yes
     type: string
     sql: ${TABLE}.`schema` ;;
   }
 
   dimension: settings {
     type: string
+    hidden: yes
     sql: ${TABLE}.settings ;;
   }
 
   dimension: settings_version {
     type: number
+    hidden: yes
     sql: ${TABLE}.settings_version ;;
   }
 

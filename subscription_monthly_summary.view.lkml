@@ -81,6 +81,7 @@ filters: {
   field: frequency_days
   value: "NULL"
 }
+drill_fields: [date_month,beginning_active,month_adds,month_cancels,active_end]
   }
   measure: month_cancels{
     type: sum

@@ -33,6 +33,7 @@ explore: order_order {
     user_attribute:merchant_id}
 
   join: order_item {
+    view_label: "Order Item"
     sql_on: ${order_order.id} = ${order_item.order_id} ;;
     relationship: one_to_many
     type: left_outer
@@ -139,6 +140,7 @@ explore: subscription_subscription {
     relationship: many_to_one
   }
   join: order_order {
+    view_label: "Order"
     sql_on: ${order_item.order_id} = ${order_order.id} ;;
     relationship: many_to_many
   }
@@ -149,12 +151,14 @@ explore: subscription_subscription {
     relationship: one_to_one
   }
   join: order_offer {
+    view_label: "Order"
     from: offer_offer
     sql_on: ${order_offer.id} = ${order_item.offer_id}  ;;
     relationship: one_to_many
 
   }
   join: subscription_offer {
+    view_label: "Subscription"
     from: offer_offer
     sql_on: ${subscription_offer.id} = ${subscription_subscription.offer_id};;
     relationship: one_to_many
@@ -172,6 +176,7 @@ explore: subscription_subscription {
   }
 
   join: order_over_order {
+    view_label: "Order over Order"
     sql_on: ${order_over_order.subscription_id} = ${subscription_subscription.id};;
     relationship: one_to_one
   }

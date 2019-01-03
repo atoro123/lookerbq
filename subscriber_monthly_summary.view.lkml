@@ -63,6 +63,7 @@ view: subscriber_monthly_summary {
   measure: active_end {
     type:  number
     sql:  cast(${active} as signed) ;;
+    drill_fields: [date_month,beginning_active,total_adds,total_cancels,active_end]
 
   }
   measure: beginning_active {

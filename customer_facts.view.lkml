@@ -40,10 +40,12 @@ view: customer_facts {
   dimension: Live {
     type: yesno
     sql: ${TABLE}.Live ;;
+    hidden: yes
   }
   dimension: merchant_id {
     type: number
     sql: ${TABLE}.merchant_id ;;
+    hidden: yes
   }
   dimension_group: Cancelled {
     type: time
