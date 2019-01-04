@@ -15,15 +15,13 @@ derived_table: {
   dimension: subscription_id {
     type:number
     primary_key: yes
-    sql: ${TABLE}.customer_id ;;
+    sql: ${TABLE}.subscription_id ;;
   }
 
 dimension: customer_id {
   type:number
   sql: ${TABLE}.customer_id ;;
 }
-
-
 
 dimension: result_str{
   type: string
@@ -37,7 +35,7 @@ dimension: result_str{
 
   dimension: Currently_Disengaged {
     type: yesno
-    sql: ${result_str} LIKE '%3,3,3,1%' ;;
+    sql: ${result_str} LIKE '%3,3,3,1' ;;
   }
 
 }

@@ -279,11 +279,23 @@ view: subscription_subscription {
     sql: ${count}/${distinct_customers} ;;
     drill_fields: [customer_id,customer_customer.merchant_user_id,count]
   }
-#
-#   measure: completed_orders{
-#     type: count_distinct
-#     sql: ${order_order.id} ;;
-#     filters: {field: order_order.status
-#       value:"5"}
-#   }
+
+  dimension: Subscription_lifetime {
+    type: number
+    hidden: yes
+    sql:DATEDIFF(${cancelled_date},${created_date}) ;;
+  }
+
+  dimension: Bucket_Lifetime {
+  type: number
+  hidden: yes
+  sql:  case when ${Subscription_lifetime} <= 30 then '30'
+              when ${Subscription_lifetime} <= 60 then '60'
+              when ${Subscription_lifetime} <= 90 then '90'
+              when ${Subscription_lifetime} <= 180 then '180'
+              when ${Subscription_lifetime} <= 365 then '365'
+              when ${Subscription_lifetime} > 365 then '366'
+              when ${Subscription_lifetime} IS NULL then 'NULL'
+              else 'error' end;;
+  }
 }
