@@ -233,8 +233,9 @@ view: order_item {
   dimension: sms_item {
     type:  yesno
     description: "Identifies items created from SMS offer"
-    sql:  ${order_offer.name} LIKE '%SMS%'
-    or ${order_offer.name} LIKE '%Reorder%' ;;
+    sql:  (${order_offer.name} LIKE '%SMS%'
+    or ${order_offer.name} LIKE '%Reorder%')
+    and ${order_offer.name} NOT LIKE '%Impulse Upsell SMS%';;
   }
 
   dimension: quickbuy_item {
