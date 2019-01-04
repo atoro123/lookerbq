@@ -180,6 +180,7 @@ view: order_order {
     when ${rejected_message} like '%130%' then 'Invalid Billing or Shipping Address'
     when ${rejected_message} like '%120%' then 'Invalid Payment'
     when ${rejected_message} like '%110%' then 'Invalid Credit Card Number'
+    when ${status} = '14' then 'Response Processing Error'
     when ${rejected_message} is NULL then NULL
     else 'Other' end;;
     }
