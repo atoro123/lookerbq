@@ -15,11 +15,13 @@ derived_table: {
   dimension: subscription_id {
     type:number
     primary_key: yes
+    hidden: yes
     sql: ${TABLE}.subscription_id ;;
   }
 
 dimension: customer_id {
   type:number
+  hidden: yes
   sql: ${TABLE}.customer_id ;;
 }
 

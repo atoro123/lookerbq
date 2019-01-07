@@ -121,6 +121,7 @@ relationship: one_to_many
 
 explore: subscription_subscription {
   label: "2) Subscriptions"
+  view_label: "Subscription"
   persist_with: daily_refresh
   access_filter: {field:merchant_id
     user_attribute:merchant_id}
@@ -181,7 +182,7 @@ explore: subscription_subscription {
   }
 
   join: order_over_order {
-    view_label: "Order over Order"
+    view_label: "Subscription"
     sql_on: ${order_over_order.subscription_id} = ${subscription_subscription.id};;
     relationship: one_to_one
   }
