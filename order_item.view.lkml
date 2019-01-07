@@ -273,6 +273,7 @@ view: order_item {
     sql: ${order_id} ;;
     filters: {field: sms_item
       value: "yes"}
+    drill_fields: [order_details*]
   }
 
   measure: quickbuy_orders {
@@ -280,11 +281,12 @@ view: order_item {
     sql: ${order_id} ;;
     filters: {field: quickbuy_item
       value: "yes"}
+    drill_fields: [order_details*]
   }
 
   measure: average_item_value {
     type: average
     sql: ${price} ;;
     value_format:"$#.00"
-    drill_fields:[order_id,price,product_product.name]}
+    drill_fields:[order_order.place_date,order_id,product_product.name,price]}
 }

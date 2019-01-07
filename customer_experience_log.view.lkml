@@ -78,14 +78,17 @@ view: customer_experience_log {
   measure: double_optin {
     type: count_distinct
     sql: case when enabled > 0 AND feature_id = 40 THEN merchant_user_id END ;;
+    drill_fields: [logged_date,merchant_user_id]
   }
   measure: Enrollments {
     type: count_distinct
     sql: case when enabled > 0 AND feature_id = 39 THEN merchant_user_id END ;;
+    drill_fields: [logged_date,merchant_user_id]
   }
 
   measure: Unenrollments {
     type: count_distinct
     sql: case when enabled = 0 AND feature_id = 39 THEN merchant_user_id END ;;
+    drill_fields: [logged_date,merchant_user_id]
   }
 }
