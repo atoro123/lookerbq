@@ -23,11 +23,15 @@ include: "*.dashboard.lookml"
 
 
 # explore: order_item {}
-
+datagroup: daily_refresh {
+  sql_trigger: SELECT CURDATE() ;;
+  max_cache_age: "24 hours"
+}
 persist_for: "24 hours"
 
 explore: order_order {
   view_label: "Order"
+  persist_with: daily_refresh
   label: "1) Orders"
   access_filter: {field:merchant_id
     user_attribute:merchant_id}
@@ -117,6 +121,7 @@ relationship: one_to_many
 
 explore: subscription_subscription {
   label: "2) Subscriptions"
+  persist_with: daily_refresh
   access_filter: {field:merchant_id
     user_attribute:merchant_id}
   join: order_item {
