@@ -103,8 +103,8 @@ view: order_item {
     type: yesno
     description: "Identify an order item as an Impulse Upsell item"
    sql: ${one_time} = 1
-    or ${subscription_offer.name} LIKE '%IU%'
-    or ${subscription_offer.name} LIKE '%Impulse Upsell%'
+    or ${subscription_offer.offer_name} LIKE '%IU%'
+    or ${subscription_offer.offer_name} LIKE '%Impulse Upsell%'
     or ${subscription_offer.offer_type} IN (12,13,14,19,20,23)
     or ${subscription_subscription.subscription_type} = 'IU Replenishment';;
 
@@ -233,14 +233,15 @@ view: order_item {
   dimension: sms_item {
     type:  yesno
     description: "Identifies items created from SMS offer"
-    sql:  ${order_offer.name} LIKE '%SMS%'
-    or ${order_offer.name} LIKE '%Reorder%' ;;
+    sql:  (${order_offer.offer_name} LIKE '%SMS%'
+    or ${order_offer.offer_name} LIKE '%Reorder%')
+    and ${order_offer.offer_name} NOT LIKE '%Impulse Upsell SMS%';;
   }
 
   dimension: quickbuy_item {
     type:  yesno
     description: "Identifies items created from Quickbuy offer"
-    sql:  ${order_offer.name} LIKE '%Quickbuy%' or  ${order_offer.name} LIKE '%Quick Buy%';;
+    sql:  ${order_offer.offer_name} LIKE '%Quickbuy%' or  ${order_offer.offer_name} LIKE '%Quick Buy%';;
   }
 
   dimension: reorder {
@@ -272,6 +273,7 @@ view: order_item {
     sql: ${order_id} ;;
     filters: {field: sms_item
       value: "yes"}
+    drill_fields: [order_details*]
   }
 
   measure: quickbuy_orders {
@@ -279,11 +281,12 @@ view: order_item {
     sql: ${order_id} ;;
     filters: {field: quickbuy_item
       value: "yes"}
+    drill_fields: [order_details*]
   }
 
   measure: average_item_value {
     type: average
     sql: ${price} ;;
     value_format:"$#.00"
-    drill_fields:[order_id,price,product_product.name]}
+    drill_fields:[order_order.place_date,order_id,product_product.name,price]}
 }

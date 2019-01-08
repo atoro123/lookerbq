@@ -54,7 +54,8 @@ view: subscription_subscription {
     type: number
     sql: ${TABLE}.customer_id ;;
   }
-  measure: cusotmer_create{
+  measure: customer_create{
+    alias: [cusotmer_create]
     type: count_distinct
     sql: ${customer_id};;
 

@@ -23,11 +23,15 @@ include: "*.dashboard.lookml"
 
 
 # explore: order_item {}
-
+datagroup: daily_refresh {
+  sql_trigger: SELECT CURDATE() ;;
+  max_cache_age: "24 hours"
+}
 persist_for: "24 hours"
 
 explore: order_order {
   view_label: "Order"
+  persist_with: daily_refresh
   label: "1) Orders"
   access_filter: {field:merchant_id
     user_attribute:merchant_id}
@@ -119,6 +123,8 @@ relationship: one_to_many
 
 explore: subscription_subscription {
   label: "2) Subscriptions"
+  view_label: "Subscription"
+  persist_with: daily_refresh
   access_filter: {field:merchant_id
     user_attribute:merchant_id}
   join: order_item {
@@ -178,7 +184,7 @@ explore: subscription_subscription {
   }
 
   join: order_over_order {
-    view_label: "Order over Order"
+    view_label: "Subscription"
     sql_on: ${order_over_order.subscription_id} = ${subscription_subscription.id};;
     relationship: one_to_one
   }

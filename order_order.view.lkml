@@ -134,6 +134,7 @@ view: order_order {
   dimension: sub_total {
     type: number
     sql: ${TABLE}.sub_total ;;
+    value_format: "$#.00"
   }
 
   dimension: tax_total {
@@ -171,7 +172,7 @@ view: order_order {
     drill_fields: [place_date,order_revenue,completed_orders]
   }
 
-  dimension: clean_rejected {
+  dimension: rejected_reason {
     sql:
     case
     when ${rejected_message} like '%500%' then 'Payment Expired'
@@ -180,6 +181,7 @@ view: order_order {
     when ${rejected_message} like '%130%' then 'Invalid Billing or Shipping Address'
     when ${rejected_message} like '%120%' then 'Invalid Payment'
     when ${rejected_message} like '%110%' then 'Invalid Credit Card Number'
+    when ${status} = '14' then 'Response Processing Error'
     when ${rejected_message} is NULL then NULL
     else 'Other' end;;
     }
@@ -197,7 +199,7 @@ view: order_order {
     filters: {
       field: status
       value: "3,5,14"}
-    drill_fields: [id,order_merchant_id,customer_id,customer_customer.merchant_user_id,status,sub_total,clean_rejected,rejected_message,place_date]
+    drill_fields: [id,order_merchant_id,customer_id,customer_customer.merchant_user_id,status,sub_total,rejected_reason,rejected_message,place_date]
       }
 
   dimension: clean_order_place {
@@ -209,12 +211,12 @@ view: order_order {
     type:  yesno
     sql: (${order_item.subscription_id} is not NULL and (
     ${order_item.one_time} = 1
-    or ${subscription_offer.name} LIKE '%IU%'
-    or ${subscription_offer.name} LIKE '%Impulse Upsell%'
+    or ${subscription_offer.offer_name} LIKE '%IU%'
+    or ${subscription_offer.offer_name} LIKE '%Impulse Upsell%'
     or ${subscription_offer.offer_type} IN (12,13,14,19,20,23)
     or ${subscription_subscription.subscription_type} = 'IU Replenishment'
-    or ${order_offer.name} like '%IU%'
-    or ${order_offer.name} like '%Impulse Upsell%')) or (${order_item.one_time} = 1 and ${order_item.subscription_id} is NULL);;}
+    or ${order_offer.offer_name} like '%IU%'
+    or ${order_offer.offer_name} like '%Impulse Upsell%')) or (${order_item.one_time} = 1 and ${order_item.subscription_id} is NULL);;}
 
   measure: order_revenue {
     type: sum
@@ -235,7 +237,7 @@ view: order_order {
     type: number
     sql: ${completed_orders}/${attempted_orders};;
     value_format: "0.0%"
-    drill_fields: [place_date,customer_id,customer_customer.merchant_user_id,sub_total,status,clean_rejected,rejected_message]
+    drill_fields: [place_date,customer_id,customer_customer.merchant_user_id,sub_total,status,rejected_reason,rejected_message]
   }
 
   measure: distinct_order_items {

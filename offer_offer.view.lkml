@@ -3,11 +3,13 @@ view: offer_offer {
 
   dimension: id {
     primary_key: yes
+    hidden: yes
     type: number
     sql: ${TABLE}.id ;;
   }
 
-  dimension_group: created {
+  dimension_group: offer_created {
+    alias: [created]
     type: time
     timeframes: [
       raw,
@@ -22,27 +24,32 @@ view: offer_offer {
   }
 
   dimension: html {
+    hidden: yes
     type: string
     sql: ${TABLE}.html ;;
   }
 
   dimension: ip {
     type: string
+    hidden: yes
     sql: ${TABLE}.ip ;;
   }
 
   dimension: ip_whitelist {
     type: string
+    hidden: yes
     sql: ${TABLE}.ip_whitelist ;;
   }
 
   dimension: js_name {
     type: string
+    hidden: yes
     sql: ${TABLE}.js_name ;;
   }
 
-  dimension: live {
+  dimension: offer_live {
     type: yesno
+    alias: [live]
     sql: ${TABLE}.live ;;
   }
 
@@ -52,17 +59,20 @@ view: offer_offer {
   }
 
   dimension: merchant_id {
+    hidden: yes
     type: number
     sql: ${TABLE}.merchant_id ;;
   }
 
   dimension: module_view_id {
+    hidden: yes
     type: number
     sql: ${TABLE}.module_view_id ;;
   }
 
-  dimension: name {
+  dimension: offer_name {
     type: string
+    alias: [name]
     sql: ${TABLE}.name ;;
   }
 
@@ -77,37 +87,43 @@ view: offer_offer {
   }
 
   dimension: ongoing_modifiers {
+    hidden: yes
     type: string
     sql: ${TABLE}.ongoing_modifiers ;;
   }
 
-  dimension: public_id {
+  dimension: offer_public_id {
     type: string
     sql: ${TABLE}.public_id ;;
   }
 
   dimension: quantity_threshold {
+    hidden: yes
     type: string
     sql: ${TABLE}.quantity_threshold ;;
   }
 
   dimension: today_modifiers {
+    hidden: yes
     type: string
     sql: ${TABLE}.today_modifiers ;;
   }
 
   dimension: value_threshold {
+    hidden: yes
     type: string
     sql: ${TABLE}.value_threshold ;;
   }
 
   dimension: weight {
+    hidden: yes
     type: number
     sql: ${TABLE}.weight ;;
   }
 
   measure: count {
     type: count
-    drill_fields: [id, name, js_name]
+    hidden: yes
+    drill_fields: [id, offer_name]
   }
 }
