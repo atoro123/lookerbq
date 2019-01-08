@@ -56,7 +56,12 @@ explore: order_order {
     from: offer_offer
     sql_on: ${order_offer.id} = ${order_item.offer_id}  ;;
 relationship: one_to_many
-
+}
+  join: oos_event_log {
+    from: event_log
+    type: left_outer
+    sql_on: ${oos_event_log.object_id} = ${order_item.id} ;;
+    relationship: many_to_one
   }
 
   join: customer_customer {
@@ -75,9 +80,7 @@ relationship: one_to_many
 
   join: customer_order {
     from: customer_customer
-    sql_on: ${customer_customer.id} = ${order_order.customer_id}
-      ;;
-
+    sql_on: ${customer_customer.id} = ${order_order.customer_id};;
     relationship: many_to_one
   }
 
@@ -111,7 +114,6 @@ relationship: one_to_many
     sql_on: ${merchant_merchant_industries.industry_id} = ${merchant_industry.id};;
     relationship: one_to_many
   }
-
 
 }
 
@@ -179,6 +181,13 @@ explore: subscription_subscription {
     view_label: "Order over Order"
     sql_on: ${order_over_order.subscription_id} = ${subscription_subscription.id};;
     relationship: one_to_one
+  }
+
+  join: oos_event_log {
+    from: event_log
+    type: left_outer
+    sql_on: ${oos_event_log.object_id} = ${order_item.id} ;;
+    relationship: many_to_one
   }
   }
 
