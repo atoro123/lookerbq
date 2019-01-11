@@ -44,6 +44,7 @@ view: subscription_subscription {
       date,
       week,
       month,
+      month_name,
       quarter,
       year
     ]
