@@ -104,6 +104,7 @@ view: order_order {
       week_of_year,
       month,
       month_num,
+      month_name,
       day_of_month,
       quarter,
       year
