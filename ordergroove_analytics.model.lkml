@@ -187,6 +187,7 @@ explore: subscription_subscription {
 
 explore: customer_customer {
   label: "3) Customers"
+  view_label: "Customer"
   access_filter: {field:merchant_id
     user_attribute:merchant_id}
   join: experience_experiencesetting {
@@ -197,8 +198,14 @@ explore: customer_customer {
     type: left_outer
     view_label: "Customer"
     sql_on: ${customer_customer.id} = ${customer_facts.customer_id} ;;
+}
 
-  }
+  join: subscription_subscription {
+      view_label: "Subscription"
+      sql_on: ${customer_customer.id} = ${subscription_subscription.customer_id} ;;
+      relationship: many_to_one
+
+    }
 }
 
 explore: event_log {
