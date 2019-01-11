@@ -60,8 +60,8 @@ explore: order_order {
     from: offer_offer
     sql_on: ${order_offer.id} = ${order_item.offer_id}  ;;
 relationship: one_to_many
+}
 
-  }
 
   join: customer_customer {
     view_label: "Customer"
@@ -79,9 +79,7 @@ relationship: one_to_many
 
   join: customer_order {
     from: customer_customer
-    sql_on: ${customer_customer.id} = ${order_order.customer_id}
-      ;;
-
+    sql_on: ${customer_customer.id} = ${order_order.customer_id};;
     relationship: many_to_one
   }
 
@@ -115,7 +113,6 @@ relationship: one_to_many
     sql_on: ${merchant_merchant_industries.industry_id} = ${merchant_industry.id};;
     relationship: one_to_many
   }
-
 
 }
 
@@ -201,5 +198,46 @@ explore: customer_customer {
     view_label: "Customer"
     sql_on: ${customer_customer.id} = ${customer_facts.customer_id} ;;
 
+  }
+}
+
+explore: event_log {
+  label: "4) Event Log"
+  access_filter: {field:customer_customer.merchant_id
+    user_attribute:merchant_id}
+  join: customer_customer {
+    view_label: "Customer"
+    sql_on: ${event_log.customer_id} = ${customer_customer.id};;
+    relationship: many_to_one
+  }
+  join: order_item {
+    sql_on: ${event_log.object_id} = ${order_item.id} ;;
+    relationship: many_to_one
+  }
+  join: subscription_subscription {
+    sql_on: ${event_log.object_id} = ${subscription_subscription.id} ;;
+    relationship: many_to_one
+  }
+
+  join: order_order {
+    sql_on: ${event_log.object_id} = ${order_order.id} ;;
+  }
+  join: customer_facts {
+    sql_on: ${event_log.customer_id} = ${customer_facts.customer_id} ;;
+    relationship: many_to_one
+  }
+  join: order_offer {
+    from: offer_offer
+    sql_on: ${order_offer.id} = ${order_item.offer_id}  ;;
+    relationship: one_to_many
+  }
+  join: subscription_offer {
+    from: offer_offer
+    sql_on: ${subscription_offer.id} = ${subscription_subscription.offer_id};;
+    relationship: one_to_many
+  }
+  join: product_product {
+    sql_on: ${product_product.id} = ${order_item.product_id} or ${product_product.id} = ${subscription_subscription.product_id} ;;
+    relationship: one_to_many
   }
 }
