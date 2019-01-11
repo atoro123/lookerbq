@@ -79,8 +79,13 @@ view: event_log {
     sql: ${TABLE}.viewed ;;
   }
 
-  measure: count {
+  measure: action_count {
     type: count
-    drill_fields: [id]
+    sql: ${object_id} ;;
+    drill_fields: [id,object_id, type_id, logged_date]
+    filters: {
+      field: type_id
+      value: "31,32,33,77"
+    }
   }
 }
