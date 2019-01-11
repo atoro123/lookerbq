@@ -299,4 +299,9 @@ view: subscription_subscription {
               when ${Subscription_lifetime} IS NULL then 'NULL'
               else 'error' end;;
   }
+#
+#   dimension: current_date {
+#     type: date_month
+#     sql: CURDATE() ;;
+#   }
 }

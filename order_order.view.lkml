@@ -25,6 +25,8 @@ view: order_order {
       date,
       week,
       month,
+      month_num,
+      day_of_month,
       quarter,
       year
     ]
@@ -99,7 +101,10 @@ view: order_order {
       time,
       date,
       week,
+      week_of_year,
       month,
+      month_num,
+      day_of_month,
       quarter,
       year
     ]
@@ -244,4 +249,86 @@ view: order_order {
     type: count_distinct
     sql: ${order_item.id} ;;
   }
+#
+#
+#   dimension: Last_week {
+#     type: yesno
+#     hidden: yes
+#     sql: case when ${place_week_of_year} = week(DATE_sub(curdate(),interval 7 day))+1 and ${place_date} between DATE_sub(curdate(),interval 50 day) and curdate()  then 1 else 0 end;;
+#   }
+#
+#   measure: completed_orders_last_week{
+#     type: count
+#     hidden: yes
+#     filters: {
+#       field: status
+#       value: "5"
+#     }
+#     filters: {
+#       field: Last_week
+#       value: "yes"
+#     }
+#   }
+#
+#   measure: attempted_orders_last_week{
+#     type: count
+#     hidden: yes
+#     filters: {
+#       field: status
+#       value: "3,5,14"
+#     }
+#     filters: {
+#       field: Last_week
+#       value: "yes"
+#     }
+#   }
+#
+#   measure: Order_Processing_Last_Week{
+#     type: number
+#     sql: ${completed_orders_last_week}/${attempted_orders_last_week};;
+#     value_format: "0.0%"
+#     drill_fields: [place_date,customer_id,customer_customer.merchant_user_id,sub_total,status,rejected_reason,rejected_message]
+#   }
+#
+#   dimension: Previous_3_weeks {
+#     type: yesno
+#     hidden: yes
+#     sql: case when (${place_week_of_year} = week(DATE_sub(curdate(),interval 14 day))+1) and ${place_date} between DATE_sub(curdate(),interval 50 day) and curdate() then 1
+#           when ${place_week_of_year} = week(DATE_sub(curdate(),interval 21 day))+1  and ${place_date} between DATE_sub(curdate(),interval 50 day) and curdate()  then 1
+#           when ${place_week_of_year} = week(DATE_sub(curdate(),interval 28 day))+1  and ${place_date} between DATE_sub(curdate(),interval 50 day) and curdate()  then 1
+#           else 0 end;;
+#   }
+#
+#   measure: completed_orders_last_3_weeks{
+#     type: count
+#     hidden: yes
+#     filters: {
+#       field: status
+#       value: "5"
+#     }
+#     filters: {
+#       field: Previous_3_weeks
+#       value: "yes"
+#     }
+#   }
+#
+#   measure: attempted_orders_last_3_weeks{
+#     type: count
+#     hidden: yes
+#     filters: {
+#       field: status
+#       value: "3,5,14"
+#     }
+#     filters: {
+#       field: Previous_3_weeks
+#       value: "yes"
+#     }
+#   }
+#
+#   measure: Order_Processing_Last_3_Weeks{
+#     type: number
+#     sql: ${completed_orders_last_3_weeks}/${attempted_orders_last_3_weeks};;
+#     value_format: "0.0%"
+#     drill_fields: [place_date,customer_id,customer_customer.merchant_user_id,sub_total,status,rejected_reason,rejected_message]
+#   }
 }

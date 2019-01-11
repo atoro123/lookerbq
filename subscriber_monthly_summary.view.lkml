@@ -61,7 +61,7 @@ view: subscriber_monthly_summary {
     drill_fields: [id]
   }
   measure: active_end {
-    type:  number
+    type:  sum
     sql:  cast(${active} as signed) ;;
     drill_fields: [date_month,beginning_active,total_adds,total_cancels,active_end]
 

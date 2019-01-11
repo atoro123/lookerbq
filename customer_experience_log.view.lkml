@@ -79,16 +79,19 @@ view: customer_experience_log {
     type: count_distinct
     sql: case when enabled > 0 AND feature_id = 40 THEN merchant_user_id END ;;
     drill_fields: [logged_date,merchant_user_id]
+    description: "Initial enrollment into SMS messaging"
   }
   measure: Enrollments {
     type: count_distinct
     sql: case when enabled > 0 AND feature_id = 39 THEN merchant_user_id END ;;
     drill_fields: [logged_date,merchant_user_id]
+    description: "Enrollment confirmed into SMS messaging"
   }
 
   measure: Unenrollments {
     type: count_distinct
     sql: case when enabled = 0 AND feature_id = 39 THEN merchant_user_id END ;;
     drill_fields: [logged_date,merchant_user_id]
+    description: "Unenrolled from SMS messaging"
   }
 }
