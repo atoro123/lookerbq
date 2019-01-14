@@ -26,6 +26,7 @@ view: order_order {
       week,
       month,
       month_num,
+      month_name,
       day_of_month,
       quarter,
       year
