@@ -190,9 +190,15 @@ explore: customer_customer {
   view_label: "Customer"
   access_filter: {field:merchant_id
     user_attribute:merchant_id}
+
+  join: merchant_merchant {
+    view_label: "Merchant"
+    sql_on: ${customer_customer.merchant_id} = ${merchant_merchant.id} ;;
+  }
+
   join: experience_experiencesetting {
     view_label: "Experience Setting"
-    sql_on: ${customer_customer.merchant_user_id} = ${experience_experiencesetting.merchant_user_id} ;;
+    sql_on: ${customer_customer.merchant_user_id} = ${experience_experiencesetting.merchant_user_id} AND ${merchant_merchant.public_id} = ${experience_experiencesetting.merchant_public_id};;
   }
   join: customer_facts {
     type: left_outer
