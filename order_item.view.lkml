@@ -276,6 +276,16 @@ view: order_item {
     drill_fields: [order_details*]
   }
 
+  measure: sms_orders_completed {
+    type: count_distinct
+    sql: ${order_id} ;;
+    filters: {field: sms_item
+      value: "yes"}
+    filters: {field: order_order.status
+      value: "5"}
+    drill_fields: [order_details*]
+  }
+
   measure: quickbuy_orders {
     type: count
     sql: ${order_id} ;;
