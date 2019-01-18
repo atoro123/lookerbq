@@ -60,7 +60,12 @@ explore: order_order {
     from: offer_offer
     sql_on: ${order_offer.id} = ${order_item.offer_id}  ;;
 relationship: one_to_many
+
 }
+
+  join: order_placementfailure {
+    sql_on: ${order_order.public_id} = ${order_placementfailure.order_public_id} ;;
+  }
 
 
   join: customer_customer {
@@ -183,6 +188,10 @@ explore: subscription_subscription {
     sql_on: ${order_over_order.subscription_id} = ${subscription_subscription.id};;
     relationship: one_to_one
   }
+
+  join: order_placementfailure {
+    sql_on: ${order_order.public_id} = ${order_placementfailure.order_public_id} ;;
+  }
   }
 
 explore: customer_customer {
@@ -252,5 +261,8 @@ explore: event_log {
   join: product_product {
     sql_on: ${product_product.id} = ${order_item.product_id} or ${product_product.id} = ${subscription_subscription.product_id} ;;
     relationship: one_to_many
+  }
+  join: order_placementfailure {
+    sql_on: ${order_order.public_id} = ${order_placementfailure.order_public_id} ;;
   }
 }

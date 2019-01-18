@@ -12,6 +12,8 @@ view: order_order {
 
   }
   dimension: id {
+    label: "Order ID"
+    description: "Ordergroove internal order id"
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
@@ -35,6 +37,7 @@ view: order_order {
   }
 
   dimension_group: created {
+    description: "order is created in the system"
     type: time
     timeframes: [
       raw,
@@ -61,16 +64,19 @@ view: order_order {
   }
 
   dimension: extra_data {
+    hidden: yes
     type: string
     sql: ${TABLE}.extra_data ;;
   }
 
   dimension: generic_error_count {
+    hidden: yes
     type: number
     sql: ${TABLE}.generic_error_count ;;
   }
 
   dimension: locked {
+    hidden: yes
     type: yesno
     sql: ${TABLE}.locked ;;
   }
@@ -86,16 +92,19 @@ view: order_order {
   }
 
   dimension: order_merchant_id {
+    description: "Order id from the merchant"
     type: string
     sql: ${TABLE}.order_merchant_id ;;
   }
 
   dimension: payment_id {
+    hidden: yes
     type: number
     sql: ${TABLE}.payment_id ;;
   }
 
   dimension_group: place {
+    description: "The day that the order processes. Use this to calculate any revenue"
     type: time
     timeframes: [
       raw,
@@ -251,6 +260,66 @@ view: order_order {
     type: count_distinct
     sql: ${order_item.id} ;;
   }
+
+  dimension: subtracted_days_for_original {
+    type: number
+    hidden: yes
+    sql: ${order_placementfailure.count}*3;;
+  }
+
+  dimension_group: retry_original_place {
+    description: "Calculates original place date for retry. Assumes 3 days between attempts"
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      week_of_year,
+      month,
+      month_num,
+      month_name,
+      day_of_month,
+      quarter,
+      year
+    ]
+    sql: DATE_SUB(${place_date},INTERVAL ${subtracted_days_for_original} DAY) ;;
+
+  }
+
+  measure: Pending_Retries{
+    group_label: "Retry"
+    type: count_distinct
+    sql: ${id} ;;
+    filters: {field:status
+      value:"18"}
+  }
+
+  measure: completed_retry_orders {
+    group_label: "Retry"
+    type: count
+    filters: {
+      field: status
+      value: "5"
+    }
+    filters: {
+      field: order_placementfailure.count
+      value: "1,2,3"
+    }
+    drill_fields: [order_details*]}
+
+  measure: attempted_retry_orders {
+    group_label: "Retry"
+    type: count
+    filters: {
+      field: status
+      value: "3,5,14"
+    }
+    filters: {
+      field: order_placementfailure.count
+      value: "1,2,3"
+    }
+    drill_fields: [order_details*]}
 #
 #
 #   dimension: Last_week {
