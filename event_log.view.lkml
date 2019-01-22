@@ -80,12 +80,8 @@ view: event_log {
   }
 
   measure: action_count {
-    type: count
+    type: count_distinct
     sql: ${object_id} ;;
     drill_fields: [id,object_id, type_id, logged_date]
-    filters: {
-      field: type_id
-      value: "31,32,33,77"
-    }
   }
 }
