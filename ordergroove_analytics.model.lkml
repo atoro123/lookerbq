@@ -209,35 +209,4 @@ explore: event_log {
     view_label: "Customer"
     sql_on: ${event_log.customer_id} = ${customer_customer.id};;
     relationship: many_to_one
-  }
-  join: order_item {
-    sql_on: ${event_log.object_id} = ${order_item.id} ;;
-    relationship: many_to_one
-  }
-  join: subscription_subscription {
-    sql_on: ${event_log.object_id} = ${subscription_subscription.id} ;;
-    relationship: many_to_one
-  }
-
-  join: order_order {
-    sql_on: ${event_log.object_id} = ${order_order.id} ;;
-  }
-  join: customer_facts {
-    sql_on: ${event_log.customer_id} = ${customer_facts.customer_id} ;;
-    relationship: many_to_one
-  }
-  join: order_offer {
-    from: offer_offer
-    sql_on: ${order_offer.id} = ${order_item.offer_id}  ;;
-    relationship: one_to_many
-  }
-  join: subscription_offer {
-    from: offer_offer
-    sql_on: ${subscription_offer.id} = ${subscription_subscription.offer_id};;
-    relationship: one_to_many
-  }
-  join: product_product {
-    sql_on: ${product_product.id} = ${order_item.product_id} or ${product_product.id} = ${subscription_subscription.product_id} ;;
-    relationship: one_to_many
-  }
-}
+  }}

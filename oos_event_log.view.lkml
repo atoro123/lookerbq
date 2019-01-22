@@ -1,15 +1,8 @@
 view: oos_event_log {
-  derived_table: {
-    sql_trigger_value: select current_date ;;
-    sql: select id, type_id, object_id, object_metadata, customer_id, logged
-    from event_log el
-    where type_id in (77,31,32,33)
-    group by 1
+ extends: [oos_event_log]
 
-       ;;
-  }
 
-  dimension: id {
+ dimension: id {
     type: number
     primary_key: yes
     sql: ${TABLE}.id ;;
