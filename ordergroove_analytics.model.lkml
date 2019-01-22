@@ -60,7 +60,12 @@ explore: order_order {
     from: offer_offer
     sql_on: ${order_offer.id} = ${order_item.offer_id}  ;;
 relationship: one_to_many
+
 }
+
+  join: order_placementfailure {
+    sql_on: ${order_order.public_id} = ${order_placementfailure.order_public_id} ;;
+  }
 
 
   join: customer_customer {
@@ -183,22 +188,39 @@ explore: subscription_subscription {
     sql_on: ${order_over_order.subscription_id} = ${subscription_subscription.id};;
     relationship: one_to_one
   }
+
+  join: order_placementfailure {
+    sql_on: ${order_order.public_id} = ${order_placementfailure.order_public_id} ;;
+  }
   }
 
 explore: customer_customer {
   label: "3) Customers"
+  view_label: "Customer"
   access_filter: {field:merchant_id
     user_attribute:merchant_id}
+
+  join: merchant_merchant {
+    view_label: "Merchant"
+    sql_on: ${customer_customer.merchant_id} = ${merchant_merchant.id} ;;
+  }
+
   join: experience_experiencesetting {
     view_label: "Experience Setting"
-    sql_on: ${customer_customer.merchant_user_id} = ${experience_experiencesetting.merchant_user_id} ;;
+    sql_on: ${customer_customer.merchant_user_id} = ${experience_experiencesetting.merchant_user_id} AND ${merchant_merchant.public_id} = ${experience_experiencesetting.merchant_public_id};;
   }
   join: customer_facts {
     type: left_outer
     view_label: "Customer"
     sql_on: ${customer_customer.id} = ${customer_facts.customer_id} ;;
+}
 
-  }
+  join: subscription_subscription {
+      view_label: "Subscription"
+      sql_on: ${customer_customer.id} = ${subscription_subscription.customer_id} ;;
+      relationship: many_to_one
+
+    }
 }
 
 explore: event_log {

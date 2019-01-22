@@ -19,6 +19,7 @@ view: analytics_conversion {
       date,
       week,
       month,
+      month_name,
       quarter,
       year
     ]

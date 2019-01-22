@@ -24,6 +24,7 @@ view: subscription_monthly_summary {
       date,
       week,
       month,
+      month_name,
       quarter,
       year
     ]

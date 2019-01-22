@@ -3,6 +3,7 @@ view: customer_customer {
 
   dimension: id {
     primary_key: yes
+    label: "customer_id"
     type: number
     sql: ${TABLE}.id ;;
   }
