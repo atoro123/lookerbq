@@ -51,12 +51,14 @@ explore: order_order {
   }
 
   join: subscription_offer {
+    view_label: "Subscription"
     from: offer_offer
     sql_on: ${subscription_offer.id} = ${subscription_subscription.offer_id};;
     relationship: one_to_many
   }
 
   join: order_offer {
+    view_label: "Order Item"
     from: offer_offer
     sql_on: ${order_offer.id} = ${order_item.offer_id}  ;;
 relationship: one_to_many
@@ -64,6 +66,7 @@ relationship: one_to_many
 }
 
   join: order_placementfailure {
+    view_label: "Order"
     sql_on: ${order_order.public_id} = ${order_placementfailure.order_public_id} ;;
   }
 
@@ -80,12 +83,6 @@ relationship: one_to_many
     view_label: "Customer"
     sql_on: ${customer_customer.id} = ${customer_facts.customer_id} ;;
 
-  }
-
-  join: customer_order {
-    from: customer_customer
-    sql_on: ${customer_customer.id} = ${order_order.customer_id};;
-    relationship: many_to_one
   }
 
 
@@ -190,6 +187,7 @@ explore: subscription_subscription {
   }
 
   join: order_placementfailure {
+    view_label: "Order"
     sql_on: ${order_order.public_id} = ${order_placementfailure.order_public_id} ;;
   }
   }

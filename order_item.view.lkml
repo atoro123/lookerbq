@@ -32,6 +32,7 @@ view: order_item {
   }
 
   dimension: offer_id {
+    group_label: "Offer"
     type: number
     sql: ${TABLE}.offer_id ;;
   }
@@ -112,6 +113,7 @@ view: order_item {
 
 
   measure: total_IU_recurring_price {
+    group_label: "Impulse Upsell"
     type: sum
     description: "Completed order item revenue for IU Recurring"
     sql: ${total_price} ;;
@@ -141,6 +143,7 @@ view: order_item {
 
 
   measure: total_IU_onetime_price {
+    group_label: "Impulse Upsell"
     type: sum
     description: "Completed order item revenue for IU One-Time"
     value_format_name: usd
@@ -201,6 +204,7 @@ view: order_item {
     drill_fields: [order_details*]
   }
   measure: sum_IU_onetime_quantity {
+    group_label: "Impulse Upsell"
     type: sum
     description: "Item quantity for IU One-Time"
     sql: ${quantity};;
@@ -216,6 +220,7 @@ view: order_item {
   }
 
   measure: sum_IU_Recurring_quantity {
+    group_label: "Impulse Upsell"
     type: sum
     description: "Item quantity for IU Recurring"
     sql: ${quantity};;
@@ -231,6 +236,7 @@ view: order_item {
   }
 
   dimension: sms_item {
+    group_label: "Reorder"
     type:  yesno
     description: "Identifies items created from SMS offer"
     sql:  (${order_offer.offer_name} LIKE '%SMS%'
@@ -239,18 +245,21 @@ view: order_item {
   }
 
   dimension: quickbuy_item {
+    group_label: "Reorder"
     type:  yesno
     description: "Identifies items created from Quickbuy offer"
     sql:  ${order_offer.offer_name} LIKE '%Quickbuy%' or  ${order_offer.offer_name} LIKE '%Quick Buy%';;
   }
 
   dimension: reorder {
+    group_label: "Reorder"
     type: yesno
     description: "Identifies SMS and Quickbuy items"
     sql: ${sms_item} or ${quickbuy_item};;
   }
 
   measure: sms_revenue {
+    group_label: "Reorder"
     type: sum
     sql: ${total_price} ;;
     value_format_name: usd
@@ -260,6 +269,7 @@ view: order_item {
   }
 
   measure: quickbuy_revenue {
+    group_label: "Reorder"
     type: sum
     sql: ${total_price} ;;
     value_format_name: usd
@@ -269,6 +279,7 @@ view: order_item {
   }
 
   measure: sms_orders {
+    group_label: "Reorder"
     type: count_distinct
     sql: ${order_id} ;;
     filters: {field: sms_item
@@ -277,6 +288,7 @@ view: order_item {
   }
 
   measure: sms_orders_completed {
+    group_label: "Reorder"
     type: count_distinct
     sql: ${order_id} ;;
     filters: {field: sms_item
@@ -287,6 +299,7 @@ view: order_item {
   }
 
   measure: quickbuy_orders {
+    group_label: "Reorder"
     type: count
     sql: ${order_id} ;;
     filters: {field: quickbuy_item
