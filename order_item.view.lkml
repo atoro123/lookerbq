@@ -287,7 +287,7 @@ view: order_item {
   }
 
   measure: quickbuy_orders {
-    type: count
+    type: count_distinct
     sql: ${order_id} ;;
     filters: {field: quickbuy_item
       value: "yes"}

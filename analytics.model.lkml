@@ -27,5 +27,6 @@ explore: subscription_monthly_summary {
   join: subscriber_monthly_summary {
     type: left_outer
     sql_on: ${subscription_monthly_summary.date_date} = ${subscriber_monthly_summary.date_date} and ${subscriber_monthly_summary.merchant_id} = ${subscription_monthly_summary.merchant_id};;
+    relationship: many_to_one
   }
 }

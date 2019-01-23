@@ -1,7 +1,6 @@
 connection: "prod_replica"
 
 include: "*.view.lkml"
-include: "*.dashboard.lookml"
 
 # include all views in this project
 # include: "my_dashboard.dashboard.lookml"   # include a LookML dashboard called my_dashboard
@@ -65,6 +64,7 @@ relationship: one_to_many
 
   join: order_placementfailure {
     sql_on: ${order_order.public_id} = ${order_placementfailure.order_public_id} ;;
+    relationship: one_to_one
   }
 
 
@@ -79,6 +79,7 @@ relationship: one_to_many
     type: left_outer
     view_label: "Customer"
     sql_on: ${customer_customer.id} = ${customer_facts.customer_id} ;;
+    relationship: one_to_one
 
   }
 
@@ -105,6 +106,7 @@ relationship: one_to_many
   join: subscription_monthly_summary {
     type: left_outer
     sql_on: ${subscription_monthly_summary.date_date} = ${subscription_subscription.created_date} ;;
+    relationship: many_to_one
   }
 
   join: merchant_merchant_industries {
@@ -191,6 +193,7 @@ explore: subscription_subscription {
 
   join: order_placementfailure {
     sql_on: ${order_order.public_id} = ${order_placementfailure.order_public_id} ;;
+    relationship: one_to_one
   }
   }
 
@@ -203,16 +206,19 @@ explore: customer_customer {
   join: merchant_merchant {
     view_label: "Merchant"
     sql_on: ${customer_customer.merchant_id} = ${merchant_merchant.id} ;;
+    relationship: many_to_one
   }
 
   join: experience_experiencesetting {
     view_label: "Experience Setting"
     sql_on: ${customer_customer.merchant_user_id} = ${experience_experiencesetting.merchant_user_id} AND ${merchant_merchant.public_id} = ${experience_experiencesetting.merchant_public_id};;
+    relationship: one_to_one
   }
   join: customer_facts {
     type: left_outer
     view_label: "Customer"
     sql_on: ${customer_customer.id} = ${customer_facts.customer_id} ;;
+    relationship: one_to_one
 }
 
   join: subscription_subscription {
@@ -225,10 +231,55 @@ explore: customer_customer {
 
 explore: event_log {
   label: "4) Event Log"
-  access_filter: {field:customer_customer.merchant_id
-    user_attribute:merchant_id}
+  from: event_log
   join: customer_customer {
     view_label: "Customer"
     sql_on: ${event_log.customer_id} = ${customer_customer.id};;
     relationship: many_to_one
   }}
+
+  explore: oos_event_log {
+   from: oos_event_log
+    label: "5)Event Log - OOS"
+    join: customer_customer {
+      sql_on: ${oos_event_log.customer_id} = ${customer_customer.id} ;;
+    }
+    access_filter: {field:customer_customer.merchant_id
+      user_attribute:merchant_id}
+
+    join: order_item {
+      sql_on: ${oos_event_log.object_id} = ${order_item.id} ;;
+      relationship: many_to_one
+    }
+    join: subscription_subscription {
+      sql_on: ${order_item.subscription_id} = ${subscription_subscription.id} ;;
+      relationship: many_to_one
+    }
+
+    join: order_order {
+      sql_on: ${order_order.id} = ${order_item.order_id};;
+      relationship: many_to_one
+    }
+    join: customer_facts {
+      sql_on: ${oos_event_log.customer_id} = ${customer_facts.customer_id} ;;
+      relationship: many_to_one
+    }
+    join: order_offer {
+      from: offer_offer
+      sql_on: ${order_offer.id} = ${order_item.offer_id}  ;;
+      relationship: one_to_many
+    }
+    join: subscription_offer {
+      from: offer_offer
+      sql_on: ${subscription_offer.id} = ${subscription_subscription.offer_id};;
+      relationship: one_to_many
+    }
+    join: product_product {
+      sql_on: ${product_product.id} = ${oos_event_log.oos_pid} ;;
+      relationship: one_to_many
+    }
+    join: order_placementfailure {
+      sql_on: ${order_order.public_id} = ${order_placementfailure.order_public_id} ;;
+      relationship: one_to_one
+    }
+  }
