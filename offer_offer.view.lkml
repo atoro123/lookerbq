@@ -48,12 +48,14 @@ view: offer_offer {
   }
 
   dimension: offer_live {
+    group_label: "Offer"
     type: yesno
     alias: [live]
     sql: ${TABLE}.live ;;
   }
 
   dimension: merchant_coupon_code {
+    group_label: "Offer"
     type: string
     sql: ${TABLE}.merchant_coupon_code ;;
   }
@@ -71,17 +73,20 @@ view: offer_offer {
   }
 
   dimension: offer_name {
+    group_label: "Offer"
     type: string
     alias: [name]
     sql: ${TABLE}.name ;;
   }
 
   dimension: offer_profile_id {
+    group_label: "Offer"
     type: number
     sql: ${TABLE}.offer_profile_id ;;
   }
 
   dimension: offer_type {
+    group_label: "Offer"
     type: number
     sql: ${TABLE}.offer_type ;;
   }
@@ -93,6 +98,7 @@ view: offer_offer {
   }
 
   dimension: offer_public_id {
+    group_label: "Offer"
     type: string
     sql: ${TABLE}.public_id ;;
   }

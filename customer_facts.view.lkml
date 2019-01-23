@@ -23,6 +23,7 @@ view: customer_facts {
   dimension: customer_id {
     type: number
     primary_key: yes
+    hidden: yes
     sql: ${TABLE}.customer_id ;;
   }
 

@@ -3,7 +3,7 @@ view: customer_customer {
 
   dimension: id {
     primary_key: yes
-    label: "customer_id"
+    label: "Customer ID"
     type: number
     sql: ${TABLE}.id ;;
   }
@@ -35,6 +35,7 @@ view: customer_customer {
   }
 
   dimension: extra_data {
+    hidden: yes
     type: string
     sql: ${TABLE}.extra_data ;;
   }
@@ -148,6 +149,7 @@ view: customer_customer {
   }
 
   dimension: session_id {
+    hidden: yes
     type: string
     sql: ${TABLE}.session_id ;;
   }
