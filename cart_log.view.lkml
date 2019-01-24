@@ -165,7 +165,7 @@ view: cart_log {
   measure: average_subscription_value {
     type: number
     value_format_name: usd
-    sql: sum(${total}/${count} ;;
+    sql: ${Order_Item_Total}/${count} ;;
     drill_fields: [customer_id,subscription_id, offer_id,logged_date,external_product_id,quantity,price, total,]
   }
 }
