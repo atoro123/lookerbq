@@ -161,4 +161,11 @@ view: cart_log {
     value_format_name: usd
     sql: ${total} ;;
   }
+
+  measure: average_subscription_value {
+    type: number
+    value_format_name: usd
+    sql: sum(${total}/${count} ;;
+    drill_fields: [customer_id,subscription_id, offer_id,logged_date,external_product_id,quantity,price, total,]
+  }
 }
