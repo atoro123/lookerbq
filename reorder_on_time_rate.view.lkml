@@ -68,6 +68,4 @@ GROUP BY merchant_id, model_id, reminder_date;;
     hidden: yes
     sql: ${TABLE}.on_time_rate ;;
   }
-  }
-
-
+}
