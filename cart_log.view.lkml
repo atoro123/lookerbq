@@ -158,6 +158,7 @@ view: cart_log {
 
   measure: Order_Item_Total {
     type: sum
+    value_format: "$#.00"
     sql: ${total} ;;
   }
 }
