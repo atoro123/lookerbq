@@ -155,4 +155,9 @@ view: cart_log {
     type: count
     drill_fields: [id]
   }
+
+  measure: Order_Item_Total {
+    type: sum
+    sql: ${total} ;;
+  }
 }
