@@ -238,7 +238,7 @@ explore: event_log {
 
   explore: oos_event_log {
    from: oos_event_log
-    label: "5)Event Log - OOS"
+    label: "5) Event Log - OOS"
     join: customer_customer {
       sql_on: ${oos_event_log.customer_id} = ${customer_customer.id} ;;
     }
