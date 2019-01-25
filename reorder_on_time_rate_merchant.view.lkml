@@ -1,6 +1,6 @@
-view: reorder_on_time_rate {
+view: reorder_on_time_rate_merchant {
   derived_table: {
-    sql: SELECT model_id, reminder_date AS prediction_date,
+    sql: SELECT reminder_date AS prediction_date,
        COUNT(*) AS predictions,
        SUM(CASE WHEN (outcome_type IN ('responded yes', 'external_purchase') AND ABS(DATEDIFF(reminder_date, logged)) <= 7) THEN (1) ELSE (0) END) AS on_time_predictions,
        SUM(CASE WHEN (outcome_type IN ('responded yes', 'external_purchase') AND ABS(DATEDIFF(reminder_date, logged)) <= 7) THEN (1) ELSE (0) END)/COUNT(*) AS on_time_rate,
@@ -29,7 +29,7 @@ FROM (
         WHERE reminder_date < CURDATE()) decisions
     ON outcomes.decision_id = decisions.decision_id) raw_data
 WHERE reminder_date BETWEEN (CURDATE() - INTERVAL 90 DAY) AND (CURDATE() - INTERVAL 7 DAY)
-GROUP BY merchant_id, model_id, reminder_date;;
+GROUP BY merchant_id, reminder_date;;
   }
 
   dimension: merchant_id {
@@ -43,12 +43,6 @@ GROUP BY merchant_id, model_id, reminder_date;;
     type: date
     hidden: no
     sql: ${TABLE}.prediction_date ;;
-  }
-
-  dimension: model_id {
-    type: number
-    hidden: no
-    sql: ${TABLE}.model_id ;;
   }
 
   dimension: predictions {

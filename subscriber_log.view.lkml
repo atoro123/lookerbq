@@ -50,4 +50,8 @@ view: subscriber_log {
     type: count
     drill_fields: [id]
   }
+
+  measure: avg {
+    type: average
+  }
 }

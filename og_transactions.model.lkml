@@ -35,4 +35,8 @@ explore: ds_reorder_outcomes_log {  access_filter: {field:merchant_id
 
 explore: reorder_on_time_rate {  access_filter: {field:merchant_id
     user_attribute:merchant_id}
-  label: "Reorder On Time Rate"}
+    label: "Reorder On Time Rate - Model"}
+
+explore: reorder_on_time_rate_merchant {  access_filter: {field:merchant_id
+    user_attribute:merchant_id}
+  label: "Reorder On Time Rate - Merchant"}
