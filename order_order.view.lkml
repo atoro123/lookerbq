@@ -24,6 +24,8 @@ view: order_order {
     timeframes: [
       raw,
       time,
+      hour_of_day,
+      day_of_week,
       date,
       week,
       month,
