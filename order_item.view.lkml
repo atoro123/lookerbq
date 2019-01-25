@@ -312,4 +312,15 @@ view: order_item {
     sql: ${price} ;;
     value_format:"$#.00"
     drill_fields:[order_order.place_date,order_id,product_product.name,price]}
+
+  measure: Total_Quantity {
+    type: sum
+    sql: ${quantity} ;;
+  }
+
+  measure: Unprocessed_Revenue {
+    type: sum
+    sql: ${total_price} ;;
+    value_format_name: usd
+  }
 }

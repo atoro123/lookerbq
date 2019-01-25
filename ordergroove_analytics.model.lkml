@@ -273,7 +273,7 @@ explore: event_log {
       relationship: one_to_many
     }
     join: product_product {
-      sql_on: ${product_product.id} = ${oos_event_log.oos_pid} ;;
+      sql_on: ${product_product.id} = ${order_item.product_id} ;;
       relationship: one_to_many
     }
     join: order_placementfailure {
