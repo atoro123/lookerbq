@@ -111,7 +111,9 @@ view: order_order {
     timeframes: [
       raw,
       time,
+      hour_of_day,
       date,
+      day_of_week,
       week,
       week_of_year,
       month,
