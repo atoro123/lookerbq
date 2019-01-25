@@ -240,10 +240,10 @@ explore: event_log {
    from: oos_event_log
     label: "5) Event Log - OOS"
     join: customer_customer {
-      sql_on: ${oos_event_log.customer_id} = ${customer_customer.id} ;;
-    }
-    access_filter: {field:customer_customer.merchant_id
-      user_attribute:merchant_id}
+    sql_on: ${oos_event_log.customer_id} = ${customer_customer.id} ;;
+        }
+      access_filter: {field:customer_customer.merchant_id
+        user_attribute:merchant_id}
 
     join: order_item {
       sql_on: ${oos_event_log.object_id} = ${order_item.id} ;;
@@ -273,7 +273,7 @@ explore: event_log {
       relationship: one_to_many
     }
     join: product_product {
-      sql_on: ${product_product.id} = ${order_item.product_id} ;;
+      sql_on: ${product_product.id} = ${subscription_subscription.product_id} ;;
       relationship: one_to_many
     }
     join: order_placementfailure {
