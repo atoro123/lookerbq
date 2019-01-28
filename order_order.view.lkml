@@ -251,6 +251,7 @@ view: order_order {
       field: status
       value: "5"
     }
+    value_format_name: usd
   }
 
   measure: order_processing {
