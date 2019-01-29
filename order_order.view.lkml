@@ -269,7 +269,8 @@ view: order_order {
   dimension: subtracted_days_for_original {
     type: number
     hidden: yes
-    sql: ${order_placementfailure.count}*3;;
+    sql: case when ${order_placementfailure.count} = 1 then 3
+    else 6 end;;
   }
 
   dimension_group: retry_original_place {

@@ -66,6 +66,7 @@ relationship: one_to_many
 
   join: order_placementfailure {
     view_label: "Order"
+    type: inner
     sql_on: ${order_order.public_id} = ${order_placementfailure.order_public_id} ;;
     relationship: one_to_one
   }
