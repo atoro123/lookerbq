@@ -25,9 +25,16 @@ explore: subscription_log {  access_filter: {field:merchant_id
 
 explore: customer_experience_log {  access_filter: {field:merchant_id
     user_attribute:merchant_id}
-
+  label: "Customer Experience Log"
+  view_label: "Customer Experience Log"
+    join: enrolled_customer_experience_log {
+      relationship: many_to_one
+      type: inner
+      view_label: "Customer Experience Log"
+      sql_on: ${customer_experience_log.merchant_user_id} = ${enrolled_customer_experience_log.merchant_user_id_test};;
+}
 }
 
 explore: ds_reorder_outcomes_log {  access_filter: {field:merchant_id
     user_attribute:merchant_id}
-    label: "Reorder Outcomes Log"}
+}

@@ -1,7 +1,6 @@
 connection: "prod_replica"
 
 include: "*.view.lkml"
-include: "*.dashboard.lookml"
 
 # include all views in this project
 # include: "my_dashboard.dashboard.lookml"   # include a LookML dashboard called my_dashboard
@@ -68,6 +67,7 @@ relationship: one_to_many
   join: order_placementfailure {
     view_label: "Order"
     sql_on: ${order_order.public_id} = ${order_placementfailure.order_public_id} ;;
+    relationship: many_to_one
   }
 
 
@@ -82,7 +82,7 @@ relationship: one_to_many
     type: left_outer
     view_label: "Customer"
     sql_on: ${customer_customer.id} = ${customer_facts.customer_id} ;;
-
+    relationship: one_to_one
   }
 
 
@@ -102,6 +102,7 @@ relationship: one_to_many
   join: subscription_monthly_summary {
     type: left_outer
     sql_on: ${subscription_monthly_summary.date_date} = ${subscription_subscription.created_date} ;;
+    relationship: many_to_many
   }
 
   join: merchant_merchant_industries {
@@ -189,6 +190,7 @@ explore: subscription_subscription {
   join: order_placementfailure {
     view_label: "Order"
     sql_on: ${order_order.public_id} = ${order_placementfailure.order_public_id} ;;
+    relationship: one_to_one
   }
   }
 
@@ -201,16 +203,19 @@ explore: customer_customer {
   join: merchant_merchant {
     view_label: "Merchant"
     sql_on: ${customer_customer.merchant_id} = ${merchant_merchant.id} ;;
+    relationship: many_to_one
   }
 
   join: experience_experiencesetting {
     view_label: "Experience Setting"
     sql_on: ${customer_customer.merchant_user_id} = ${experience_experiencesetting.merchant_user_id} AND ${merchant_merchant.public_id} = ${experience_experiencesetting.merchant_public_id};;
+    relationship: one_to_one
   }
   join: customer_facts {
     type: left_outer
     view_label: "Customer"
     sql_on: ${customer_customer.id} = ${customer_facts.customer_id} ;;
+    relationship: one_to_one
 }
 
   join: subscription_subscription {

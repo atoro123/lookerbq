@@ -25,6 +25,7 @@ explore: subscription_monthly_summary {
   access_filter: {field:subscription_monthly_summary.merchant_id
     user_attribute:merchant_id}
   join: subscriber_monthly_summary {
+    relationship: one_to_one
     type: left_outer
     sql_on: ${subscription_monthly_summary.date_date} = ${subscriber_monthly_summary.date_date} and ${subscriber_monthly_summary.merchant_id} = ${subscription_monthly_summary.merchant_id};;
   }

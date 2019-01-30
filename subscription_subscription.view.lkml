@@ -305,4 +305,9 @@ view: subscription_subscription {
 #     type: date_month
 #     sql: CURDATE() ;;
 #   }
+
+#  measure: order_result_str {
+#    type: string
+#    sql: group_concat(${order_order.status});;
+#  }
 }

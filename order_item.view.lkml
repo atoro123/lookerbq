@@ -300,7 +300,7 @@ view: order_item {
 
   measure: quickbuy_orders {
     group_label: "Reorder"
-    type: count
+    type: count_distinct
     sql: ${order_id} ;;
     filters: {field: quickbuy_item
       value: "yes"}
