@@ -24,6 +24,8 @@ view: order_order {
     timeframes: [
       raw,
       time,
+      hour_of_day,
+      day_of_week,
       date,
       week,
       month,
@@ -109,7 +111,9 @@ view: order_order {
     timeframes: [
       raw,
       time,
+      hour_of_day,
       date,
+      day_of_week,
       week,
       week_of_year,
       month,
@@ -247,6 +251,7 @@ view: order_order {
       field: status
       value: "5"
     }
+    value_format_name: usd
   }
 
   measure: order_processing {
@@ -264,7 +269,8 @@ view: order_order {
   dimension: subtracted_days_for_original {
     type: number
     hidden: yes
-    sql: ${order_placementfailure.count}*3;;
+    sql: case when ${order_placementfailure.count} = 1 then 3
+    else 6 end;;
   }
 
   dimension_group: retry_original_place {

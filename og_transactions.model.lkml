@@ -37,4 +37,8 @@ explore: customer_experience_log {  access_filter: {field:merchant_id
 
 explore: ds_reorder_outcomes_log {  access_filter: {field:merchant_id
     user_attribute:merchant_id}
-}
+    label: "Reorder Outcomes Log"}
+
+  explore: cart_log {access_filter: {field:merchant_id
+      user_attribute:merchant_id}
+    label: "Cart Log"}

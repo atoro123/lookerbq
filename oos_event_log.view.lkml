@@ -1,5 +1,6 @@
+include: "event_log.view.lkml"
 view: oos_event_log {
- extends: [oos_event_log]
+ extends: [event_log]
 
 
  dimension: id {
@@ -40,7 +41,7 @@ view: oos_event_log {
   }
 
   measure: Customer_Affected {
-    type: count
+    type: count_distinct
     label: "Customers Affected"
     sql: ${customer_id} ;;
   }

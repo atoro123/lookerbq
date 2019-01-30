@@ -282,6 +282,11 @@ view: subscription_subscription {
     drill_fields: [customer_id,customer_customer.merchant_user_id,count]
   }
 
+  measure: Total_Quantity {
+    type: sum
+    sql: ${quantity} ;;
+  }
+
   dimension: Subscription_lifetime {
     type: number
     hidden: yes

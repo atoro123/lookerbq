@@ -66,8 +66,9 @@ relationship: one_to_many
 
   join: order_placementfailure {
     view_label: "Order"
+    type: inner
     sql_on: ${order_order.public_id} = ${order_placementfailure.order_public_id} ;;
-    relationship: many_to_one
+    relationship: one_to_one
   }
 
 
@@ -83,7 +84,7 @@ relationship: one_to_many
     view_label: "Customer"
     sql_on: ${customer_customer.id} = ${customer_facts.customer_id} ;;
     relationship: one_to_one
-  }
+}
 
 
   join: product_product {
@@ -103,7 +104,7 @@ relationship: one_to_many
     type: left_outer
     sql_on: ${subscription_monthly_summary.date_date} = ${subscription_subscription.created_date} ;;
     relationship: many_to_many
-  }
+    }
 
   join: merchant_merchant_industries {
     view_label: "Merchant"
@@ -228,10 +229,56 @@ explore: customer_customer {
 
 explore: event_log {
   label: "4) Event Log"
-  access_filter: {field:customer_customer.merchant_id
-    user_attribute:merchant_id}
+  from: event_log
   join: customer_customer {
     view_label: "Customer"
     sql_on: ${event_log.customer_id} = ${customer_customer.id};;
     relationship: many_to_one
   }}
+
+  explore: oos_event_log {
+   from: oos_event_log
+    label: "5) Event Log - OOS"
+    join: customer_customer {
+    sql_on: ${oos_event_log.customer_id} = ${customer_customer.id} ;;
+    relationship: many_to_one
+        }
+      access_filter: {field:customer_customer.merchant_id
+        user_attribute:merchant_id}
+
+    join: order_item {
+      sql_on: ${oos_event_log.object_id} = ${order_item.id} ;;
+      relationship: many_to_one
+    }
+    join: subscription_subscription {
+      sql_on: ${order_item.subscription_id} = ${subscription_subscription.id} ;;
+      relationship: many_to_one
+    }
+
+    join: order_order {
+      sql_on: ${order_order.id} = ${order_item.order_id};;
+      relationship: many_to_one
+    }
+    join: customer_facts {
+      sql_on: ${oos_event_log.customer_id} = ${customer_facts.customer_id} ;;
+      relationship: many_to_one
+    }
+    join: order_offer {
+      from: offer_offer
+      sql_on: ${order_offer.id} = ${order_item.offer_id}  ;;
+      relationship: one_to_many
+    }
+    join: subscription_offer {
+      from: offer_offer
+      sql_on: ${subscription_offer.id} = ${subscription_subscription.offer_id};;
+      relationship: one_to_many
+    }
+    join: product_product {
+      sql_on: ${product_product.id} = ${subscription_subscription.product_id} ;;
+      relationship: one_to_many
+    }
+    join: order_placementfailure {
+      sql_on: ${order_order.public_id} = ${order_placementfailure.order_public_id} ;;
+      relationship: one_to_one
+    }
+  }
