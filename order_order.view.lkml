@@ -240,7 +240,7 @@ view: order_order {
 
   measure: order_revenue {
     type: sum
-    value_format: "$#.00"
+    value_format_name: usd
     sql:  ${sub_total} ;;
   }
 
