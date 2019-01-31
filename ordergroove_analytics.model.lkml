@@ -118,6 +118,11 @@ relationship: one_to_many
     relationship: one_to_many
   }
 
+  join: customer_address {
+    view_label: "Customer Address"
+    sql_on: ${customer_address.customer_id} = ${order_order.customer_id} ;;
+    relationship: many_to_one
+  }
 }
 
 explore: subscription_subscription {
