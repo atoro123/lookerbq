@@ -10,6 +10,7 @@ derived_table: {
       group by 2
 
        ;;
+      indexes: ["subscription_id"]
 }
 
   dimension: subscription_id {
@@ -32,11 +33,13 @@ dimension: result_str{
 
   dimension: Disengaged {
     type: yesno
+    description: "Live subscription that has had 3 failed orders in a row at some point"
     sql: ${result_str} LIKE '%3,3,3%' ;;
   }
 
   dimension: Currently_Disengaged {
     type: yesno
+    description: "Live subscription with the past 3 orders having failed"
     sql: ${result_str} LIKE '%3,3,3,1' ;;
   }
 

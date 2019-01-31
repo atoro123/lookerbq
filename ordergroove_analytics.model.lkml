@@ -84,8 +84,7 @@ relationship: one_to_many
     view_label: "Customer"
     sql_on: ${customer_customer.id} = ${customer_facts.customer_id} ;;
     relationship: one_to_one
-
-  }
+}
 
 
   join: product_product {
@@ -104,8 +103,8 @@ relationship: one_to_many
   join: subscription_monthly_summary {
     type: left_outer
     sql_on: ${subscription_monthly_summary.date_date} = ${subscription_subscription.created_date} ;;
-    relationship: many_to_one
-  }
+    relationship: many_to_many
+    }
 
   join: merchant_merchant_industries {
     view_label: "Merchant"
@@ -242,6 +241,7 @@ explore: event_log {
     label: "5) Event Log - OOS"
     join: customer_customer {
     sql_on: ${oos_event_log.customer_id} = ${customer_customer.id} ;;
+    relationship: many_to_one
         }
       access_filter: {field:customer_customer.merchant_id
         user_attribute:merchant_id}

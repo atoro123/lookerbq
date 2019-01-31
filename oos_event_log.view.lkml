@@ -41,7 +41,7 @@ view: oos_event_log {
   }
 
   measure: Customer_Affected {
-    type: count
+    type: count_distinct
     label: "Customers Affected"
     sql: ${customer_id} ;;
   }

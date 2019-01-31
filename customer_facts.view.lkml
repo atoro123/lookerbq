@@ -13,6 +13,7 @@ view: customer_facts {
       group by 1
 
        ;;
+      indexes: ["customer_id"]
   }
 
   measure: customer_creation_count {
