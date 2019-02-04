@@ -4,6 +4,7 @@ view: offer_offer {
   dimension: id {
     primary_key: yes
     hidden: yes
+    label: "Offer ID"
     type: number
     sql: ${TABLE}.id ;;
   }

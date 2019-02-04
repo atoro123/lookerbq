@@ -3,6 +3,7 @@ view: subscription_subscription {
 
   dimension: id {
     primary_key: yes
+    label: "Subscription ID"
     type: number
     sql: ${TABLE}.id ;;
   }
@@ -13,6 +14,7 @@ view: subscription_subscription {
   }
 
   dimension: cancel_reason_code_id {
+    hidden: yes
     type: number
     sql: ${TABLE}.cancel_reason_code_id ;;
   }
@@ -32,6 +34,7 @@ view: subscription_subscription {
   }
 
   dimension: club_id {
+    hidden: yes
     type: number
     sql: ${TABLE}.club_id ;;
   }
@@ -63,6 +66,7 @@ view: subscription_subscription {
   }
 
   dimension: customer_rep_id {
+    hidden: yes
     type: number
     sql: ${TABLE}.customer_rep_id ;;
   }
@@ -113,6 +117,7 @@ view: subscription_subscription {
   }
 
   dimension: payment_id {
+    hidden: yes
     type: number
     sql: ${TABLE}.payment_id ;;
   }
@@ -123,6 +128,7 @@ view: subscription_subscription {
   }
 
   dimension: product_attribute_id {
+    hidden: yes
     type: number
     sql: ${TABLE}.product_attribute_id ;;
   }
@@ -148,16 +154,19 @@ view: subscription_subscription {
   }
 
   dimension: sequence {
+    hidden: yes
     type: number
     sql: ${TABLE}.sequence ;;
   }
 
   dimension: session_id {
+    hidden: yes
     type: string
     sql: ${TABLE}.session_id ;;
   }
 
   dimension: shipping_address_id {
+    hidden: yes
     type: number
     sql: ${TABLE}.shipping_address_id ;;
   }

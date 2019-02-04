@@ -287,7 +287,8 @@ view: order_order {
       month_name,
       day_of_month,
       quarter,
-      year
+      year,
+      day_of_week
     ]
     sql: DATE_SUB(${place_date},INTERVAL ${subtracted_days_for_original} DAY) ;;
 
