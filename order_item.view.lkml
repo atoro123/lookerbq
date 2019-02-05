@@ -312,4 +312,43 @@ view: order_item {
     sql: ${price} ;;
     value_format:"$#.00"
     drill_fields:[order_order.place_date,order_id,product_product.name,price]}
+
+  measure: Total_Quantity {
+    type: sum
+    sql: ${quantity} ;;
+  }
+
+  measure: Unprocessed_Revenue {
+    type: sum
+    sql: ${total_price} ;;
+    value_format_name: usd
+  }
+
+  dimension_group: today {
+    type: time
+    hidden: yes
+    timeframes: [day_of_month, month, month_num, date, raw]
+    sql: current_date ;;
+  }
+
+  dimension: days_in_month {
+    hidden: yes
+    type: number
+    sql:  CASE
+          WHEN ${today_month_num} IN (4,6,9,11) THEN 30
+          WHEN ${today_month_num} = 2 THEN 28
+          ELSE 31
+          END ;;
+  }
+
+  measure: total_recurring_revenue_forecast_this_month {
+    required_fields: [order_order.place_month]
+    label: "Sales Forecast This Month"
+    type: number
+    value_format_name: "usd_0"
+    sql: case when ${order_order.place_month} = ${today_month}
+         then ((sum(${total_price}) / max(${today_day_of_month})) * ${days_in_month}) - sum(${total_price})
+         else null
+         end ;;
+  }
 }

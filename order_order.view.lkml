@@ -24,6 +24,8 @@ view: order_order {
     timeframes: [
       raw,
       time,
+      hour_of_day,
+      day_of_week,
       date,
       week,
       month,
@@ -109,7 +111,9 @@ view: order_order {
     timeframes: [
       raw,
       time,
+      hour_of_day,
       date,
+      day_of_week,
       week,
       week_of_year,
       month,
@@ -236,7 +240,7 @@ view: order_order {
 
   measure: order_revenue {
     type: sum
-    value_format: "$#.00"
+    value_format_name: usd
     sql:  ${sub_total} ;;
   }
 
@@ -247,6 +251,7 @@ view: order_order {
       field: status
       value: "5"
     }
+    value_format_name: usd
   }
 
   measure: order_processing {
@@ -264,7 +269,8 @@ view: order_order {
   dimension: subtracted_days_for_original {
     type: number
     hidden: yes
-    sql: ${order_placementfailure.count}*3;;
+    sql: case when ${order_placementfailure.count} = 1 then 3
+    else 6 end;;
   }
 
   dimension_group: retry_original_place {
@@ -281,7 +287,8 @@ view: order_order {
       month_name,
       day_of_month,
       quarter,
-      year
+      year,
+      day_of_week
     ]
     sql: DATE_SUB(${place_date},INTERVAL ${subtracted_days_for_original} DAY) ;;
 

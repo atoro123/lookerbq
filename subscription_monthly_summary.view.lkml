@@ -120,7 +120,7 @@ measure: average_month_base {
 }
 measure: churn_rate {
   type:  number
-  sql:  (${month_cancels}/${average_month_base})*100
+  sql:  (${month_cancels}/${average_month_base})
   ;;
   value_format: "0.00%"
 }

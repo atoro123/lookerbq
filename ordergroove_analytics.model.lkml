@@ -66,6 +66,7 @@ relationship: one_to_many
 
   join: order_placementfailure {
     view_label: "Order"
+    type: inner
     sql_on: ${order_order.public_id} = ${order_placementfailure.order_public_id} ;;
     relationship: one_to_one
   }
@@ -83,8 +84,7 @@ relationship: one_to_many
     view_label: "Customer"
     sql_on: ${customer_customer.id} = ${customer_facts.customer_id} ;;
     relationship: one_to_one
-
-  }
+}
 
 
   join: product_product {
@@ -103,8 +103,8 @@ relationship: one_to_many
   join: subscription_monthly_summary {
     type: left_outer
     sql_on: ${subscription_monthly_summary.date_date} = ${subscription_subscription.created_date} ;;
-    relationship: many_to_one
-  }
+    relationship: many_to_many
+    }
 
   join: merchant_merchant_industries {
     view_label: "Merchant"
@@ -118,6 +118,11 @@ relationship: one_to_many
     relationship: one_to_many
   }
 
+  join: customer_address {
+    view_label: "Customer Address"
+    sql_on: ${customer_address.customer_id} = ${order_order.customer_id} ;;
+    relationship: many_to_one
+  }
 }
 
 explore: subscription_subscription {
@@ -238,12 +243,13 @@ explore: event_log {
 
   explore: oos_event_log {
    from: oos_event_log
-    label: "5)Event Log - OOS"
+    label: "5) Event Log - OOS"
     join: customer_customer {
-      sql_on: ${oos_event_log.customer_id} = ${customer_customer.id} ;;
-    }
-    access_filter: {field:customer_customer.merchant_id
-      user_attribute:merchant_id}
+    sql_on: ${oos_event_log.customer_id} = ${customer_customer.id} ;;
+    relationship: many_to_one
+        }
+      access_filter: {field:customer_customer.merchant_id
+        user_attribute:merchant_id}
 
     join: order_item {
       sql_on: ${oos_event_log.object_id} = ${order_item.id} ;;
@@ -273,7 +279,7 @@ explore: event_log {
       relationship: one_to_many
     }
     join: product_product {
-      sql_on: ${product_product.id} = ${oos_event_log.oos_pid} ;;
+      sql_on: ${product_product.id} = ${subscription_subscription.product_id} ;;
       relationship: one_to_many
     }
     join: order_placementfailure {

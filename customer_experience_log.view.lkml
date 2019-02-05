@@ -91,6 +91,8 @@ view: customer_experience_log {
   measure: Unenrollments {
     type: count_distinct
     sql: case when enabled = 0 AND feature_id = 39 THEN merchant_user_id END ;;
+   filters: {field:enrolled_customer_experience_log.ever_enrolled
+      value:"yes"}
     drill_fields: [logged_date,merchant_user_id]
     description: "Unenrolled from SMS messaging"
   }

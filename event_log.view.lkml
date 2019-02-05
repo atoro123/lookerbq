@@ -79,6 +79,7 @@ view: event_log {
     sql: ${TABLE}.viewed ;;
   }
 
+
   measure: action_count {
     type: count_distinct
     sql: ${object_id} ;;
