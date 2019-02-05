@@ -49,7 +49,8 @@ view: subscription_subscription {
       month,
       month_name,
       quarter,
-      year
+      year,
+      day_of_month
     ]
     sql: ${TABLE}.created ;;
   }
