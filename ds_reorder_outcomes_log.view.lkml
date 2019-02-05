@@ -91,7 +91,7 @@ view: ds_reorder_outcomes_log {
 
   dimension: 7_day_reminder_response {
     type: yesno
-    sql:CASE WHEN ABS(DATEDIFF(${ds_reorder_streaming_decision_log.reminder_date}, ${logged_date})) <= 7 THEN 1 ELSE 0 END ;;
+    sql:CASE WHEN ABS(DATEDIFF(${ds_reorder_streaming_decision_log.reminder_date_date}, ${logged_date})) <= 7 THEN 1 ELSE 0 END ;;
   }
 
   measure: on_time_predictions {

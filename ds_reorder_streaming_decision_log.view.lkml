@@ -110,7 +110,7 @@ view: ds_reorder_streaming_decision_log {
     sql: ${TABLE}.remind_today ;;
   }
 
-  dimension_group: reminder {
+  dimension_group: reminder_date {
     type: time
     timeframes: [
       raw,
@@ -131,7 +131,7 @@ view: ds_reorder_streaming_decision_log {
 
   dimension: is_on_time {
     type: yesno
-    sql: CASE WHEN (${ds_reorder_outcomes_log.outcome_type} IN ('responded yes', 'external_purchase') AND ABS(DATEDIFF(${reminder_date},${ds_reorder_outcomes_log.logged_date})) <= 7) THEN (1) ELSE (0) END ;;
+    sql: CASE WHEN (${ds_reorder_outcomes_log.outcome_type} IN ('responded yes', 'external_purchase') AND ABS(DATEDIFF(${reminder_date_date},${ds_reorder_outcomes_log.logged_date})) <= 7) THEN (1) ELSE (0) END ;;
   }
 
   dimension: merchant_id {
