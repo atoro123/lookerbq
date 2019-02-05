@@ -30,13 +30,23 @@ explore: customer_experience_log {  access_filter: {field:merchant_id
 
 explore: ds_reorder_outcomes_log {  access_filter: {field:merchant_id
     user_attribute:merchant_id}
-    label: "Reorder Outcomes Log"}
+    label: "Reorder Outcomes Log"
+    join: ds_reorder_streaming_decision_log {
+      sql_on: ${ds_reorder_streaming_decision_log.id} = ${ds_reorder_outcomes_log.decision_id};;
+      relationship: many_to_one
+    }
+    access_filter: {field:ds_reorder_outcomes_log.merchant_id
+      user_attribute:merchant_id}
+    }
 
 
-explore: reorder_on_time_rate {  access_filter: {field:merchant_id
+explore: ds_reorder_streaming_decision_log {  access_filter: {field:merchant_id
     user_attribute:merchant_id}
-    label: "Reorder On Time Rate - Model"}
-
-explore: reorder_on_time_rate_merchant {  access_filter: {field:merchant_id
+  label: "Reorder Decisions Log"
+  join: ds_reorder_outcomes_log {
+    sql_on: ${ds_reorder_streaming_decision_log.id} = ${ds_reorder_outcomes_log.decision_id};;
+    relationship: one_to_many
+  }
+  access_filter: {field:ds_reorder_streaming_decision_log.merchant_id
     user_attribute:merchant_id}
-  label: "Reorder On Time Rate - Merchant"}
+}
