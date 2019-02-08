@@ -123,6 +123,19 @@ relationship: one_to_many
     sql_on: ${customer_address.customer_id} = ${order_order.customer_id} ;;
     relationship: many_to_one
   }
+
+
+  join: product_product_categories {
+    view_label: "Product"
+    sql_on: ${product_product.id} = ${product_product_categories.product_id} ;;
+    relationship: one_to_many
+  }
+
+  join: product_category {
+    view_label: "Product"
+    sql_on: ${product_product_categories.category_id} = ${product_category.id} ;;
+    relationship: many_to_one
+  }
 }
 
 explore: subscription_subscription {
@@ -197,6 +210,18 @@ explore: subscription_subscription {
     view_label: "Order"
     sql_on: ${order_order.public_id} = ${order_placementfailure.order_public_id} ;;
     relationship: one_to_one
+  }
+
+  join: product_product_categories {
+    view_label: "Product"
+    sql_on: ${product_product.id} = ${product_product_categories.product_id} ;;
+    relationship: one_to_many
+  }
+
+  join: product_category {
+    view_label: "Product"
+    sql_on: ${product_product_categories.category_id} = ${product_category.id} ;;
+    relationship: many_to_one
   }
   }
 

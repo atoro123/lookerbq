@@ -2,6 +2,7 @@ view: product_product {
   sql_table_name: ogv2_production.product_product ;;
 
   dimension: id {
+    label: "Product ID"
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
