@@ -315,6 +315,11 @@ view: subscription_subscription {
               when ${Subscription_lifetime} IS NULL then 'NULL'
               else 'error' end;;
   }
+
+  dimension: In_Store {
+    type: yesno
+    sql: ${offer_id} in (2309,2547,1881,1883,1674,1675,1676,1678,1914,1924,1926,1919) ;;
+  }
 #
 #   dimension: current_date {
 #     type: date_month
