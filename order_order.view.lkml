@@ -327,6 +327,38 @@ view: order_order {
       value: "1,2,3"
     }
     drill_fields: [order_details*]}
+
+  measure: successful_retry_revenue {
+    group_label: "Retry"
+    type: sum
+    value_format_name: usd
+    filters: {
+      field: status
+      value: "5"
+    }
+    filters: {
+      field: order_placementfailure.count
+      value: "1,2"
+    }
+    sql: ${sub_total} ;;
+    drill_fields: [order_details*]
+  }
+
+  measure: rejected_retry_revenue {
+    group_label: "Retry"
+    type: sum
+    value_format_name: usd
+    filters: {
+      field: status
+      value: "3"
+    }
+    filters: {
+      field: order_placementfailure.count
+      value: "3"
+    }
+    sql: ${sub_total} ;;
+    drill_fields: [order_details*]
+  }
 #
 #
 #   dimension: Last_week {
