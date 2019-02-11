@@ -356,5 +356,6 @@ view: order_item {
       type: average
       sql: ${quantity} ;;
       group_label: "Quantity"
+      value_format: "0.0"
   }
 }
