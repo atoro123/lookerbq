@@ -359,6 +359,12 @@ view: order_order {
     sql: ${sub_total} ;;
     drill_fields: [order_details*]
   }
+
+  measure: Average_Order_Value {
+    type: average
+    sql: ${total} ;;
+    value_format: "$00.00"
+  }
 #
 #
 #   dimension: Last_week {
