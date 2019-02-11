@@ -57,3 +57,7 @@ explore: ds_reorder_streaming_decision_log {  access_filter: {field:merchant_id
   access_filter: {field:ds_reorder_streaming_decision_log.merchant_id
     user_attribute:merchant_id}
 }
+
+explore: cart_log {
+
+}

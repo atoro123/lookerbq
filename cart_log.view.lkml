@@ -168,4 +168,9 @@ view: cart_log {
     sql: ${Order_Item_Total}/${count} ;;
     drill_fields: [customer_id,subscription_id, offer_id,logged_date,external_product_id,quantity,price, total,]
   }
+
+  measure: total_merchant_revenue {
+    type: sum
+    sql: ${total} ;;
+  }
 }
