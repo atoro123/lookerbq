@@ -324,6 +324,7 @@ view: subscription_subscription {
   measure: Average_Frequency {
     type: average
     sql: ${frequency_days} ;;
+    value_format: "0.0"
   }
 #
 #   dimension: current_date {
