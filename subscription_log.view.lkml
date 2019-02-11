@@ -254,4 +254,9 @@ measure: total_activation_revenue_forecast_this_month {
          else null
          end ;;
 }
+
+  dimension: In_Store {
+    type: yesno
+    sql: ${offer_id} in (2309,2547,1881,1883,1674,1675,1676,1678,1914,1924,1926,1919) ;;
+  }
 }
