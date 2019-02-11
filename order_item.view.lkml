@@ -316,6 +316,7 @@ view: order_item {
   measure: Total_Quantity {
     type: sum
     sql: ${quantity} ;;
+    group_label: "Quantity"
   }
 
   measure: Unprocessed_Revenue {
@@ -350,5 +351,10 @@ view: order_item {
          then ((sum(${total_price}) / max(${today_day_of_month})) * ${days_in_month}) - sum(${total_price})
          else null
          end ;;
+  }
+  measure: Average_Quantity {
+      type: average
+      sql: ${quantity} ;;
+      group_label: "Quantity"
   }
 }
