@@ -48,4 +48,15 @@ dimension: result_str{
     type: string
     sql: case when ${TABLE}.completed_orders >= 7 then "7+" when ${TABLE}.completed_orders is null then 0 else ${TABLE}.completed_orders end ;;
   }
+
+  dimension: Source_Completed_Orders {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.completed_orders;;
+  }
+
+  measure: Average_Completed_Orders {
+    type: average
+    sql: ${Source_Completed_Orders} ;;
+  }
 }
