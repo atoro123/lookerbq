@@ -58,6 +58,6 @@ dimension: result_str{
   measure: Average_Completed_Orders {
     type: average
     sql: ${Source_Completed_Orders} ;;
-    value_format: "#.#"
+    value_format: "#.0"
   }
 }
