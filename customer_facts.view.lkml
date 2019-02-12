@@ -93,4 +93,10 @@ view: customer_facts {
               when ${Subscriber_lifetime} IS NULL then 'NULL'
               else 'error' end;;
 }
+
+measure: Average_Subscriber_Lifetime {
+  type: average
+  sql: ${Subscriber_lifetime} ;;
+  value_format: "0.0"
+}
 }

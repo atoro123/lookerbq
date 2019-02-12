@@ -326,6 +326,12 @@ view: subscription_subscription {
     sql: ${frequency_days} ;;
     value_format: "0.0"
   }
+
+  measure: Average_Lifetime {
+    type: average
+    sql: ${Subscription_lifetime} ;;
+    value_format: "0.0"
+  }
 #
 #   dimension: current_date {
 #     type: date_month
