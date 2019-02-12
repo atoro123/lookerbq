@@ -325,6 +325,16 @@ view: order_item {
     value_format_name: usd
   }
 
+  measure: Pending_Revenue {
+    type: sum
+    sql: ${total_price} ;;
+    value_format_name: usd
+    filters: {
+      field: order_order.status
+      value: "1"
+    }
+  }
+
   dimension_group: today {
     type: time
     hidden: yes
