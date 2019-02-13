@@ -332,6 +332,19 @@ view: subscription_subscription {
     sql: ${Subscription_lifetime} ;;
     value_format: "0.0"
   }
+
+  dimension_group: Missed_Order {
+    type: time
+    timeframes: [
+      date,
+      week,
+      month,
+      quarter,
+      year
+      ]
+    sql: date_add(${cancelled_date}, INTERVAL ${frequency_days} DAY) ;;
+    drill_fields: [customer_id,customer_customer.merchant_user_id,id,product_product.name,product_product.sku,frequency_days,clean_cancel,cancelled_date,created_date,24hr_Cancel]
+  }
 #
 #   dimension: current_date {
 #     type: date_month
