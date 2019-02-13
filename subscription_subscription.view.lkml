@@ -345,6 +345,12 @@ view: subscription_subscription {
     sql: date_add(${cancelled_date}, INTERVAL ${frequency_days} DAY) ;;
     drill_fields: [customer_id,customer_customer.merchant_user_id,id,product_product.name,product_product.sku,frequency_days,clean_cancel,cancelled_date,created_date,24hr_Cancel]
   }
+
+  measure: Value {
+    type: sum
+    sql: (${product_product.price}*${quantity}) ;;
+    value_format: "$#,###"
+  }
 #
 #   dimension: current_date {
 #     type: date_month

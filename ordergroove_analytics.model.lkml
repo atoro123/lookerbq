@@ -252,7 +252,11 @@ explore: customer_customer {
   join: subscription_subscription {
       view_label: "Subscription"
       sql_on: ${customer_customer.id} = ${subscription_subscription.customer_id} ;;
-      relationship: many_to_one
+      relationship: many_to_one}
+
+    join: product_product {
+      sql_on: ${product_product.id} = ${subscription_subscription.product_id} ;;
+      relationship: one_to_many
 
     }
 }
