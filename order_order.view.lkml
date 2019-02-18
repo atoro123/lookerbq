@@ -365,6 +365,12 @@ view: order_order {
     sql: ${total} ;;
     value_format: "$00.00"
   }
+
+  measure: days {
+  label: "Days into Fiscal Year"
+  type: number
+  sql: DATEDIFF(curdate(),'2019-02-01');;
+  }
 #
 #
 #   dimension: Last_week {
