@@ -18,6 +18,12 @@ include: "*.view.lkml"                       # include all views in this project
 #   }
 # }
 
+datagroup: daily_refresh {
+  sql_trigger: SELECT CURDATE() ;;
+  max_cache_age: "24 hours"
+}
+persist_for: "24 hours"
+
 explore: subscription_log {  access_filter: {field:merchant_id
     user_attribute:merchant_id}
 
