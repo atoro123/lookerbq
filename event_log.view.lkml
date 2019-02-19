@@ -15,6 +15,7 @@ view: event_log {
   dimension: email_html {
     type: string
     sql: ${TABLE}.email_html ;;
+    hidden: yes
   }
 
   dimension_group: logged {
