@@ -365,6 +365,41 @@ view: order_order {
     sql: ${total} ;;
     value_format: "$00.00"
   }
+
+  measure: days {
+  label: "Days into Fiscal Year"
+  type: number
+  sql: DATEDIFF(curdate(),'2019-02-01');;
+  }
+
+  dimension: 140_error {
+    type: yesno
+    hidden: yes
+    sql: ${rejected_message} like '%140%';;
+  }
+
+  measure: rejected_orders {
+    hidden: yes
+    type: count
+    filters: {
+      field: status
+      value: "3,14"}
+    drill_fields: [id,order_merchant_id,customer_id,customer_customer.merchant_user_id,status,sub_total,rejected_reason,rejected_message,place_date]
+  }
+
+  measure: 140_errors {
+    hidden: yes
+    type: count
+    filters: {field:140_error
+              value: "yes"
+  }}
+
+  measure: Rejected_eligible_for_Retry{
+    type: number
+    sql: ${140_errors}/${rejected_orders} ;;
+    value_format: "0.0%"
+  }
+
 #
 #
 #   dimension: Last_week {
