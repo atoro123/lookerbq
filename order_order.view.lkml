@@ -254,6 +254,25 @@ view: order_order {
     value_format_name: usd
   }
 
+  measure: skipped_orders_revenue {
+    type: sum
+    sql:  ${sub_total} ;;
+    filters: {
+      field: status
+      value: "4"
+    }
+    value_format_name: usd
+  }
+
+  measure: skipped_orders {
+    type: count
+    filters: {
+      field: status
+      value: "4"
+    }
+    drill_fields: [order_details*]
+  }
+
   measure: order_processing {
     type: number
     sql: ${completed_orders}/${attempted_orders};;

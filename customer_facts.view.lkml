@@ -99,4 +99,44 @@ measure: Average_Subscriber_Lifetime {
   sql: ${Subscriber_lifetime} ;;
   value_format: "0.0"
 }
+
+measure: distinct {
+  hidden: yes
+  type: count_distinct
+  sql: ${customer_id} ;;
+}
+
+measure: LTV {
+  hidden: yes
+  type: sum
+  sql:  ${order_order.sub_total} ;;
+  filters: {
+    field: order_order.status
+    value: "5"
+  }
+  value_format_name: usd
+}
+
+  measure: AVG_LTV {
+    type: number
+    sql:  ${LTV}/${distinct} ;;
+    value_format_name: usd
+  }
+
+  measure: Orders {
+    type: count_distinct
+    hidden: yes
+    sql:  ${order_order.id} ;;
+    filters: {
+      field: order_order.status
+      value: "5"
+    }
+    value_format: "0"
+  }
+
+  measure: AVG_Orders {
+    type: number
+    sql:  ${Orders}/${distinct} ;;
+    value_format: "0.0"
+  }
 }

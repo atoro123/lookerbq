@@ -257,8 +257,40 @@ explore: customer_customer {
     join: product_product {
       sql_on: ${product_product.id} = ${subscription_subscription.product_id} ;;
       relationship: one_to_many
+}
+  join: order_order {
+    view_label: "Order"
+    sql_on: ${customer_facts.customer_id} = ${order_order.customer_id} ;;
+    relationship: many_to_one
 
-    }
+  }
+  join: order_item {
+    view_label: "Order Item"
+    sql_on: ${order_order.id} = ${order_item.order_id} ;;
+    relationship: one_to_many
+    type: left_outer
+  }
+
+  join: order_placementfailure {
+    view_label: "Order"
+    sql_on: ${order_order.public_id} = ${order_placementfailure.order_public_id} ;;
+    relationship: one_to_one
+  }
+
+  join: subscription_offer {
+    view_label: "Subscription"
+    from: offer_offer
+    sql_on: ${subscription_offer.id} = ${subscription_subscription.offer_id};;
+    relationship: one_to_many
+  }
+
+  join: order_offer {
+    view_label: "Order Item"
+    from: offer_offer
+    sql_on: ${order_offer.id} = ${order_item.offer_id}  ;;
+    relationship: one_to_many
+
+  }
 }
 
 explore: event_log {

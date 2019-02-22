@@ -351,6 +351,23 @@ view: subscription_subscription {
     sql: (${product_product.price}*${quantity}) ;;
     value_format: "$#,###"
   }
+
+  measure: Orders {
+    type: count_distinct
+    hidden: yes
+    sql:  ${order_order.id} ;;
+    filters: {
+      field: order_order.status
+      value: "5"
+    }
+    value_format: "0"
+  }
+
+  measure: AVG_Orders {
+    type: number
+    sql: ${Orders}/${count} ;;
+    value_format: "0.0"
+  }
 #
 #   dimension: current_date {
 #     type: date_month
