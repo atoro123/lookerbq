@@ -400,6 +400,11 @@ view: order_order {
     value_format: "0.0%"
   }
 
+  measure: Max_Order_Date {
+    type: date
+    sql: max(${place_date});;
+  }
+
 #
 #
 #   dimension: Last_week {
