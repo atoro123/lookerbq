@@ -31,7 +31,8 @@ view: customer_experience_log {
       week,
       month,
       quarter,
-      year
+      year,
+      day_of_month
     ]
     sql: ${TABLE}.logged ;;
   }
