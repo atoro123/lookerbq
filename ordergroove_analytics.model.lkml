@@ -401,3 +401,56 @@ explore: event_log {
       relationship: one_to_one
     }
     }
+
+  explore: order_event_log {
+    from:  order_event_log
+    label: "6) Event Log - Order"
+    join: customer_customer {
+      sql_on: ${order_event_log.customer_id} = ${customer_customer.id} ;;
+      relationship: many_to_one
+    }
+    access_filter: {field:customer_customer.merchant_id
+      user_attribute:merchant_id}
+
+    join: order_order {
+      sql_on: ${order_order.id} = ${order_event_log.object_id} ;;
+      relationship: one_to_many
+    }
+
+    join: order_item {
+      sql_on: ${order_item.order_id} = ${order_order.id} ;;
+      relationship: one_to_many
+    }
+
+    join: customer_facts {
+      sql_on: ${customer_customer.id} = ${customer_facts.customer_id} ;;
+      relationship: one_to_one
+    }
+
+    join: order_offer {
+      from: offer_offer
+      sql_on: ${order_offer.id} = ${order_item.offer_id}  ;;
+      relationship: one_to_many
+    }
+
+    join: subscription_subscription {
+      sql_on: ${subscription_subscription.id} = ${order_item.subscription_id} ;;
+      relationship: many_to_one
+    }
+
+    join: subscription_offer {
+      from: offer_offer
+      sql_on: ${subscription_offer.id} = ${subscription_subscription.offer_id};;
+      relationship: one_to_many
+    }
+
+    join: order_placementfailure {
+      sql_on: ${order_order.public_id} = ${order_placementfailure.order_public_id} ;;
+      relationship: one_to_one
+    }
+
+    join: product_product {
+      sql_on: ${product_product.id} = ${subscription_subscription.product_id} ;;
+      relationship: many_to_one
+    }
+  }
