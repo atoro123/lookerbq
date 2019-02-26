@@ -28,7 +28,8 @@ view: subscription_subscription {
       week,
       month,
       quarter,
-      year
+      year,
+      day_of_month
     ]
     sql: ${TABLE}.cancelled ;;
   }
