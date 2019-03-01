@@ -25,11 +25,13 @@ datagroup: daily_refresh {
 persist_for: "24 hours"
 
 explore: analytics_conversion {  access_filter: {field:merchant_id
-    user_attribute:merchant_id}}
+    user_attribute:merchant_id}
+    persist_with: daily_refresh}
 
 explore: subscription_monthly_summary {
   access_filter: {field:subscription_monthly_summary.merchant_id
     user_attribute:merchant_id}
+  persist_with: daily_refresh
   join: subscriber_monthly_summary {
     relationship: one_to_one
     type: left_outer

@@ -26,6 +26,7 @@ persist_for: "24 hours"
 
 explore: subscription_log {  access_filter: {field:merchant_id
     user_attribute:merchant_id}
+    persist_with: daily_refresh
 
 }
 
@@ -33,6 +34,7 @@ explore: customer_experience_log {  access_filter: {field:merchant_id
     user_attribute:merchant_id}
   label: "Customer Experience Log"
   view_label: "Customer Experience Log"
+    persist_with: daily_refresh
     join: enrolled_customer_experience_log {
       relationship: many_to_one
       type: inner
@@ -44,6 +46,7 @@ explore: customer_experience_log {  access_filter: {field:merchant_id
 explore: ds_reorder_outcomes_log {  access_filter: {field:merchant_id
     user_attribute:merchant_id}
     label: "Reorder Outcomes Log"
+    persist_with: daily_refresh
     join: ds_reorder_streaming_decision_log {
       sql_on: ${ds_reorder_streaming_decision_log.id} = ${ds_reorder_outcomes_log.decision_id};;
       relationship: many_to_one
@@ -56,6 +59,7 @@ explore: ds_reorder_outcomes_log {  access_filter: {field:merchant_id
 explore: ds_reorder_streaming_decision_log {  access_filter: {field:merchant_id
     user_attribute:merchant_id}
   label: "Reorder Decisions Log"
+    persist_with: daily_refresh
   join: ds_reorder_outcomes_log {
     sql_on: ${ds_reorder_streaming_decision_log.id} = ${ds_reorder_outcomes_log.decision_id};;
     relationship: one_to_many

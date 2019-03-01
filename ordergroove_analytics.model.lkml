@@ -136,6 +136,12 @@ relationship: one_to_many
     sql_on: ${product_product_categories.category_id} = ${product_category.id} ;;
     relationship: many_to_one
   }
+
+  join: experience_experiencesetting {
+    view_label: "Experience Setting"
+    sql_on: ${customer_customer.merchant_user_id} = ${experience_experiencesetting.merchant_user_id} AND ${merchant_merchant.public_id} = ${experience_experiencesetting.merchant_public_id};;
+    relationship: one_to_one
+  }
 }
 
 explore: subscription_subscription {
@@ -223,11 +229,19 @@ explore: subscription_subscription {
     sql_on: ${product_product_categories.category_id} = ${product_category.id} ;;
     relationship: many_to_one
   }
+
+
+  join: experience_experiencesetting {
+    view_label: "Experience Setting"
+    sql_on: ${customer_customer.merchant_user_id} = ${experience_experiencesetting.merchant_user_id} AND ${merchant_merchant.public_id} = ${experience_experiencesetting.merchant_public_id};;
+    relationship: one_to_one
+  }
   }
 
 explore: customer_customer {
   label: "3) Customers"
   view_label: "Customer"
+  persist_with: daily_refresh
   access_filter: {field:merchant_id
     user_attribute:merchant_id}
 
