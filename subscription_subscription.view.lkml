@@ -380,6 +380,11 @@ view: subscription_subscription {
     type: string
     sql: case when ${merchant_id} = 76 then left(right(${extra_data},28),6) else null end ;;
   }
+
+  measure: susbcription_price {
+    type: sum
+    sql: ${price} ;;
+  }
 #
 #   dimension: current_date {
 #     type: date_month
