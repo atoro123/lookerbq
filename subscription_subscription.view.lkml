@@ -372,13 +372,13 @@ view: subscription_subscription {
 
   dimension: store_id {
     type: string
-    sql: case when ${merchant_id} = 76 then left(right(extra_data,length(extra_data)-locate("store_id",extra_data)-11),4) else null end ;;
+    sql: case when ${merchant_id} = 76 then left(right(${extra_data},length(${extra_data})-locate("store_id",${extra_data})-11),4) else null end ;;
   }
 
 
   dimension: store_associate_id {
     type: string
-    sql: case when ${merchant_id} = 76 then left(right(extra_data,28),6) else null end ;;
+    sql: case when ${merchant_id} = 76 then left(right(${extra_data},28),6) else null end ;;
   }
 #
 #   dimension: current_date {
