@@ -172,5 +172,6 @@ view: cart_log {
   measure: total_merchant_revenue {
     type: sum
     sql: ${total} ;;
+    value_format: "$#,##0.00"
   }
 }
