@@ -384,6 +384,7 @@ view: subscription_subscription {
   measure: susbcription_price {
     type: sum
     sql: ${price} ;;
+    value_format: "$#,##0.00"
   }
 #
 #   dimension: current_date {
