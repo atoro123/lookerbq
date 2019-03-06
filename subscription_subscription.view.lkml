@@ -386,6 +386,12 @@ view: subscription_subscription {
     sql: ${price} ;;
     value_format: "$#,##0.00"
   }
+
+  dimension: New_Existing {
+    label: "New"
+    type: yesno
+    sql:${created_date} = ${customer_facts.created_date};;
+  }
 #
 #   dimension: current_date {
 #     type: date_month
