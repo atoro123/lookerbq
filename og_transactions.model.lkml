@@ -71,3 +71,9 @@ explore: ds_reorder_streaming_decision_log {  access_filter: {field:merchant_id
 explore: cart_log {
 
 }
+
+explore: order_item_log {access_filter: {field:merchant_id
+    user_attribute:merchant_id}
+  persist_with: daily_refresh
+
+}
