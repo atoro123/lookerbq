@@ -110,4 +110,9 @@ view: order_item_log {
     type: count
     drill_fields: [id]
   }
+
+  measure: Sum_Total_Price {
+    type: sum
+    sql: ${total_price} ;;
+  }
 }
