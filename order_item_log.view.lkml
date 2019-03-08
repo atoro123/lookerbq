@@ -113,6 +113,7 @@ view: order_item_log {
 
   measure: Sum_Total_Price {
     type: sum
+    value_format: "usd"
     sql: ${total_price} ;;
   }
 }
