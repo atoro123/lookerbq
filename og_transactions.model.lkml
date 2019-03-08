@@ -37,7 +37,6 @@ explore: customer_experience_log {  access_filter: {field:merchant_id
     persist_with: daily_refresh
     join: enrolled_customer_experience_log {
       relationship: many_to_one
-      type: inner
       view_label: "Customer Experience Log"
       sql_on: ${customer_experience_log.merchant_user_id} = ${enrolled_customer_experience_log.merchant_user_id_test};;
 }
