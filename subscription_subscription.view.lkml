@@ -56,6 +56,22 @@ view: subscription_subscription {
     sql: ${TABLE}.created ;;
   }
 
+  dimension_group: GMT_created {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      month_name,
+      quarter,
+      year,
+      day_of_month
+    ]
+    sql: date_add(${TABLE}.created, INTERVAL 5 HOUR) ;;
+  }
+
   dimension: customer_id {
     type: number
     sql: ${TABLE}.customer_id ;;

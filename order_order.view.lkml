@@ -126,6 +126,27 @@ view: order_order {
     sql: ${TABLE}.place ;;
   }
 
+  dimension_group: GMT_place {
+    description: "The day that the order processes. Use this to calculate any revenue"
+    type: time
+    timeframes: [
+      raw,
+      time,
+      hour_of_day,
+      date,
+      day_of_week,
+      week,
+      week_of_year,
+      month,
+      month_num,
+      month_name,
+      day_of_month,
+      quarter,
+      year
+    ]
+    sql: DATE_ADD(${TABLE}.place, INTERVAL 5 HOUR) ;;
+  }
+
   dimension: public_id {
     type: string
     sql: ${TABLE}.public_id ;;
