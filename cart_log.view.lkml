@@ -76,6 +76,20 @@ view: cart_log {
     sql: ${TABLE}.logged ;;
   }
 
+  dimension_group: GMT_logged {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: DATE_ADD(${TABLE}.logged, INTERVAL 5 HOUR) ;;
+  }
+
   dimension: merchant_id {
     type: number
     sql: ${TABLE}.merchant_id ;;
