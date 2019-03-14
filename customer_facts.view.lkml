@@ -125,7 +125,6 @@ measure: LTV {
 
   measure: Orders {
     type: count_distinct
-    hidden: yes
     sql:  ${order_order.id} ;;
     filters: {
       field: order_order.status
