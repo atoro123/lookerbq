@@ -116,4 +116,9 @@ view: order_item_log {
     value_format_name: usd
     sql: ${total_price} ;;
   }
+
+  measure: Sum_Quantity {
+    type: sum
+    sql: ${quantity} ;;
+  }
 }
