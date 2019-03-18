@@ -217,7 +217,8 @@ view: subscription_log {
 2766,
 2771,
 2909,
-3458"}
+3458,
+4047"}
   }
   measure: Average_subscription_value {
     type: number
