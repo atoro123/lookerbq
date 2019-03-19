@@ -142,6 +142,13 @@ relationship: one_to_many
     sql_on: ${customer_customer.merchant_user_id} = ${experience_experiencesetting.merchant_user_id} AND ${merchant_merchant.public_id} = ${experience_experiencesetting.merchant_public_id};;
     relationship: one_to_one
   }
+
+  join: order_rejection {
+    type: left_outer
+    view_label: "1st Rejection"
+    sql_on: ${order_rejection.customer_id} = ${order_order.customer_id} ;;
+    relationship: many_to_one
+  }
 }
 
 explore: subscription_subscription {
