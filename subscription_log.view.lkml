@@ -249,9 +249,9 @@ measure: total_activation_revenue_forecast_this_month {
   required_fields: [logged_month]
   label: "Sales Forecast This Month"
   type: number
-  value_format_name: "usd_0"
+  value_format_name: usd
   sql: case when ${logged_month} = ${today_month}
-         then ((sum(${total_price}) / max(${today_day_of_month})) * ${days_in_month}) - sum(${total_price})
+         then ((${sum_total_price} / max(${today_day_of_month})) * ${days_in_month}) - ${sum_total_price}
          else null
          end ;;
 }

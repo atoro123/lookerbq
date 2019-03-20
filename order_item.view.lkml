@@ -356,7 +356,7 @@ view: order_item {
     required_fields: [order_order.place_month]
     label: "Sales Forecast This Month"
     type: number
-    value_format_name: "usd_0"
+    value_format_name: usd
     sql: case when ${order_order.place_month} = ${today_month}
          then ((sum(${total_price}) / max(${today_day_of_month})) * ${days_in_month}) - sum(${total_price})
          else null
