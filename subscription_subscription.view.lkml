@@ -408,6 +408,11 @@ view: subscription_subscription {
     type: yesno
     sql:${created_date} = ${customer_facts.created_date};;
   }
+
+  dimension: Guest_User {
+    type: yesno
+    sql: ${customer_customer.merchant_user_id} is null ;;
+  }
 #
 #   dimension: current_date {
 #     type: date_month
