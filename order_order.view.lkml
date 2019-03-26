@@ -445,6 +445,15 @@ view: order_order {
     sql: max(${place_date});;
   }
 
+  dimension: Order_Status_Name {
+    type: string
+    sql: case when ${status} = 5 then "Successful"
+          when ${status} = 4 then "Cancelled"
+          when ${status} = 3 then "Rejected"
+          when ${status} = 18 then "Retry"
+          else "Other" end;;
+  }
+
 #
 #
 #   dimension: Last_week {
