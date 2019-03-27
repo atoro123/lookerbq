@@ -269,4 +269,9 @@ measure: total_activation_revenue_forecast_this_month {
         when ${offer_id} in (3444,3445,3446,3447) then "Health Box Plus"
         Else "PDP" end;;
   }
+
+  measure: Total_Quantity {
+    type: sum
+    sql: ${quantity} ;;
+  }
 }
