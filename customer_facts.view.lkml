@@ -4,6 +4,7 @@ view: customer_facts {
     sql: select
       customer_id
       , merchant_id
+      , min(id) "Subscription"
       , min(created) "Created"
       , max(cancelled) "Cancelled"
       , max(live) "Live"
@@ -138,5 +139,10 @@ measure: LTV {
     type: number
     sql:  ${Orders}/${distinct} ;;
     value_format: "0.0"
+  }
+
+  dimension: First_Subscription_ID {
+    type: number
+    sql: ${TABLE}.Subscription ;;
   }
 }
