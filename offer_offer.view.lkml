@@ -134,7 +134,7 @@ view: offer_offer {
     drill_fields: [id, offer_name]
   }
 
-  dimension: is_IU {
+  dimension: IU_Subscription {
     type: yesno
     description: "Identify an order item as an Impulse Upsell item"
     sql:  ${offer_name} LIKE '%IU%'
