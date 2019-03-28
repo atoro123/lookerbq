@@ -133,4 +133,14 @@ view: offer_offer {
     hidden: yes
     drill_fields: [id, offer_name]
   }
+
+  dimension: is_IU {
+    type: yesno
+    description: "Identify an order item as an Impulse Upsell item"
+    sql:  ${offer_name} LIKE '%IU%'
+          or ${offer_name} LIKE '%Impulse Upsell%'
+          or ${offer_type} IN (12,13,14,19,20,23)
+          or ${subscription_subscription.subscription_type} = 'IU Replenishment';;
+
+    }
 }
