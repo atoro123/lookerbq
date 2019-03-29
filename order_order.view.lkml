@@ -445,6 +445,12 @@ view: order_order {
     sql: max(${place_date});;
   }
 
+  dimension: Rejected_Reason_Code {
+    label: "Rejected Reason Code"
+    type: number
+    sql: left(right(${rejected_message}, 5),3) ;;
+  }
+
   dimension: Order_Status_Name {
     type: string
     sql: case when ${status} = 5 then "Successful"
@@ -453,6 +459,8 @@ view: order_order {
           when ${status} = 18 then "Retry"
           else "Other" end;;
   }
+
+
 
 #
 #
