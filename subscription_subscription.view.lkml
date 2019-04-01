@@ -51,7 +51,9 @@ view: subscription_subscription {
       month_name,
       quarter,
       year,
-      day_of_month
+      day_of_month,
+      hour,
+      hour_of_day
     ]
     sql: ${TABLE}.created ;;
   }
@@ -421,6 +423,11 @@ view: subscription_subscription {
   dimension: Guest_User {
     type: yesno
     sql: ${customer_customer.merchant_user_id} is null ;;
+  }
+
+  measure: days_in_period {
+    type: count_distinct
+    sql: ${created_date} ;;
   }
 #
 #   dimension: current_date {
