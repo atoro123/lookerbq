@@ -117,6 +117,16 @@ view: ds_reorder_outcomes_log {
       value: "reminder sent,aggregate reminder sent"}
     description: "Number of remidners sent. There can be multiple products per reminder"
   }
+
+  measure: remindme {
+    type: count_distinct
+    sql: ${conversation_log_id} ;;
+    filters: {
+      field: outcome_type
+      value: "responded remindme"
+    }
+    description: "Customer resonded remind me to their SMS order reminder"
+  }
   measure: SMS_Purchase {
     type: count_distinct
     sql:  ${decision_id};;
