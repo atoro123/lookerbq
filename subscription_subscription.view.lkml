@@ -339,7 +339,7 @@ view: subscription_subscription {
   dimension: Program {
     type: string
     sql: case when ${offer_id} in (2498,2491,2492,2490,2489,2488,3724,2348,3895,2762,2750,3061) then "Coffee"
-         when ${offer_id} in (2493,2495,2494,2496,2346,2763,2751,3232,3221) then "Machine"
+         when ${offer_id} in (2493,2495,2494,2496,2346,2763,2751,3232,3221,3369,3327) then "Machine"
         when ${offer_id} in (3118,3119,3120,3448,3449) then "Health Box"
         when ${offer_id} in (3444,3445,3446,3447) then "Health Box Plus"
         Else "PDP" end;;
