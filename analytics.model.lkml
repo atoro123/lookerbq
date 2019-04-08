@@ -33,7 +33,7 @@ explore: subscription_monthly_summary {
     user_attribute:merchant_id}
   persist_with: daily_refresh
   join: subscriber_monthly_summary {
-    relationship: one_to_one
+    relationship:many_to_one
     type: left_outer
     sql_on: ${subscription_monthly_summary.date_date} = ${subscriber_monthly_summary.date_date} and ${subscriber_monthly_summary.merchant_id} = ${subscription_monthly_summary.merchant_id};;
   }
