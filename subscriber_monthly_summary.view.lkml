@@ -46,9 +46,8 @@ view: subscriber_monthly_summary {
     type: number
     sql: ${TABLE}.new ;;
   }
-  measure: total_cancels
-  {
-    type: sum
+  measure: total_cancels {
+    type: number
     sql: ${cancel} ;;
   }
   measure:total_adds  {
