@@ -460,6 +460,35 @@ view: order_order {
           else "Other" end;;
   }
 
+    dimension_group: retry_original_place_3rd_retry {
+      description: "Calculates original place date for retry. Assumes 3 days between attempts"
+      label: "3rd Retry Original Place Date"
+      type: time
+      timeframes: [
+        raw,
+        time,
+        date,
+        week,
+        week_of_year,
+        month,
+        month_num,
+        month_name,
+        day_of_month,
+        quarter,
+        year,
+        day_of_week
+      ]
+      sql: DATE_SUB(${place_date},INTERVAL ${subtracted_days_for_original_3rd} DAY) ;;
+      }
+
+      dimension: subtracted_days_for_original_3rd {
+        type: number
+        hidden: yes
+        sql: case when ${order_placementfailure.count} = 1 then 3
+        when ${order_placementfailure.count} in (2,3) then 6
+          else 9 end;;
+      }
+
 
 
 #
