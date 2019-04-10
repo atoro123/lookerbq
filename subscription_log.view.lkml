@@ -274,4 +274,12 @@ measure: total_activation_revenue_forecast_this_month {
     type: sum
     sql: ${quantity} ;;
   }
+
+  dimension: bucket_frequency {
+    type: tier
+    style: interval
+    tiers: [0,7,14,28,30,45,60,90,120,150,180,270,365]
+    sql: ${frequency_days};;
+    value_format: "0"
+  }
 }
