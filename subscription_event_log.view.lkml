@@ -13,4 +13,8 @@ dimension: Action {
   sql: ${type_id} where ${type_id} in (5,8,10,11,12,13,14,15,16,17,18,19,20,30,73);;
 }
 
+measure: Distinct_Customers {
+  type: count_distinct
+  sql: ${customer_id} ;;
+}
 }
