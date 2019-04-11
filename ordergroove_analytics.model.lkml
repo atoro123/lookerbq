@@ -312,6 +312,18 @@ explore: customer_customer {
     relationship: one_to_many
 
   }
+
+  join: merchant_merchant_industries {
+    view_label: "Merchant"
+    sql_on: ${merchant_merchant.id} = ${merchant_merchant_industries.merchant_id};;
+    relationship: one_to_one
+  }
+
+  join: merchant_industry {
+    view_label: "Merchant"
+    sql_on: ${merchant_merchant_industries.industry_id} = ${merchant_industry.id};;
+    relationship: one_to_many
+  }
 }
 
 explore: event_log {
