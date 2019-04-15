@@ -438,6 +438,11 @@ view: subscription_subscription {
     type: date_month
     sql: CURDATE() ;;
   }
+
+  dimension: current_week {
+    type: date_week
+    sql: CURDATE() ;;
+  }
 #
 #   dimension: current_date {
 #     type: date_month
