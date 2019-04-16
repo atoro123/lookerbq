@@ -378,7 +378,7 @@ view: order_order {
     }
     filters: {
       field: order_placementfailure.count
-      value: "1,2"
+      value: "1,2,3"
     }
     sql: ${sub_total} ;;
     drill_fields: [order_details*]
