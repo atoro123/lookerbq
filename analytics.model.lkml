@@ -38,3 +38,13 @@ explore: subscription_monthly_summary {
     sql_on: ${subscription_monthly_summary.date_date} = ${subscriber_monthly_summary.date_date} and ${subscriber_monthly_summary.merchant_id} = ${subscription_monthly_summary.merchant_id};;
   }
 }
+  explore: subscription_daily_summary {
+    access_filter: {field:subscription_daily_summary.merchant_id
+      user_attribute:merchant_id}
+    persist_with: daily_refresh
+join:  subscriber_daily_summary {
+  relationship: many_to_one
+  type: left_outer
+  sql_on: ${subscription_daily_summary.date_date} = ${subscriber_daily_summary.date_date} and ${subscription_daily_summary.merchant_id} = ${subscriber_daily_summary.merchant_id} ;;
+}
+  }
