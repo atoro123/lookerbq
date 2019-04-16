@@ -6,7 +6,7 @@ view: customer_facts {
       , merchant_id
       , min(id) "Subscription"
       , min(created) "Created"
-      , max(cancelled) "Cancelled"
+      , max(case when live = 0 then cancelled else null end) "Cancelled"
       , max(live) "Live"
 
       from subscription_subscription ss
@@ -50,10 +50,9 @@ view: customer_facts {
     fields: [customer_id, created_time]
   }
 
-  dimension: Live {
+  dimension: Customer_Live {
     type: yesno
     sql: ${TABLE}.Live ;;
-    hidden: yes
   }
   dimension: merchant_id {
     type: number
