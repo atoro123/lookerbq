@@ -310,7 +310,10 @@ view: order_order {
     type: number
     hidden: yes
     sql: case when ${order_placementfailure.count} = 1 then 3
-    else 6 end;;
+    when ${order_placementfailure.count} = 2 then 6
+    when ${order_placementfailure.count} = 3 and ${status} = 3 then 6
+    when ${order_placementfailure.count} = 3 and ${status} = 5 then 9
+    else 9 end;;
   }
 
   dimension_group: retry_original_place {
@@ -364,7 +367,7 @@ view: order_order {
     }
     filters: {
       field: order_placementfailure.count
-      value: "1,2,3"
+      value: "1,2,3,4"
     }
     drill_fields: [order_details*]}
 
@@ -394,7 +397,7 @@ view: order_order {
     }
     filters: {
       field: order_placementfailure.count
-      value: "3"
+      value: "3,4"
     }
     sql: ${sub_total} ;;
     drill_fields: [order_details*]
