@@ -398,7 +398,7 @@ view: subscription_subscription {
     sql: case when ${merchant_id} = 76 then convert(left(right(${extra_data},length(${extra_data})-locate("store_id",${extra_data})-11),4), SIGNED)
     when ${merchant_id} = 113 then right(left(${merchant_order_id}, 8 ),4)
     when ${merchant_id} = 127 then right(left(${extra_data}, 23 ),5)
-    when ${merchant_id} = 210 then right(left(${extra_data},LOCATE('store_id',extra_data)+15),3) else null end ;;
+    when ${merchant_id} = 210 then right(left(${extra_data},LOCATE('store_id',${extra_data})+15),3) else null end ;;
   }
 
 
