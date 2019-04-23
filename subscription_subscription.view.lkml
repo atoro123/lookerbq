@@ -253,7 +253,7 @@ view: subscription_subscription {
     when left(${cancel_reason},2) = '19' then 'Not enough choice'
     when left(${cancel_reason},2) = '20' then 'Relocating'
     when left(${cancel_reason},2) = '21' then 'Switching to Electric Shaving'
-    when left(${cancel_reason},2) = '22' then 'Product Change'
+    when left(${cancel_reason},2) = '22' then 'Product Change to Another Purina Product'
     when left(${cancel_reason},2) = '23' then 'Pet Passed'
     when left(${cancel_reason},2) = '24' then 'Allergic Reaction to Product'
     when left(${cancel_reason},2) = '25' then 'Online Management Issue'
