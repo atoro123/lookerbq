@@ -487,3 +487,11 @@ explore: event_log {
       relationship: many_to_one
     }
   }
+
+  explore: product_product {
+    label: "7) Product Feed"
+    join: merchant_merchant {
+      sql_on: ${merchant_merchant.id} = ${product_product.merchant_id} ;;
+      relationship: many_to_one
+    }
+  }
