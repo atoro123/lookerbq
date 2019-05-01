@@ -448,6 +448,11 @@ view: order_order {
     sql: max(${place_date});;
   }
 
+    measure: Max_Completed__Order_Date {
+      type: date
+      sql: MAX(CASE WHEN (${status}  = 5) THEN (DATE(${place_date})) ELSE NULL END);;
+    }
+
   dimension: Rejected_Reason_Code {
     label: "Rejected Reason Code"
     type: number
