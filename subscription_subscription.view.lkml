@@ -71,7 +71,23 @@ view: subscription_subscription {
       year,
       day_of_month
     ]
-    sql: date_add(${TABLE}.created, INTERVAL 5 HOUR) ;;
+    sql: date_add(${TABLE}.created, INTERVAL 4 HOUR) ;;
+  }
+
+  dimension_group: GMT_cancelled {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      month_name,
+      quarter,
+      year,
+      day_of_month
+    ]
+    sql: date_add(${TABLE}.cancelled, INTERVAL 4 HOUR) ;;
   }
 
   dimension: customer_id {
