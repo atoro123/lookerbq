@@ -71,7 +71,23 @@ view: subscription_subscription {
       year,
       day_of_month
     ]
-    sql: date_add(${TABLE}.created, INTERVAL 5 HOUR) ;;
+    sql: date_add(${TABLE}.created, INTERVAL 4 HOUR) ;;
+  }
+
+  dimension_group: GMT_cancelled {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      month_name,
+      quarter,
+      year,
+      day_of_month
+    ]
+    sql: date_add(${TABLE}.cancelled, INTERVAL 4 HOUR) ;;
   }
 
   dimension: customer_id {
@@ -345,7 +361,7 @@ view: subscription_subscription {
     sql: case when ${offer_id} in (2498,2491,2492,2490,2489,2488,3724,2348,3895,2762,2750,3061) then "Coffee"
          when ${offer_id} in (2493,2495,2494,2496,2346,2763,2751,3232,3221,3369,3327) then "Machine"
         when ${offer_id} in (3118,3119,3120,3448,3449) then "Health Box"
-        when ${offer_id} in (3444,3445,3446,3447) then "Health Box Plus"
+        when ${offer_id} in (3443,3444,3445,3446,3447) then "Health Box Plus"
         Else "PDP" end;;
   }
 
