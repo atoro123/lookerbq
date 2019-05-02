@@ -48,3 +48,10 @@ join:  subscriber_daily_summary {
   sql_on: ${subscription_daily_summary.date_date} = ${subscriber_daily_summary.date_date} and ${subscription_daily_summary.merchant_id} = ${subscriber_daily_summary.merchant_id} ;;
 }
   }
+
+explore: analytics_summary {
+  access_filter: {field:analytics_summary.merchant_id
+    user_attribute:merchant_id
+}
+  persist_with: daily_refresh
+  }
