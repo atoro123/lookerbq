@@ -84,6 +84,7 @@ view: analytics_summary {
 
   measure: Active_Value {
     type: number
+    value_format_name: usd
     sql: ${active_subscription_value} ;;
   }
 }
