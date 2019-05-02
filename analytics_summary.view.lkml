@@ -81,4 +81,9 @@ view: analytics_summary {
     type: count
     drill_fields: [id]
   }
+
+  measure: Active_Value {
+    type: number
+    sql: ${active_subscription_value} ;;
+  }
 }
