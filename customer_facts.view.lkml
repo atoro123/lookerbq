@@ -94,6 +94,24 @@ view: customer_facts {
     sql: ${TABLE}.Cancelled;;
  }
 
+  dimension_group: GMT_Cancelled {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      month_name,
+      quarter,
+      year,
+      day_of_month
+    ]
+    label: "GMT Customer Cancellation"
+    description: "last date that a customer unsubscribed"
+    sql: date_add(${TABLE}.Cancelled, INTERVAL 4 HOUR) ;;
+  }
+
   dimension: Subscriber_lifetime {
     type: number
     hidden: yes
