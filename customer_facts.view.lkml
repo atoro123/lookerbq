@@ -46,6 +46,24 @@ view: customer_facts {
     sql: ${TABLE}.Created ;;
   }
 
+  dimension_group: GMT_created {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      month_name,
+      quarter,
+      year,
+      day_of_month
+    ]
+    label: "GMT Customer Creation"
+    description: "first date that a customer subscribed"
+    sql: date_add(${TABLE}.Created, INTERVAL 4 HOUR) ;;
+  }
+
   set: detail {
     fields: [customer_id, created_time]
   }
