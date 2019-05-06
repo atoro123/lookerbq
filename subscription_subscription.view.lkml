@@ -272,6 +272,7 @@ view: subscription_subscription {
     when (left(${cancel_reason},2) = '22' and ${merchant_id} = 144) then 'Product Change to Another Purina Product'
     when (left(${cancel_reason},2) = '22' and ${merchant_id} = 63) then 'Reorganizing'
     when (left(${cancel_reason},2) = '22' and ${merchant_id} = 155) then 'Product Change to Another PerriconeMD Product'
+    when left(${cancel_reason},2) = '22' then 'Product Change'
     when left(${cancel_reason},2) = '23' then 'Pet Passed'
     when left(${cancel_reason},2) = '24' then 'Allergic Reaction to Product'
     when left(${cancel_reason},2) = '25' then 'Online Management Issue'
