@@ -78,6 +78,22 @@ view: subscription_log {
     sql: ${TABLE}.logged ;;
   }
 
+  dimension_group: GMT_logged {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      month_name,
+      quarter,
+      year,
+      day_of_month
+    ]
+    sql: date_add(${TABLE}.logged, INTERVAL 4 HOUR) ;;
+    }
+
   dimension: merchant_id {
     type: number
     sql: ${TABLE}.merchant_id ;;

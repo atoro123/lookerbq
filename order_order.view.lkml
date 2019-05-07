@@ -144,7 +144,7 @@ view: order_order {
       quarter,
       year
     ]
-    sql: DATE_ADD(${TABLE}.place, INTERVAL 5 HOUR) ;;
+    sql: DATE_ADD(${TABLE}.place, INTERVAL 4 HOUR) ;;
   }
 
   dimension: public_id {

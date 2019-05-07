@@ -46,6 +46,24 @@ view: customer_facts {
     sql: ${TABLE}.Created ;;
   }
 
+  dimension_group: GMT_created {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      month_name,
+      quarter,
+      year,
+      day_of_month
+    ]
+    label: "GMT Customer Creation"
+    description: "first date that a customer subscribed"
+    sql: date_add(${TABLE}.Created, INTERVAL 4 HOUR) ;;
+  }
+
   set: detail {
     fields: [customer_id, created_time]
   }
@@ -75,6 +93,24 @@ view: customer_facts {
     description: "last date that a customer unsubscribed"
     sql: ${TABLE}.Cancelled;;
  }
+
+  dimension_group: GMT_Cancelled {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      month_name,
+      quarter,
+      year,
+      day_of_month
+    ]
+    label: "GMT Customer Cancellation"
+    description: "last date that a customer unsubscribed"
+    sql: date_add(${TABLE}.Cancelled, INTERVAL 4 HOUR) ;;
+  }
 
   dimension: Subscriber_lifetime {
     type: number
