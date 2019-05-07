@@ -429,7 +429,7 @@ view: subscription_subscription {
 
   measure: susbcription_price {
     type: sum
-    sql: ${price} ;;
+    sql: ${product_product.price} ;;
     value_format: "$#,##0.00"
   }
 
