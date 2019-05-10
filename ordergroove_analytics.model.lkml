@@ -244,10 +244,9 @@ explore: subscription_subscription {
     relationship: one_to_one
   }
 
-  join: offer_profile {
-    from: offer_offerprofile
+  join: offer_offerprofile {
     view_label: "Offer Profile"
-    sql: ${offer_profile.id} = ${subscription_offer.offer_profile_id} ;;
+    sql: ${offer_offerprofile.id} = ${subscription_offer.offer_profile_id} ;;
     relationship: many_to_one
   }
   }
