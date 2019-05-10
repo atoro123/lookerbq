@@ -243,6 +243,13 @@ explore: subscription_subscription {
     sql_on: ${customer_customer.merchant_user_id} = ${experience_experiencesetting.merchant_user_id} AND ${merchant_merchant.public_id} = ${experience_experiencesetting.merchant_public_id};;
     relationship: one_to_one
   }
+
+  join: offer_profile {
+    from: offer_offerprofile
+    view_label: "Offer Profile"
+    sql: ${offer_profile.id} = ${subscription_offer.offer_profile_id} ;;
+    relationship: many_to_one
+  }
   }
 
 explore: customer_customer {
