@@ -246,7 +246,7 @@ explore: subscription_subscription {
 
   join: offer_offerprofile {
     view_label: "Offer Profile"
-    sql: ${offer_offerprofile.id} = ${subscription_offer.offer_profile_id} ;;
+    sql_on: ${offer_offerprofile.id} = ${subscription_offer.offer_profile_id} ;;
     relationship: many_to_one
   }
   }
