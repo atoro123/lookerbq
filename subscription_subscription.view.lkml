@@ -298,6 +298,9 @@ view: subscription_subscription {
     when ${cancel_reason} = 'This product is out of stock.' then 'Product Perpetually Out of Stock'
     when ${cancel_reason} = 'I accidentally subscribed to this program.' then 'Mistake'
     when ${cancel_reason} ='The shipping costs of this program are too high.' then 'Shipping Price'
+    when left(${cancel_reason},4) = 'Dupl' then 'Duplicate'
+    when ${cancel_reason} = 'test' then 'Test'
+    when left(${cancel_reason}, 9) = 'No longer' then 'No Longer Use'
     ELSE 'Other' END
           ;;
           drill_fields: [clean_cancel,cancel_reason,id, created_date, cancelled_date, frequency_days, product_product.name, product_product.sku]
