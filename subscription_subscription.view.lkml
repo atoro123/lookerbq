@@ -287,6 +287,14 @@ view: subscription_subscription {
     when left(${cancel_reason},2) = '34' then 'Easier to pick up in store'
     when left(${cancel_reason},4) = 'Item' then 'Item Discontinued'
     when left(${cancel_reason},4) = 'Frau' then 'Fraud'
+    when ${cancel_reason} = 'I Have Too Many of this Product.' then 'Overstocked'
+    when ${cancel_reason} = 'I No Longer Use this Product.' then 'No Longer Use'
+    when ${cancel_reason} = 'Did Not Intend to Join Subscription Program.' then 'Mistake'
+    when ${cancel_reason} = 'Subscription Program Too Difficult to Manage.' then 'Online Management Issue'
+    when ${cancel_reason} = 'Shipping Cost is Too High.' then 'Shipping Price'
+    when ${cancel_reason} = 'I Found This Product Elsewhere.' then 'Buying Product Elsewhere'
+    when ${cancel_reason} = 'I Do Not See Value in Subscription Program.' then 'No longer want subscription'
+    when left(${cancel_reason}, 4) = 'Zomb' then 'Zombie Cancellation'
     ELSE 'Other' END
           ;;
           drill_fields: [clean_cancel,cancel_reason,id, created_date, cancelled_date, frequency_days, product_product.name, product_product.sku]
