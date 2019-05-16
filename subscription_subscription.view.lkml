@@ -482,6 +482,11 @@ view: subscription_subscription {
     type: date_week
     sql: CURDATE() ;;
   }
+
+  measure:  Merchant_Order_IDs{
+    type: count_distinct
+    sql: ${merchant_order_id} ;;
+  }
 #
 #   dimension: current_date {
 #     type: date_month
