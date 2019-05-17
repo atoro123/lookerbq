@@ -84,6 +84,17 @@ filters: {
 }
 drill_fields: [date_month,beginning_active,month_adds,month_cancels,active_end]
   }
+
+  measure: active_end_frequency {
+    type:  sum
+    sql: ${active} ;;
+    filters: {
+      field: subscription_type
+      value: "NULL"
+    }
+    drill_fields: [date_month,beginning_active,month_adds,month_cancels,active_end]
+  }
+
   measure: month_cancels{
     type: sum
     sql:  ${cancel} ;;
@@ -96,10 +107,26 @@ filters: {
   value: "NULL"
 }
   }
+
+  measure: frequency_cancels{
+    type: sum
+    sql:  ${cancel} ;;
+    filters: {
+      field: subscription_type
+      value: "NULL"
+    }
+  }
+
   measure: beginning_active {
   type: number
   sql:  ${active_end} + ${month_cancels} - ${month_adds}
   ;;
+  }
+
+  measure: beginning_active_frequency {
+    type: number
+    sql:  ${active_end_frequency} + ${frequency_cancels} - ${frequency_adds}
+      ;;
   }
 
   measure: month_adds {
@@ -114,10 +141,32 @@ filters: {
       value: "NULL"
   }
   }
+    measure: frequency_adds {
+      type: sum
+      sql: ${new} ;;
+      filters: {
+        field: subscription_type
+        value: "NULL"
+      }
+  }
+
 measure: average_month_base {
   type: number
   sql:  (${active_end} + ${beginning_active})/2 ;;
 }
+
+  measure: average_month_base_frequency {
+    type: number
+    sql:  (${active_end_frequency} + ${beginning_active_frequency})/2 ;;
+  }
+
+  measure: churn_rate_frequency {
+    type:  number
+    sql:  (${frequency_cancels}/${average_month_base_frequency})
+      ;;
+    value_format: "0.00%"
+  }
+
 measure: churn_rate {
   type:  number
   sql:  (${month_cancels}/${average_month_base})
