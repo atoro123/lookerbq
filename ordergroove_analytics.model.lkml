@@ -249,6 +249,12 @@ explore: subscription_subscription {
     sql_on: ${offer_offerprofile.id} = ${subscription_offer.offer_profile_id} ;;
     relationship: many_to_one
   }
+
+  join: customer_address {
+    view_label: "Customer Address"
+    sql_on: ${customer_address.customer_id} = ${subscription_subscription.customer_id} ;;
+    relationship: many_to_one
+  }
   }
 
 explore: customer_customer {

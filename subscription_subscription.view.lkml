@@ -301,6 +301,13 @@ view: subscription_subscription {
     when left(${cancel_reason},4) = 'Dupl' then 'Duplicate'
     when ${cancel_reason} = 'test' then 'Test'
     when left(${cancel_reason}, 9) = 'No longer' then 'No Longer Use'
+    when ${cancel_reason} = 'I have too much of this product.' then 'Overstocked'
+    when ${cancel_reason} = 'I did not intend to join a subscription program.' then 'Mistake'
+    when ${cancel_reason} = 'This product is too expensive.' then 'Too Expensive'
+    when ${cancel_reason} = "I'm overstocked." then 'Overstocked'
+    when ${cancel_reason} = 'I want to switch products.' then 'Product Change'
+    when ${cancel_reason} = "I didn't mean to sign up for Auto Replenishment." then 'Mistake'
+    when ${cancel_reason} = "I don't use this product." then 'No Longer Use'
     ELSE 'Other' END
           ;;
           drill_fields: [clean_cancel,cancel_reason,id, created_date, cancelled_date, frequency_days, product_product.name, product_product.sku]
