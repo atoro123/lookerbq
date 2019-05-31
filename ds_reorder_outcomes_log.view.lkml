@@ -152,6 +152,7 @@ view: ds_reorder_outcomes_log {
           WHEN ds_reorder_outcomes_log.merchant_public_id = 'ac4f7938383a11e89ecbbc764e1107f2' THEN '200'
           WHEN ds_reorder_outcomes_log.merchant_public_id = '75f637dc7eaf11e6b517bc764e106cf4' THEN '163'
           WHEN ds_reorder_outcomes_log.merchant_public_id = 'd2ef1f1eea5911e7830dbc764e1107f2' THEN '196'
+          WHEN ds_reorder_outcomes_log.merchant_public_id = '4f14cabc853711e8bd25bc764e1107f2' THEN '209'
           else null end
           ;;
   }
