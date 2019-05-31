@@ -41,7 +41,8 @@ view: ds_reorder_outcomes_log {
       week,
       month,
       quarter,
-      year
+      year,
+      day_of_month
     ]
     sql: ${TABLE}.logged ;;
   }
