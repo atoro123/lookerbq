@@ -149,6 +149,12 @@ relationship: one_to_many
     sql_on: ${order_rejection.customer_id} = ${order_order.customer_id} ;;
     relationship: many_to_one
   }
+
+  join: order_placementlog {
+    type: left_outer
+    sql_on: ${order_order.id} = ${order_placementlog.order_id} ;;
+    relationship: one_to_many
+  }
 }
 
 explore: subscription_subscription {
