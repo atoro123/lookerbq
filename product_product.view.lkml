@@ -132,4 +132,26 @@ view: product_product {
     type: count
     drill_fields: [id, name]
   }
+
+  measure: subscription_eligible {
+    type: count_distinct
+    sql:  ${id} ;;
+    filters: {
+      field: autoship_enabled
+      value: "1"
+    }
+    filters: {
+      field: discontinued
+      value: "0"
+    }
+  }
+
+  measure: live_products {
+    type: count_distinct
+    sql:  ${id} ;;
+    filters: {
+      field: discontinued
+      value: "0"
+    }
+  }
 }
