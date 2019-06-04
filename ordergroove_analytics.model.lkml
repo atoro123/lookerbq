@@ -258,7 +258,7 @@ explore: subscription_subscription {
 
   join: customer_address {
     view_label: "Customer Address"
-    sql_on: ${customer_address.customer_id} = ${subscription_subscription.customer_id} ;;
+    sql_on: ${customer_address.id} = ${subscription_subscription.shipping_address_id} ;;
     relationship: many_to_one
   }
   }
