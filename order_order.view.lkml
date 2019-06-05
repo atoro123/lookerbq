@@ -465,6 +465,9 @@ view: order_order {
           when ${status} = 4 then "Cancelled"
           when ${status} = 3 then "Rejected"
           when ${status} = 18 then "Retry"
+          when ${status} = 17 then "Merged"
+          when ${status} = 1 then "Pending"
+          when ${status} = 6 then "Send Now"
           else "Other" end;;
   }
 
@@ -496,8 +499,6 @@ view: order_order {
         when ${order_placementfailure.count} in (2,3) then 6
           else 9 end;;
       }
-
-
 
 #
 #
