@@ -512,4 +512,16 @@ explore: event_log {
       sql_on: ${merchant_merchant.id} = ${product_product.merchant_id} ;;
       relationship: many_to_one
     }
+
+    join: product_product_categories {
+      view_label: "Category"
+      sql_on: ${product_product.id} = ${product_product_categories.product_id} ;;
+      relationship: one_to_many
+    }
+
+    join: product_category {
+      view_label: "Category"
+      sql_on: ${product_product_categories.category_id} = ${product_category.id} ;;
+      relationship: many_to_one
+    }
   }

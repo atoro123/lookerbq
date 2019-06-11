@@ -494,6 +494,21 @@ view: subscription_subscription {
     type: count_distinct
     sql: ${merchant_order_id} ;;
   }
+
+  measure: 24_Hour_Cancels {
+    type: count_distinct
+    hidden: yes
+    sql:  ${id} ;;
+    filters: {
+      field: 24hr_Cancel
+      value: "yes"
+      }
+  }
+
+  measure: 24_Hour_Cancel_Percent {
+    type: number
+    sql: ${24_Hour_Cancels}/${count} ;;
+  }
 #
 #   dimension: current_date {
 #     type: date_month

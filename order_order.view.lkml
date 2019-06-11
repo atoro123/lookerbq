@@ -371,6 +371,19 @@ view: order_order {
     }
     drill_fields: [order_details*]}
 
+  measure: rejected_retry_orders {
+    group_label: "Retry"
+    type: count
+    filters: {
+      field: status
+      value: "3"
+    }
+    filters: {
+      field: order_placementfailure.count
+      value: "1,2,3,4"
+    }
+    drill_fields: [order_details*]}
+
   measure: successful_retry_revenue {
     group_label: "Retry"
     type: sum
@@ -465,6 +478,9 @@ view: order_order {
           when ${status} = 4 then "Cancelled"
           when ${status} = 3 then "Rejected"
           when ${status} = 18 then "Retry"
+          when ${status} = 17 then "Merged"
+          when ${status} = 1 then "Pending"
+          when ${status} = 6 then "Send Now"
           else "Other" end;;
   }
 
@@ -496,8 +512,6 @@ view: order_order {
         when ${order_placementfailure.count} in (2,3) then 6
           else 9 end;;
       }
-
-
 
 #
 #
