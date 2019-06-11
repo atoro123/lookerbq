@@ -55,4 +55,9 @@ view: order_placementlog {
     type: string
     sql: substring_index(substring(${payload}, 107),"<",1) ;;
   }
+
+  measure: KIND_Error_Payload {
+    type: string
+    sql: replace(mid(${payload}, 52,1000), '</order>', '') ;;
+  }
 }
