@@ -148,4 +148,23 @@ view: order_log {
     type: count
     drill_fields: [id]
   }
+
+  dimension_group: reminder_date {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      hour_of_day,
+      day_of_week,
+      date,
+      week,
+      month,
+      month_num,
+      month_name,
+      day_of_month,
+      quarter,
+      year
+    ]
+    sql: date_add(${logged_date}, INTERVAL 10 DAY) ;;
+  }
 }

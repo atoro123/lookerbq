@@ -74,5 +74,14 @@ explore: cart_log {
 explore: order_item_log {access_filter: {field:merchant_id
     user_attribute:merchant_id}
   persist_with: daily_refresh
+}
 
+explore: order_log {access_filter: {field:merchant_id
+    user_attribute:merchant_id}
+  persist_with: daily_refresh
+
+  join: order_item_log {
+    sql_on: ${order_item_log.order_id} = ${order_log.order_id} ;;
+    relationship: many_to_many
+  }
 }

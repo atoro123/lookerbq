@@ -44,6 +44,8 @@ view: vsi_fraud {
       group by c.Order, d.ItemID
       ;
        ;;
+
+      indexes: ["OG User ID"]
   }
 
   measure: count {
