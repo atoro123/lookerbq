@@ -45,7 +45,7 @@ view: vsi_fraud {
       ;
        ;;
 
-      indexes: ["OG User ID"]
+      #indexes: ["OG User ID"]
   }
 
   measure: count {

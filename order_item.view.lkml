@@ -96,14 +96,14 @@ view: order_item {
 
 
 #
-#   (oi.one_time = 1
+#   (oi.one_time is True
 #             OR ss.subscription_type = 'IU Replenishment'OR of.offer_type IN (12, 13, 14, 19, 20, 23)
 #             OR of.name LIKE '%IU%'OR of.name LIKE '%Impulse Upsell%')
 
   dimension: is_IU {
     type: yesno
     description: "Identify an order item as an Impulse Upsell item"
-   sql: ${one_time} = 1
+   sql: ${one_time} is True
     or ${subscription_offer.offer_name} LIKE '%IU%'
     or ${subscription_offer.offer_name} LIKE '%Impulse Upsell%'
     or ${subscription_offer.offer_type} IN (12,13,14,19,20,23)
@@ -139,7 +139,7 @@ view: order_item {
     fields: [order_order.place_date, order_id, id, subscription_id, subscription_subscription.customer_id,customer_customer.merchant_user_id,total_price, product_product.name,is_IU]
   }
 
-#   oi.one_time = 1 AND oi.subscription_id IS NULL AND oo.status = 5 AND oo.place
+#   oi.one_time is True AND oi.subscription_id IS NULL AND oo.status = 5 AND oo.place
 
 
   measure: total_IU_onetime_price {
@@ -151,7 +151,7 @@ view: order_item {
     drill_fields: [order_details*]
     filters: {
       field: one_time
-      value: "1"
+      value: "yes"
     }
     filters: {
       field: subscription_id
@@ -210,7 +210,7 @@ view: order_item {
     sql: ${quantity};;
     filters: {
       field: one_time
-      value: "1"
+      value: "yes"
     }
     filters: {
       field: subscription_id

@@ -35,7 +35,7 @@ view: order_order {
       quarter,
       year
     ]
-    sql: ${TABLE}.cancelled ;;
+    sql: TIMESTAMP(${TABLE}.cancelled) ;;
   }
 
   dimension_group: created {
@@ -123,7 +123,7 @@ view: order_order {
       quarter,
       year
     ]
-    sql: ${TABLE}.place ;;
+    sql: TIMESTAMP(${TABLE}.place) ;;
   }
 
   dimension_group: GMT_place {
@@ -144,7 +144,7 @@ view: order_order {
       quarter,
       year
     ]
-    sql: DATE_ADD(${TABLE}.place, INTERVAL 4 HOUR) ;;
+    sql: DATE_ADD(TIMESTAMP(${TABLE}.place, INTERVAL 5 HOUR) ;;
   }
 
   dimension: public_id {
@@ -222,7 +222,7 @@ view: order_order {
     when ${rejected_message} like '%130%' then 'Invalid Billing or Shipping Address'
     when ${rejected_message} like '%120%' then 'Invalid Payment'
     when ${rejected_message} like '%110%' then 'Invalid Credit Card Number'
-    when ${status} = '14' then 'Response Processing Error'
+    when ${status} = 14 then 'Response Processing Error'
     when ${rejected_message} is NULL then NULL
     else 'Other' end;;
     }
@@ -245,19 +245,19 @@ view: order_order {
 
   dimension: clean_order_place {
     type: string
-    sql: Date_format(${TABLE}.place,'%b %Y');;
+    sql: FORMAT_DATETIME('%b %Y', ${TABLE}.place);;
   }
 
   dimension: Contains_IU {
     type:  yesno
     sql: (${order_item.subscription_id} is not NULL and (
-    ${order_item.one_time} = 1
+    ${order_item.one_time} is True
     or ${subscription_offer.offer_name} LIKE '%IU%'
     or ${subscription_offer.offer_name} LIKE '%Impulse Upsell%'
     or ${subscription_offer.offer_type} IN (12,13,14,19,20,23)
     or ${subscription_subscription.subscription_type} = 'IU Replenishment'
     or ${order_offer.offer_name} like '%IU%'
-    or ${order_offer.offer_name} like '%Impulse Upsell%')) or (${order_item.one_time} = 1 and ${order_item.subscription_id} is NULL);;}
+    or ${order_offer.offer_name} like '%Impulse Upsell%')) or (${order_item.one_time} is True and ${order_item.subscription_id} is NULL);;}
 
   measure: order_revenue {
     type: sum
@@ -333,7 +333,7 @@ view: order_order {
       year,
       day_of_week
     ]
-    sql: DATE_SUB(${place_date},INTERVAL ${subtracted_days_for_original} DAY) ;;
+    sql: DATE_SUB(DATE(${place_date}),INTERVAL ${subtracted_days_for_original} DAY) ;;
 
   }
 
@@ -425,7 +425,7 @@ view: order_order {
   measure: days {
   label: "Days into Fiscal Year"
   type: number
-  sql: DATEDIFF(curdate(),'2019-02-01');;
+  sql: DATEDIFF(current_date(),'2019-02-01');;
   }
 
   dimension: 140_error {

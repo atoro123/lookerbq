@@ -1,4 +1,4 @@
-connection: "prod_replica"
+connection: "production_bq"
 
 include: "*.view.lkml"
 

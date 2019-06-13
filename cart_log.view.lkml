@@ -73,7 +73,7 @@ view: cart_log {
       quarter,
       year
     ]
-    sql: ${TABLE}.logged ;;
+    sql: TIMESTAMP(${TABLE}.logged) ;;
   }
 
   dimension_group: GMT_logged {
@@ -87,7 +87,7 @@ view: cart_log {
       quarter,
       year
     ]
-    sql: DATE_ADD(${TABLE}.logged, INTERVAL 5 HOUR) ;;
+    sql: DATE_ADD(TIMESTAMP(${TABLE}.logged), INTERVAL 5 HOUR) ;;
   }
 
   dimension: merchant_id {

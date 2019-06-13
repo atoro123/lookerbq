@@ -31,7 +31,7 @@ view: subscription_subscription {
       year,
       day_of_month
     ]
-    sql: ${TABLE}.cancelled ;;
+    sql: TIMESTAMP(${TABLE}.cancelled) ;;
   }
 
   dimension: club_id {
@@ -219,7 +219,7 @@ view: subscription_subscription {
     ]
     convert_tz: no
     datatype: date
-    sql: ${TABLE}.start_date ;;
+    sql: TIMESTAMP(${TABLE}.start_date) ;;
   }
 
   dimension: subscription_type {
@@ -238,7 +238,7 @@ view: subscription_subscription {
       quarter,
       year
     ]
-    sql: ${TABLE}.updated ;;
+    sql: TIMESTAMP(${TABLE}.updated) ;;
   }
 
   measure: count {
@@ -248,45 +248,45 @@ view: subscription_subscription {
   dimension: clean_cancel {
     sql:
     case
-    when left(${cancel_reason},2) = '1|' then 'Other'
-    when left(${cancel_reason},2) = '2|' then 'Overstocked'
-    when left(${cancel_reason},2) = '3|' then 'No Longer Use'
-    when left(${cancel_reason},2) = '4|' then 'Product Change'
-    when left(${cancel_reason},2) = '5|' then 'Base Unit Change'
-    when left(${cancel_reason},2) = '6|' then 'Buying Product Elsewhere'
-    when left(${cancel_reason},2) = '7|' then 'General Issue'
-    when left(${cancel_reason},2) = '8|' then 'Too Expensive'
-    when left(${cancel_reason},2) = '9|' then 'Price Issue'
-    when left(${cancel_reason},2) = '10' then 'Limited Shopping Choices'
-    when left(${cancel_reason},2) = '11' then 'Shipping Price'
-    when left(${cancel_reason},2) = '12' then 'Product Perpetually Out of Stock'
-    when left(${cancel_reason},2) = '13' then 'Mistake'
-    when left(${cancel_reason},2) = '14' then 'Product different from what ordered'
-    when left(${cancel_reason},2) = '15' then "Tried and don't like"
-    when left(${cancel_reason},2) = '16' then 'Found a better deal'
-    when left(${cancel_reason},2) = '17' then 'Understocked'
-    when left(${cancel_reason},2) = '18' then 'Payment Issue'
-    when left(${cancel_reason},2) = '19' then 'Not enough choice'
-    when left(${cancel_reason},2) = '20' then 'Relocating'
-    when left(${cancel_reason},2) = '21' then 'Switching to Electric Shaving'
-    when (left(${cancel_reason},2) = '22' and ${merchant_id} = 144) then 'Product Change to Another Purina Product'
-    when (left(${cancel_reason},2) = '22' and ${merchant_id} = 63) then 'Reorganizing'
-    when (left(${cancel_reason},2) = '22' and ${merchant_id} = 155) then 'Product Change to Another PerriconeMD Product'
-    when left(${cancel_reason},2) = '22' then 'Product Change'
-    when left(${cancel_reason},2) = '23' then 'Pet Passed'
-    when left(${cancel_reason},2) = '24' then 'Allergic Reaction to Product'
-    when left(${cancel_reason},2) = '25' then 'Online Management Issue'
-    when left(${cancel_reason},2) = '26' then 'Issue updating payment'
-    when left(${cancel_reason},2) = '27' then 'Reorganizing Subscriptions'
-    when left(${cancel_reason},2) = '28' then 'Commitment Subscription period end'
-    when left(${cancel_reason},2) = '29' then 'Signed up for the discount'
-    when left(${cancel_reason},2) = '30' then 'Signed up for free shipping'
-    when left(${cancel_reason},2) = '31' then 'Difficulty managing subscription'
-    when left(${cancel_reason},2) = '32' then 'Changed Mind'
-    when left(${cancel_reason},2) = '33' then 'No longer want subscription'
-    when left(${cancel_reason},2) = '34' then 'Easier to pick up in store'
-    when left(${cancel_reason},4) = 'Item' then 'Item Discontinued'
-    when left(${cancel_reason},4) = 'Frau' then 'Fraud'
+    when substr(${cancel_reason},2) = '1|' then 'Other'
+    when substr(${cancel_reason},2) = '2|' then 'Overstocked'
+    when substr(${cancel_reason},2) = '3|' then 'No Longer Use'
+    when substr(${cancel_reason},2) = '4|' then 'Product Change'
+    when substr(${cancel_reason},2) = '5|' then 'Base Unit Change'
+    when substr(${cancel_reason},2) = '6|' then 'Buying Product Elsewhere'
+    when substr(${cancel_reason},2) = '7|' then 'General Issue'
+    when substr(${cancel_reason},2) = '8|' then 'Too Expensive'
+    when substr(${cancel_reason},2) = '9|' then 'Price Issue'
+    when substr(${cancel_reason},2) = '10' then 'Limited Shopping Choices'
+    when substr(${cancel_reason},2) = '11' then 'Shipping Price'
+    when substr(${cancel_reason},2) = '12' then 'Product Perpetually Out of Stock'
+    when substr(${cancel_reason},2) = '13' then 'Mistake'
+    when substr(${cancel_reason},2) = '14' then 'Product different from what ordered'
+    when substr(${cancel_reason},2) = '15' then "Tried and don't like"
+    when substr(${cancel_reason},2) = '16' then 'Found a better deal'
+    when substr(${cancel_reason},2) = '17' then 'Understocked'
+    when substr(${cancel_reason},2) = '18' then 'Payment Issue'
+    when substr(${cancel_reason},2) = '19' then 'Not enough choice'
+    when substr(${cancel_reason},2) = '20' then 'Relocating'
+    when substr(${cancel_reason},2) = '21' then 'Switching to Electric Shaving'
+    when (substr(${cancel_reason},2) = '22' and ${merchant_id} = 144) then 'Product Change to Another Purina Product'
+    when (substr(${cancel_reason},2) = '22' and ${merchant_id} = 63) then 'Reorganizing'
+    when (substr(${cancel_reason},2) = '22' and ${merchant_id} = 155) then 'Product Change to Another PerriconeMD Product'
+    when substr(${cancel_reason},2) = '22' then 'Product Change'
+    when substr(${cancel_reason},2) = '23' then 'Pet Passed'
+    when substr(${cancel_reason},2) = '24' then 'Allergic Reaction to Product'
+    when substr(${cancel_reason},2) = '25' then 'Online Management Issue'
+    when substr(${cancel_reason},2) = '26' then 'Issue updating payment'
+    when substr(${cancel_reason},2) = '27' then 'Reorganizing Subscriptions'
+    when substr(${cancel_reason},2) = '28' then 'Commitment Subscription period end'
+    when substr(${cancel_reason},2) = '29' then 'Signed up for the discount'
+    when substr(${cancel_reason},2) = '30' then 'Signed up for free shipping'
+    when substr(${cancel_reason},2) = '31' then 'Difficulty managing subscription'
+    when substr(${cancel_reason},2) = '32' then 'Changed Mind'
+    when substr(${cancel_reason},2) = '33' then 'No longer want subscription'
+    when substr(${cancel_reason},2) = '34' then 'Easier to pick up in store'
+    when substr(${cancel_reason},4) = 'Item' then 'Item Discontinued'
+    when substr(${cancel_reason},4) = 'Frau' then 'Fraud'
     when ${cancel_reason} = 'I Have Too Many of this Product.' then 'Overstocked'
     when ${cancel_reason} = 'I No Longer Use this Product.' then 'No Longer Use'
     when ${cancel_reason} = 'Did Not Intend to Join Subscription Program.' then 'Mistake'
@@ -294,13 +294,13 @@ view: subscription_subscription {
     when ${cancel_reason} = 'Shipping Cost is Too High.' then 'Shipping Price'
     when ${cancel_reason} = 'I Found This Product Elsewhere.' then 'Buying Product Elsewhere'
     when ${cancel_reason} = 'I Do Not See Value in Subscription Program.' then 'No longer want subscription'
-    when left(${cancel_reason}, 4) = 'Zomb' then 'Zombie Cancellation'
+    when substr(${cancel_reason}, 4) = 'Zomb' then 'Zombie Cancellation'
     when ${cancel_reason} = 'This product is out of stock.' then 'Product Perpetually Out of Stock'
     when ${cancel_reason} = 'I accidentally subscribed to this program.' then 'Mistake'
     when ${cancel_reason} ='The shipping costs of this program are too high.' then 'Shipping Price'
-    when left(${cancel_reason},4) = 'Dupl' then 'Duplicate'
+    when substr(${cancel_reason},4) = 'Dupl' then 'Duplicate'
     when ${cancel_reason} = 'test' then 'Test'
-    when left(${cancel_reason}, 9) = 'No longer' then 'No Longer Use'
+    when substr(${cancel_reason}, 9) = 'No longer' then 'No Longer Use'
     when ${cancel_reason} = 'I have too much of this product.' then 'Overstocked'
     when ${cancel_reason} = 'I did not intend to join a subscription program.' then 'Mistake'
     when ${cancel_reason} = 'This product is too expensive.' then 'Too Expensive'
@@ -323,18 +323,18 @@ view: subscription_subscription {
 
   dimension: 24hr_Cancel {
     type: yesno
-    sql: case when ${cancelled_raw} < (${created_raw} + INTERVAL 1 DAY) then 1 else 0 end ;;
+    sql: case when ${cancelled_raw} < TIMESTAMP_ADD(${created_raw}, INTERVAL 24 HOUR) then True else False end ;;
   }
 
   dimension: created_logic {
     type: number
-    sql:  case when ${created_date} = ${customer_facts.created_date} then 1 else 0 end ;;
+    sql:  case when ${created_date} = ${customer_facts.created_date} then True else False end ;;
     hidden: yes
   }
 
   dimension: is_min_created {
     type:  yesno
-    sql: ${created_logic} = 1 ;;
+    sql: ${created_logic} is True ;;
   }
 
   measure: distinct_customers {

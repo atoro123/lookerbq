@@ -40,6 +40,6 @@ view: experience_experiencesetting {
 
   dimension: current_date {
     type: date_month
-    sql: CURDATE() ;;
+    sql: CURRENT_DATE() ;;
   }
 }

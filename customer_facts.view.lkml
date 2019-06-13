@@ -4,17 +4,17 @@ view: customer_facts {
     sql: select
       customer_id
       , merchant_id
-      , min(id) "Subscription"
-      , min(created) "Created"
-      , max(case when live = 0 then cancelled else null end) "Cancelled"
-      , max(live) "Live"
+      , min(id) as Subscription
+      , min(created) as Created
+      , max(case when live = 0 then cancelled else null end) as Cancelled
+      , max(live) as Live
 
       from subscription_subscription ss
 
-      group by 1
+      group by 1,2
 
        ;;
-      indexes: ["customer_id"]
+     # indexes: ["customer_id"]
   }
 
   measure: customer_creation_count {

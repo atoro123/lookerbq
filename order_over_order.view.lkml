@@ -11,7 +11,7 @@ derived_table: {
         group by 2
 
        ;;
-      indexes: ["subscription_id"]
+     # indexes: ["subscription_id"]
 }
 
   dimension: subscription_id {

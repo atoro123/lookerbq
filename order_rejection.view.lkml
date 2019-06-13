@@ -8,7 +8,7 @@ view: order_rejection {
     from order_order
     where status = 3
     group by 1;;
-    indexes: ["customer_id"]
+    #indexes: ["customer_id"]
   }
 
   dimension_group: min {
@@ -52,5 +52,3 @@ view: order_rejection {
 
 
   }
-
-
