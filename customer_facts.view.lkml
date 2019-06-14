@@ -7,7 +7,7 @@ view: customer_facts {
       , min(id) as Subscription
       , min(created) as Created
       , TIMESTAMP(max(case when live is FALSE then cancelled else null end)) as Cancelled
-      , cast(max(live) as INT64) as Live
+      , max(live) as Live
 
       from ogv2_production.subscription_subscription
 
