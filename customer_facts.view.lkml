@@ -6,8 +6,8 @@ view: customer_facts {
       , merchant_id
       , min(id) as Subscription
       , min(created) as Created
-      , max(case when live is FALSE then cancelled else null end) as Cancelled
-      , max(live) as Live
+      , TIMESTAMP(max(case when live is FALSE then cancelled else null end)) as Cancelled
+      , cast(max(live) as INT64) as Live
 
       from ogv2_production.subscription_subscription
 
