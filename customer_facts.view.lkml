@@ -6,10 +6,10 @@ view: customer_facts {
       , merchant_id
       , min(id) as Subscription
       , min(created) as Created
-      , max(case when live = 0 then cancelled else null end) as Cancelled
+      , max(case when live is FALSE then cancelled else null end) as Cancelled
       , max(live) as Live
 
-      from subscription_subscription ss
+      from ogv2_production.subscription_subscription
 
       group by 1,2
 
