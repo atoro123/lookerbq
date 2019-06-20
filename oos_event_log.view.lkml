@@ -45,4 +45,9 @@ view: oos_event_log {
     label: "Customers Affected"
     sql: ${customer_id} ;;
   }
+
+  measure: Distinct_OOS {
+    type: count_distinct
+    sql: ${object_id} ;;
+  }
   }
