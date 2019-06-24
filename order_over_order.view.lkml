@@ -3,12 +3,12 @@ derived_table: {
   sql_trigger_value: select current_date ;;
     sql: select s.customer_id AS customer_id,
     s.id AS subscription_id,
-    group_concat(cast((case when s.live = 1 then status else null end) as char) order by place) AS result_str,
+   STRING_AGG(CAST((case when s.live = TRUE then status else null end) as STRING), ',' order by o.place) AS result_str,
     count(distinct(case when o.status =5 then o.id else NULL end)) AS completed_orders
         from order_item i
         join order_order o on o.id=i.order_id
         join subscription_subscription s on s.id=i.subscription_id
-        group by 2
+        group by 1,2
 
        ;;
      # indexes: ["subscription_id"]
