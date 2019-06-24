@@ -46,7 +46,15 @@ dimension: result_str{
 
   dimension: Completed_Orders {
     type: string
-    sql: case when ${TABLE}.completed_orders >= 7 then "7+" when ${TABLE}.completed_orders is null then 0 else ${TABLE}.completed_orders end ;;
+    sql: case when ${TABLE}.completed_orders >= 7 then "7+"
+    when ${TABLE}.completed_orders is null then '0'
+     when ${TABLE}.completed_orders = 6 then "6"
+     when ${TABLE}.completed_orders = 5 then "5"
+     when ${TABLE}.completed_orders = 4 then "4"
+     when ${TABLE}.completed_orders = 3 then "3"
+     when ${TABLE}.completed_orders = 2 then "2"
+     when ${TABLE}.completed_orders = 1 then "1"
+    else '0' end ;;
   }
 
   dimension: Source_Completed_Orders {
