@@ -117,7 +117,7 @@ view: customer_facts {
   dimension: Subscriber_lifetime {
     type: number
     hidden: yes
-    sql:DATEDIFF(${Cancelled_date},${created_date}) ;;
+    sql:DATE_DIFF(${Cancelled_date},${created_date}, DAY) ;;
   }
 
   dimension: Bucket_Lifetime {
