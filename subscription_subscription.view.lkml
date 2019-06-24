@@ -357,7 +357,7 @@ view: subscription_subscription {
   dimension: Subscription_lifetime {
     type: number
     hidden: yes
-    sql:DATEDIFF(${cancelled_date},${created_date}) ;;
+    sql:DATE_DIFF(${cancelled_date},${created_date}, DAY) ;;
   }
 
   dimension: Bucket_Lifetime {
