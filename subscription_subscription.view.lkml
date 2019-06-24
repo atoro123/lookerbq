@@ -356,13 +356,13 @@ view: subscription_subscription {
 
   dimension: Subscription_lifetime {
     type: number
-    hidden: yes
+    hidden: no
     sql:DATE_DIFF(${cancelled_date},${created_date}, DAY) ;;
   }
 
   dimension: Bucket_Lifetime {
   type: number
-  hidden: yes
+  hidden: no
   sql:  case when ${Subscription_lifetime} <= 30 then '30'
               when ${Subscription_lifetime} <= 60 then '60'
               when ${Subscription_lifetime} <= 90 then '90'
