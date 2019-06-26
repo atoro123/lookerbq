@@ -1,6 +1,6 @@
 view: order_over_order {
 derived_table: {
-  sql_trigger_value: select current_date ;;
+  sql_trigger_value: FLOOR(((TIMESTAMP_DIFF(CURRENT_TIMESTAMP(),'1970-01-01 00:00:00',SECOND)) - 60*60*8)/(60*60*24)) ;;
     sql: select s.customer_id AS customer_id,
     s.id AS subscription_id,
    STRING_AGG(CAST((case when s.live = TRUE then status else null end) as STRING), ',' order by o.place) AS result_str,

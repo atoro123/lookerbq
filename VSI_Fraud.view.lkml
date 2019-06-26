@@ -1,6 +1,6 @@
 view: vsi_fraud {
   derived_table: {
-    sql_trigger_value: select current_date ;;
+    sql_trigger_value: FLOOR(((TIMESTAMP_DIFF(CURRENT_TIMESTAMP(),'1970-01-01 00:00:00',SECOND)) - 60*60*8)/(60*60*24)) ;;
     sql: select c.MerchantUser as 'Merchant User ID', c.Customer as 'OG User ID', c.SendNow as 'Send Now Date', c.AddressChange as 'Address Change Date', c.SendNowPayload as 'Send Now Payload', c.ShippingChangePayload as 'Shipping Change Payload', d.Public as 'Subscription Public ID', d.Created, d.PName as 'Product Name',
       d.Quantity, d.Price, c.Order, d.ItemID, d.merchantorderid, d.total
       from
