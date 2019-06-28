@@ -1,6 +1,6 @@
 view: customer_facts {
   derived_table: {
-    sql_trigger_value: FLOOR(((TIMESTAMP_DIFF(CURRENT_TIMESTAMP(),'1970-01-01 00:00:00',SECOND)) - 60*60*8)/(60*60*24)) ;;
+    sql_trigger_value: SELECT FLOOR(((TIMESTAMP_DIFF(CURRENT_TIMESTAMP(),'1970-01-01 00:00:00',SECOND)) - 60*60*8)/(60*60*24));;
     sql: select
       customer_id
       , merchant_id
@@ -19,7 +19,7 @@ view: customer_facts {
 
   measure: customer_creation_count {
     type: count
-    drill_fields: [detail*]
+    drill_fields: [customer_customer.merchant_user_id,created_date]
   }
 
   dimension: customer_id {
