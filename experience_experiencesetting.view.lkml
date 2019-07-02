@@ -1,5 +1,5 @@
 view: experience_experiencesetting {
-  sql_table_name: ogv2_production.experience_experiencesetting ;;
+  sql_table_name: experience_service.experience_experiencesetting ;;
 
   dimension: id {
     primary_key: yes
