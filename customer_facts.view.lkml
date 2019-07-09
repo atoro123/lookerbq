@@ -157,7 +157,7 @@ measure: LTV {
 
   measure: AVG_LTV {
     type: number
-    sql:  ${LTV}/${distinct} ;;
+    sql:  SAFE_DIVIDE(${LTV},${distinct}) ;;
     value_format_name: usd
   }
 
@@ -174,7 +174,7 @@ measure: LTV {
 
   measure: AVG_Orders {
     type: number
-    sql:  ${Orders}/${distinct} ;;
+    sql:  SAFE_DIVIDE(${Orders},${distinct}) ;;
     value_format: "0.0"
   }
 
