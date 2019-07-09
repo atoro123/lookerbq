@@ -25,13 +25,13 @@ group by 1;;
       sql: ${TABLE}.customer_id ;;
     }
 
-    measure: IU_One_Time_Orders {
-      type: sum
+    dimension: IU_One_Time_Orders {
+      type: number
       sql: ${TABLE}.IU_One_Time_Orders ;;
     }
 
-    measure: IU_Replenishment_Orders {
-      type: sum
+    dimension: IU_Replenishment_Orders {
+      type: number
       sql: ${TABLE}.IU_Replenishment_Orders ;;
     }
 
@@ -39,4 +39,14 @@ group by 1;;
       type: yesno
       sql: ${customer_id} is not null ;;
     }
+
+    dimension: IU_One_Time_Customer {
+      type: yesno
+      sql: ${IU_One_Time_Orders} > 0 ;;
+    }
+
+  dimension: IU_Replenishment_Customer {
+    type: yesno
+    sql: ${IU_Replenishment_Orders} > 0 ;;
+  }
     }
