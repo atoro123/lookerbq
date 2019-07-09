@@ -155,6 +155,12 @@ relationship: one_to_many
     sql_on: ${order_order.id} = ${order_placementlog.order_id} ;;
     relationship: one_to_many
   }
+
+  join: customers_impulse_upsell {
+    type: left_outer
+    sql_on: ${order_order.customer_id} = ${customers_impulse_upsell.customer_id} ;;
+    relationship: one_to_one
+  }
 }
 
 explore: subscription_subscription {
@@ -261,6 +267,12 @@ explore: subscription_subscription {
     sql_on: ${customer_address.id} = ${subscription_subscription.shipping_address_id} ;;
     relationship: many_to_one
   }
+
+  join: customers_impulse_upsell {
+    type: left_outer
+    sql_on: ${subscription_subscription.customer_id} = ${customers_impulse_upsell.customer_id} ;;
+    relationship: one_to_one
+  }
   }
 
 explore: customer_customer {
@@ -341,6 +353,12 @@ explore: customer_customer {
     view_label: "Merchant"
     sql_on: ${merchant_merchant_industries.industry_id} = ${merchant_industry.id};;
     relationship: one_to_many
+  }
+
+  join: customers_impulse_upsell {
+    type: left_outer
+    sql_on: ${customer_customer.id} = ${customers_impulse_upsell.customer_id} ;;
+    relationship: one_to_one
   }
 }
 
