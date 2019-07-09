@@ -271,7 +271,7 @@ explore: subscription_subscription {
   join: customers_impulse_upsell {
     type: left_outer
     sql_on: ${subscription_subscription.customer_id} = ${customers_impulse_upsell.customer_id} ;;
-    relationship: one_to_one
+    relationship: many_to_one
   }
   }
 
