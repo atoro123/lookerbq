@@ -509,6 +509,12 @@ view: subscription_subscription {
     type: number
     sql: ${24_Hour_Cancels}/${count} ;;
   }
+
+  measure: Average_Quantity {
+    label: "Average Quantity"
+    type: average
+    sql: ${quantity} ;;
+  }
 #
 #   dimension: current_date {
 #     type: date_month
