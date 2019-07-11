@@ -173,4 +173,84 @@ measure: churn_rate {
   ;;
   value_format: "0.00%"
 }
+
+  measure: month_cancels_iu{
+    type: sum
+    sql:  ${cancel} ;;
+    filters: {
+      field: subscription_type
+      value: "IU replenishment"
+    }
+    filters: {
+      field: frequency_days
+      value: "NULL"
+    }
+  }
+
+  measure: month_adds_iu {
+    type: sum
+    sql: ${new} ;;
+    filters: {
+      field: subscription_type
+      value: "IU replenishment"
+    }
+    filters: {
+      field: frequency_days
+      value: "NULL"
+    }
+  }
+
+  measure: active_end_iu {
+    type:  sum
+    sql: ${active} ;;
+    filters: {
+      field: subscription_type
+      value: "IU replenishment"
+    }
+    filters: {
+      field: frequency_days
+      value: "NULL"
+    }
+    drill_fields: [date_month,beginning_active,month_adds,month_cancels,active_end]
+  }
+
+  measure: month_cancels_non_iu{
+    type: sum
+    sql:  ${cancel} ;;
+    filters: {
+      field: subscription_type
+      value: "replenishment"
+    }
+    filters: {
+      field: frequency_days
+      value: "NULL"
+    }
+  }
+
+  measure: month_adds_non_iu {
+    type: sum
+    sql: ${new} ;;
+    filters: {
+      field: subscription_type
+      value: "replenishment"
+    }
+    filters: {
+      field: frequency_days
+      value: "NULL"
+    }
+  }
+
+  measure: active_end_non_iu {
+    type:  sum
+    sql: ${active} ;;
+    filters: {
+      field: subscription_type
+      value: "replenishment"
+    }
+    filters: {
+      field: frequency_days
+      value: "NULL"
+    }
+    drill_fields: [date_month,beginning_active,month_adds,month_cancels,active_end]
+  }
 }
