@@ -381,4 +381,9 @@ view: order_item {
         when ${offer_id} in (3443,3444,3445,3446,3447) then "Health Box Plus"
         Else "PDP" end;;
   }
+
+  measure: distinct_orders {
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
 }
