@@ -117,4 +117,9 @@ dimension_group: IU_Add_Date {
     sql: ${From_Place} ;;
     value_format: "0.##"
   }
+
+  measure: IU_Added {
+    type: count_distinct
+    sql: ${Log_ID} ;;
+  }
 }
