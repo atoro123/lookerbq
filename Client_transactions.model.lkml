@@ -89,3 +89,7 @@ explore: order_log {access_filter: {field:merchant_id
     relationship: many_to_many
   }
 }
+
+explore: impulse_upsell_adds {access_filter: {field:merchant_id
+    user_attribute:merchant_id}
+  persist_with: daily_refresh}
