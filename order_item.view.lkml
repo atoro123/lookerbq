@@ -386,4 +386,32 @@ view: order_item {
     type: count_distinct
     sql: ${order_id} ;;
   }
+
+
+
+  dimension:IU_One_Time {
+  type: yesno
+  sql: (${one_time} = 1 and ${subscription_id} is NULL);;}
+
+  dimension:IU_Recurring {
+    type: yesno
+    sql: (${order_item.subscription_id} is not NULL and (
+    ${order_item.one_time} = 1
+    or ${subscription_offer.offer_name} LIKE '%IU%'
+    or ${subscription_offer.offer_name} LIKE '%Impulse Upsell%'
+    or ${subscription_offer.offer_type} IN (12,13,14,19,20,23)
+    or ${subscription_subscription.subscription_type} = 'IU Replenishment'
+    or ${order_offer.offer_name} like '%IU%'
+    or ${order_offer.offer_name} like '%Impulse Upsell%'));;}
+
+  dimension:IU_Either {
+    type: yesno
+    sql: (${order_item.subscription_id} is not NULL and (
+    ${order_item.one_time} = 1
+    or ${subscription_offer.offer_name} LIKE '%IU%'
+    or ${subscription_offer.offer_name} LIKE '%Impulse Upsell%'
+    or ${subscription_offer.offer_type} IN (12,13,14,19,20,23)
+    or ${subscription_subscription.subscription_type} = 'IU Replenishment'
+    or ${order_offer.offer_name} like '%IU%'
+    or ${order_offer.offer_name} like '%Impulse Upsell%')) or (${one_time} = 1 and ${subscription_id} is NULL);;}
 }
