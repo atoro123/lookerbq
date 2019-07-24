@@ -514,6 +514,7 @@ view: subscription_subscription {
     label: "Average Quantity"
     type: average
     sql: ${quantity} ;;
+    value_format: "0.00"
   }
 #
 #   dimension: current_date {
