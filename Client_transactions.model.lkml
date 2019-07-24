@@ -35,11 +35,36 @@ explore: customer_experience_log {  access_filter: {field:merchant_id
   label: "Customer Experience Log"
   view_label: "Customer Experience Log"
     persist_with: daily_refresh
-    join: enrolled_customer_experience_log {
+    fields: [-order_order.subtracted_days_for_original,  ]
+
+   join: enrolled_customer_experience_log {
       relationship: many_to_one
       view_label: "Customer Experience Log"
       sql_on: ${customer_experience_log.merchant_user_id} = ${enrolled_customer_experience_log.merchant_user_id_test};;
 }
+  join: sms_mgmt_enrolled {
+    relationship: many_to_one
+    view_label: "Customer Experience Log"
+    sql_on: ${customer_experience_log.merchant_user_id} = ${sms_mgmt_enrolled.merchant_user_id_test} ;;
+  }
+
+  join: customer_customer {
+    relationship: many_to_one
+    sql_on: ${customer_customer.merchant_user_id} = ${customer_experience_log.merchant_user_id} ;;
+  }
+
+  join: order_order {
+    relationship: one_to_many
+    sql_on: ${order_order.customer_id} = ${customer_customer.id} ;;
+  }
+
+    join: order_item {
+      view_label: "Order Item"
+      sql_on: ${order_order.id} = ${order_item.order_id} ;;
+      relationship: one_to_many
+      type: left_outer
+    }
+
 }
 
 explore: ds_reorder_outcomes_log {  access_filter: {field:merchant_id
