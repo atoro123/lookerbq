@@ -542,6 +542,46 @@ explore: event_log {
       sql_on: ${product_product_categories.category_id} = ${product_category.id} ;;
       relationship: many_to_one
     }
+
+    join: order_item {
+      sql_on: ${order_item.product_id} = ${product_product.id} ;;
+      fields: [order_item.id, order_item.offer_id, order_item.one_time, order_item.order_id, order_item.price, order_item.product_id, order_item.quantity, order_item.subscription_id
+        , order_item.total_price, order_item.count, order_item.is_IU, order_item.total_IU_recurring_price, order_item.total_IU_onetime_price, order_item.total_recurring_price,
+        order_item.total_gmv, order_item.sum_IU_onetime_quantity, order_item.sum_IU_Recurring_quantity, order_item.IU_One_Time, order_item.IU_Recurring, order_item.IU_Either, order_item.count,
+        order_item.quickbuy_item, order_item.sms_item]
+      relationship: one_to_many
+    }
+
+    join: order_order {
+      sql_on: ${order_item.order_id} = ${order_order.id} ;;
+      fields: [order_order.customer_id, order_order.merchant_id, order_order.place_date, order_order.place_month, order_order.status, order_order.sub_total,
+        order_order.count, order_order.average_sub_total, order_order.rejected_reason, order_order.completed_orders]
+      relationship: many_to_one
+    }
+
+    join: subscription_subscription {
+      view_label: "Subscription"
+      sql_on: ${order_item.subscription_id} = ${subscription_subscription.id} ;;
+      fields: [subscription_subscription.id, subscription_subscription.customer_id, subscription_subscription.live, subscription_subscription.merchant_id,
+        subscription_subscription.offer_id, subscription_subscription.subscription_type, ]
+      relationship: many_to_one
+
+    }
+
+    join: subscription_offer {
+      view_label: "Subscription"
+      from: offer_offer
+      sql_on: ${subscription_offer.id} = ${subscription_subscription.offer_id};;
+      relationship: one_to_many
+    }
+
+    join: order_offer {
+      view_label: "Order Item"
+      from: offer_offer
+      sql_on: ${order_offer.id} = ${order_item.offer_id}  ;;
+      relationship: one_to_many
+
+    }
   }
 
   explore: vsi_fraud {
