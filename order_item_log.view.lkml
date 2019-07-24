@@ -108,6 +108,7 @@ view: order_item_log {
 
   measure: count {
     type: count
+    value_format: "0"
     drill_fields: [id]
   }
 
