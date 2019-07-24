@@ -582,6 +582,11 @@ explore: event_log {
       relationship: one_to_many
 
     }
+
+    join: order_item_log {
+      sql_on: ${product_product.id} = ${order_item.product_id} ;;
+      relationship: one_to_many
+    }
   }
 
   explore: vsi_fraud {
