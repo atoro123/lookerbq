@@ -46,6 +46,19 @@ explore: customer_experience_log {  access_filter: {field:merchant_id
     view_label: "Customer Experience Log"
     sql_on: ${customer_experience_log.merchant_user_id} = ${sms_mgmt_enrolled.merchant_user_id_test} ;;
   }
+
+  join: customer_customer {
+    relationship: many_to_one
+    sql_on: ${customer_customer.merchant_user_id}=${customer_experience_log.merchant_user_id} ;;
+  }
+
+  join: order_order {
+    relationship: many_to_one
+    sql_on: ${customer_customer.id} = ${order_order.customer_id} ;;
+    fields: [order_order.id, order_order.cancelled_date, order_order.cancelled_month, order_order.customer_id, order_order.merchant_id,
+      order_order.place_month, order_order.place_date, order_order.rejected_message, order_order.status, order_order.sub_total, order_order.rejected_reason, order_order.completed_orders,
+      order_order.completed_orders_revenue, order_order.skipped_orders_revenue, order_order.order_revenue, order_order.skipped_orders, order_order.order_processing, order_order.Average_Order_Value, order_order.Order_Status_Name]
+  }
 }
 
 explore: ds_reorder_outcomes_log {  access_filter: {field:merchant_id
