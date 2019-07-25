@@ -1,6 +1,6 @@
 view: sms_mgmt_enrolled {derived_table: {
     sql_trigger_value: select current_date ;;
-    sql: SELECT cel.merchant_user_id "merchant_user_id_test"
+    sql: SELECT cel.merchant_user_id as merchant_user_id_test
                                        FROM customer_experience_log cel
                                        WHERE (cel.enabled = 1
                                          AND cel.feature_id = 38) group by 1;;
