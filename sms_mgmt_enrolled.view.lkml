@@ -1,9 +1,9 @@
 view: sms_mgmt_enrolled {derived_table: {
     sql_trigger_value: select current_date ;;
     sql: SELECT cel.merchant_user_id as merchant_user_id_test
-                                       FROM customer_experience_log cel
-                                       WHERE (cel.enabled is TRUE
-                                         AND cel.feature_id = 38) group by 1;;
+                                       FROM og_transactions.customer_experience_log cel
+                                       WHERE (enabled is TRUE
+                                         AND feature_id = 38) group by 1;;
 #indexes: ["merchant_user_id_test"]
   }
   dimension: merchant_user_id_test {
