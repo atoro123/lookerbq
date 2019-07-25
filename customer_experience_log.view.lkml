@@ -102,7 +102,7 @@ view: customer_experience_log {
 
   measure: Unenrollments_SMS_MGMT  {
     type: count_distinct
-    sql: case when ${enabled} is False and ${feature_id} = 38 THEN ${merchant_user_id} end;;
+    sql: case when enabled is False and feature_id = 38 THEN merchant_user_id end;;
     filters: {field:sms_mgmt_enrolled.ever_enrolled
       value: "yes"}
     drill_fields: [logged_date,merchant_user_id]
