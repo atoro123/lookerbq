@@ -423,12 +423,6 @@ explore: event_log {
       sql_on: ${order_order.public_id} = ${order_placementfailure.order_public_id} ;;
       relationship: one_to_one
     }
-
-    join: event_type {
-      sql_on: ${event_type.id} = ${oos_event_log.type_id} ;;
-      relationship: many_to_one
-    }
-
   }
 
   explore: subscription_event_log {
@@ -481,11 +475,6 @@ explore: event_log {
       sql_on: ${order_order.public_id} = ${order_placementfailure.order_public_id} ;;
       relationship: one_to_one
     }
-
-    join: event_type {
-      sql_on: ${event_type.id} = ${subscription_event_log.type_id} ;;
-      relationship: many_to_one
-    }
     }
 
   explore: order_event_log {
@@ -537,11 +526,6 @@ explore: event_log {
 
     join: product_product {
       sql_on: ${product_product.id} = ${subscription_subscription.product_id} ;;
-      relationship: many_to_one
-    }
-
-    join: event_type {
-      sql_on: ${event_type.id} = ${order_event_log.type_id} ;;
       relationship: many_to_one
     }
   }
