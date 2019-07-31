@@ -161,6 +161,12 @@ relationship: one_to_many
     sql_on: ${order_order.customer_id} = ${customers_impulse_upsell.customer_id} ;;
     relationship: one_to_one
   }
+
+  join: acv {
+    type: left_outer
+    sql_on: ${order_order.merchant_id} = ${acv.merchant_id} ;;
+    relationship: many_to_one
+  }
 }
 
 explore: subscription_subscription {

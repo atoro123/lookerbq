@@ -122,4 +122,10 @@ view: order_item_log {
     type: sum
     sql: ${quantity} ;;
   }
+
+  measure: min_date {
+    type: date
+    sql: min(${logged_date}) ;;
+
+  }
 }
