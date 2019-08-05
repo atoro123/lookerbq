@@ -28,4 +28,8 @@ dimension: SKU_Swap_To_Product_Walmart_CA {
     sql:  left(right(${object_metadata},25),7);;
   }
 
+dimension: to_frequency {
+  type: number
+  sql: json_extract_scalar(${object_metadata}, '$.to') ;;
+}
 }

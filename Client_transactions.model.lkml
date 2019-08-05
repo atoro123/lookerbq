@@ -102,6 +102,12 @@ explore: order_item_log {access_filter: {field:merchant_id
     sql_on: ${product_product.id} = ${order_item_log.product_id} ;;
     relationship: many_to_one
   }
+
+  join: customer_customer {
+    type: left_outer
+    sql_on: ${customer_customer.id} = ${order_item_log.customer_id} ;;
+    relationship: many_to_one
+  }
 }
 
 explore: order_log {access_filter: {field:merchant_id
