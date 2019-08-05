@@ -28,8 +28,69 @@ dimension: SKU_Swap_To_Product_Walmart_CA {
     sql:  left(right(${object_metadata},25),7);;
   }
 
-dimension: to_frequency {
-  type: number
+dimension: to {
+  type: string
+  hidden: yes
   sql: json_extract_scalar(${object_metadata}, '$.to') ;;
 }
+
+dimension: from{
+  type: string
+  hidden: yes
+  sql: json_extract_scalar(${object_metadata}, '$.from')  ;;
+}
+
+measure: Average_To_Frequency {
+  type: average
+  sql: cast(${to} AS NUMERIC) ;;
+  filters: {
+    field: type_id
+    value: "11"
+  }
+  value_format: "0"
+}
+
+measure: Average_From_Frequency {
+  type: average
+  sql: cast(${from} AS NUMERIC) ;;
+  filters: {
+    field: type_id
+    value: "11"
+  }
+  value_format: "0"
+}
+
+  measure: Average_To_Quantity {
+    type: average
+    sql: cast(${to} AS NUMERIC) ;;
+    filters: {
+      field: type_id
+      value: "14"
+    }
+    value_format: "0"
+  }
+
+  measure: Average_From_Quantity {
+    type: average
+    sql: cast(${from} AS NUMERIC) ;;
+    filters: {
+      field: type_id
+      value: "14"
+    }
+    value_format: "0"
+  }
+
+  measure: Date_Change_Difference {
+    type: count
+    sql: date_diff(cast(${to} AS DATE), cast(${from} AS DATE), DAY)  ;;
+    description: "Always Filter for Type ID 12"
+    value_format: "0"
+  }
+
+  dimension: Date_Change {
+    type: number
+    sql: date_diff(cast(${to} AS DATE), cast(${from} AS DATE), DAY)  ;;
+    description: "Always Filter for Type ID 12"
+    value_format: "0"
+  }
 }
