@@ -73,7 +73,7 @@ view: cart_log {
       quarter,
       year
     ]
-    sql: TIMESTAMP(${TABLE}.logged) ;;
+    sql: ${TABLE}.logged ;;
   }
 
   dimension_group: GMT_logged {

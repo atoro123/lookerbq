@@ -92,7 +92,13 @@ explore: ds_reorder_streaming_decision_log {  access_filter: {field:merchant_id
 }
 
 explore: cart_log {
+  access_filter: {field:merchant_id
+    user_attribute:merchant_id}
 
+  join: product_product {
+    sql_on: ${cart_log.product_id} = ${product_product.id} ;;
+    relationship: many_to_one
+  }
 }
 
 explore: order_item_log {access_filter: {field:merchant_id
