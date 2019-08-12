@@ -188,4 +188,10 @@ view: cart_log {
     sql: ${total} ;;
     value_format: "$#,##0.00"
   }
+
+  measure: Average_Item_Total {
+    type: average
+    sql: ${total} ;;
+    value_format: "$0.00"
+  }
 }

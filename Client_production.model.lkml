@@ -489,7 +489,7 @@ explore: event_log {
 
     join: order_order {
       sql_on: ${order_order.id} = ${order_event_log.object_id} ;;
-      relationship: one_to_many
+      relationship: many_to_one
     }
 
     join: order_item {

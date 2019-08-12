@@ -99,6 +99,19 @@ explore: cart_log {
     sql_on: ${cart_log.product_id} = ${product_product.id} ;;
     relationship: many_to_one
   }
+
+  join: offer_offer {
+    sql_on: ${cart_log.offer_id} = ${offer_offer.id} ;;
+    relationship: many_to_one
+  }
+
+  join: subscription_subscription {
+    sql_on: ${subscription_subscription.id} = ${cart_log.subscription_id} ;;
+    relationship: one_to_one
+    fields: [subscription_subscription.id, subscription_subscription.customer_id, subscription_subscription.merchant_id, subscription_subscription.product_id, subscription_subscription.quantity, subscription_subscription.frequency_days,
+      subscription_subscription.cancel_reason, subscription_subscription.cancelled_date, subscription_subscription.cancelled_month, subscription_subscription.offer_id, subscription_subscription.created_date, subscription_subscription.created_month,
+      subscription_subscription.live, subscription_subscription.subscription_type]
+  }
 }
 
 explore: order_item_log {access_filter: {field:merchant_id

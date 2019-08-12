@@ -124,4 +124,9 @@ view: event_log {
     type: date
     sql: min(${logged_date}) ;;
   }
+
+  measure: count {
+    type: count
+    sql: ${id} ;;
+  }
 }
