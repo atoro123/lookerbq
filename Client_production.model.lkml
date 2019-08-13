@@ -375,6 +375,8 @@ explore: event_log {
   join: customer_customer {
     view_label: "Customer"
     sql_on: ${event_log.customer_id} = ${customer_customer.id};;
+    fields: [customer_customer.id, customer_customer.created_date, customer_customer.created_month, customer_customer.created_time, customer_customer.created_week, customer_customer.created_year, customer_customer.live,
+      customer_customer.merchant_id, customer_customer.merchant_user_id ]
     relationship: many_to_one
   }}
 

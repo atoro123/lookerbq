@@ -50,6 +50,8 @@ explore: customer_experience_log {  access_filter: {field:merchant_id
   join: customer_customer {
     relationship: many_to_one
     sql_on: ${customer_customer.merchant_user_id}=${customer_experience_log.merchant_user_id} ;;
+    fields: [customer_customer.id, customer_customer.created_date, customer_customer.created_month, customer_customer.created_time, customer_customer.created_week, customer_customer.created_year, customer_customer.live,
+      customer_customer.merchant_id, customer_customer.merchant_user_id ]
   }
 
   join: order_order {
@@ -125,6 +127,8 @@ explore: order_item_log {access_filter: {field:merchant_id
   join: customer_customer {
     type: left_outer
     sql_on: ${customer_customer.id} = ${order_item_log.customer_id} ;;
+    fields: [customer_customer.id, customer_customer.created_date, customer_customer.created_month, customer_customer.created_time, customer_customer.created_week, customer_customer.created_year, customer_customer.live,
+      customer_customer.merchant_id, customer_customer.merchant_user_id ]
     relationship: many_to_one
   }
 }

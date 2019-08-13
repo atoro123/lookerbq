@@ -164,4 +164,29 @@ view: customer_customer {
     type: count
     drill_fields: [id]
   }
+
+  measure: Active_Subscriptions {
+    type: count_distinct
+    label: "Active Subscription Count"
+    sql: ${subscription_subscription.id} ;;
+    filters: {
+      field: subscription_subscription.live
+      value: "1"
+    }
+  }
+
+  measure: Inactive_Subscriptions {
+    type: count_distinct
+    label: "Inactive Subscription Count"
+    sql: ${subscription_subscription.id} ;;
+    filters: {
+      field: subscription_subscription.live
+      value: "0"
+    }
+  }
+
+  measure: Average_Frequency {
+    type: average
+    sql: ${subscription_subscription.frequency_days} ;;
+  }
 }
