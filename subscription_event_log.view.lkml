@@ -40,6 +40,18 @@ dimension: from{
   sql: json_extract_scalar(${object_metadata}, '$.from')  ;;
 }
 
+dimension: from_sku {
+  type: number
+  sql: cast(${from} as NUMERIC) ;;
+  value_format: "0"
+}
+
+dimension: to_sku {
+  type: number
+  sql: cast(${to} as NUMERIC) ;;
+  value_format: "0"
+}
+
 measure: Average_To_Frequency {
   type: average
   sql: cast(${to} AS NUMERIC) ;;

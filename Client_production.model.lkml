@@ -477,6 +477,24 @@ explore: event_log {
       sql_on: ${order_order.public_id} = ${order_placementfailure.order_public_id} ;;
       relationship: one_to_one
     }
+
+    join: From_SKU_Swap_Product {
+      view_label: "From SKU Swap"
+      from: product_product
+      sql_on: ${From_SKU_Swap_Product.id} = ${subscription_event_log.from_sku} ;;
+      fields: [From_SKU_Swap_Product.external_product_id, From_SKU_Swap_Product.id, From_SKU_Swap_Product.autoship_enabled, From_SKU_Swap_Product.autoship_by_default, From_SKU_Swap_Product.discontinued, From_SKU_Swap_Product.name,
+        From_SKU_Swap_Product.merchant_id, From_SKU_Swap_Product.price, From_SKU_Swap_Product.sku, From_SKU_Swap_Product.subscription_eligible]
+      relationship: many_to_one
+    }
+
+    join: To_SKU_Swap_Product {
+      view_label: "To SKU Swap"
+      from: product_product
+      sql_on: ${To_SKU_Swap_Product.id} = ${subscription_event_log.to_sku} ;;
+      fields: [To_SKU_Swap_Product.external_product_id, To_SKU_Swap_Product.id, To_SKU_Swap_Product.autoship_enabled, To_SKU_Swap_Product.autoship_by_default, To_SKU_Swap_Product.discontinued, To_SKU_Swap_Product.name,
+        To_SKU_Swap_Product.merchant_id, To_SKU_Swap_Product.price, To_SKU_Swap_Product.sku, To_SKU_Swap_Product.subscription_eligible]
+      relationship: many_to_one
+    }
     }
 
   explore: order_event_log {
