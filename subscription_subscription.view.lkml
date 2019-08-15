@@ -516,6 +516,27 @@ view: subscription_subscription {
     sql: ${quantity} ;;
     value_format: "0.00"
   }
+
+  dimension: Days_since_Subscriber_Creation {
+    type: number
+    sql:DATE_DIFF( ${created_date},${customer_facts.created_date},day);;
+  }
+
+  measure: Subscriptions_Added_on_Subscriber_Created{
+    type: count_distinct
+    sql: case when ${is_min_created} = TRUE then ${id} else null end ;;
+  }
+
+  measure: Subscriptions_Added_after_Subscriber_Created{
+    type: count_distinct
+    sql: case when ${is_min_created} = false then ${id} else null end ;;
+  }
+
+  measure: Avg_Days_Added_after_Subscriber_Created{
+    type: average
+    sql: case when ${is_min_created} = FALSE then ${Days_since_Subscriber_Creation} else null end ;;
+    value_format: "0"
+  }
 #
 #   dimension: current_date {
 #     type: date_month
