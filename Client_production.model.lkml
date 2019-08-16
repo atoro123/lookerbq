@@ -167,6 +167,12 @@ relationship: one_to_many
     sql_on: ${order_order.merchant_id} = ${acv.merchant_id} ;;
     relationship: many_to_one
   }
+
+  join: event_log {
+    type: left_outer
+    sql_on: ${customer_customer.id} = ${event_log.customer_id} ;;
+    relationship: one_to_many
+  }
 }
 
 explore: subscription_subscription {
@@ -279,6 +285,12 @@ explore: subscription_subscription {
     sql_on: ${subscription_subscription.customer_id} = ${customers_impulse_upsell.customer_id} ;;
     relationship: many_to_one
   }
+
+  join: event_log {
+    type: left_outer
+    sql_on: ${customer_customer.id} = ${event_log.customer_id} ;;
+    relationship: one_to_many
+  }
   }
 
 explore: customer_customer {
@@ -366,6 +378,14 @@ explore: customer_customer {
     sql_on: ${customer_customer.id} = ${customers_impulse_upsell.customer_id} ;;
     relationship: one_to_one
   }
+
+  join: event_log {
+    type: left_outer
+    sql_on: ${customer_customer.id} = ${event_log.customer_id} ;;
+    sql_where: ${event_log.type_id} in (8,10,11,12,14,15,16,17,18,19,20,30,41,6,21,22,24,25,27,28,44) ;;
+    relationship: one_to_many
+    fields: [event_log.customer_id, event_log.id, event_log.logged_date, event_log.logged_month, event_log.logged_year, event_log.type_id]
+  }
 }
 
 explore: event_log {
@@ -386,6 +406,8 @@ explore: event_log {
     join: customer_customer {
     sql_on: ${oos_event_log.customer_id} = ${customer_customer.id} ;;
     relationship: many_to_one
+    fields: [customer_customer.count, customer_customer.created_date, customer_customer.created_month, customer_customer.created_year, customer_customer.id, customer_customer.live, customer_customer.merchant_id,
+      customer_customer.merchant_user_id]
         }
       access_filter: {field:customer_customer.merchant_id
         user_attribute:merchant_id}
@@ -433,6 +455,8 @@ explore: event_log {
     join: customer_customer {
       sql_on: ${subscription_event_log.customer_id} = ${customer_customer.id};;
       relationship: many_to_one
+      fields: [customer_customer.count, customer_customer.created_date, customer_customer.created_month, customer_customer.created_year, customer_customer.id, customer_customer.live, customer_customer.merchant_id,
+        customer_customer.merchant_user_id]
     }
     access_filter: {field:customer_customer.merchant_id
       user_attribute:merchant_id}
@@ -503,6 +527,8 @@ explore: event_log {
     join: customer_customer {
       sql_on: ${order_event_log.customer_id} = ${customer_customer.id} ;;
       relationship: many_to_one
+      fields: [customer_customer.count, customer_customer.created_date, customer_customer.created_month, customer_customer.created_year, customer_customer.id, customer_customer.live, customer_customer.merchant_id,
+        customer_customer.merchant_user_id]
     }
     access_filter: {field:customer_customer.merchant_id
       user_attribute:merchant_id}

@@ -189,4 +189,9 @@ view: customer_customer {
     type: average
     sql: ${subscription_subscription.frequency_days} ;;
   }
+
+  dimension: Took_Action {
+    type: yesno
+    sql: ${event_log.customer_id} is not null ;;
+  }
 }
