@@ -382,7 +382,7 @@ explore: customer_customer {
   join: event_log {
     type: left_outer
     sql_on: ${customer_customer.id} = ${event_log.customer_id} ;;
-    sql_where: ${event_log.type_id} in (8,10,11,12,14,15,16,17,18,19,20,30,41,6,21,22,24,25,27,28,44) ;;
+    sql_where: ${event_log.type_id} in (8,10,11,12,14,15,16,17,18,19,20,41,21,22,24,25,27,28) ;;
     relationship: one_to_many
     fields: [event_log.customer_id, event_log.id, event_log.logged_date, event_log.logged_month, event_log.logged_year, event_log.type_id]
   }
