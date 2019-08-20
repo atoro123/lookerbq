@@ -20,11 +20,13 @@ measure: Distinct_Customers {
 
 dimension: SKU_Swap_To_Product_Walmart_CA {
   type: number
+  hidden: yes
   sql:  left(right(${object_metadata},8),7);;
 }
 
   dimension: SKU_Swap_From_Product_Walmart_CA {
     type: number
+    hidden: yes
     sql:  left(right(${object_metadata},25),7);;
   }
 
@@ -43,6 +45,18 @@ dimension: from{
 dimension: from_sku {
   type: number
   sql: cast(${from} as NUMERIC) ;;
+  value_format: "0"
+}
+
+measure: From_Sku_Count {
+  type: count
+  sql: ${from_sku} ;;
+  value_format: "0"
+}
+
+measure: To_Sku_Count {
+  type: count
+  sql: ${to_sku} ;;
   value_format: "0"
 }
 
