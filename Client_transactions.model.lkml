@@ -59,7 +59,7 @@ explore: customer_experience_log {  access_filter: {field:merchant_id
     sql_on: ${customer_customer.id} = ${order_order.customer_id} ;;
     fields: [order_order.id, order_order.cancelled_date, order_order.cancelled_month, order_order.customer_id, order_order.merchant_id,
       order_order.place_month, order_order.place_date, order_order.rejected_message, order_order.status, order_order.sub_total, order_order.rejected_reason, order_order.completed_orders,
-      order_order.completed_orders_revenue, order_order.skipped_orders_revenue, order_order.order_revenue, order_order.skipped_orders, order_order.order_processing, order_order.Average_Order_Value, order_order.Order_Status_Name]
+      order_order.completed_orders_revenue, order_order.skipped_orders_revenue, order_order.order_revenue, order_order.skipped_orders, order_order.order_processing, order_order.Average_Order_Value, order_order.Order_Status_Name, order_order.count]
   }
 
   join: order_item_log {
