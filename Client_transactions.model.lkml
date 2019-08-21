@@ -66,6 +66,23 @@ explore: customer_experience_log {  access_filter: {field:merchant_id
     relationship: one_to_many
     sql_on: ${customer_customer.id} = ${order_item_log.customer_id} ;;
   }
+
+  join: order_item {
+    relationship: one_to_many
+    sql_on: ${order_order.id} = ${order_item.order_id} ;;
+    fields: [order_item.id, order_item.order_id, order_item.subscription_id, order_item.product_id, order_item.quantity, order_item.price, order_item.total_price, order_item.offer_id]
+  }
+
+  join: product_product {
+    relationship: many_to_one
+    sql_on: ${product_product.id} = ${order_item.product_id} ;;
+  }
+
+  join: IU_Add_Product_Feed {
+    from: product_product
+    relationship: many_to_one
+    sql_on: ${product_product.id} = ${order_item_log.product_id} ;;
+  }
 }
 
 explore: ds_reorder_outcomes_log {  access_filter: {field:merchant_id
