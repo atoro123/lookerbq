@@ -40,7 +40,8 @@ view: customer_facts {
       month_name,
       quarter,
       year,
-      day_of_month
+      day_of_month,
+      week_of_year
     ]
     label: "Customer Creation"
     description: "first date that a customer subscribed"
