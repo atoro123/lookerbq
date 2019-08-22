@@ -505,6 +505,11 @@ view: subscription_subscription {
       }
   }
 
+  dimension: Max_Upcoming_Order {
+    type: string
+    sql: case when ${live} is TRUE and ${order_order.status}=1 then ${order_order.place_date} end ;;
+  }
+
   measure: 24_Hour_Cancel_Percent {
     type: number
     sql: ${24_Hour_Cancels}/${count} ;;

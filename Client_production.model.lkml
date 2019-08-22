@@ -571,7 +571,7 @@ explore: event_log {
     }
 
     join: product_product {
-      sql_on: ${product_product.id} = ${subscription_subscription.product_id} ;;
+      sql_on: ${product_product.id} = ${order_item.product_id} ;;
       relationship: many_to_one
     }
   }

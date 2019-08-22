@@ -49,7 +49,7 @@ explore: customer_experience_log {  access_filter: {field:merchant_id
 
   join: customer_customer {
     relationship: many_to_one
-    sql_on: ${customer_customer.merchant_user_id}=${customer_experience_log.merchant_user_id} ;;
+    sql_on: ${customer_experience_log.merchant_user_id} = ${customer_customer.merchant_user_id} ;;
     fields: [customer_customer.id, customer_customer.created_date, customer_customer.created_month, customer_customer.created_time, customer_customer.created_week, customer_customer.created_year, customer_customer.live,
       customer_customer.merchant_id, customer_customer.merchant_user_id ]
   }
@@ -70,18 +70,21 @@ explore: customer_experience_log {  access_filter: {field:merchant_id
   join: order_item {
     relationship: one_to_many
     sql_on: ${order_order.id} = ${order_item.order_id} ;;
-    fields: [order_item.id, order_item.order_id, order_item.subscription_id, order_item.product_id, order_item.quantity, order_item.price, order_item.total_price, order_item.offer_id]
+    fields: [order_item.id, order_item.order_id, order_item.subscription_id, order_item.product_id, order_item.quantity, order_item.price, order_item.total_price, order_item.offer_id, order_item.count]
   }
 
   join: product_product {
     relationship: many_to_one
-    sql_on: ${product_product.id} = ${order_item.product_id} ;;
+    sql_on: ${order_item.product_id} = ${product_product.id} ;;
+    fields: [product_product.autoship_enabled, product_product.discontinued, product_product.external_product_id, product_product.autoship_by_default, product_product.id,
+      product_product.merchant_id, product_product.name, product_product.price, product_product.subscription_eligible, product_product.sku]
   }
 
   join: IU_Add_Product_Feed {
     from: product_product
-    relationship: many_to_one
-    sql_on: ${product_product.id} = ${order_item_log.product_id} ;;
+    sql_on: ${order_item_log.product_id} = ${IU_Add_Product_Feed.id} ;;
+    fields: [IU_Add_Product_Feed.discontinued, IU_Add_Product_Feed.external_product_id, IU_Add_Product_Feed.autoship_by_default, IU_Add_Product_Feed.autoship_enabled,
+      IU_Add_Product_Feed.id, IU_Add_Product_Feed.merchant_id, IU_Add_Product_Feed.name, IU_Add_Product_Feed.price, IU_Add_Product_Feed.subscription_eligible, IU_Add_Product_Feed.sku]
   }
 }
 

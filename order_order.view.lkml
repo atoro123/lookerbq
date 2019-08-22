@@ -456,6 +456,11 @@ view: order_order {
     value_format: "0.0%"
   }
 
+  measure: Order_Product_Count {
+    type: count_distinct
+    sql: ${order_item.id} ;;
+  }
+
   measure: Max_Order_Date {
     type: date
     sql: max(${place_date});;
