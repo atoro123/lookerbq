@@ -40,4 +40,14 @@ include: "event_log.view.lkml"
         value: "74,80"
       }
     }
+
+   dimension: Change_Order_From_Date {
+      type: string
+      sql: json_extract_scalar(${object_metadata}, '$.from')  ;;
+    }
+
+    dimension: Change_Order_To_Date {
+      type: string
+      sql: json_extract_scalar(${object_metadata}, '$.to') ;;
+    }
   }

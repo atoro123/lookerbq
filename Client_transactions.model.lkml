@@ -59,12 +59,29 @@ explore: customer_experience_log {  access_filter: {field:merchant_id
     sql_on: ${customer_customer.id} = ${order_order.customer_id} ;;
     fields: [order_order.id, order_order.cancelled_date, order_order.cancelled_month, order_order.customer_id, order_order.merchant_id,
       order_order.place_month, order_order.place_date, order_order.rejected_message, order_order.status, order_order.sub_total, order_order.rejected_reason, order_order.completed_orders,
-      order_order.completed_orders_revenue, order_order.skipped_orders_revenue, order_order.order_revenue, order_order.skipped_orders, order_order.order_processing, order_order.Average_Order_Value, order_order.Order_Status_Name]
+      order_order.completed_orders_revenue, order_order.skipped_orders_revenue, order_order.order_revenue, order_order.skipped_orders, order_order.order_processing, order_order.Average_Order_Value, order_order.Order_Status_Name, order_order.count]
   }
 
   join: order_item_log {
     relationship: one_to_many
     sql_on: ${customer_customer.id} = ${order_item_log.customer_id} ;;
+  }
+
+  join: order_item {
+    relationship: one_to_many
+    sql_on: ${order_order.id} = ${order_item.order_id} ;;
+    fields: [order_item.id, order_item.order_id, order_item.subscription_id, order_item.product_id, order_item.quantity, order_item.price, order_item.total_price, order_item.offer_id]
+  }
+
+  join: product_product {
+    relationship: many_to_one
+    sql_on: ${product_product.id} = ${order_item.product_id} ;;
+  }
+
+  join: IU_Add_Product_Feed {
+    from: product_product
+    relationship: many_to_one
+    sql_on: ${product_product.id} = ${order_item_log.product_id} ;;
   }
 }
 
