@@ -85,6 +85,7 @@ explore: customer_experience_log {  access_filter: {field:merchant_id
     sql_on: ${order_item_log.product_id} = ${IU_Add_Product_Feed.id} ;;
     fields: [IU_Add_Product_Feed.discontinued, IU_Add_Product_Feed.external_product_id, IU_Add_Product_Feed.autoship_by_default, IU_Add_Product_Feed.autoship_enabled,
       IU_Add_Product_Feed.id, IU_Add_Product_Feed.merchant_id, IU_Add_Product_Feed.name, IU_Add_Product_Feed.price, IU_Add_Product_Feed.subscription_eligible, IU_Add_Product_Feed.sku]
+    relationship: many_to_one
   }
 }
 

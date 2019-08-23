@@ -28,7 +28,7 @@ include: "event_log.view.lkml"
       sql: ${Combo_Saving_To_Order} ;;
       filters: {
         field: type_id
-        value: "74,80"
+        value: "80"
       }
     }
 
@@ -37,7 +37,7 @@ include: "event_log.view.lkml"
       sql: ${Combo_Saving_From_Order} ;;
       filters: {
         field: type_id
-        value: "74,80"
+        value: "80"
       }
     }
 
