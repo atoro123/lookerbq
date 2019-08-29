@@ -152,6 +152,14 @@ explore: order_item_log {access_filter: {field:merchant_id
       customer_customer.merchant_id, customer_customer.merchant_user_id ]
     relationship: many_to_one
   }
+
+  join: order_order {
+    type: left_outer
+    sql_on: ${order_order.id} = ${order_item_log.order_id} ;;
+    relationship: many_to_one
+    fields: [order_order.cancelled_time, order_order.created_time, order_order.status, order_order.place_time, order_order.id, order_order.customer_id, order_order.merchant_id,
+      order_order.order_merchant_id, order_order.sub_total, order_order.rejected_message, order_order.Order_Status_Name]
+  }
 }
 
 explore: order_log {access_filter: {field:merchant_id
@@ -161,8 +169,7 @@ explore: order_log {access_filter: {field:merchant_id
   join: order_item_log {
     sql_on: ${order_item_log.order_id} = ${order_log.order_id} ;;
     relationship: many_to_many
-  }
-}
+  }}
 
 explore: impulse_upsell_adds {access_filter: {field:merchant_id
     user_attribute:merchant_id}
