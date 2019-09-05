@@ -646,3 +646,7 @@ explore: event_log {
   explore: vsi_fraud {
     hidden: yes
   }
+
+  explore:  log_conversationlog {
+    label: "8) Conversation Log"
+  }
