@@ -194,4 +194,9 @@ view: cart_log {
     sql: ${total} ;;
     value_format: "$0.00"
   }
+
+  measure: Session_Count {
+    type: count_distinct
+    sql: ${session_id} ;;
+  }
 }
