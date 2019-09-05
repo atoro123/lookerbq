@@ -533,6 +533,20 @@ view: subscription_subscription {
     sql: case when ${is_min_created} = TRUE then ${id} else null end ;;
   }
 
+  dimension: Months_Since_Subscriber_Creation {
+    type: number
+    hidden: yes
+    sql: ${Days_since_Subscriber_Creation}/30.5 ;;
+  }
+
+  dimension: Months_Since_Subsc_Creation_Bucket {
+    type: tier
+    style: interval
+    tiers: [0,6,12,18,24]
+    sql: ${Months_Since_Subscriber_Creation} ;;
+    value_format: "0"
+  }
+
   measure: Subscriptions_Added_after_Subscriber_Created{
     type: count_distinct
     sql: case when ${is_min_created} = false then ${id} else null end ;;
