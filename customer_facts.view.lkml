@@ -2,14 +2,17 @@ view: customer_facts {
   derived_table: {
     sql_trigger_value: SELECT FLOOR(((TIMESTAMP_DIFF(CURRENT_TIMESTAMP(),'1970-01-01 00:00:00',SECOND)) - 60*60*8)/(60*60*24));;
     sql: select
-      customer_id
-      , merchant_id
-      , min(id) as Subscription
-      , min(created) as Created
-      , TIMESTAMP(max(case when live is FALSE then cancelled else null end)) as Cancelled
-      , max(live) as Live
+      subscription_subscription.customer_id
+      , subscription_subscription.merchant_id
+      , min(subscription_subscription.id) as Subscription
+      , min(subscription_subscription.created) as Created
+      , TIMESTAMP(max(case when subscription_subscription.live is FALSE then subscription_subscription.cancelled else null end)) as Cancelled
+      , max(subscription_subscription.live) as Live
+      , count(distinct order_order.id) as Total_Orders
+      , count(distinct case when order_order.status = 5 then order_order.id else null end) as Completed_Orders
 
       from ogv2_production.subscription_subscription
+      left join ogv2_production.order_order on subscription_subscription.customer_id = order_order.customer_id
 
       group by 1,2
 
@@ -182,5 +185,16 @@ measure: LTV {
   dimension: First_Subscription_ID {
     type: number
     sql: ${TABLE}.Subscription ;;
+  }
+
+  dimension: Total_Orders {
+    type: number
+    sql: ${TABLE}.total_orders;;
+  }
+
+
+  dimension: Completed_Orders {
+    type: number
+    sql: ${TABLE}.Completed_Orders;;
   }
 }
