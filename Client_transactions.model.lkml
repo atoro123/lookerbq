@@ -85,6 +85,7 @@ explore: customer_experience_log {  access_filter: {field:merchant_id
     sql_on: ${order_item_log.product_id} = ${IU_Add_Product_Feed.id} ;;
     fields: [IU_Add_Product_Feed.discontinued, IU_Add_Product_Feed.external_product_id, IU_Add_Product_Feed.autoship_by_default, IU_Add_Product_Feed.autoship_enabled,
       IU_Add_Product_Feed.id, IU_Add_Product_Feed.merchant_id, IU_Add_Product_Feed.name, IU_Add_Product_Feed.price, IU_Add_Product_Feed.subscription_eligible, IU_Add_Product_Feed.sku]
+    relationship: many_to_one
   }
 }
 
@@ -151,6 +152,14 @@ explore: order_item_log {access_filter: {field:merchant_id
       customer_customer.merchant_id, customer_customer.merchant_user_id ]
     relationship: many_to_one
   }
+
+  join: order_order {
+    type: left_outer
+    sql_on: ${order_order.id} = ${order_item_log.order_id} ;;
+    relationship: many_to_one
+    fields: [order_order.cancelled_time, order_order.created_time, order_order.status, order_order.place_time, order_order.id, order_order.customer_id, order_order.merchant_id,
+      order_order.order_merchant_id, order_order.sub_total, order_order.rejected_message, order_order.Order_Status_Name]
+  }
 }
 
 explore: order_log {access_filter: {field:merchant_id
@@ -160,9 +169,12 @@ explore: order_log {access_filter: {field:merchant_id
   join: order_item_log {
     sql_on: ${order_item_log.order_id} = ${order_log.order_id} ;;
     relationship: many_to_many
-  }
-}
+  }}
 
 explore: impulse_upsell_adds {access_filter: {field:merchant_id
     user_attribute:merchant_id}
   persist_with: daily_refresh}
+
+    explore: Cart_Log_Mixed_Session {
+      from: cart_log_mixed
+    }

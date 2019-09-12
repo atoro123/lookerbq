@@ -479,6 +479,8 @@ explore: event_log {
     join: product_product {
       sql_on: ${product_product.id} = ${subscription_subscription.product_id} ;;
       relationship: many_to_one
+      fields: [product_product.autoship_enabled, product_product.autoship_by_default, product_product.discontinued, product_product.external_product_id, product_product.id,
+        product_product.live, product_product.merchant_id, product_product.name, product_product.price, product_product.sku, product_product.subscription_eligible]
     }
 
     join: customer_facts {
@@ -643,4 +645,8 @@ explore: event_log {
 
   explore: vsi_fraud {
     hidden: yes
+  }
+
+  explore:  log_conversationlog {
+    label: "8) Conversation Log"
   }
