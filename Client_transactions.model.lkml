@@ -135,6 +135,27 @@ explore: cart_log {
       subscription_subscription.cancel_reason, subscription_subscription.cancelled_date, subscription_subscription.cancelled_month, subscription_subscription.offer_id, subscription_subscription.created_date, subscription_subscription.created_month,
       subscription_subscription.live, subscription_subscription.subscription_type]
   }
+
+  join: cart_log_mixed {
+    sql_on: ${cart_log_mixed.session} = ${cart_log.session_id} ;;
+    relationship: many_to_one
+  }
+
+  join: cart_log_no_subscription {
+    type: left_outer
+    sql_on: ${cart_log_no_subscription.session_id} = ${cart_log.session_id} ;;
+    relationship: many_to_one
+  }
+
+  join: Customer_Subscription {
+    from: subscription_subscription
+    type: left_outer
+    sql_on: ${cart_log.customer_id} = ${Customer_Subscription.customer_id} ;;
+    relationship: many_to_many
+    fields: [Customer_Subscription.id, Customer_Subscription.customer_id, Customer_Subscription.merchant_id, Customer_Subscription.product_id, Customer_Subscription.quantity, Customer_Subscription.frequency_days,
+      Customer_Subscription.cancel_reason, Customer_Subscription.cancelled_date, Customer_Subscription.cancelled_month, Customer_Subscription.offer_id, Customer_Subscription.created_date, Customer_Subscription.created_month,
+      Customer_Subscription.live, Customer_Subscription.subscription_type]
+  }
 }
 
 explore: order_item_log {access_filter: {field:merchant_id

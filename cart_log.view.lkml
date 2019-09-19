@@ -199,4 +199,41 @@ view: cart_log {
     type: count_distinct
     sql: ${session_id} ;;
   }
+
+  dimension: mixed_cart {
+    type: yesno
+    sql: ${cart_log_mixed.session} is not null ;;
+  }
+
+  dimension: non_subscription_cart {
+    type: yesno
+    sql: ${cart_log_no_subscription.session_id} is not null ;;
+  }
+
+  dimension: Ever_A_Subscriber {
+    label: "Is/Was a Subscriber"
+    type: yesno
+    sql: ${Customer_Subscription.customer_id} is not null;;
+  }
+
+  measure: Average_Cart_Total {
+    type: number
+    value_format_name: usd
+    sql: ${total_merchant_revenue}/${Session_Count} ;;
+  }
+
+  measure: Average_Items_In_Cart {
+    type: number
+    sql: ${count}/${Session_Count} ;;
+  }
+
+  measure: Distinct_Customers {
+    type: count_distinct
+    sql: ${customer_id} ;;
+  }
+
+  measure: Average_Item_Quantity {
+    type: average
+    sql: ${quantity} ;;
+  }
 }
