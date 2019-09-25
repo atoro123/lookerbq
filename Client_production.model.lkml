@@ -124,6 +124,14 @@ relationship: one_to_many
     relationship: many_to_one
   }
 
+  join: BOPUS {
+    from: customer_address
+    sql_on: ${BOPUS.id} =  ${order_order.shipping_address_id} ;;
+    relationship: many_to_one
+    sql_where: ${BOPUS.store_public_id} is not null ;;
+    fields: [BOPUS.id, BOPUS.customer_id, BOPUS.store_public_id]
+  }
+
 
   join: product_product_categories {
     view_label: "Product"
@@ -172,6 +180,17 @@ relationship: one_to_many
     type: left_outer
     sql_on: ${customer_customer.id} = ${event_log.customer_id} ;;
     relationship: one_to_many
+  }
+
+  join: sms_mgmt_enrolled {
+    type: left_outer
+    sql_on: ${sms_mgmt_enrolled.merchant_user_id_test} = ${customer_customer.merchant_user_id} ;;
+    relationship: one_to_one
+  }
+
+  join: vsi_email_bopus {
+    sql_on: ${vsi_email_bopus.order_id} = ${order_order.id} ;;
+    relationship: many_to_one
   }
 }
 
@@ -291,6 +310,11 @@ explore: subscription_subscription {
     sql_on: ${customer_customer.id} = ${event_log.customer_id} ;;
     relationship: one_to_many
   }
+
+  join: vsi_email_bopus {
+    sql_on: ${vsi_email_bopus.order_id} = ${order_order.id} ;;
+    relationship: many_to_one
+  }
   }
 
 explore: customer_customer {
@@ -386,6 +410,16 @@ explore: customer_customer {
     relationship: one_to_many
     fields: [event_log.customer_id, event_log.id, event_log.logged_date, event_log.logged_month, event_log.logged_year, event_log.type_id]
   }
+
+  join: customer_address {
+    sql: ${customer_address.customer_id} = ${customer_customer.id} ;;
+    relationship: one_to_one
+  }
+
+  join: vsi_email_bopus {
+    sql_on: ${vsi_email_bopus.order_id} = ${order_order.id} ;;
+    relationship: many_to_one
+  }
 }
 
 explore: event_log {
@@ -446,6 +480,16 @@ explore: event_log {
     join: order_placementfailure {
       sql_on: ${order_order.public_id} = ${order_placementfailure.order_public_id} ;;
       relationship: one_to_one
+    }
+
+    join: customer_address {
+      sql_on: ${customer_address.customer_id} = ${order_order.customer_id} ;;
+      relationship: many_to_one
+    }
+
+    join: vsi_email_bopus {
+      sql_on: ${vsi_email_bopus.order_id} = ${order_order.id} ;;
+      relationship: many_to_one
     }
   }
 
@@ -521,6 +565,16 @@ explore: event_log {
         To_SKU_Swap_Product.merchant_id, To_SKU_Swap_Product.price, To_SKU_Swap_Product.sku, To_SKU_Swap_Product.subscription_eligible]
       relationship: many_to_one
     }
+
+    join: customer_address {
+      sql_on: ${customer_address.customer_id} = ${order_order.customer_id} ;;
+      relationship: many_to_one
+    }
+
+    join: vsi_email_bopus {
+      sql_on: ${vsi_email_bopus.order_id} = ${order_order.id} ;;
+      relationship: many_to_one
+    }
     }
 
   explore: order_event_log {
@@ -574,6 +628,23 @@ explore: event_log {
 
     join: product_product {
       sql_on: ${product_product.id} = ${order_item.product_id} ;;
+      relationship: many_to_one
+    }
+
+    join: customer_address {
+      sql_on: ${customer_address.id} =  ${order_order.shipping_address_id} ;;
+      relationship: many_to_one
+      sql_where: ${customer_address.store_public_id} is not null ;;
+    }
+
+    join: sms_mgmt_enrolled {
+      type: left_outer
+      sql_on: ${sms_mgmt_enrolled.merchant_user_id_test} = ${customer_customer.merchant_user_id} ;;
+      relationship: one_to_one
+    }
+
+    join: vsi_email_bopus {
+      sql_on: ${vsi_email_bopus.order_id} = ${order_order.id} ;;
       relationship: many_to_one
     }
   }

@@ -156,6 +156,16 @@ explore: cart_log {
       Customer_Subscription.cancel_reason, Customer_Subscription.cancelled_date, Customer_Subscription.cancelled_month, Customer_Subscription.offer_id, Customer_Subscription.created_date, Customer_Subscription.created_month,
       Customer_Subscription.live, Customer_Subscription.subscription_type]
   }
+
+  join: customer_facts {
+    type: left_outer
+    sql_on: ${cart_log.customer_id} = ${customer_facts.customer_id} ;;
+    relationship: many_to_one
+    fields: [customer_facts.customer_creation_count, customer_facts.customer_id, customer_facts.created_month, customer_facts.created_month,
+      customer_facts.Customer_Live, customer_facts.merchant_id, customer_facts.Cancelled_date, customer_facts.Cancelled_month, customer_facts.Subscriber_lifetime,
+      customer_facts.Bucket_Lifetime, customer_facts.Average_Subscriber_Lifetime, customer_facts.First_Subscription_ID, customer_facts.Total_Orders,
+      customer_facts.Completed_Orders]
+  }
 }
 
 explore: order_item_log {access_filter: {field:merchant_id
