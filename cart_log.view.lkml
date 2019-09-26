@@ -236,4 +236,9 @@ view: cart_log {
     type: average
     sql: ${quantity} ;;
   }
+
+  dimension: Previous_Subscriber {
+    type: yesno
+    sql: ${customer_facts.created_date} < ${logged_date} ;;
+  }
 }

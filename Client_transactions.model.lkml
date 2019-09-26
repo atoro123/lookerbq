@@ -133,7 +133,7 @@ explore: cart_log {
     relationship: one_to_one
     fields: [subscription_subscription.id, subscription_subscription.customer_id, subscription_subscription.merchant_id, subscription_subscription.product_id, subscription_subscription.quantity, subscription_subscription.frequency_days,
       subscription_subscription.cancel_reason, subscription_subscription.cancelled_date, subscription_subscription.cancelled_month, subscription_subscription.offer_id, subscription_subscription.created_date, subscription_subscription.created_month,
-      subscription_subscription.live, subscription_subscription.subscription_type]
+      subscription_subscription.live, subscription_subscription.subscription_type, subscription_subscription.created_logic, subscription_subscription.is_min_created]
   }
 
   join: cart_log_mixed {
