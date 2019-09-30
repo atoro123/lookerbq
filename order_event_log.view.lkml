@@ -50,4 +50,10 @@ include: "event_log.view.lkml"
       type: string
       sql: json_extract_scalar(${object_metadata}, '$.to') ;;
     }
+
+    measure: Distinct_Customers {
+      type: count_distinct
+      label: "Distinct Customer Count"
+      sql: ${customer_id} ;;
+    }
   }

@@ -10,6 +10,8 @@ view: customer_facts {
       , max(subscription_subscription.live) as Live
       , count(distinct order_order.id) as Total_Orders
       , count(distinct case when order_order.status = 5 then order_order.id else null end) as Completed_Orders
+      , count(case when order_order.status = 5 then order_order.sub_total else null end) as Total_Spend
+
 
       from ogv2_production.subscription_subscription
       left join ogv2_production.order_order on subscription_subscription.customer_id = order_order.customer_id
@@ -159,6 +161,21 @@ measure: LTV {
   value_format_name: usd
 }
 
+dimension: Total_Spend {
+  hidden: yes
+  type: number
+  sql: ${TABLE}.Total_Spend ;;
+  value_format: "$0.00"
+}
+
+dimension: Bucket_LTV {
+  type: tier
+  style: interval
+  tiers: [0,25,50,75,100,150,200,300,400,500]
+  sql: ${TABLE}.Total_Spend ;;
+  value_format: "$0.00"
+}
+
   measure: AVG_LTV {
     type: number
     sql:  SAFE_DIVIDE(${LTV},${distinct}) ;;
@@ -173,6 +190,14 @@ measure: LTV {
       field: order_order.status
       value: "5"
     }
+    value_format: "0"
+  }
+
+  dimension: Bucket_Orders {
+    type: tier
+    style: interval
+    tiers: [0,1,2,3,4,5,6,7,8,9,10]
+    sql: ${Completed_Orders} ;;
     value_format: "0"
   }
 
