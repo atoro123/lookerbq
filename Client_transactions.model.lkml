@@ -133,7 +133,7 @@ explore: cart_log {
     relationship: one_to_one
     fields: [subscription_subscription.id, subscription_subscription.customer_id, subscription_subscription.merchant_id, subscription_subscription.product_id, subscription_subscription.quantity, subscription_subscription.frequency_days,
       subscription_subscription.cancel_reason, subscription_subscription.cancelled_date, subscription_subscription.cancelled_month, subscription_subscription.offer_id, subscription_subscription.created_date, subscription_subscription.created_month,
-      subscription_subscription.live, subscription_subscription.subscription_type]
+      subscription_subscription.live, subscription_subscription.subscription_type, subscription_subscription.created_logic, subscription_subscription.is_min_created]
   }
 
   join: cart_log_mixed {
@@ -155,6 +155,16 @@ explore: cart_log {
     fields: [Customer_Subscription.id, Customer_Subscription.customer_id, Customer_Subscription.merchant_id, Customer_Subscription.product_id, Customer_Subscription.quantity, Customer_Subscription.frequency_days,
       Customer_Subscription.cancel_reason, Customer_Subscription.cancelled_date, Customer_Subscription.cancelled_month, Customer_Subscription.offer_id, Customer_Subscription.created_date, Customer_Subscription.created_month,
       Customer_Subscription.live, Customer_Subscription.subscription_type]
+  }
+
+  join: customer_facts {
+    type: left_outer
+    sql_on: ${cart_log.customer_id} = ${customer_facts.customer_id} ;;
+    relationship: many_to_one
+    fields: [customer_facts.customer_creation_count, customer_facts.customer_id, customer_facts.created_month, customer_facts.created_month,
+      customer_facts.Customer_Live, customer_facts.merchant_id, customer_facts.Cancelled_date, customer_facts.Cancelled_month, customer_facts.Subscriber_lifetime,
+      customer_facts.Bucket_Lifetime, customer_facts.Average_Subscriber_Lifetime, customer_facts.First_Subscription_ID, customer_facts.Total_Orders,
+      customer_facts.Completed_Orders]
   }
 }
 
@@ -180,6 +190,13 @@ explore: order_item_log {access_filter: {field:merchant_id
     relationship: many_to_one
     fields: [order_order.cancelled_time, order_order.created_time, order_order.status, order_order.place_time, order_order.id, order_order.customer_id, order_order.merchant_id,
       order_order.order_merchant_id, order_order.sub_total, order_order.rejected_message, order_order.Order_Status_Name]
+  }
+
+  join: offer_offer {
+    type: left_outer
+    sql_on: ${order_item_log.offer_id} = ${offer_offer.id} ;;
+    relationship: many_to_one
+    fields: [offer_offer.id, offer_offer.js_name, offer_offer.merchant_id, offer_offer.offer_live, offer_offer.offer_name]
   }
 }
 

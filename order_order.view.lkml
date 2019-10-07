@@ -518,6 +518,16 @@ view: order_order {
           else 9 end;;
       }
 
+      dimension: BOPUS_Order {
+        type: yesno
+        sql: ${shipping_address_id} = ${customer_address.id} ;;
+      }
+
+      dimension: VSI_Email_BOPUS {
+        type: yesno
+        sql: ${vsi_email_bopus.order_id} is not null ;;
+      }
+
 #
 #
 #   dimension: Last_week {

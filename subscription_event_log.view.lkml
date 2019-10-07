@@ -42,6 +42,20 @@ dimension: from{
   sql: json_extract_scalar(${object_metadata}, '$.from')  ;;
 }
 
+dimension: to_change {
+  label:"To Change"
+  type: number
+  sql: ${to} ;;
+  value_format: "0"
+}
+
+dimension: from_change {
+  label: "From Change"
+  type: number
+  sql: ${from} ;;
+  value_format: "0"
+}
+
 dimension: from_sku {
   type: number
   sql: cast(${from} as NUMERIC) ;;
