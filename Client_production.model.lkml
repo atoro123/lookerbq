@@ -173,6 +173,14 @@ relationship: one_to_many
     sql_on: ${customer_customer.id} = ${event_log.customer_id} ;;
     relationship: one_to_many
   }
+
+
+  join: order_number {
+    view_label: "Order"
+    sql_on: ${order_order.id} = ${order_number.order_id} ;;
+    relationship: one_to_many
+    type: left_outer
+  }
 }
 
 explore: subscription_subscription {
