@@ -173,7 +173,7 @@ dimension: Bucket_LTV {
   style: interval
   tiers: [0,25,50,75,100,150,200,300,400,500]
   sql: ${TABLE}.Total_Spend ;;
-  value_format: "$0.00"
+  value_format: "$0"
 }
 
   measure: AVG_LTV {
