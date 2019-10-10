@@ -82,6 +82,7 @@ view: event_log {
 
 
   measure: action_count {
+    label: "Distinct Object Count"
     type: count_distinct
     sql: ${object_id} ;;
     drill_fields: [id,object_id, type_id, logged_date]
@@ -126,6 +127,7 @@ view: event_log {
   }
 
   measure: count {
+    label: "Action Count"
     type: count
     sql: ${id} ;;
   }

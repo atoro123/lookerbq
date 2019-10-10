@@ -391,12 +391,12 @@ view: order_item {
 
   dimension:IU_One_Time {
   type: yesno
-  sql: (${one_time} = 1 and ${subscription_id} is NULL);;}
+  sql: (${one_time} is TRUE and ${subscription_id} is NULL);;}
 
   dimension:IU_Recurring {
     type: yesno
     sql: (${order_item.subscription_id} is not NULL and (
-    ${order_item.one_time} = 1
+    ${order_item.one_time} is TRUE
     or ${subscription_offer.offer_name} LIKE '%IU%'
     or ${subscription_offer.offer_name} LIKE '%Impulse Upsell%'
     or ${subscription_offer.offer_type} IN (12,13,14,19,20,23)
@@ -407,7 +407,7 @@ view: order_item {
   dimension:IU_Either {
     type: yesno
     sql: (${order_item.subscription_id} is not NULL and (
-    ${order_item.one_time} = 1
+    ${order_item.one_time} is TRUE
     or ${subscription_offer.offer_name} LIKE '%IU%'
     or ${subscription_offer.offer_name} LIKE '%Impulse Upsell%'
     or ${subscription_offer.offer_type} IN (12,13,14,19,20,23)

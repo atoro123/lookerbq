@@ -28,6 +28,11 @@ explore: subscription_log {  access_filter: {field:merchant_id
     user_attribute:merchant_id}
     persist_with: daily_refresh
 
+    join: product_product {
+      sql_on: ${subscription_log.product_id} = ${product_product.id} ;;
+      relationship: many_to_one
+    }
+
 }
 
 explore: customer_experience_log {  access_filter: {field:merchant_id
