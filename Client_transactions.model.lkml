@@ -203,6 +203,12 @@ explore: order_item_log {access_filter: {field:merchant_id
     relationship: many_to_one
     fields: [offer_offer.id, offer_offer.js_name, offer_offer.merchant_id, offer_offer.offer_live, offer_offer.offer_name]
   }
+
+  join: order_log {
+    type: left_outer
+    sql_on: ${order_item_log.order_id} = ${order_log.order_id} ;;
+    relationship: many_to_many
+  }
 }
 
 explore: order_log {access_filter: {field:merchant_id
