@@ -96,7 +96,7 @@ view: order_log {
       quarter,
       year
     ]
-    sql: ${TABLE}.place ;;
+    sql: TIMESTAMP(${TABLE}.place) ;;
   }
 
   dimension: public_id {
