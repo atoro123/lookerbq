@@ -10,7 +10,7 @@ dimension: Subscription_ID {
 
 dimension: Action {
   type: number
-  sql: ${type_id} where ${type_id} in (5,8,10,11,12,13,14,15,16,17,18,19,20,30,71,73);;
+  sql: ${type_id} where ${type_id} in (5,8,10,11,12,13,14,15,16,17,18,19,20,30,71,73,31,28,83);;
 }
 
 measure: Distinct_Customers {
@@ -44,6 +44,7 @@ dimension: from{
 
 dimension: to_change {
   label:"To Change"
+  hidden: yes
   type: number
   sql: ${to} ;;
   value_format: "0"
@@ -51,6 +52,7 @@ dimension: to_change {
 
 dimension: from_change {
   label: "From Change"
+  hidden: yes
   type: number
   sql: ${from} ;;
   value_format: "0"
@@ -118,6 +120,16 @@ measure: Average_From_Frequency {
       value: "14"
     }
     value_format: "0"
+  }
+
+  dimension: From_Frequency {
+    type: number
+    sql: cast(${from_change} as NUMERIC) ;;
+  }
+
+  dimension: To_Frequency {
+    type: number
+    sql: cast(${to_change} as NUMERIC) ;;
   }
 
   measure: Date_Change_Difference {

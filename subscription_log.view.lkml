@@ -251,6 +251,10 @@ view: subscription_log {
 4694,
 4695,
 4696"}
+    filters: {
+      field: customer_id
+      value: "not 25589248, 25654747, 25682404, 25886965"
+    }
   }
   measure: Average_subscription_value {
     type: number

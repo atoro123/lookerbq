@@ -528,6 +528,11 @@ view: order_order {
         sql: ${vsi_email_bopus.order_id} is not null ;;
       }
 
+      measure: Distinct_Customers {
+        type: count_distinct
+        sql: ${customer_id} ;;
+      }
+
 #
 #
 #   dimension: Last_week {

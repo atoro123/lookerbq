@@ -144,7 +144,6 @@ view: customer_customer {
 
   dimension: price_code {
     type: string
-    hidden: yes
     sql: ${TABLE}.price_code ;;
   }
 
