@@ -579,6 +579,11 @@ view: subscription_subscription {
     sql: case when ${is_min_created} = FALSE then ${Days_since_Subscriber_Creation} else null end ;;
     value_format: "0"
   }
+
+  measure: Live_Subscriptions_Count {
+    type: count_distinct
+    sql: case when ${live} is TRUE then ${id} else null end ;;
+  }
 #
 #   dimension: current_date {
 #     type: date_month

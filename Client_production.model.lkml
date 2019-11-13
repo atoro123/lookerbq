@@ -200,6 +200,13 @@ relationship: one_to_many
     relationship: one_to_many
     type: left_outer
   }
+
+
+  join: cart_log {
+    sql_on: ${customer_customer.id} = ${cart_log.customer_id} ;;
+    relationship: many_to_one
+    fields: [cart_log.logged_date,cart_log.session_id,cart_log.customer_id,cart_log.total,cart_log.merchant_id,cart_log.Distinct_Customers]
+  }
 }
 
 explore: subscription_subscription {
@@ -323,6 +330,12 @@ explore: subscription_subscription {
     sql_on: ${vsi_email_bopus.order_id} = ${order_order.id} ;;
     relationship: many_to_one
   }
+
+  join: cart_log {
+    sql_on: ${customer_customer.id} = ${cart_log.customer_id} ;;
+    relationship: many_to_one
+    fields: [cart_log.logged_date,cart_log.session_id,cart_log.customer_id,cart_log.total,cart_log.merchant_id,cart_log.Distinct_Customers]
+  }
   }
 
 explore: customer_customer {
@@ -428,6 +441,12 @@ explore: customer_customer {
     sql_on: ${vsi_email_bopus.order_id} = ${order_order.id} ;;
     relationship: many_to_one
   }
+
+  join: cart_log {
+    sql_on: ${customer_customer.id} = ${cart_log.customer_id} ;;
+    relationship: many_to_one
+    fields: [cart_log.logged_date,cart_log.session_id,cart_log.customer_id,cart_log.total,cart_log.merchant_id,cart_log.Distinct_Customers]
+    }
 }
 
 explore: event_log {
