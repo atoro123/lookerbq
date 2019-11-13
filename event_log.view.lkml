@@ -126,9 +126,26 @@ view: event_log {
     sql: min(${logged_date}) ;;
   }
 
+  dimension: oos_30_sub_id {
+    type: string
+    hidden: yes
+    sql: json_extract_scalar(${object_metadata}, '$.subscription_id') ;;
+  }
+
+  dimension: OOS_Sub_ID {
+    type: number
+    sql: cast(${oos_30_sub_id} as INT64) ;;
+  }
+
   measure: count {
     label: "Action Count"
     type: count
     sql: ${id} ;;
+  }
+
+  measure: distinct_customer{
+    description: "count of individual customers who performed the action"
+    type: count_distinct
+    sql: ${customer_id} ;;
   }
 }

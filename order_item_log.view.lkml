@@ -126,6 +126,11 @@ view: order_item_log {
   measure: min_date {
     type: date
     sql: min(${logged_date}) ;;
+  }
 
+  measure: Distinct_Customers{
+    description: "distinct customer count"
+    type: count_distinct
+    sql: ${customer_id}  ;;
   }
 }
