@@ -445,6 +445,21 @@ view: subscription_subscription {
     value_format: "$#,###"
   }
 
+  dimension: Subscription_Value {
+    type: number
+    description: "quantity * price"
+    sql: (${product_product.price}*${quantity}) ;;
+    value_format: "$#,###"
+  }
+
+  dimension: Bucket_Subscription_Value {
+    type: tier
+    style: interval
+    tiers: [0,15,30,45,75,125]
+    sql: ${Subscription_Value} ;;
+    value_format: "$0"
+  }
+
   measure: Orders {
     type: count_distinct
     hidden: yes
