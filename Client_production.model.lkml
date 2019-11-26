@@ -453,6 +453,14 @@ explore: customer_customer {
     relationship: many_to_one
     fields: [cart_log.logged_date,cart_log.session_id,cart_log.customer_id,cart_log.total,cart_log.merchant_id,cart_log.Distinct_Customers]
     }
+
+  join: order_check {
+    from: order_order
+    sql_on: ${cart_log.merchant_order_id} = ${order_check.order_merchant_id} ;;
+    relationship: many_to_one
+    fields: [order_check.order_merchant_id,order_check.in_cart_log]
+
+  }
 }
 
 explore: event_log {
@@ -525,6 +533,12 @@ explore: event_log {
     join: order_order {
       sql_on: ${order_order.id} = ${order_item.order_id};;
       relationship: many_to_one
+      fields: [order_order.id, order_order.cancelled_date, order_order.cancelled_month, order_order.cancelled_time, order_order.cancelled_year, order_order.created_date,
+        order_order.created_month, order_order.created_time, order_order.created_year, order_order.customer_id, order_order.merchant_id, order_order.place_date, order_order.place_month,order_order.place_year,
+        order_order.place_time, order_order.rejected_message, order_order.shipping_address_id, order_order.status, order_order.Order_Status_Name, order_order.sub_total, order_order.Average_Order_Value,
+        order_order.average_sub_total, order_order.rejected_reason, order_order.completed_orders, order_order.completed_orders_revenue, order_order.attempted_orders, order_order.Contains_IU, order_order.clean_order_place,
+        order_order.order_revenue, order_order.skipped_orders, order_order.skipped_orders_revenue, order_order.order_processing, order_order.distinct_order_items, order_order.days, order_order.rejected_orders,
+        order_order.Max_Order_Date, order_order.Max_Completed__Order_Date, order_order.Order_Status_Name, order_order.BOPUS_Order, order_order.VSI_Email_BOPUS, order_order.Distinct_Customers]
     }
     join: customer_facts {
       sql_on: ${oos_event_log.customer_id} = ${customer_facts.customer_id} ;;
@@ -585,6 +599,12 @@ explore: event_log {
     join: order_order {
       sql_on: ${order_order.id} = ${order_item.order_id} ;;
       relationship: many_to_one
+      fields: [order_order.id, order_order.cancelled_date, order_order.cancelled_month, order_order.cancelled_time, order_order.cancelled_year, order_order.created_date,
+        order_order.created_month, order_order.created_time, order_order.created_year, order_order.customer_id, order_order.merchant_id, order_order.place_date, order_order.place_month,order_order.place_year,
+        order_order.place_time, order_order.rejected_message, order_order.shipping_address_id, order_order.status, order_order.Order_Status_Name, order_order.sub_total, order_order.Average_Order_Value,
+        order_order.average_sub_total, order_order.rejected_reason, order_order.completed_orders, order_order.completed_orders_revenue, order_order.attempted_orders, order_order.Contains_IU, order_order.clean_order_place,
+        order_order.order_revenue, order_order.skipped_orders, order_order.skipped_orders_revenue, order_order.order_processing, order_order.distinct_order_items, order_order.days, order_order.rejected_orders,
+        order_order.Max_Order_Date, order_order.Max_Completed__Order_Date, order_order.Order_Status_Name, order_order.BOPUS_Order, order_order.VSI_Email_BOPUS, order_order.Distinct_Customers]
     }
 
     join: product_product {
@@ -659,6 +679,12 @@ explore: event_log {
     join: order_order {
       sql_on: ${order_order.id} = ${order_event_log.object_id} ;;
       relationship: many_to_one
+      fields: [order_order.id, order_order.cancelled_date, order_order.cancelled_month, order_order.cancelled_time, order_order.cancelled_year, order_order.created_date,
+        order_order.created_month, order_order.created_time, order_order.created_year, order_order.customer_id, order_order.merchant_id, order_order.place_date, order_order.place_month,order_order.place_year,
+        order_order.place_time, order_order.rejected_message, order_order.shipping_address_id, order_order.status, order_order.Order_Status_Name, order_order.sub_total, order_order.Average_Order_Value,
+        order_order.average_sub_total, order_order.rejected_reason, order_order.completed_orders, order_order.completed_orders_revenue, order_order.attempted_orders, order_order.Contains_IU, order_order.clean_order_place,
+        order_order.order_revenue, order_order.skipped_orders, order_order.skipped_orders_revenue, order_order.order_processing, order_order.distinct_order_items, order_order.days, order_order.rejected_orders,
+        order_order.Max_Order_Date, order_order.Max_Completed__Order_Date, order_order.Order_Status_Name, order_order.BOPUS_Order, order_order.VSI_Email_BOPUS, order_order.Distinct_Customers]
     }
 
     join: order_item {

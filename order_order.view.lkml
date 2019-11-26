@@ -533,6 +533,11 @@ view: order_order {
         sql: ${customer_id} ;;
       }
 
+      dimension: in_cart_log {
+        type: yesno
+        sql: ${order_merchant_id} = ${cart_log.merchant_order_id} ;;
+      }
+
 #
 #
 #   dimension: Last_week {
