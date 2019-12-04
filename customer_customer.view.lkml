@@ -144,7 +144,6 @@ view: customer_customer {
 
   dimension: price_code {
     type: string
-    hidden: yes
     sql: ${TABLE}.price_code ;;
   }
 
@@ -194,4 +193,56 @@ view: customer_customer {
     type: yesno
     sql: ${event_log.customer_id} is not null ;;
   }
+
+  measure: Orders_completed_before {
+    description: "Number of orders in purchase post log that happened before initial subscription date"
+    type: count_distinct
+    sql:  case when ${cart_log.logged_date} < ${customer_facts.created_date} then ${cart_log.session_id} else null end;;
+  }
+
+  measure: Orders_completed_after {
+    description: "Number of orders in purchase post log that happened after final subscription cancel date"
+    type: count_distinct
+    sql:  case when (${cart_log.logged_date} > ${customer_facts.Cancelled_date} and ${customer_facts.Customer_Live} = FALSE) then ${cart_log.session_id} else null end;;
+  }
+
+  measure: Orders_completed_during {
+    description: "Number of orders in purchase post log that happened after initial subscription date but before final cancel"
+    type: count_distinct
+    sql:  case when ${cart_log.logged_date} >= ${customer_facts.created_date} and ${cart_log.logged_date} <= ${customer_facts.Cancelled_date} and ${customer_facts.Customer_Live} = FALSE then ${cart_log.session_id} when ${cart_log.logged_date} > ${customer_facts.created_date} and ${customer_facts.Customer_Live} = TRUE then ${cart_log.session_id} else null end;;
+  }
+
+  measure: Orders_completed_before_revenue {
+    description: "Total Price of orders in purchase post log that happened before initial subscription date"
+    type: sum
+    sql:  case when ${cart_log.logged_date} < ${customer_facts.created_date} then ${cart_log.total} else 0 end;;
+    value_format: "$0.00"
+  }
+
+  measure: Orders_completed_after_revenue {
+    description: "Total Price of orders in purchase post log that happened after final subscription cancel date"
+    type: sum
+    sql:  case when ${cart_log.logged_date} > ${customer_facts.Cancelled_date} and ${customer_facts.Customer_Live} = FALSE then ${cart_log.total} else 0 end;;
+    value_format: "$0.00"
+  }
+
+  measure: Orders_completed_during_revenue {
+    description: "Total Price of orders in purchase post log that happened after initial subscription date but before final cancel"
+    type: sum
+    sql:  case  when ${cart_log.logged_date} >= ${customer_facts.created_date} and ${cart_log.logged_date} <= ${customer_facts.Cancelled_date} and ${customer_facts.Customer_Live} = FALSE then ${cart_log.total}
+                when ${cart_log.logged_date} >= ${customer_facts.created_date} and ${customer_facts.Customer_Live} = TRUE then ${cart_log.total}
+                else 0
+              end;;
+    value_format: "$#,##0.00"
+  }
+
+  dimension: time_to_subscribe {
+    type: number
+    sql:DATE_DIFF(${customer_facts.created_date},${created_date}, DAY) ;;
+  }
+
+  measure: average_time_to_subscribe {
+    type: average
+    sql: ${time_to_subscribe} ;;
+    value_format: "0.0"}
 }

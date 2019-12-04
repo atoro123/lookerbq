@@ -28,6 +28,17 @@ explore: subscription_log {  access_filter: {field:merchant_id
     user_attribute:merchant_id}
     persist_with: daily_refresh
 
+    join: product_product {
+      sql_on: ${subscription_log.product_id} = ${product_product.id} ;;
+      relationship: many_to_one
+    }
+
+    join: customer_customer {
+      sql_on: ${customer_customer.id} = ${subscription_log.customer_id} ;;
+      relationship: many_to_one
+      fields: [customer_customer.id, customer_customer.merchant_id, customer_customer.merchant_id, customer_customer.live, customer_customer.created_date, customer_customer.created_month,
+        customer_customer.created_week, customer_customer.price_code]
+    }
 }
 
 explore: customer_experience_log {  access_filter: {field:merchant_id
@@ -166,6 +177,14 @@ explore: cart_log {
       customer_facts.Bucket_Lifetime, customer_facts.Average_Subscriber_Lifetime, customer_facts.First_Subscription_ID, customer_facts.Total_Orders,
       customer_facts.Completed_Orders]
   }
+
+  join: order_order {
+    type: left_outer
+    sql_on: ${cart_log.merchant_order_id} =  ${order_order.order_merchant_id} ;;
+    relationship: many_to_one
+    fields: [order_order.id, order_order.merchant_id, order_order.customer_id, order_order.sub_total, order_order.place_date, order_order.place_month, order_order.cancelled_date,
+      order_order.cancelled_month, order_order.status, order_order.order_merchant_id, order_order.rejected_message, order_order.public_id]
+  }
 }
 
 explore: order_item_log {access_filter: {field:merchant_id
@@ -197,6 +216,12 @@ explore: order_item_log {access_filter: {field:merchant_id
     sql_on: ${order_item_log.offer_id} = ${offer_offer.id} ;;
     relationship: many_to_one
     fields: [offer_offer.id, offer_offer.js_name, offer_offer.merchant_id, offer_offer.offer_live, offer_offer.offer_name]
+  }
+
+  join: order_log {
+    type: left_outer
+    sql_on: ${order_item_log.order_id} = ${order_log.order_id} ;;
+    relationship: many_to_many
   }
 }
 

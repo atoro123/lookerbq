@@ -241,4 +241,9 @@ view: cart_log {
     type: yesno
     sql: ${customer_facts.created_date} < ${logged_date} ;;
   }
+
+  dimension: Recurring_Order {
+    type: yesno
+    sql: ${merchant_order_id} = ${order_order.order_merchant_id} ;;
+  }
 }

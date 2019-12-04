@@ -200,6 +200,13 @@ relationship: one_to_many
     relationship: one_to_many
     type: left_outer
   }
+
+
+  join: cart_log {
+    sql_on: ${customer_customer.id} = ${cart_log.customer_id} ;;
+    relationship: many_to_one
+    fields: [cart_log.logged_date,cart_log.session_id,cart_log.customer_id,cart_log.total,cart_log.merchant_id,cart_log.Distinct_Customers]
+  }
 }
 
 explore: subscription_subscription {
@@ -323,6 +330,18 @@ explore: subscription_subscription {
     sql_on: ${vsi_email_bopus.order_id} = ${order_order.id} ;;
     relationship: many_to_one
   }
+
+  join: cart_log {
+    sql_on: ${customer_customer.id} = ${cart_log.customer_id} ;;
+    relationship: many_to_one
+    fields: [cart_log.logged_date,cart_log.session_id,cart_log.customer_id,cart_log.total,cart_log.merchant_id,cart_log.Distinct_Customers]}
+
+  join: final_oos {
+    from: event_log
+    type: left_outer
+    sql_on: ${final_oos.OOS_Sub_ID} = ${subscription_subscription.id} ;;
+    relationship: many_to_one
+  }
   }
 
 explore: customer_customer {
@@ -428,23 +447,71 @@ explore: customer_customer {
     sql_on: ${vsi_email_bopus.order_id} = ${order_order.id} ;;
     relationship: many_to_one
   }
+
+  join: cart_log {
+    sql_on: ${customer_customer.id} = ${cart_log.customer_id} ;;
+    relationship: many_to_one
+    fields: [cart_log.logged_date,cart_log.session_id,cart_log.customer_id,cart_log.total,cart_log.merchant_id,cart_log.Distinct_Customers]
+    }
+
+  join: order_check {
+    from: order_order
+    sql_on: ${cart_log.merchant_order_id} = ${order_check.order_merchant_id} ;;
+    relationship: many_to_one
+    fields: [order_check.order_merchant_id,order_check.in_cart_log]
+
+  }
 }
 
 explore: event_log {
-  label: "Event Log"
+  label: "8) Event Log"
   from: event_log
-  hidden: yes
   join: customer_customer {
     view_label: "Customer"
     sql_on: ${event_log.customer_id} = ${customer_customer.id};;
     fields: [customer_customer.id, customer_customer.created_date, customer_customer.created_month, customer_customer.created_time, customer_customer.created_week, customer_customer.created_year, customer_customer.live,
       customer_customer.merchant_id, customer_customer.merchant_user_id ]
     relationship: many_to_one
-  }}
+  }
+  join: subscription_subscription {
+    type: left_outer
+    sql_on: ${subscription_subscription.customer_id} = ${customer_customer.id} ;;
+    fields: [subscription_subscription.id, subscription_subscription.customer_id, subscription_subscription.merchant_id, subscription_subscription.product_id,
+      subscription_subscription.quantity, subscription_subscription.Average_Frequency, subscription_subscription.Average_Lifetime, subscription_subscription.Average_Quantity,
+      subscription_subscription.frequency_days, subscription_subscription.bucket_frequency, subscription_subscription.cancelled_date, subscription_subscription.cancelled_month,
+      subscription_subscription.cancelled_day_of_month, subscription_subscription.cancelled_quarter, subscription_subscription.cancel_reason, subscription_subscription.offer_id,
+      subscription_subscription.created_date, subscription_subscription.created_month, subscription_subscription.created_time, subscription_subscription.created_week,
+      subscription_subscription.live, subscription_subscription.subscription_type]
+    relationship: one_to_many
+  }
+
+  join: order_order {
+    type: left_outer
+    sql_on: ${order_order.customer_id} = ${customer_customer.id} ;;
+    fields: [order_order.attempted_orders, order_order.Average_Order_Value, order_order.average_sub_total, order_order.cancelled_date,order_order.cancelled_month,order_order.cancelled_time,
+      order_order.completed_orders, order_order.completed_orders_revenue,order_order.order_processing, order_order.id, order_order.merchant_id, order_order.customer_id,
+      order_order.sub_total, order_order.created_date, order_order.created_month, order_order.created_time, order_order.place_date, order_order.place_month,
+      order_order.place_time, order_order.status, order_order.rejected_message, order_order.rejected_orders, order_order.rejected_reason, order_order.Rejected_Reason_Code, order_order.attempted_orders,
+      order_order.order_revenue, order_order.skipped_orders, order_order.skipped_orders_revenue, order_order.Max_Order_Date, order_order.Max_Completed__Order_Date, order_order.Order_Status_Name
+      ]
+    relationship: one_to_many
+  }
+
+  join: order_item {
+    type: left_outer
+    sql_on: ${order_item.order_id} = ${order_order.id} ;;
+    fields: [order_item.offer_id, order_item.id, order_item.one_time, order_item.price, order_item.product_id, order_item.quantity, order_item.subscription_id,
+      order_item.total_price, order_item.count, order_item.total_gmv, order_item.average_item_value, order_item.Total_Quantity, order_item.Pending_Revenue, order_item.Average_Quantity, order_item.Program,
+      order_item.distinct_orders, order_item.order_id]
+    relationship: one_to_many
+  }
+
+
+  }
 
   explore: oos_event_log {
    from: oos_event_log
-    label: "4) Event Log - OOS"
+    label: "4) Event Log - Order Item"
     join: customer_customer {
     sql_on: ${oos_event_log.customer_id} = ${customer_customer.id} ;;
     relationship: many_to_one
@@ -466,6 +533,12 @@ explore: event_log {
     join: order_order {
       sql_on: ${order_order.id} = ${order_item.order_id};;
       relationship: many_to_one
+      fields: [order_order.id, order_order.cancelled_date, order_order.cancelled_month, order_order.cancelled_time, order_order.cancelled_year, order_order.created_date,
+        order_order.created_month, order_order.created_time, order_order.created_year, order_order.customer_id, order_order.merchant_id, order_order.place_date, order_order.place_month,order_order.place_year,
+        order_order.place_time, order_order.rejected_message, order_order.shipping_address_id, order_order.status, order_order.Order_Status_Name, order_order.sub_total, order_order.Average_Order_Value,
+        order_order.average_sub_total, order_order.rejected_reason, order_order.completed_orders, order_order.completed_orders_revenue, order_order.attempted_orders, order_order.Contains_IU, order_order.clean_order_place,
+        order_order.order_revenue, order_order.skipped_orders, order_order.skipped_orders_revenue, order_order.order_processing, order_order.distinct_order_items, order_order.days, order_order.rejected_orders,
+        order_order.Max_Order_Date, order_order.Max_Completed__Order_Date, order_order.Order_Status_Name, order_order.BOPUS_Order, order_order.VSI_Email_BOPUS, order_order.Distinct_Customers]
     }
     join: customer_facts {
       sql_on: ${oos_event_log.customer_id} = ${customer_facts.customer_id} ;;
@@ -526,6 +599,12 @@ explore: event_log {
     join: order_order {
       sql_on: ${order_order.id} = ${order_item.order_id} ;;
       relationship: many_to_one
+      fields: [order_order.id, order_order.cancelled_date, order_order.cancelled_month, order_order.cancelled_time, order_order.cancelled_year, order_order.created_date,
+        order_order.created_month, order_order.created_time, order_order.created_year, order_order.customer_id, order_order.merchant_id, order_order.place_date, order_order.place_month,order_order.place_year,
+        order_order.place_time, order_order.rejected_message, order_order.shipping_address_id, order_order.status, order_order.Order_Status_Name, order_order.sub_total, order_order.Average_Order_Value,
+        order_order.average_sub_total, order_order.rejected_reason, order_order.completed_orders, order_order.completed_orders_revenue, order_order.attempted_orders, order_order.Contains_IU, order_order.clean_order_place,
+        order_order.order_revenue, order_order.skipped_orders, order_order.skipped_orders_revenue, order_order.order_processing, order_order.distinct_order_items, order_order.days, order_order.rejected_orders,
+        order_order.Max_Order_Date, order_order.Max_Completed__Order_Date, order_order.Order_Status_Name, order_order.BOPUS_Order, order_order.VSI_Email_BOPUS, order_order.Distinct_Customers]
     }
 
     join: product_product {
@@ -600,6 +679,12 @@ explore: event_log {
     join: order_order {
       sql_on: ${order_order.id} = ${order_event_log.object_id} ;;
       relationship: many_to_one
+      fields: [order_order.id, order_order.cancelled_date, order_order.cancelled_month, order_order.cancelled_time, order_order.cancelled_year, order_order.created_date,
+        order_order.created_month, order_order.created_time, order_order.created_year, order_order.customer_id, order_order.merchant_id, order_order.place_date, order_order.place_month,order_order.place_year,
+        order_order.place_time, order_order.rejected_message, order_order.shipping_address_id, order_order.status, order_order.Order_Status_Name, order_order.sub_total, order_order.Average_Order_Value,
+        order_order.average_sub_total, order_order.rejected_reason, order_order.completed_orders, order_order.completed_orders_revenue, order_order.attempted_orders, order_order.Contains_IU, order_order.clean_order_place,
+        order_order.order_revenue, order_order.skipped_orders, order_order.skipped_orders_revenue, order_order.order_processing, order_order.distinct_order_items, order_order.days, order_order.rejected_orders,
+        order_order.Max_Order_Date, order_order.Max_Completed__Order_Date, order_order.Order_Status_Name, order_order.BOPUS_Order, order_order.VSI_Email_BOPUS, order_order.Distinct_Customers]
     }
 
     join: order_item {
@@ -727,5 +812,9 @@ explore: event_log {
   }
 
   explore:  log_conversationlog {
-    label: "8) Conversation Log"
+    label: "9) Conversation Log"
+  }
+
+  explore: order_reminder_cancels {
+    label: "Order Reminder Cancels"
   }

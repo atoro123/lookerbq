@@ -286,6 +286,28 @@ view: subscription_subscription {
     when substr(${cancel_reason},0,2) = '32' then 'Changed Mind'
     when substr(${cancel_reason},0,2) = '33' then 'No longer want subscription'
     when substr(${cancel_reason},0,2) = '34' then 'Easier to pick up in store'
+    when substr(${cancel_reason},0,2) = '35' then 'Want more Choice/Variety'
+    when substr(${cancel_reason},0,2) = '36' then 'Doctors Orders'
+    when substr(${cancel_reason},0,2) = '37' then 'Fraudulent Account'
+    when substr(${cancel_reason},0,2) = '38' then 'Duplicate Item'
+    when substr(${cancel_reason},0,2) = '39' then 'Discontinuing'
+    when substr(${cancel_reason},0,2) = '40' then 'Too Frequent Orders'
+    when substr(${cancel_reason},0,2) = '41' then 'Technical Issues'
+    when substr(${cancel_reason},0,2) = '42' then 'Temporary Cancel'
+    when substr(${cancel_reason},0,2) = '43' then 'Shipping Error'
+    when substr(${cancel_reason},0,2) = '44' then 'One Time Order is Cheaper'
+    when substr(${cancel_reason},0,2) = '45' then 'Canceling Due To A Death'
+    when substr(${cancel_reason},0,2) = '46' then 'No Results'
+    when substr(${cancel_reason},0,2) = '47' then 'Item is Restricted in my State'
+    when substr(${cancel_reason},0,2) = '48' then 'Switching to Another Brand'
+    when substr(${cancel_reason},0,2) = '49' then 'I Miss The Old Bundle'
+    when substr(${cancel_reason},0,2) = '50' then 'Bundle doesnt fit my budget'
+    when substr(${cancel_reason},0,2) = '51' then 'Bought as a gift'
+    when substr(${cancel_reason},0,2) = '52' then 'I only need one subscription'
+    when substr(${cancel_reason},0,2) = '53' then 'My child is potty trained!'
+    when substr(${cancel_reason},0,2) = '54' then 'Baby hasnt arrived yet'
+    when substr(${cancel_reason},0,2) = '55' then 'Didnt take as often as expected'
+    when substr(${cancel_reason},0,2) = '56' then 'Im changing items in my commitment'
     when substr(${cancel_reason},0,4) = 'Item' then 'Item Discontinued'
     when substr(${cancel_reason},0,4) = 'Frau' then 'Fraud'
     when ${cancel_reason} = 'I Have Too Many of this Product.' then 'Overstocked'
@@ -423,6 +445,21 @@ view: subscription_subscription {
     value_format: "$#,###"
   }
 
+  dimension: Subscription_Value {
+    type: number
+    description: "quantity * price"
+    sql: (${product_product.price}*${quantity}) ;;
+    value_format: "$#,###"
+  }
+
+  dimension: Bucket_Subscription_Value {
+    type: tier
+    style: interval
+    tiers: [0,15,30,45,75,125]
+    sql: ${Subscription_Value} ;;
+    value_format: "$0"
+  }
+
   measure: Orders {
     type: count_distinct
     hidden: yes
@@ -556,6 +593,11 @@ view: subscription_subscription {
     type: average
     sql: case when ${is_min_created} = FALSE then ${Days_since_Subscriber_Creation} else null end ;;
     value_format: "0"
+  }
+
+  measure: Live_Subscriptions_Count {
+    type: count_distinct
+    sql: case when ${live} is TRUE then ${id} else null end ;;
   }
 #
 #   dimension: current_date {

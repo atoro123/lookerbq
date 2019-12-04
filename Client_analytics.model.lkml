@@ -37,6 +37,11 @@ explore: subscription_monthly_summary {
     type: left_outer
     sql_on: ${subscription_monthly_summary.date_date} = ${subscriber_monthly_summary.date_date} and ${subscriber_monthly_summary.merchant_id} = ${subscription_monthly_summary.merchant_id};;
   }
+
+  join: merchant_merchant {
+    sql_on: ${subscription_monthly_summary.merchant_id} = ${merchant_merchant.id} ;;
+    relationship: many_to_one
+  }
 }
   explore: subscription_daily_summary {
     access_filter: {field:subscription_daily_summary.merchant_id
