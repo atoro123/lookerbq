@@ -24,6 +24,3 @@ explore: incrementality {
 
 explore: incrementality_180_day {
 }
-
-explore:  map_chart_test {
-}

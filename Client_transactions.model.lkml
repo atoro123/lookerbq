@@ -39,6 +39,11 @@ explore: subscription_log {  access_filter: {field:merchant_id
       fields: [customer_customer.id, customer_customer.merchant_id, customer_customer.merchant_id, customer_customer.live, customer_customer.created_date, customer_customer.created_month,
         customer_customer.created_week, customer_customer.price_code]
     }
+
+    join: merchant_merchant {
+      sql_on: ${merchant_merchant.id} = ${subscription_log.merchant_id} ;;
+      relationship: many_to_one
+    }
 }
 
 explore: customer_experience_log {  access_filter: {field:merchant_id
