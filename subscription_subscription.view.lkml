@@ -383,6 +383,12 @@ view: subscription_subscription {
     sql:DATE_DIFF(${cancelled_date},${created_date}, DAY) ;;
   }
 
+  dimension: Lifetime {
+    description: "Lifetime of All Subscription"
+    type: number
+    sql:if(${cancelled_date} is null,DATE_DIFF(CURRENT_DATE(),${created_date}, DAY) , DATE_DIFF(${cancelled_date},${created_date}, DAY)) ;;
+  }
+
   dimension: Bucket_Lifetime {
   type: number
   hidden: no

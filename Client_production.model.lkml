@@ -342,6 +342,12 @@ explore: subscription_subscription {
     sql_on: ${final_oos.OOS_Sub_ID} = ${subscription_subscription.id} ;;
     relationship: many_to_one
   }
+
+  join: zombie_cancels {
+    type: left_outer
+    sql_on: ${zombie_cancels.zombie_subscription} = ${subscription_subscription.id} ;;
+    relationship: one_to_one
+  }
   }
 
 explore: customer_customer {

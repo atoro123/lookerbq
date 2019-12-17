@@ -80,7 +80,7 @@ view: merchant_merchant {
     type: string
     sql: case when ${id} = 135 then ${name}
          case when ${id} = 196 then ${name}
-         case when ${id} in (37,43,60,61,65,97,202) then "L'Oreal"
+         case when ${id} in (37,43,60,61,65,97,202) then LOreal
          case when ${id} = 2 then ${name}
          case when ${id} in (144,154) then "Nestle"
          case when ${id} = 201 then "Estee Lauder"
@@ -98,6 +98,7 @@ view: merchant_merchant {
          case when ${id} = 213 then ${name}
          case when ${id} in (108,131) then "Newell"
          case when ${id} in (77,199,179,194,193,166)
-         case when ${id} = 203 then "Mount Baker Vapor";;
+         case when ${id} = 203 then "Mount Baker Vapor"
+        else ${name} end;;
   }
 }
