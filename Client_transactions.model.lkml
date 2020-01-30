@@ -111,6 +111,11 @@ explore: customer_experience_log {  access_filter: {field:merchant_id
       IU_Add_Product_Feed.id, IU_Add_Product_Feed.merchant_id, IU_Add_Product_Feed.name, IU_Add_Product_Feed.price, IU_Add_Product_Feed.subscription_eligible, IU_Add_Product_Feed.sku]
     relationship: many_to_one
   }
+
+  join: customer_facts {
+    sql_on: ${customer_customer.id} = ${customer_facts.customer_id} ;;
+    relationship: one_to_one
+  }
 }
 
 explore: ds_reorder_outcomes_log {  access_filter: {field:merchant_id

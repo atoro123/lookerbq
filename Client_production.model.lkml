@@ -445,7 +445,7 @@ explore: customer_customer {
   }
 
   join: customer_address {
-    sql: ${customer_address.customer_id} = ${customer_customer.id} ;;
+    sql_on: ${customer_address.customer_id} = ${customer_customer.id} ;;
     relationship: one_to_one
   }
 
