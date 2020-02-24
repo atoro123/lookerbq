@@ -52,6 +52,11 @@ explore: subscription_log {  access_filter: {field:merchant_id
         subscription_subscription.cancel_reason, subscription_subscription.cancelled_date, subscription_subscription.cancelled_month, subscription_subscription.offer_id, subscription_subscription.created_date, subscription_subscription.created_month,
         subscription_subscription.live, subscription_subscription.subscription_type,subscription_subscription.is_min_created, subscription_subscription.Lifetime]
     }
+
+    join: acv_contract {
+      sql_on: ${acv_contract.merchant_id} = ${subscription_log.merchant_id} ;;
+      relationship: many_to_one
+    }
 }
 
 explore: customer_experience_log {  access_filter: {field:merchant_id

@@ -207,6 +207,11 @@ relationship: one_to_many
     relationship: many_to_one
     fields: [cart_log.logged_date,cart_log.session_id,cart_log.customer_id,cart_log.total,cart_log.merchant_id,cart_log.Distinct_Customers]
   }
+
+  join: acv_contract {
+    sql_on: ${acv_contract.merchant_id} = ${order_order.merchant_id} ;;
+    relationship: many_to_one
+  }
 }
 
 explore: subscription_subscription {
@@ -487,7 +492,8 @@ explore: event_log {
       subscription_subscription.frequency_days, subscription_subscription.bucket_frequency, subscription_subscription.cancelled_date, subscription_subscription.cancelled_month,
       subscription_subscription.cancelled_day_of_month, subscription_subscription.cancelled_quarter, subscription_subscription.cancel_reason, subscription_subscription.offer_id,
       subscription_subscription.created_date, subscription_subscription.created_month, subscription_subscription.created_time, subscription_subscription.created_week,
-      subscription_subscription.live, subscription_subscription.subscription_type]
+      subscription_subscription.live, subscription_subscription.subscription_type, subscription_subscription.merchant_order_id, subscription_subscription.Guest_User, subscription_subscription.24_Hour_Cancels,
+      subscription_subscription.24hr_Cancel]
     relationship: one_to_many
   }
 
@@ -512,6 +518,16 @@ explore: event_log {
     relationship: one_to_many
   }
 
+  join: subscription_product  {
+    from: product_product
+    type: left_outer
+    sql_on: ${subscription_product.id} = ${subscription_subscription.product_id} ;;
+  }
+
+  join: merchant_merchant {
+    sql_on: ${merchant_merchant.id} = ${customer_customer.merchant_id} ;;
+    relationship: many_to_one
+  }
 
   }
 
@@ -540,7 +556,7 @@ explore: event_log {
       sql_on: ${order_order.id} = ${order_item.order_id};;
       relationship: many_to_one
       fields: [order_order.id, order_order.cancelled_date, order_order.cancelled_month, order_order.cancelled_time, order_order.cancelled_year, order_order.created_date,
-        order_order.created_month, order_order.created_time, order_order.created_year, order_order.customer_id, order_order.merchant_id, order_order.place_date, order_order.place_month,order_order.place_year,
+        order_order.created_month, order_order.created_time, order_order.created_year, order_order.customer_id, order_order.merchant_id, order_order.place_date, order_order.place_month,order_order.place_year, order_order.place_week,
         order_order.place_time, order_order.rejected_message, order_order.shipping_address_id, order_order.status, order_order.Order_Status_Name, order_order.sub_total, order_order.Average_Order_Value,
         order_order.average_sub_total, order_order.rejected_reason, order_order.completed_orders, order_order.completed_orders_revenue, order_order.attempted_orders, order_order.Contains_IU, order_order.clean_order_place,
         order_order.order_revenue, order_order.skipped_orders, order_order.skipped_orders_revenue, order_order.order_processing, order_order.distinct_order_items, order_order.days, order_order.rejected_orders,
@@ -576,6 +592,11 @@ explore: event_log {
 
     join: vsi_email_bopus {
       sql_on: ${vsi_email_bopus.order_id} = ${order_order.id} ;;
+      relationship: many_to_one
+    }
+
+    join: merchant_merchant {
+      sql_on: ${merchant_merchant.id} = ${customer_customer.merchant_id} ;;
       relationship: many_to_one
     }
   }
@@ -666,6 +687,24 @@ explore: event_log {
 
     join: vsi_email_bopus {
       sql_on: ${vsi_email_bopus.order_id} = ${order_order.id} ;;
+      relationship: many_to_one
+    }
+
+    join: From_SKU_Silent_Swap {
+      view_label: "From SKU Silent Swap"
+      from: product_product
+      sql_on: ${From_SKU_Silent_Swap.sku} = ${subscription_event_log.silent_sub_swap_sku_from} ;;
+      fields: [From_SKU_Silent_Swap.external_product_id, From_SKU_Silent_Swap.id, From_SKU_Silent_Swap.autoship_enabled, From_SKU_Silent_Swap.autoship_by_default, From_SKU_Silent_Swap.discontinued, From_SKU_Silent_Swap.name,
+        From_SKU_Silent_Swap.merchant_id, From_SKU_Silent_Swap.price, From_SKU_Silent_Swap.sku, From_SKU_Silent_Swap.subscription_eligible]
+      relationship: many_to_one
+    }
+
+    join: To_SKU_Silent_Swap {
+      view_label: "To SKU Silent Swap"
+      from: product_product
+      sql_on: ${To_SKU_Silent_Swap.sku} = ${subscription_event_log.silent_sub_swap_sku_to} ;;
+      fields: [To_SKU_Silent_Swap.external_product_id, To_SKU_Silent_Swap.id, To_SKU_Silent_Swap.autoship_enabled, To_SKU_Silent_Swap.autoship_by_default, To_SKU_Silent_Swap.discontinued, To_SKU_Silent_Swap.name,
+        To_SKU_Silent_Swap.merchant_id, To_SKU_Silent_Swap.price, To_SKU_Silent_Swap.sku, To_SKU_Silent_Swap.subscription_eligible]
       relationship: many_to_one
     }
     }
@@ -824,3 +863,15 @@ explore: event_log {
   explore: order_reminder_cancels {
     label: "Order Reminder Cancels"
   }
+
+  explore: order_export {
+  from: order_order
+  label: "Order Export"
+  fields: [order_export.id, order_export.merchant_id, order_export.customer_id, order_export.sub_total, order_export.created_date, order_export.created_month, order_export.created_time, order_export.place_date, order_export.place_month, order_export.place_year, order_export.cancelled_date, order_export.cancelled_month, order_export.cancelled_year, order_export.status,
+    order_export.Order_Status_Name,
+    order_export.order_merchant_id, order_export.rejected_message, order_export.rejected_reason, order_export.Rejected_Reason_Code, order_item.id, order_item.product_id]
+  join: order_item {
+    type: left_outer
+    sql_on: ${order_item.order_id} = ${order_export.id} ;;
+  }
+}

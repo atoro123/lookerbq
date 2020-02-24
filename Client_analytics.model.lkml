@@ -26,7 +26,14 @@ persist_for: "24 hours"
 
 explore: analytics_conversion {  access_filter: {field:merchant_id
     user_attribute:merchant_id}
-    persist_with: daily_refresh}
+    persist_with: daily_refresh
+
+  join: merchant_merchant {
+    sql_on: ${merchant_merchant.id} = ${analytics_conversion.merchant_id} ;;
+    relationship: many_to_one
+  }
+
+  }
 
 explore: subscription_monthly_summary {
   access_filter: {field:subscription_monthly_summary.merchant_id

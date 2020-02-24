@@ -145,4 +145,18 @@ measure: Average_From_Frequency {
     description: "Always Filter for Type ID 12"
     value_format: "0"
   }
+
+  dimension: silent_sub_swap_sku_from {
+    type: number
+    sql: json_extract_scalar(${object_metadata}, '$.discontinued_replacement.source_product.sku') ;;
+    description: "Filter for Type ID 87"
+    value_format: "0"
+  }
+
+  dimension: silent_sub_swap_sku_to {
+    type: number
+    sql: json_extract_scalar(${object_metadata}, '$.discontinued_replacement.target_product.sku') ;;
+    description: "Filter for Type ID 87"
+    value_format: "0"
+  }
 }
