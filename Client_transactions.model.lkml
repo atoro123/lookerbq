@@ -37,7 +37,7 @@ explore: subscription_log {  access_filter: {field:merchant_id
       sql_on: ${customer_customer.id} = ${subscription_log.customer_id} ;;
       relationship: many_to_one
       fields: [customer_customer.id, customer_customer.merchant_id, customer_customer.merchant_id, customer_customer.live, customer_customer.created_date, customer_customer.created_month,
-        customer_customer.created_week, customer_customer.price_code]
+        customer_customer.created_week, customer_customer.price_code, customer_customer.merchant_user_id]
     }
 
     join: merchant_merchant {
