@@ -493,7 +493,7 @@ explore: event_log {
       subscription_subscription.cancelled_day_of_month, subscription_subscription.cancelled_quarter, subscription_subscription.cancel_reason, subscription_subscription.offer_id,
       subscription_subscription.created_date, subscription_subscription.created_month, subscription_subscription.created_time, subscription_subscription.created_week,
       subscription_subscription.live, subscription_subscription.subscription_type, subscription_subscription.merchant_order_id, subscription_subscription.Guest_User, subscription_subscription.24_Hour_Cancels,
-      subscription_subscription.24hr_Cancel]
+      subscription_subscription.24hr_Cancel, subscription_subscription.marketing_program_name]
     relationship: one_to_many
   }
 
@@ -706,6 +706,12 @@ explore: event_log {
       fields: [To_SKU_Silent_Swap.external_product_id, To_SKU_Silent_Swap.id, To_SKU_Silent_Swap.autoship_enabled, To_SKU_Silent_Swap.autoship_by_default, To_SKU_Silent_Swap.discontinued, To_SKU_Silent_Swap.name,
         To_SKU_Silent_Swap.merchant_id, To_SKU_Silent_Swap.price, To_SKU_Silent_Swap.sku, To_SKU_Silent_Swap.subscription_eligible]
       relationship: many_to_one
+    }
+
+    join: subscription_order {
+      view_label: "Subscription Orders Data"
+      sql_on: ${subscription_order.subscription_id} = ${subscription_subscription.id} ;;
+      relationship: one_to_one
     }
     }
 

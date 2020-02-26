@@ -10,7 +10,7 @@ dimension: Subscription_ID {
 
 dimension: Action {
   type: number
-  sql: ${type_id} where ${type_id} in (5,8,10,11,12,13,14,15,16,17,18,19,20,30,71,73,31,28,83);;
+  sql: ${type_id} where ${type_id} in (1,5,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,27,40,44,49,30,71,73,31,28,83);;
 }
 
 measure: Distinct_Customers {

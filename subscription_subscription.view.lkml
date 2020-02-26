@@ -481,10 +481,10 @@ view: subscription_subscription {
 
   dimension: store_id {
     type: number
-    sql: case when ${merchant_id} = 76 then convert(left(right(${extra_data},length(${extra_data})-locate("store_id",${extra_data})-11),4), SIGNED)
-    when ${merchant_id} = 113 then right(left(${merchant_order_id}, 8 ),4)
-    when ${merchant_id} = 127 then right(left(${extra_data}, 23 ),5)
-    when ${merchant_id} = 210 then right(left(${extra_data},LOCATE('store_id',${extra_data})+15),3) else null end ;;
+    sql: case when ${merchant_id} = 76 then json_extract_scalar(${extra_data}, '$.store_id')
+    when ${merchant_id} = 113 then json_extract_scalar(${extra_data}, '$.store_id')
+    when ${merchant_id} = 127 then json_extract_scalar(${extra_data}, '$.store_number')
+    when ${merchant_id} = 210 then json_extract_scalar(${extra_data}, '$.store_id[0]') else null end ;;
   }
 
 
@@ -600,6 +600,20 @@ view: subscription_subscription {
   measure: Live_Subscriptions_Count {
     type: count_distinct
     sql: case when ${live} is TRUE then ${id} else null end ;;
+  }
+
+  dimension: marketing_program_name {
+    type: number
+    sql: 119 ;;
+    description: "Gillette Marketing ID"
+    group_label: "Gillette Specfic"
+  }
+
+  dimension: data_source_number {
+    type: string
+    sql: 10618 ;;
+    description: "Gillette Data Source ID"
+    group_label: "Gillette Specfic"
   }
 #
 #   dimension: current_date {
