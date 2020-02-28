@@ -353,6 +353,12 @@ explore: subscription_subscription {
     sql_on: ${zombie_cancels.zombie_subscription} = ${subscription_subscription.id} ;;
     relationship: one_to_one
   }
+
+  join: subscription_log {
+    type: left_outer
+    sql_on: ${subscription_log.subscription_id} = ${subscription_subscription.id} ;;
+    sql_where: ${subscription_log.event_id} = 2 ;;
+  }
   }
 
 explore: customer_customer {

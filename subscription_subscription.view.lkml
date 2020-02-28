@@ -490,7 +490,7 @@ view: subscription_subscription {
 
   dimension: store_associate_id {
     type: number
-    sql: case when ${merchant_id} = 76 then convert(left(right(${extra_data},28),6), SIGNED) else null end ;;
+    sql: case when ${merchant_id} = 76 then json_extract_scalar(${extra_data}, '$.associate_id') else null end;;
   }
 
   measure: susbcription_price {
