@@ -256,4 +256,14 @@ view: acv_contract {
     type: number
     sql: date_diff(date_add(${gmv_start_date}, INTERVAL 1 YEAR), Current_Date(), DAY) ;;
   }
+
+  dimension: gmv_end_date {
+    type: date
+    sql: date_add(${gmv_start_date}, INTERVAL 1 YEAR) ;;
+  }
+
+  dimension: days_elapsed {
+    type: number
+    sql: date_diff(Current_Date(),${gmv_start_date}, DAY) ;;
+  }
 }
