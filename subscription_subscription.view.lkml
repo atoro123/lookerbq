@@ -480,7 +480,7 @@ view: subscription_subscription {
   }
 
   dimension: store_id {
-    type: number
+    type: string
     sql: case when ${merchant_id} = 76 then json_extract_scalar(${extra_data}, '$.store_id')
     when ${merchant_id} = 113 then json_extract_scalar(${extra_data}, '$.store_id')
     when ${merchant_id} = 127 then json_extract_scalar(${extra_data}, '$.store_number')
