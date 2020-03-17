@@ -438,4 +438,10 @@ measure: total_activation_revenue_forecast_this_month {
     when ${source_id} = 17 then 'Product Feed'
     else 'Other' end;;
   }
+
+  dimension: Brand {
+    type: string
+    sql: case when ${merchant_id} in (37,43,60,61,202,97,65) then 'LOreal'
+    else 'other' end;;
+  }
 }

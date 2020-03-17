@@ -50,4 +50,12 @@ view: oos_event_log {
     type: count_distinct
     sql: ${object_id} ;;
   }
+
+  dimension: OOS_Day {
+    type: string
+    sql: case when ${type_id} = 31 then '1st Day OOS'
+    when ${type_id} = 32 then '15th Day OOS'
+    when ${type_id} = 33 then '30th Day OOS'
+    else 'Other' end;;
+  }
   }
