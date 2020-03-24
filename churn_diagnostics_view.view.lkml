@@ -170,6 +170,8 @@ view: churn_diagnostics_view {
       churns_caught,
       churns_missed,
       ratio,
+      recall,
+      precision,
       avg_precision,
       avg_recall
     ]
