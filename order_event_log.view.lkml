@@ -10,7 +10,7 @@ include: "event_log.view.lkml"
 
     dimension: Action_Type {
       type: number
-      sql: ${type_id} where ${type_id} in (2,3,4,6,21,22,24,25,27,28,38,44,74);;
+      sql: ${type_id};;
     }
 
     dimension: Combo_Saving_To_Order {

@@ -18,7 +18,7 @@ view: merchant_merchant {
       quarter,
       year
     ]
-    sql: ${TABLE}.created ;;
+    sql: TIMESTAMP(${TABLE}.created) ;;
   }
 
   dimension: email_tokens {
