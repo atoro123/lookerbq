@@ -359,6 +359,12 @@ explore: subscription_subscription {
     sql_on: ${subscription_log.subscription_id} = ${subscription_subscription.id} ;;
     sql_where: ${subscription_log.event_id} = 2 ;;
   }
+
+  join: subscription_order {
+    type: left_outer
+    sql_on: ${subscription_order.subscription_id} = ${subscription_subscription.id} ;;
+    relationship: one_to_one
+  }
   }
 
 explore: customer_customer {
@@ -734,14 +740,67 @@ explore: event_log {
       user_attribute:merchant_id}
 
     join: order_order {
-      sql_on: ${order_order.id} = ${order_event_log.object_id} ;;
+      sql_on: ${order_order.id} = case when ${order_event_log.type_id} in (2,
+3,
+4,
+6,
+21,
+22,
+24,
+25,
+27,
+28,
+38,
+42,
+44,
+56,
+57,
+58,
+59,
+74,
+75,
+76,
+78) then ${order_event_log.object_id} else null end;;
       relationship: many_to_one
       fields: [order_order.id, order_order.cancelled_date, order_order.cancelled_month, order_order.cancelled_time, order_order.cancelled_year, order_order.created_date,
         order_order.created_month, order_order.created_time, order_order.created_year, order_order.customer_id, order_order.merchant_id, order_order.place_date, order_order.place_month,order_order.place_year,
         order_order.place_time, order_order.rejected_message, order_order.shipping_address_id, order_order.status, order_order.Order_Status_Name, order_order.sub_total, order_order.Average_Order_Value,
         order_order.average_sub_total, order_order.rejected_reason, order_order.completed_orders, order_order.completed_orders_revenue, order_order.attempted_orders, order_order.Contains_IU, order_order.clean_order_place,
         order_order.order_revenue, order_order.skipped_orders, order_order.skipped_orders_revenue, order_order.order_processing, order_order.distinct_order_items, order_order.days, order_order.rejected_orders,
-        order_order.Max_Order_Date, order_order.Max_Completed__Order_Date, order_order.Order_Status_Name, order_order.BOPUS_Order, order_order.VSI_Email_BOPUS, order_order.Distinct_Customers]
+        order_order.Max_Order_Date, order_order.Max_Completed__Order_Date, order_order.Order_Status_Name, order_order.BOPUS_Order, order_order.VSI_Email_BOPUS, order_order.Distinct_Customers, order_order.order_merchant_id, order_order.public_id]
+    }
+
+    join: order_item_object {
+      from: order_item
+      sql_on: ${order_item_object.id} = case when ${order_event_log.type_id} in (23,31,32,33,49,50,72,77,87,89,93) then ${order_event_log.object_id} else null end ;;
+      fields: [order_item_object.id, order_item_object.order_id, order_item_object.subscription_id, order_item_object.product_id, order_item_object.quantity,
+        order_item_object.price, order_item_object.total_price, order_item_object.offer_id, order_item_object.price]
+    }
+
+    join: order_order_item {
+      from: order_order
+      sql_on: order_order_item.id= ${order_item_object.order_id} ;;
+      fields: [order_order_item.id, order_order_item.merchant_id, order_order_item.customer_id, order_order_item.sub_total, order_order_item.created_date,
+        order_order_item.place_date, order_order_item.cancelled_date, order_order_item.status, order_order_item.order_merchant_id, order_order_item.rejected_message,
+        order_order_item.public_id]
+    }
+
+    join: product_product_item {
+      from: product_product
+      sql_on: ${product_product_item.id} = ${order_item_object.product_id} ;;
+      relationship: many_to_one
+    }
+
+    join: sub_sub_item {
+      from: subscription_subscription
+      sql_on: ${order_item_object.subscription_id} = ${sub_sub_item.id} ;;
+      relationship: many_to_one
+    }
+
+    join: prod_prod_sub_item {
+      from: product_product
+      sql_on: ${sub_sub_item.product_id} = ${prod_prod_sub_item.id} ;;
+      relationship: many_to_one
     }
 
     join: order_item {
@@ -762,6 +821,12 @@ explore: event_log {
 
     join: subscription_subscription {
       sql_on: ${subscription_subscription.id} = ${order_item.subscription_id} ;;
+      relationship: many_to_one
+    }
+
+    join: prod_prod_sub_order {
+      from: product_product
+      sql_on: ${prod_prod_sub_order.id} = ${subscription_subscription.product_id} ;;
       relationship: many_to_one
     }
 

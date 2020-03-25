@@ -95,6 +95,20 @@ view: subscription_order {
     label: "Total Sucecssful Orders"
     sql: ${TABLE}.complete_orders ;;
   }
+
+  measure: total_successful_overall {
+    type: sum
+    sql: ${Total_Successful_Orders} ;;
+  }
+  measure: subscription_count {
+    type: count_distinct
+    sql: ${subscription_id} ;;
+  }
+
+  measure: average_sps {
+    type: number
+    sql: ${total_successful_overall}/${subscription_count}  ;;
+  }
 }
 #   dimension: lifetime_orders {
 #     description: "The total number of orders for each user"
