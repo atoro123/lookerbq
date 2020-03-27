@@ -38,6 +38,34 @@ view: churn_diagnostics_view {
     value_format_name: decimal_2
   }
 
+
+  dimension: start_date {
+    type: string
+    sql: ${TABLE}.start_date ;;
+  }
+
+
+  dimension: end_date {
+    type: string
+    sql: ${TABLE}.end_date ;;
+  }
+
+  dimension: mid_date {
+    type: string
+    sql: ${TABLE}.mid_date ;;
+  }
+
+
+  dimension: train_set_size {
+    type: number
+    sql: ${TABLE}.train_set_size ;;
+  }
+
+  dimension: test_set_size {
+    type: number
+    sql: ${TABLE}.test_set_size ;;
+  }
+
   dimension: id {
     type: number
     primary_key: yes
@@ -81,6 +109,18 @@ view: churn_diagnostics_view {
   dimension: accuracy {
     type: number
     sql: ${TABLE}.accuracy ;;
+  }
+
+  measure: base_precision {
+    type: average
+    sql: ${ratio} ;;
+    value_format_name: decimal_2
+  }
+
+  measure: base_recall {
+    type: average
+    sql: ${cutoffs} ;;
+    value_format_name: decimal_2
   }
 
   dimension: cutoffs {
@@ -173,7 +213,14 @@ view: churn_diagnostics_view {
       recall,
       precision,
       avg_precision,
-      avg_recall
+      avg_recall,
+      base_precision,
+      base_recall,
+      start_date,
+      end_date,
+      mid_date,
+      train_set_size,
+      test_set_size
     ]
   }
 }
