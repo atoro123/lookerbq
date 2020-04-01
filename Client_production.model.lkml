@@ -862,6 +862,18 @@ explore: event_log {
       sql_on: ${vsi_email_bopus.order_id} = ${order_order.id} ;;
       relationship: many_to_one
     }
+
+    join: merchant_merchant {
+      sql_on: ${customer_customer.merchant_id}= ${merchant_merchant.id} ;;
+    }
+
+    join: merchant_merchant_industries {
+      sql_on: ${merchant_merchant_industries.merchant_id} = ${merchant_merchant.id} ;;
+    }
+
+    join: merchant_industry {
+      sql_on: ${merchant_industry.id} = ${merchant_merchant_industries.industry_id} ;;
+    }
   }
 
   explore: product_product {

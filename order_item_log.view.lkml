@@ -133,4 +133,9 @@ view: order_item_log {
     type: count_distinct
     sql: ${customer_id}  ;;
   }
+
+  measure: Distinct_Item_Count {
+    type: count_distinct
+    sql: ${item_id} ;;
+  }
 }

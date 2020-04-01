@@ -232,21 +232,6 @@ view: acv_contract {
     sql: ${TABLE}.tier_3 ;;
   }
 
-  dimension: tier_4 {
-    type: number
-    sql: ${TABLE}.tier_4 ;;
-  }
-
-  dimension: tier_5 {
-    type: number
-    sql: ${TABLE}.tier_5 ;;
-  }
-
-  dimension: tier_6 {
-    type: number
-    sql: ${TABLE}.tier_6 ;;
-  }
-
   measure: total_arr {
     type: sum
     sql: ${TABLE}.arr ;;
@@ -259,7 +244,7 @@ view: acv_contract {
 
   dimension: gmv_end_date {
     type: date
-    sql: date_add(${gmv_start_date}, INTERVAL 1 YEAR) ;;
+    sql: ${TABLE}.contract_gmv_end ;;
   }
 
   dimension: days_elapsed {
