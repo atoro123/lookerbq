@@ -365,6 +365,10 @@ explore: subscription_subscription {
     sql_on: ${subscription_order.subscription_id} = ${subscription_subscription.id} ;;
     relationship: one_to_one
   }
+
+  join: acv_contract {
+    sql_on: ${acv_contract.merchant_id} = subscription_log.${subscription_log.merchant_id} ;;
+  }
   }
 
 explore: customer_customer {
@@ -944,6 +948,8 @@ explore: event_log {
   explore: vsi_fraud {
     hidden: yes
   }
+
+  explore: acv_contract {}
 
   explore:  log_conversationlog {
     label: "9) Conversation Log"

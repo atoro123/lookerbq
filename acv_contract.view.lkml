@@ -134,7 +134,6 @@ view: acv_contract {
   dimension: merchant_id {
     type: number
     sql: ${TABLE}.merchant_id ;;
-    primary_key: yes
   }
 
   dimension: parent_account {
@@ -250,5 +249,9 @@ view: acv_contract {
   dimension: days_elapsed {
     type: number
     sql: date_diff(Current_Date(),${gmv_start_date}, DAY) ;;
+  }
+
+  measure: Overall_Merchant {
+    type: string
   }
 }

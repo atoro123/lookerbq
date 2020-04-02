@@ -548,6 +548,14 @@ view: order_order {
         }
       }
 
+    dimension: Brand {
+      type: string
+      sql: case when ${merchant_id} in (37,43,60,61,202,97,65) then 'Loreal'
+            when ${merchant_id} in (179,77,199,166,194.193) then 'Unilever'
+            when ${merchant_id} in (108,131,236) then 'Newell'
+            else 'other' end;;
+    }
+
       measure: Order_Fullfillment {
         type: number
         description: "% of Orders slated for placement that were sucessful. Includes Cancelled"
