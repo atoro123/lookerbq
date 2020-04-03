@@ -252,7 +252,8 @@ view: subscription_log {
 4695,
 4696,
 4450,
-4958"}
+4958,
+5300"}
     filters: {
       field: customer_id
       value: "not 25589248, 25654747, 25682404, 25886965"
@@ -303,13 +304,30 @@ measure: total_activation_revenue_forecast_this_month {
     type: string
     sql: case when ${offer_id} in (2348,4356,2750,2762) then "illylovers Coffee (Select)"
          when ${offer_id} in (2346,3061,3221,3232,3369,3327,2751,2763) then "illylovers Machine (Select)"
-        when ${offer_id} in (2347,3895,3769,3680,3681,3682,3683,3684,3685,3686,3687,3043,3044,3045,3046,3047,3048,3049,3050,3051,3052,3412,3413,3414,3415,3416,3417,3418,3419,3420,3421,
-        2345,2344,2343,2333,2335,2336,2337,2338,2339,2340,2341,2342,2334,2295,3211,3212,3213,3214,3215,3216,3217,3218,3219,3220,3222,3223,3224,3225,3226,3227,3228,3229,3230,3231,
-        3359,3360,3361,3362,3363,3364,3365,3366,3367,3368,3328,3329,3330,3331,3332,3333,3334,3335,3336,3337,2740,2741,2742,2743,2744,2745,2746,2747,2748,2749,2752,2753,2754,2755,
-        2756,2757,2758,2759,2760,2761) then "Coffee Radio Button (PDP)"
         when ${offer_id} in (3118,3119,3120,3448,3449) then "Health Box"
         when ${offer_id} in (3443,3444,3445,3446,3447) then "Health Box Plus"
         Else "PDP" end;;
+  }
+
+  dimension: subscription_value {
+    type: number
+    sql: ${quantity}*${price} ;;
+    value_format_name: usd
+    description: "(Price*Quantity) to remove mistaken incentives"
+  }
+
+  measure: total_subscription_value {
+    type: sum
+    sql: ${subscription_value} ;;
+    value_format_name: usd
+    description: "Only use to remove accidental initial incentives"
+  }
+
+  measure: Average_Subscription_Cost {
+    type: average
+    sql: ${subscription_value} ;;
+    value_format_name: usd
+    description: "Average Value of price*quantity"
   }
 
   measure: Total_Quantity {
@@ -323,5 +341,110 @@ measure: total_activation_revenue_forecast_this_month {
     tiers: [0,7,14,28,30,45,60,90,120,150,180,270,365]
     sql: ${frequency_days};;
     value_format: "0"
+  }
+
+  dimension: clean_cancel {
+    sql:
+    case
+    when substr(${cancel_reason},0,2) = '1|' then 'Other'
+    when substr(${cancel_reason},0,2) = '2|' then 'Overstocked'
+    when substr(${cancel_reason},0,2) = '3|' then 'No Longer Use'
+    when substr(${cancel_reason},0,2) = '4|' then 'Product Change'
+    when substr(${cancel_reason},0,2) = '5|' then 'Base Unit Change'
+    when substr(${cancel_reason},0,2) = '6|' then 'Buying Product Elsewhere'
+    when substr(${cancel_reason},0,2) = '7|' then 'General Issue'
+    when substr(${cancel_reason},0,2) = '8|' then 'Too Expensive'
+    when substr(${cancel_reason},0,2) = '9|' then 'Price Issue'
+    when substr(${cancel_reason},2) = '10' then 'Limited Shopping Choices'
+    when substr(${cancel_reason},0,2) = '11' then 'Shipping Price'
+    when substr(${cancel_reason},0,2) = '12' then 'Product Perpetually Out of Stock'
+    when substr(${cancel_reason},0,2) = '13' then 'Mistake'
+    when substr(${cancel_reason},0,2) = '14' then 'Product different from what ordered'
+    when substr(${cancel_reason},0,2) = '15' then "Tried and don't like"
+    when substr(${cancel_reason},0,2) = '16' then 'Found a better deal'
+    when substr(${cancel_reason},0,2) = '17' then 'Understocked'
+    when substr(${cancel_reason},0,2) = '18' then 'Payment Issue'
+    when substr(${cancel_reason},0,2) = '19' then 'Not enough choice'
+    when substr(${cancel_reason},0,2) = '20' then 'Relocating'
+    when substr(${cancel_reason},0,2) = '21' then 'Switching to Electric Shaving'
+    when (substr(${cancel_reason},0,2) = '22' and ${merchant_id} = 144) then 'Product Change to Another Purina Product'
+    when (substr(${cancel_reason},0,2) = '22' and ${merchant_id} = 63) then 'Reorganizing'
+    when (substr(${cancel_reason},0,2) = '22' and ${merchant_id} = 155) then 'Product Change to Another PerriconeMD Product'
+    when substr(${cancel_reason},0,2) = '22' then 'Product Change'
+    when substr(${cancel_reason},0,2) = '23' then 'Pet Passed'
+    when substr(${cancel_reason},0,2) = '24' then 'Allergic Reaction to Product'
+    when substr(${cancel_reason},0,2) = '25' then 'Online Management Issue'
+    when substr(${cancel_reason},0,2) = '26' then 'Issue updating payment'
+    when substr(${cancel_reason},0,2) = '27' then 'Reorganizing Subscriptions'
+    when substr(${cancel_reason},0,2) = '28' then 'Commitment Subscription period end'
+    when substr(${cancel_reason},0,2) = '29' then 'Signed up for the discount'
+    when substr(${cancel_reason},0,2) = '30' then 'Signed up for free shipping'
+    when substr(${cancel_reason},0,2) = '31' then 'Difficulty managing subscription'
+    when substr(${cancel_reason},0,2) = '32' then 'Changed Mind'
+    when substr(${cancel_reason},0,2) = '33' then 'No longer want subscription'
+    when substr(${cancel_reason},0,2) = '34' then 'Easier to pick up in store'
+    when substr(${cancel_reason},0,2) = '35' then 'Want more Choice/Variety'
+    when substr(${cancel_reason},0,2) = '36' then 'Doctors Orders'
+    when substr(${cancel_reason},0,2) = '37' then 'Fraudulent Account'
+    when substr(${cancel_reason},0,2) = '38' then 'Duplicate Item'
+    when substr(${cancel_reason},0,2) = '39' then 'Discontinuing'
+    when substr(${cancel_reason},0,2) = '40' then 'Too Frequent Orders'
+    when substr(${cancel_reason},0,2) = '41' then 'Technical Issues'
+    when substr(${cancel_reason},0,2) = '42' then 'Temporary Cancel'
+    when substr(${cancel_reason},0,2) = '43' then 'Shipping Error'
+    when substr(${cancel_reason},0,2) = '44' then 'One Time Order is Cheaper'
+    when substr(${cancel_reason},0,2) = '45' then 'Canceling Due To A Death'
+    when substr(${cancel_reason},0,2) = '46' then 'No Results'
+    when substr(${cancel_reason},0,2) = '47' then 'Item is Restricted in my State'
+    when substr(${cancel_reason},0,2) = '48' then 'Switching to Another Brand'
+    when substr(${cancel_reason},0,2) = '49' then 'I Miss The Old Bundle'
+    when substr(${cancel_reason},0,2) = '50' then 'Bundle doesnt fit my budget'
+    when substr(${cancel_reason},0,2) = '51' then 'Bought as a gift'
+    when substr(${cancel_reason},0,2) = '52' then 'I only need one subscription'
+    when substr(${cancel_reason},0,2) = '53' then 'My child is potty trained!'
+    when substr(${cancel_reason},0,2) = '54' then 'Baby hasnt arrived yet'
+    when substr(${cancel_reason},0,2) = '55' then 'Didnt take as often as expected'
+    when substr(${cancel_reason},0,2) = '56' then 'Im changing items in my commitment'
+    when substr(${cancel_reason},0,4) = 'Item' then 'Item Discontinued'
+    when substr(${cancel_reason},0,4) = 'Frau' then 'Fraud'
+    when ${cancel_reason} = 'I Have Too Many of this Product.' then 'Overstocked'
+    when ${cancel_reason} = 'I No Longer Use this Product.' then 'No Longer Use'
+    when ${cancel_reason} = 'Did Not Intend to Join Subscription Program.' then 'Mistake'
+    when ${cancel_reason} = 'Subscription Program Too Difficult to Manage.' then 'Online Management Issue'
+    when ${cancel_reason} = 'Shipping Cost is Too High.' then 'Shipping Price'
+    when ${cancel_reason} = 'I Found This Product Elsewhere.' then 'Buying Product Elsewhere'
+    when ${cancel_reason} = 'I Do Not See Value in Subscription Program.' then 'No longer want subscription'
+    when substr(${cancel_reason},0, 4) = 'Zomb' then 'Zombie Cancellation'
+    when ${cancel_reason} = 'This product is out of stock.' then 'Product Perpetually Out of Stock'
+    when ${cancel_reason} = 'I accidentally subscribed to this program.' then 'Mistake'
+    when ${cancel_reason} ='The shipping costs of this program are too high.' then 'Shipping Price'
+    when substr(${cancel_reason},0,4) = 'Dupl' then 'Duplicate'
+    when ${cancel_reason} = 'test' then 'Test'
+    when substr(${cancel_reason},0, 9) = 'No longer' then 'No Longer Use'
+    when ${cancel_reason} = 'I have too much of this product.' then 'Overstocked'
+    when ${cancel_reason} = 'I did not intend to join a subscription program.' then 'Mistake'
+    when ${cancel_reason} = 'This product is too expensive.' then 'Too Expensive'
+    when ${cancel_reason} = "I'm overstocked." then 'Overstocked'
+    when ${cancel_reason} = 'I want to switch products.' then 'Product Change'
+    when ${cancel_reason} = "I didn't mean to sign up for Auto Replenishment." then 'Mistake'
+    when ${cancel_reason} = "I don't use this product." then 'No Longer Use'
+    ELSE 'Other' END
+          ;;
+  }
+
+  dimension: source_name {
+    type: string
+    sql: case when ${source_id} = 12 then 'MSI'
+    when ${source_id} = 13 then 'CSA'
+    when ${source_id} = 17 then 'Product Feed'
+    else 'Other' end;;
+  }
+
+  dimension: Brand {
+    type: string
+    sql: case when ${merchant_id} in (37,43,60,61,202,97,65) then "Loreal"
+    when ${merchant_id} in (179,77,199,166,194.193) then "Unilever"
+    when ${merchant_id} in (108,131,236) then "Newell"
+    else ${acv_contract.account_name} end;;
   }
 }

@@ -37,7 +37,7 @@ explore: subscription_log {  access_filter: {field:merchant_id
       sql_on: ${customer_customer.id} = ${subscription_log.customer_id} ;;
       relationship: many_to_one
       fields: [customer_customer.id, customer_customer.merchant_id, customer_customer.merchant_id, customer_customer.live, customer_customer.created_date, customer_customer.created_month,
-        customer_customer.created_week, customer_customer.price_code]
+        customer_customer.created_week, customer_customer.price_code, customer_customer.merchant_user_id]
     }
 
     join: merchant_merchant {
@@ -50,7 +50,12 @@ explore: subscription_log {  access_filter: {field:merchant_id
       relationship: many_to_one
       fields: [subscription_subscription.id, subscription_subscription.customer_id, subscription_subscription.merchant_id, subscription_subscription.product_id, subscription_subscription.quantity, subscription_subscription.frequency_days,
         subscription_subscription.cancel_reason, subscription_subscription.cancelled_date, subscription_subscription.cancelled_month, subscription_subscription.offer_id, subscription_subscription.created_date, subscription_subscription.created_month,
-        subscription_subscription.live, subscription_subscription.subscription_type,subscription_subscription.is_min_created, subscription_subscription.Lifetime]
+        subscription_subscription.live, subscription_subscription.subscription_type,subscription_subscription.is_min_created, subscription_subscription.Lifetime, subscription_subscription.extra_data, subscription_subscription.store_id]
+    }
+
+    join: acv_contract {
+      sql_on: ${acv_contract.merchant_id} = ${subscription_log.merchant_id} ;;
+      relationship: many_to_one
     }
 }
 
@@ -110,6 +115,11 @@ explore: customer_experience_log {  access_filter: {field:merchant_id
     fields: [IU_Add_Product_Feed.discontinued, IU_Add_Product_Feed.external_product_id, IU_Add_Product_Feed.autoship_by_default, IU_Add_Product_Feed.autoship_enabled,
       IU_Add_Product_Feed.id, IU_Add_Product_Feed.merchant_id, IU_Add_Product_Feed.name, IU_Add_Product_Feed.price, IU_Add_Product_Feed.subscription_eligible, IU_Add_Product_Feed.sku]
     relationship: many_to_one
+  }
+
+  join: customer_facts {
+    sql_on: ${customer_customer.id} = ${customer_facts.customer_id} ;;
+    relationship: one_to_one
   }
 }
 
@@ -235,6 +245,14 @@ explore: order_item_log {access_filter: {field:merchant_id
     type: left_outer
     sql_on: ${order_item_log.order_id} = ${order_log.order_id} ;;
     relationship: many_to_many
+  }
+
+  join: merchant_merchant_industries {
+    sql_on: ${merchant_merchant_industries.merchant_id} = ${order_item_log.merchant_id} ;;
+  }
+
+  join: merchant_industry {
+    sql_on: ${merchant_industry.id} = ${merchant_merchant_industries.industry_id} ;;
   }
 }
 

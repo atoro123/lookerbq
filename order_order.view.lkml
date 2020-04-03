@@ -538,6 +538,31 @@ view: order_order {
         sql: ${order_merchant_id} = ${cart_log.merchant_order_id} ;;
       }
 
+      measure: Total_Fullfillment_Count  {
+        type: count
+        description: "counts up Successful, Cancelled, and Rejected Orders"
+        sql: ${id} ;;
+        filters: {
+          field: status
+          value: "3,4,5,13"
+        }
+      }
+
+    dimension: Brand {
+      type: string
+      sql: case when ${merchant_id} in (37,43,60,61,202,97,65) then 'Loreal'
+            when ${merchant_id} in (179,77,199,166,194.193) then 'Unilever'
+            when ${merchant_id} in (108,131,236) then 'Newell'
+            else 'other' end;;
+    }
+
+      measure: Order_Fullfillment {
+        type: number
+        description: "% of Orders slated for placement that were sucessful. Includes Cancelled"
+        sql: if(${completed_orders} is null, 0, ${completed_orders})/if(${Total_Fullfillment_Count} is null, 0, ${Total_Fullfillment_Count}) ;;
+        value_format: "0.00%"
+      }
+
 #
 #
 #   dimension: Last_week {

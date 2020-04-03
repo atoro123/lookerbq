@@ -72,4 +72,9 @@ view: analytics_conversion {
     type: sum
     sql: ${subscribers} ;;
   }
+
+  measure: sum_subscriptions {
+    type: sum
+    sql: ${subscriptions} ;;
+  }
 }

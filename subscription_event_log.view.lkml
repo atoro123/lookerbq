@@ -10,7 +10,7 @@ dimension: Subscription_ID {
 
 dimension: Action {
   type: number
-  sql: ${type_id} where ${type_id} in (5,8,10,11,12,13,14,15,16,17,18,19,20,30,71,73,31,28,83);;
+  sql: ${type_id};;
 }
 
 measure: Distinct_Customers {
@@ -143,6 +143,20 @@ measure: Average_From_Frequency {
     type: number
     sql: date_diff(cast(${to} AS DATE), cast(${from} AS DATE), DAY)  ;;
     description: "Always Filter for Type ID 12"
+    value_format: "0"
+  }
+
+  dimension: silent_sub_swap_sku_from {
+    type: number
+    sql: json_extract_scalar(${object_metadata}, '$.discontinued_replacement.source_product.sku') ;;
+    description: "Filter for Type ID 87"
+    value_format: "0"
+  }
+
+  dimension: silent_sub_swap_sku_to {
+    type: number
+    sql: json_extract_scalar(${object_metadata}, '$.discontinued_replacement.target_product.sku') ;;
+    description: "Filter for Type ID 87"
     value_format: "0"
   }
 }

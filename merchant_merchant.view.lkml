@@ -18,7 +18,7 @@ view: merchant_merchant {
       quarter,
       year
     ]
-    sql: ${TABLE}.created ;;
+    sql: TIMESTAMP(${TABLE}.created) ;;
   }
 
   dimension: email_tokens {
@@ -100,5 +100,17 @@ view: merchant_merchant {
          case when ${id} in (77,199,179,194,193,166)
          case when ${id} = 203 then "Mount Baker Vapor"
         else ${name} end;;
+  }
+
+  dimension: Success_Owner {
+    type: string
+    sql: case when ${id} in (113,206,2,164,185,184,196) then "Casey"
+         when ${id} in (36,260,233) then "Jake"
+         when ${id} in (243,43,135,202,37,155,179,9,209,216,217,66,65,69,166,194,77,97,60,238,193,61,227,224,170,137,199,239,261,232) then "Jamie"
+         when ${id} in (78,94,76,188,205,211,207,234,210) then "Josh"
+         when ${id} in (111,70,100,108,63,236,131,253,240,229,34,235,256,295) then "Lindsay"
+         when ${id} in (145,44,10,203,79,154,226,114,144,183,221,219,228,241) then "Maria"
+         when ${id} in (127,84,150,169,156,200,201,54,171,192,191,189,223,190,172,163,237) then "Stuart"
+         else "Unassigned" end;;
   }
 }

@@ -411,10 +411,6 @@ view: subscription_subscription {
     type: string
     sql: case when ${offer_id} in (2347,2348,4356,2750,2762,2347,3895,2498,2491,2489,2492,2490,2488,3724,2498,3034,4591) then "illylovers Coffee (Select)"
          when ${offer_id} in (2346,3061,3221,3232,3369,3327,2751,2763,2496,2493,2497,2494,2495) then "illylovers Machine (Select)"
-        when ${offer_id} in (3679,3680,3681,3682,3683,3684,3685,3686,3687,3043,3044,3045,3046,3047,3048,3049,3050,3051,3052,3412,3413,3414,3415,3416,3417,3418,3419,3420,3421,
-        2345,2344,2343,2333,2335,2336,2337,2338,2339,2340,2341,2342,2334,2295,3211,3212,3213,3214,3215,3216,3217,3218,3219,3220,3222,3223,3224,3225,3226,3227,3228,3229,3230,3231,
-        3359,3360,3361,3362,3363,3364,3365,3366,3367,3368,3328,3329,3330,3331,3332,3333,3334,3335,3336,3337,2740,2741,2742,2743,2744,2745,2746,2747,2748,2749,2752,2753,2754,2755,
-        2756,2757,2758,2759,2760,2761) then "Coffee Radio Button (PDP)"
         when ${offer_id} in (3118,3119,3120,3448,3449) then "Health Box"
         when ${offer_id} in (3443,3444,3445,3446,3447) then "Health Box Plus"
         Else "PDP" end;;
@@ -484,17 +480,17 @@ view: subscription_subscription {
   }
 
   dimension: store_id {
-    type: number
-    sql: case when ${merchant_id} = 76 then convert(left(right(${extra_data},length(${extra_data})-locate("store_id",${extra_data})-11),4), SIGNED)
-    when ${merchant_id} = 113 then right(left(${merchant_order_id}, 8 ),4)
-    when ${merchant_id} = 127 then right(left(${extra_data}, 23 ),5)
-    when ${merchant_id} = 210 then right(left(${extra_data},LOCATE('store_id',${extra_data})+15),3) else null end ;;
+    type: string
+    sql: case when ${merchant_id} = 76 then json_extract_scalar(${extra_data}, '$.store_id')
+    when ${merchant_id} = 113 then json_extract_scalar(${extra_data}, '$.store_id')
+    when ${merchant_id} = 127 then json_extract_scalar(${extra_data}, '$.store_number')
+    when ${merchant_id} = 210 then json_extract_scalar(${extra_data}, '$.store_id[0]') else null end ;;
   }
 
 
   dimension: store_associate_id {
     type: number
-    sql: case when ${merchant_id} = 76 then convert(left(right(${extra_data},28),6), SIGNED) else null end ;;
+    sql: case when ${merchant_id} = 76 then json_extract_scalar(${extra_data}, '$.associate_id') else null end;;
   }
 
   measure: susbcription_price {
@@ -604,6 +600,20 @@ view: subscription_subscription {
   measure: Live_Subscriptions_Count {
     type: count_distinct
     sql: case when ${live} is TRUE then ${id} else null end ;;
+  }
+
+  dimension: marketing_program_name {
+    type: number
+    sql: 119 ;;
+    description: "Gillette Marketing ID"
+    group_label: "Gillette Specfic"
+  }
+
+  dimension: data_source_number {
+    type: string
+    sql: 10618 ;;
+    description: "Gillette Data Source ID"
+    group_label: "Gillette Specfic"
   }
 #
 #   dimension: current_date {

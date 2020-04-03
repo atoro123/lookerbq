@@ -99,7 +99,6 @@ view: product_product {
   dimension: name {
     type: string
     sql: ${TABLE}.name ;;
-      html: <a href="{{product_product.detail_url._value}}">{{value}}</a> ;;
     }
 
 
