@@ -42,6 +42,17 @@ explore: subscription_monthly_summary {
     sql_on: ${subscription_monthly_summary.merchant_id} = ${merchant_merchant.id} ;;
     relationship: many_to_one
   }
+  join: merchant_merchant_industries {
+    view_label: "Merchant"
+    sql_on: ${merchant_merchant.id} = ${merchant_merchant_industries.merchant_id};;
+    relationship: one_to_one
+  }
+
+  join: merchant_industry {
+    view_label: "Merchant"
+    sql_on: ${merchant_merchant_industries.industry_id} = ${merchant_industry.id};;
+    relationship: one_to_many
+  }
 }
   explore: subscription_daily_summary {
     access_filter: {field:subscription_daily_summary.merchant_id

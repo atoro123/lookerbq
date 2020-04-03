@@ -207,6 +207,11 @@ relationship: one_to_many
     relationship: many_to_one
     fields: [cart_log.logged_date,cart_log.session_id,cart_log.customer_id,cart_log.total,cart_log.merchant_id,cart_log.Distinct_Customers]
   }
+
+  join: gmv_forecast {
+    sql_on: ${gmv_forecast.merchant_id} = ${order_order.merchant_id} ;;
+    relationship: one_to_one
+  }
 }
 
 explore: subscription_subscription {
@@ -348,6 +353,11 @@ explore: subscription_subscription {
     sql_on: ${zombie_cancels.zombie_subscription} = ${subscription_subscription.id} ;;
     relationship: one_to_one
   }
+
+    # join: gamer_predictions {
+    #   sql_on: ${gamer_predictions.subscription_id} = ${subscription_subscription.id} ;;
+    #   relationship: one_to_one
+    # }
   }
 
 explore: customer_customer {
