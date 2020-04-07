@@ -254,4 +254,19 @@ view: acv_contract {
   measure: Overall_Merchant {
     type: string
   }
+
+  dimension: Tier_1_Bonus {
+    type: number
+    sql: ${TABLE}.tier_1_bonus ;;
+  }
+
+  dimension: Tier_2_Bonus {
+    type: number
+    sql: ${TABLE}.tier_2_bonus ;;
+  }
+
+  dimension: Tier_3_Bonus {
+    type: number
+    sql: ${TABLE}.tier_3_bonus ;;
+  }
 }
