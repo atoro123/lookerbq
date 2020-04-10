@@ -57,4 +57,9 @@ view: subscription_daily_summary {
     hidden: yes
     drill_fields: [id]
   }
+
+  measure: active_end {
+    type: number
+    sql: ${active} ;;
+  }
 }
