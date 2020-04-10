@@ -553,6 +553,7 @@ view: subscription_subscription {
   measure: 24_Hour_Cancel_Percent {
     type: number
     sql: ${24_Hour_Cancels}/${count} ;;
+    value_format: "0.0%"
   }
 
   measure: Average_Quantity {
