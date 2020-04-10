@@ -70,6 +70,11 @@ join:  subscriber_daily_summary {
   type: left_outer
   sql_on: ${subscription_daily_summary.date_date} = ${subscriber_daily_summary.date_date} and ${subscription_daily_summary.merchant_id} = ${subscriber_daily_summary.merchant_id} ;;
 }
+
+    join: merchant_merchant {
+      sql_on: ${subscription_daily_summary.merchant_id} = ${merchant_merchant.id} ;;
+      relationship: many_to_one
+    }
   }
 
 explore: analytics_summary {
