@@ -208,7 +208,7 @@ view: acv_contract {
 
   dimension: success_owner {
     type: string
-    sql: ${TABLE}.success_owner ;;
+    sql: ${TABLE}.success_ower ;;
   }
 
   dimension: success_support {
