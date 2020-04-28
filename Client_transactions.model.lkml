@@ -57,6 +57,14 @@ explore: subscription_log {  access_filter: {field:merchant_id
       sql_on: ${acv_contract.merchant_id} = ${subscription_log.merchant_id} ;;
       relationship: many_to_one
     }
+
+    join: customer_facts {
+      type: left_outer
+      sql_on: ${customer_customer.id} = ${customer_facts.customer_id} ;;
+      relationship: one_to_one
+      fields: [customer_facts.Cancelled_date, customer_facts.Cancelled_month, customer_facts.customer_creation_count, customer_facts.customer_id,
+        customer_facts.Customer_Live, customer_facts.created_date, customer_facts.created_month, customer_facts.merchant_id]
+    }
 }
 
 explore: customer_experience_log {  access_filter: {field:merchant_id
