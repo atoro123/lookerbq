@@ -358,10 +358,10 @@ explore: subscription_subscription {
     relationship: one_to_one
   }
 
-    # join: gamer_predictions {
-    #   sql_on: ${gamer_predictions.subscription_id} = ${subscription_subscription.id} ;;
-    #   relationship: one_to_one
-    # }
+#     join: gamer_predictions {
+#     sql_on: ${gamer_predictions.subscription_id} = ${subscription_subscription.id} ;;
+#     relationship: one_to_one
+#      }
 
   join: subscription_log {
     type: left_outer
@@ -496,6 +496,14 @@ explore: customer_customer {
     relationship: many_to_one
     fields: [order_check.order_merchant_id,order_check.in_cart_log]
 
+  }
+
+
+  join: customer_IU_tracker {
+    type: full_outer
+    view_label: "Customer"
+    sql_on: ${customer_IU_tracker.customer_id} = ${customer_customer.id} ;;
+    relationship: one_to_one
   }
 }
 
