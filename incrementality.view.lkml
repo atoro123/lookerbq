@@ -20,7 +20,7 @@ view: incrementality {
       SUM(IF(DATE(logged) BETWEEN A.mid_date AND DATE_ADD(A.mid_date, INTERVAL 90 DAY), B.total, 0)) spend_post
       FROM
        (SELECT *, IF(subscriber = 1, "Subscriber", "Non-Subscriber") did_they_subscribe
-        FROM   (SELECT merchant_id,
+        FROM   (SELECT purchases.merchant_id,
                        purchases.customer_id,
                        IF(elligible_sub = 1, 1, 0) subscriber,
                        reference_date,name, min_date,
@@ -34,7 +34,7 @@ view: incrementality {
                        end                         mid_date
 
                 FROM   (SELECT merchant_id,
-                               customer_id,
+                              IFNULL(CAST(customer_id AS STRING), CONCAT(merchant_id, merchant_user_id)) customer_id,
                                Min(Date(logged)) first_purchase_date,
                                IF(Min(Date(logged)) <
                                      Date_sub(CURRENT_DATE(),
@@ -43,7 +43,8 @@ view: incrementality {
                         FROM   `production-202017.og_transactions.cart_log`
                         GROUP  BY merchant_id,
                                   customer_id) purchases
-                       LEFT JOIN (SELECT customer_id,reference_date, name, min_date,
+                       LEFT JOIN (SELECT CAST(customer_id AS STRING) customer_id,
+                      reference_date, name, min_date, sub.merchant_id,
                                          Min(start_date) signup_date,
                                          IF(Min(start_date) BETWEEN inc_look.reference_date
                                                                     AND
@@ -55,14 +56,17 @@ view: incrementality {
                                        INNER JOIN
                  `production-202017.looker_scratch.incrementality_lookup` inc_look
                  ON sub.merchant_id = inc_look.merchant_id
-                                  GROUP  BY customer_id, inc_look.reference_date, name, min_date ) subs
-                              ON purchases.customer_id = subs.customer_id)
+                                  GROUP  BY customer_id, inc_look.reference_date, name, min_date, sub.merchant_id ) subs
+                              ON purchases.customer_id = subs.customer_id
+                              AND       purchases.merchant_id = subs.merchant_id)
         WHERE  mid_date IS NOT NULL) A
 
       INNER JOIN
       `production-202017.og_transactions.cart_log` B
       ON
-      A.customer_id = B.customer_id
+      CAST(A.customer_id AS STRING) = IFNULL(CAST(B.customer_id AS STRING), CONCAT(B.merchant_id, B.merchant_user_id) )
+      AND
+      A.merchant_id = B.merchant_id
       GROUP BY
       A.merchant_id, A.customer_id, A.subscriber, A.mid_date, A.did_they_subscribe, reference_date, name, min_date
       )
