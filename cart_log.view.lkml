@@ -232,6 +232,11 @@ view: cart_log {
     sql: ${customer_id} ;;
   }
 
+  measure: Distinct_Merchant_Users {
+    type: count_distinct
+    sql: ${merchant_user_id} ;;
+  }
+
   measure: Average_Item_Quantity {
     type: average
     sql: ${quantity} ;;
