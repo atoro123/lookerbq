@@ -229,6 +229,7 @@ view: acv_contract {
   dimension: tier_3 {
     type: number
     sql: ${TABLE}.tier_3 ;;
+    value_format: "$0"
   }
 
   measure: total_arr {
@@ -238,7 +239,7 @@ view: acv_contract {
 
   dimension: time_left {
     type: number
-    sql: date_diff(date_add(${gmv_start_date}, INTERVAL 1 YEAR), Current_Date(), DAY) ;;
+    sql: date_diff(${gmv_end_date},Current_Date(), DAY) ;;
   }
 
   dimension: gmv_end_date {

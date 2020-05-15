@@ -58,4 +58,14 @@ view: oos_event_log {
     when ${type_id} = 33 then '30th Day OOS'
     else 'Other' end;;
   }
+
+  dimension: To {
+    type: string
+    sql: json_extract_scalar(${object_metadata}, '$.from')  ;;
+  }
+
+  dimension: From {
+    type: string
+    sql: json_extract_scalar(${object_metadata}, '$.to') ;;
+  }
   }
