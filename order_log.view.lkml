@@ -167,4 +167,10 @@ view: order_log {
     ]
     sql: date_add(${logged_date}, INTERVAL 10 DAY) ;;
   }
+
+  measure: Recurring_Revenue_Total {
+    type: sum
+    sql: ${sub_total} ;;
+    value_format: "$0.00"
+  }
 }
