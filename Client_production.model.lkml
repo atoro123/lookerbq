@@ -987,3 +987,28 @@ explore: event_log {
     sql_on: ${order_item.order_id} = ${order_export.id} ;;
   }
 }
+
+  explore: gmv_weekly {
+    label: "Client Forecast"
+
+    join: order_order {
+      type: left_outer
+      sql_on: ${gmv_weekly.merchant_id} = ${order_order.merchant_id} ;;
+      fields: [order_order.id, order_order.merchant_id, order_order.customer_id, order_order.sub_total, order_order.created_date, order_order.place_date, order_order.place_month, order_order.place_year, order_order.cancelled_date,
+        order_order.cancelled_month, order_order.cancelled_year, order_order.status, order_order.rejected_message, order_order.completed_orders_revenue]
+    }
+
+    join: subscription_log {
+      type: left_outer
+      sql_on: ${gmv_weekly.merchant_id} = ${subscription_log.merchant_id} ;;
+      fields: [subscription_log.id, subscription_log.merchant_id, subscription_log.customer_id, subscription_log.subscription_id, subscription_log.subscription_type,
+        subscription_log.product_id, subscription_log.quantity, subscription_log.price, subscription_log.offer_id, subscription_log.offer_profile_id,
+        subscription_log.frequency_days, subscription_log.logged_date, subscription_log.logged_month, subscription_log.logged_year, subscription_log.event_id]
+    }
+
+    join: order_item {
+      type: left_outer
+      sql_on: ${order_item.order_id} = ${order_order.id} ;;
+      fields: [order_item.id, order_item.order_id, order_item.subscription_id, order_item.product_id, order_item.quantity, order_item.price, order_item.total_price, order_item.offer_id]
+    }
+  }
