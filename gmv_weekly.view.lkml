@@ -82,9 +82,21 @@ view: gmv_weekly {
     sql: ${TABLE}.Total_Forecast___July ;;
   }
 
+  measure: july_forecast {
+    type: sum
+    sql: ${TABLE}.Total_Forecast___July  ;;
+    value_format: "$#,##0.00"
+  }
+
   dimension: total_forecast_june {
     type: number
     sql: ${TABLE}.Total_Forecast___June ;;
+  }
+
+  measure: june_forecast {
+    type: sum
+    sql: ${TABLE}.Total_Forecast___June  ;;
+    value_format: "$#,##0.00"
   }
 
   dimension: total_forecast_may {
@@ -92,9 +104,21 @@ view: gmv_weekly {
     sql: ${TABLE}.Total_Forecast___May ;;
   }
 
+  measure: May_forecast {
+    type: sum
+    sql: ${TABLE}.Total_Forecast___May  ;;
+    value_format: "$#,##0.00"
+  }
+
   dimension: total_q2_forecast {
     type: number
     sql: ${TABLE}.Total_Q2_Forecast ;;
+  }
+
+  measure: Q2_forecast {
+    type: sum
+    sql: ${TABLE}.Total_Q2_Forecast ;;
+    value_format: "$#,##0.00"
   }
 
   measure: count {
