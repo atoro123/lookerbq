@@ -93,6 +93,11 @@ relationship: one_to_many
     relationship: one_to_many
   }
 
+  join: subscription_product {
+    from: product_product
+    sql_on: ${subscription_product.id} = ${subscription_subscription.product_id} ;;
+  }
+
   join: merchant_merchant {
     view_label: "Merchant"
     sql_on: ${merchant_merchant.id} = ${order_order.merchant_id};;
@@ -232,6 +237,12 @@ explore: subscription_subscription {
     view_label: "Product"
     sql_on: ${product_product.id} = ${subscription_subscription.product_id};;
     relationship: one_to_many
+  }
+
+  join: lv_brands {
+    view_label: "Lucky Vitamin Brands"
+    sql_on: ${lv_brands.sku} = ${product_product.sku} ;;
+    relationship: one_to_one
   }
   join: merchant_merchant {
     view_label: "Merchant"

@@ -126,6 +126,11 @@ view: customer_facts {
     sql:DATE_DIFF(${Cancelled_date},${created_date}, DAY) ;;
   }
 
+  dimension: subscriber_lifetime_all {
+    type: number
+    sql: DATE_DIFF(ifnull(${Cancelled_date}, CURRENT_DATE()),${created_date}, DAY)  ;;
+  }
+
   dimension: Bucket_Lifetime {
   type: number
   sql:  case when ${Subscriber_lifetime} <= 30 then '30'

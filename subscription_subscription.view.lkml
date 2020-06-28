@@ -605,16 +605,18 @@ view: subscription_subscription {
 
   dimension: marketing_program_name {
     type: number
-    sql: 119 ;;
-    description: "Gillette Marketing ID"
-    group_label: "Gillette Specfic"
+    sql: case when ${merchant_id} = 94 then 119
+    when ${merchant_id} = 76 then 465 else null end;;
+    description: "P&G Marketing ID"
+    group_label: "P&G Specfic"
   }
 
   dimension: data_source_number {
     type: string
-    sql: 10618 ;;
-    description: "Gillette Data Source ID"
-    group_label: "Gillette Specfic"
+    sql: case when ${merchant_id} = 94 then 10618
+    when ${merchant_id} = 76 then 11679 else null end;;
+    description: "P&G Data Source ID"
+    group_label: "P&G Specfic"
   }
 #
 #   dimension: current_date {
