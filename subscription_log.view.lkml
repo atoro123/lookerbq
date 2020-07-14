@@ -269,9 +269,8 @@ view: subscription_log {
 
  dimension_group: today {
   type: time
-  hidden: yes
   timeframes: [day_of_month, month, month_num, date, raw]
-  sql: current_date ;;
+  sql: CURRENT_TIMESTAMP() ;;
 }
 
 dimension: days_in_month {
