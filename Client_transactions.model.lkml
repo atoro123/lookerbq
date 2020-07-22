@@ -33,6 +33,11 @@ explore: subscription_log {  access_filter: {field:merchant_id
       relationship: many_to_one
     }
 
+    join: lovelyskin_brands {
+      sql_on: ${lovelyskin_brands.sku} = ${product_product.sku} ;;
+      relationship: one_to_one
+    }
+
     join: customer_customer {
       sql_on: ${customer_customer.id} = ${subscription_log.customer_id} ;;
       relationship: many_to_one

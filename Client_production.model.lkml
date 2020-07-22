@@ -93,6 +93,11 @@ relationship: one_to_many
     relationship: one_to_many
   }
 
+  join: lovelyskin_brands {
+    sql_on: ${lovelyskin_brands.sku} = ${product_product.sku} ;;
+    relationship: one_to_one
+  }
+
   join: subscription_product {
     from: product_product
     sql_on: ${subscription_product.id} = ${subscription_subscription.product_id} ;;
@@ -242,6 +247,11 @@ explore: subscription_subscription {
   join: lv_brands {
     view_label: "Lucky Vitamin Brands"
     sql_on: ${lv_brands.sku} = ${product_product.sku} ;;
+    relationship: one_to_one
+  }
+
+  join: lovelyskin_brands {
+    sql_on: ${lovelyskin_brands.sku} = ${product_product.sku} ;;
     relationship: one_to_one
   }
   join: merchant_merchant {

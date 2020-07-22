@@ -68,4 +68,9 @@ view: oos_event_log {
     type: string
     sql: json_extract_scalar(${object_metadata}, '$.to') ;;
   }
+
+  measure: OOS_Orders {
+    type: count_distinct
+    sql: json_extract_scalar(${object_metadata}, '$.order_id') ;;
+  }
   }
