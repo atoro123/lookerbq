@@ -528,6 +528,17 @@ explore: customer_customer {
   }
 }
 
+explore: harvest_merchant_mapping {
+  label: "Harvest"
+  join: harvest_hours {
+    sql_on: ${harvest_hours.client} = ${harvest_merchant_mapping.account} ;;
+  }
+
+  join: acv_contract {
+    sql_on: ${acv_contract.merchant_id} = ${harvest_merchant_mapping.merchant_id} ;;
+  }
+}
+
 explore: event_log {
   label: "8) Event Log"
   from: event_log
