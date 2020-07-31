@@ -73,11 +73,6 @@ view: harvest_hours {
     sql: ${TABLE}.External_Reference_URL ;;
   }
 
-  dimension: first_name {
-    type: string
-    sql: ${TABLE}.First_Name ;;
-  }
-
   dimension: hours {
     type: number
     sql: ${TABLE}.Hours ;;
@@ -86,11 +81,6 @@ view: harvest_hours {
   dimension: invoiced {
     type: yesno
     sql: ${TABLE}.Invoiced ;;
-  }
-
-  dimension: last_name {
-    type: string
-    sql: ${TABLE}.Last_Name ;;
   }
 
   dimension: notes {
@@ -116,11 +106,6 @@ view: harvest_hours {
   dimension: task {
     type: string
     sql: ${TABLE}.Task ;;
-  }
-
-  measure: count {
-    type: count
-    drill_fields: [first_name, last_name]
   }
 
   measure: total_hours {
