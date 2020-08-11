@@ -645,6 +645,11 @@ explore: event_log {
       sql_on: ${product_product.id} = ${subscription_subscription.product_id} ;;
       relationship: one_to_many
     }
+
+    join: OOS_Flow_Product_Feed {
+      from: product_product
+      sql_on: ${oos_event_log.external_product_id} = ${OOS_Flow_Product_Feed.external_product_id}  ;;
+    }
     join: order_placementfailure {
       sql_on: ${order_order.public_id} = ${order_placementfailure.order_public_id} ;;
       relationship: one_to_one

@@ -1,25 +1,27 @@
+
+
 view: gmv_weekly {
   sql_table_name: `production-202017.ogv2_consumerinsight.gmv_weekly`
     ;;
 
-  dimension: april_actuals {
+  dimension: july_actuals {
     type: number
-    sql: ${TABLE}.April_Actuals ;;
+    sql: ${TABLE}.July_Actuals ;;
   }
 
-  dimension: base_gmv_forecast_july {
+  dimension: base_gmv_forecast_october {
     type: number
-    sql: ${TABLE}.Base_GMV_Forecast___July ;;
+    sql: ${TABLE}.Base_GMV_Forecast_October ;;
   }
 
-  dimension: base_gmv_forecast_june {
+  dimension: base_gmv_forecast_september {
     type: number
-    sql: ${TABLE}.Base_GMV_Forecast___June ;;
+    sql: ${TABLE}.Base_GMV_Forecast_September ;;
   }
 
-  dimension: base_gmv_forecast_may {
+  dimension: base_gmv_forecast_august {
     type: number
-    sql: ${TABLE}.Base_GMV_Forecast___May ;;
+    sql: ${TABLE}.Base_GMV_Forecast_August ;;
   }
 
   dimension: client_name {
@@ -32,44 +34,44 @@ view: gmv_weekly {
     sql: ${TABLE}.CS_Name ;;
   }
 
-  dimension: february_actuals {
+  dimension: may_actuals {
     type: number
-    sql: ${TABLE}.February_Actuals ;;
+    sql: ${TABLE}.May_Actuals ;;
   }
 
-  dimension: growth_july {
+  dimension: growth_october {
     type: number
-    sql: ${TABLE}.Growth___July ;;
+    sql: ${TABLE}.Growth_October ;;
   }
 
-  dimension: growth_june {
+  dimension: growth_september {
     type: number
-    sql: ${TABLE}.Growth___June ;;
+    sql: ${TABLE}.Growth_September ;;
   }
 
-  dimension: growth_may {
+  dimension: growth_august {
     type: number
-    sql: ${TABLE}.Growth___May ;;
+    sql: ${TABLE}.Growth_August ;;
   }
 
-  dimension: july_qtr_adjust {
+  dimension: october_qtr_adjust {
     type: number
-    sql: ${TABLE}.July_Qtr_Adjust ;;
+    sql: ${TABLE}.October_Qtr_Adjust ;;
   }
 
-  dimension: june_qtr_adjust {
+  dimension: september_qtr_adjust {
     type: number
-    sql: ${TABLE}.June_Qtr_Adjust ;;
+    sql: ${TABLE}.September_Qtr_Adjust ;;
   }
 
-  dimension: march_actuals {
+  dimension: June_actuals {
     type: number
-    sql: ${TABLE}.March_Actuals ;;
+    sql: ${TABLE}.June_Actuals ;;
   }
 
-  dimension: may_qtr_adjust {
+  dimension: august_qtr_adjust {
     type: number
-    sql: ${TABLE}.May_Qtr_Adjust ;;
+    sql: ${TABLE}.August_Qtr_Adjust ;;
   }
 
   dimension: merchant_id {
@@ -77,48 +79,44 @@ view: gmv_weekly {
     sql: ${TABLE}.Merchant_ID ;;
   }
 
-  dimension: total_forecast_july {
+  dimension: total_forecast_october {
     type: number
-    sql: ${TABLE}.Total_Forecast___July ;;
+    sql: ${TABLE}.Total_Forecast_October ;;
   }
 
-  measure: july_forecast {
+  measure: october_forecast {
     type: sum
-    sql: ${TABLE}.Total_Forecast___July  ;;
-    value_format: "$#,##0.00"
+    sql: ${TABLE}.Total_Forecast_October  ;;
   }
 
-  dimension: total_forecast_june {
+  dimension: total_forecast_september {
     type: number
-    sql: ${TABLE}.Total_Forecast___June ;;
+    sql: ${TABLE}.Total_Forecast_September ;;
   }
 
-  measure: june_forecast {
+  measure: september_forecast {
     type: sum
-    sql: ${TABLE}.Total_Forecast___June  ;;
-    value_format: "$#,##0.00"
+    sql: ${TABLE}.Total_Forecast_September  ;;
   }
 
-  dimension: total_forecast_may {
+  dimension: total_forecast_august {
     type: number
-    sql: ${TABLE}.Total_Forecast___May ;;
+    sql: ${TABLE}.Total_Forecast_August ;;
   }
 
-  measure: May_forecast {
+  measure: august_forecast {
     type: sum
-    sql: ${TABLE}.Total_Forecast___May  ;;
-    value_format: "$#,##0.00"
+    sql: ${TABLE}.Total_Forecast_august  ;;
   }
 
-  dimension: total_q2_forecast {
+  dimension: total_q3_forecast {
     type: number
-    sql: ${TABLE}.Total_Q2_Forecast ;;
+    sql: ${TABLE}.Total_Q3_Forecast ;;
   }
 
-  measure: Q2_forecast {
+  measure: Q3_forecast {
     type: sum
-    sql: ${TABLE}.Total_Q2_Forecast ;;
-    value_format: "$#,##0.00"
+    sql: ${TABLE}.Total_Q3_Forecast ;;
   }
 
   measure: count {

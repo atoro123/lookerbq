@@ -64,6 +64,12 @@ view: oos_event_log {
     sql: json_extract_scalar(${object_metadata}, '$.from')  ;;
   }
 
+  dimension: external_product_id {
+    type: string
+    sql: json_extract_scalar(${object_metadata}, '$.external_product_id') ;;
+    description: "Use for Event Type 77"
+  }
+
   dimension: From {
     type: string
     sql: json_extract_scalar(${object_metadata}, '$.to') ;;
