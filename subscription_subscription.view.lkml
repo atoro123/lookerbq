@@ -618,6 +618,17 @@ view: subscription_subscription {
     description: "P&G Data Source ID"
     group_label: "P&G Specfic"
   }
+
+  measure: distinct_Frequencies{
+    type: count_distinct
+    sql: ${frequency_days} ;;
+  }
+
+  measure: distinct_Created_dates{
+    type: count_distinct
+    sql: ${created_date} ;;
+  }
+
 #
 #   dimension: current_date {
 #     type: date_month

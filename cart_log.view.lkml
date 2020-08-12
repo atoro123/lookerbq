@@ -170,6 +170,18 @@ view: cart_log {
     drill_fields: [id]
   }
 
+  measure: subscription_count {
+    type: count
+    drill_fields: [id]
+    sql: if(${autoship_eligible} = True and ${offer_id} not NULL and ${subscription_id} NOT NULL and ${total} <> 0, ${id}, NULL) ;;
+  }
+
+  measure: subscription_eligible_count {
+    type: count
+    drill_fields: [id]
+    sql: if(${autoship_eligible} = True and ${total} <> 0,${id},NULL) ;;
+  }
+
   measure: Order_Item_Total {
     type: sum
     value_format_name: usd

@@ -563,6 +563,11 @@ view: order_order {
         value_format: "0.00%"
       }
 
+  measure:  distinct_products {
+    type: count_distinct
+    sql: ${order_item.product_id} ;;
+  }
+
 #
 #
 #   dimension: Last_week {
