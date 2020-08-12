@@ -1,6 +1,6 @@
 view: customers_impulse_upsell {
     derived_table: {
-      sql_trigger_value: SELECT FLOOR(((TIMESTAMP_DIFF(CURRENT_TIMESTAMP(),'1970-01-01 00:00:00',SECOND)) - 60*60*8)/(60*60*24));;
+      sql_trigger_value: SELECT FLOOR((TIMESTAMP_DIFF(CURRENT_TIMESTAMP(),'1970-01-01 00:00:00',SECOND)) / (168*60*60));;
       sql: select distinct oo.customer_id, count(distinct case when oi.one_time is true and oi.subscription_id is null then oo.id else null end) AS IU_One_Time_Orders, count(distinct case when oi.subscription_id is not null and (oi.one_time is true
 or ss.subscription_type = 'IU Replenishment'
 or off.offer_type in (12,13,14,19,20,23)
