@@ -9,7 +9,7 @@ view: harvest_merchant_mapping {
 
   dimension: hours_bought {
     type: number
-    sql: ${TABLE}.hours_bought ;;
+    sql: ${TABLE}.post_live_hours ;;
   }
 
   dimension: merchant_id {
@@ -25,5 +25,15 @@ view: harvest_merchant_mapping {
   measure: count {
     type: count
     drill_fields: []
+  }
+
+  dimension: annual_target_hours {
+    type: number
+    sql: ${TABLE}.target_hours ;;
+  }
+
+  dimension: integration_hours {
+    type: number
+    sql: ${TABLE}.intergration_hours ;;
   }
 }
