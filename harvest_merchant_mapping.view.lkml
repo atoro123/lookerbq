@@ -12,6 +12,16 @@ view: harvest_merchant_mapping {
     sql: ${TABLE}.post_live_hours ;;
   }
 
+  dimension: client_status {
+    type: string
+    sql: ${TABLE}.client_stats ;;
+  }
+
+  dimension: client_stage {
+    type: string
+    sql: ${TABLE}.client_stage ;;
+  }
+
   dimension: merchant_id {
     type: number
     sql: ${TABLE}.merchant_id ;;

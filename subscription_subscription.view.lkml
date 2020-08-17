@@ -331,6 +331,7 @@ view: subscription_subscription {
     when ${cancel_reason} = 'I want to switch products.' then 'Product Change'
     when ${cancel_reason} = "I didn't mean to sign up for Auto Replenishment." then 'Mistake'
     when ${cancel_reason} = "I don't use this product." then 'No Longer Use'
+     when ${cancel_reason} = "No Credit Card Found" then "No CC Found"
     ELSE 'Other' END
           ;;
           drill_fields: [clean_cancel,cancel_reason,id, created_date, cancelled_date, frequency_days, product_product.name, product_product.sku]

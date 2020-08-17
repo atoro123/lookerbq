@@ -70,6 +70,12 @@ view: oos_event_log {
     description: "Use for Event Type 77"
   }
 
+  dimension: subscription_id {
+    type: string
+    sql: json_extract_scalar(${object_metadata}, '$.subscription_id') ;;
+    description: "Use for Event Type 77"
+  }
+
   dimension: From {
     type: string
     sql: json_extract_scalar(${object_metadata}, '$.to') ;;
