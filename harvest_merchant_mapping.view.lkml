@@ -17,6 +17,21 @@ view: harvest_merchant_mapping {
     sql: ${TABLE}.client_stats ;;
   }
 
+  dimension: product_level {
+    type: string
+    sql: ${TABLE}.product_level ;;
+  }
+
+  dimension: signed_date {
+    type: date
+    sql: ${TABLE}.signed_date ;;
+  }
+
+  dimension: launch_date {
+    type: date
+    sql: ${TABLE}.launch_date ;;
+  }
+
   dimension: client_stage {
     type: string
     sql: ${TABLE}.client_stage ;;
