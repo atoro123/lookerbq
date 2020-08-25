@@ -61,4 +61,9 @@ view: harvest_merchant_mapping {
     type: number
     sql: ${TABLE}.intergration_hours ;;
   }
+
+  dimension: platform {
+    type: string
+    sql: ${TABLE}.platform ;;
+  }
 }

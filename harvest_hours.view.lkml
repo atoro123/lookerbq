@@ -8,6 +8,16 @@ view: harvest_hours {
     sql: ${TABLE}.ID ;;
   }
 
+  dimension: First_Name {
+    type: string
+    sql: ${TABLE}.First_Name ;;
+  }
+
+  dimension: Last_Name {
+    type: string
+    sql: ${TABLE}.Last_Name ;;
+  }
+
   dimension: approved {
     type: yesno
     sql: ${TABLE}.Approved ;;
