@@ -62,6 +62,12 @@ view: harvest_merchant_mapping {
     sql: ${TABLE}.intergration_hours ;;
   }
 
+  dimension: integration_hours_target {
+    type: number
+    sql: case when ${integration_hours} = 0 then "Unlimited"
+    else ${integration_hours} end;;
+  }
+
   dimension: platform {
     type: string
     sql: ${TABLE}.platform ;;
