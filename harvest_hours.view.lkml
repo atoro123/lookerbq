@@ -95,11 +95,12 @@ view: harvest_hours {
 
   dimension: work_section {
     type: string
-    sql: case when ${notes} like '%eamil%' then 'Email'
+    sql: case when ${notes} like '%email%' then 'Email'
     when ${notes} like '%offer%' then 'Offers'
     when ${notes} like '%msi%' then 'MSI'
     when ${notes} like '%smi%' then 'SMI'
     when ${notes} like '%import%' then 'Imports'
+    when ${notes} like '%tag%' then 'Page Tag'
     else 'Other' end
     ;;
   }
