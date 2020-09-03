@@ -57,6 +57,11 @@ view: harvest_merchant_mapping {
     sql: ${TABLE}.target_hours ;;
   }
 
+  dimension: integratioh_start_date {
+    type: date
+    sql: ${TABLE}.integration_date ;;
+  }
+
   dimension: integration_hours {
     type: number
     sql: ${TABLE}.intergration_hours ;;

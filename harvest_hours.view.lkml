@@ -93,6 +93,17 @@ view: harvest_hours {
     sql: ${TABLE}.Invoiced ;;
   }
 
+  dimension: work_section {
+    type: string
+    sql: case when ${notes} like '%eamil%' then 'Email'
+    when ${notes} like '%offer%' then 'Offers'
+    when ${notes} like '%msi%' then 'MSI'
+    when ${notes} like '%smi%' then 'SMI'
+    when ${notes} like '%import%' then 'Imports'
+    else 'Other' end
+    ;;
+  }
+
   dimension: notes {
     type: string
     sql: ${TABLE}.Notes ;;

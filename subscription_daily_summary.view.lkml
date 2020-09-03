@@ -25,7 +25,8 @@ view: subscription_daily_summary {
       week,
       month,
       quarter,
-      year
+      year,
+      day_of_month
     ]
     convert_tz: no
     datatype: date
