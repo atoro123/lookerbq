@@ -544,6 +544,10 @@ explore: harvest_merchant_mapping {
   }
 }
 
+explore: zendesk_tickets {
+  label: "Zen Desk"
+}
+
 explore: event_log {
   label: "8) Event Log"
   from: event_log
