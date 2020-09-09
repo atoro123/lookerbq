@@ -103,7 +103,7 @@ view: harvest_hours {
     when ${notes} like '%tag%' then 'Page Tag'
     when ${notes} like '%migration%' then 'Migration'
     when ${notes} like '%reorder%' then 'Reorder'
-    when ${notes} like '%international%' then 'International%'
+    when ${notes} like '%international%' then 'International'
     when ${notes} like '%promos%' then 'Advanced Promos'
     else 'Other' end
     ;;
