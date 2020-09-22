@@ -1049,3 +1049,12 @@ explore: event_log {
       fields: [order_item.id, order_item.order_id, order_item.subscription_id, order_item.product_id, order_item.quantity, order_item.price, order_item.total_price, order_item.offer_id]
     }
   }
+
+  explore: article_stats {
+    hidden: yes
+  }
+
+
+  explore:  temp_churn_performance_data {
+    hidden: yes
+  }

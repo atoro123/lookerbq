@@ -629,6 +629,16 @@ view: subscription_subscription {
     sql: ${created_date} ;;
   }
 
+  measure: distinct_subscriptions{
+    type: count_distinct
+    sql: ${id} ;;
+  }
+
+  measure: Min_created_Date {
+    type: date
+    sql: min(${created_date});;
+  }
+
 #
 #   dimension: current_date {
 #     type: date_month
