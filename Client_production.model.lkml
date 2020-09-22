@@ -537,6 +537,15 @@ explore: harvest_merchant_mapping {
   join: acv_contract {
     sql_on: ${acv_contract.merchant_id} = ${harvest_merchant_mapping.merchant_id} ;;
   }
+
+  join: merchant_merchant {
+    sql_on: ${merchant_merchant.id} = ${harvest_merchant_mapping.merchant_id} ;;
+    relationship: one_to_one
+  }
+}
+
+explore: zendesk_tickets {
+  label: "Zen Desk"
 }
 
 explore: event_log {

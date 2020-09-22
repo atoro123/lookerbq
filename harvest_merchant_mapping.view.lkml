@@ -12,6 +12,31 @@ view: harvest_merchant_mapping {
     sql: ${TABLE}.post_live_hours ;;
   }
 
+  dimension: client_status {
+    type: string
+    sql: ${TABLE}.client_stats ;;
+  }
+
+  dimension: product_level {
+    type: string
+    sql: ${TABLE}.product_level ;;
+  }
+
+  dimension: signed_date {
+    type: date
+    sql: ${TABLE}.signed_date ;;
+  }
+
+  dimension: launch_date {
+    type: date
+    sql: ${TABLE}.launch_date ;;
+  }
+
+  dimension: client_stage {
+    type: string
+    sql: ${TABLE}.client_stage ;;
+  }
+
   dimension: merchant_id {
     type: number
     sql: ${TABLE}.merchant_id ;;
@@ -32,8 +57,24 @@ view: harvest_merchant_mapping {
     sql: ${TABLE}.target_hours ;;
   }
 
+  dimension: integratioh_start_date {
+    type: date
+    sql: ${TABLE}.integration_date ;;
+  }
+
   dimension: integration_hours {
     type: number
     sql: ${TABLE}.intergration_hours ;;
+  }
+
+  dimension: integration_hours_target {
+    type: number
+    sql: case when ${integration_hours} = 0 then "Unlimited"
+    else ${integration_hours} end;;
+  }
+
+  dimension: platform {
+    type: string
+    sql: ${TABLE}.platform ;;
   }
 }

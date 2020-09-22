@@ -8,6 +8,16 @@ view: harvest_hours {
     sql: ${TABLE}.ID ;;
   }
 
+  dimension: First_Name {
+    type: string
+    sql: ${TABLE}.First_Name ;;
+  }
+
+  dimension: Last_Name {
+    type: string
+    sql: ${TABLE}.Last_Name ;;
+  }
+
   dimension: approved {
     type: yesno
     sql: ${TABLE}.Approved ;;
@@ -81,6 +91,22 @@ view: harvest_hours {
   dimension: invoiced {
     type: yesno
     sql: ${TABLE}.Invoiced ;;
+  }
+
+  dimension: work_section {
+    type: string
+    sql: case when ${notes} like '%email%' then 'Email'
+    when ${notes} like '%offer%' then 'Offers'
+    when ${notes} like '%msi%' then 'MSI'
+    when ${notes} like '%smi%' then 'SMI'
+    when ${notes} like '%import%' then 'Imports'
+    when ${notes} like '%tag%' then 'Page Tag'
+    when ${notes} like '%migration%' then 'Migration'
+    when ${notes} like '%reorder%' then 'Reorder'
+    when ${notes} like '%international%' then 'International'
+    when ${notes} like '%promos%' then 'Advanced Promos'
+    else 'Other' end
+    ;;
   }
 
   dimension: notes {

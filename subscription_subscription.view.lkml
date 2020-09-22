@@ -251,19 +251,19 @@ view: subscription_subscription {
     case
     when substr(${cancel_reason},0,2) = '1|' then 'Other'
     when substr(${cancel_reason},0,2) = '2|' then 'Overstocked'
-    when substr(${cancel_reason},0,2) = '3|' then 'No Longer Use'
-    when substr(${cancel_reason},0,2) = '4|' then 'Product Change'
+    when substr(${cancel_reason},0,2) = '3|' and ${merchant_id} != 349 then 'No Longer Use'
+    when substr(${cancel_reason},0,2) = '4|' and ${merchant_id} != 349 then 'Product Change'
     when substr(${cancel_reason},0,2) = '5|' then 'Base Unit Change'
     when substr(${cancel_reason},0,2) = '6|' then 'Buying Product Elsewhere'
-    when substr(${cancel_reason},0,2) = '7|' then 'General Issue'
-    when substr(${cancel_reason},0,2) = '8|' then 'Too Expensive'
+    when substr(${cancel_reason},0,2) = '7|' and ${merchant_id} != 349 then 'General Issue'
+    when substr(${cancel_reason},0,2) = '8|' and ${merchant_id} != 349 then 'Too Expensive'
     when substr(${cancel_reason},0,2) = '9|' then 'Price Issue'
     when substr(${cancel_reason},2) = '10' then 'Limited Shopping Choices'
     when substr(${cancel_reason},0,2) = '11' then 'Shipping Price'
     when substr(${cancel_reason},0,2) = '12' then 'Product Perpetually Out of Stock'
     when substr(${cancel_reason},0,2) = '13' then 'Mistake'
     when substr(${cancel_reason},0,2) = '14' then 'Product different from what ordered'
-    when substr(${cancel_reason},0,2) = '15' then "Tried and don't like"
+    when substr(${cancel_reason},0,2) = '15' and ${merchant_id} not in (349,253,234) then "Tried and don't like"
     when substr(${cancel_reason},0,2) = '16' then 'Found a better deal'
     when substr(${cancel_reason},0,2) = '17' then 'Understocked'
     when substr(${cancel_reason},0,2) = '18' then 'Payment Issue'
@@ -310,6 +310,15 @@ view: subscription_subscription {
     when substr(${cancel_reason},0,2) = '56' then 'Im changing items in my commitment'
     when substr(${cancel_reason},0,4) = 'Item' then 'Item Discontinued'
     when substr(${cancel_reason},0,4) = 'Frau' then 'Fraud'
+    when (substr(${cancel_reason},0,2) = '15' and ${merchant_id} = 349) then 'I dont like my shade / color'
+    when (substr(${cancel_reason},0,2) = '42' and ${merchant_id} = 349) then 'This is temporary, Ill be back!'
+    when (substr(${cancel_reason},0,2) = '8|' and ${merchant_id} = 349) then 'The product / service is too expensive'
+    when (substr(${cancel_reason},0,2) = '52' and ${merchant_id} = 349) then 'Only wanted one colorbox'
+    when (substr(${cancel_reason},0,2) = '3|' and ${merchant_id} = 349) then 'I no longer need hair color'
+    when (substr(${cancel_reason},0,2) = '7|' and ${merchant_id} = 349) then 'Quality of materials was less than expected'
+    when (substr(${cancel_reason},0,2) = '46' and ${merchant_id} = 349) then 'Ease of use was less than expected'
+    when (substr(${cancel_reason},0,2) = '4|' and ${merchant_id} = 349) then 'Other'
+    when (${cancel_reason} = 'changecolor' and ${merchant_id} = 349) then 'Changing Color'
     when ${cancel_reason} = 'I Have Too Many of this Product.' then 'Overstocked'
     when ${cancel_reason} = 'I No Longer Use this Product.' then 'No Longer Use'
     when ${cancel_reason} = 'Did Not Intend to Join Subscription Program.' then 'Mistake'
@@ -331,6 +340,7 @@ view: subscription_subscription {
     when ${cancel_reason} = 'I want to switch products.' then 'Product Change'
     when ${cancel_reason} = "I didn't mean to sign up for Auto Replenishment." then 'Mistake'
     when ${cancel_reason} = "I don't use this product." then 'No Longer Use'
+     when ${cancel_reason} = "No Credit Card Found" then "No CC Found"
     ELSE 'Other' END
           ;;
           drill_fields: [clean_cancel,cancel_reason,id, created_date, cancelled_date, frequency_days, product_product.name, product_product.sku]

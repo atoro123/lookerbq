@@ -56,6 +56,23 @@ include: "event_log.view.lkml"
       sql: json_extract_scalar(${object_metadata}, '$.from')  ;;
     }
 
+    dimension: From_Order_Date_Order {
+      type: date
+      description: "Only use with Type ID 25"
+      sql: PARSE_DATE('%m/%d/%Y',json_extract_scalar(${object_metadata}, '$.from')) ;;
+    }
+
+    dimension: To_Order_Date_Order {
+      type: date
+      description: "Only use with Type ID 25"
+      sql: PARSE_DATE('%m/%d/%Y',json_extract_scalar(${object_metadata}, '$.to')) ;;
+    }
+
+    dimension: Date_Change {
+      type: number
+      sql: date_diff(${To_Order_Date_Order}, ${From_Order_Date_Order}, DAY) ;;
+    }
+
     dimension: Change_Order_To_Date {
       type: string
       sql: json_extract_scalar(${object_metadata}, '$.to') ;;

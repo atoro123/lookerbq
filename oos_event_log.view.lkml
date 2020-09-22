@@ -70,6 +70,17 @@ view: oos_event_log {
     description: "Use for Event Type 77"
   }
 
+  measure: SKU_count {
+    type: count_distinct
+    sql: ${external_product_id} ;;
+  }
+
+  dimension: subscription_id {
+    type: string
+    sql: json_extract_scalar(${object_metadata}, '$.subscription_id') ;;
+    description: "Use for Event Type 77"
+  }
+
   dimension: From {
     type: string
     sql: json_extract_scalar(${object_metadata}, '$.to') ;;
