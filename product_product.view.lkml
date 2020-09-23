@@ -134,23 +134,11 @@ view: product_product {
 
   measure: subscription_eligible {
     type: count_distinct
-    sql:  ${id} ;;
-    filters: {
-      field: autoship_enabled
-      value: "1"
-    }
-    filters: {
-      field: discontinued
-      value: "0"
-    }
+    sql:  CASE WHEN (${autoship_enabled} is TRUE) AND (${discontinued} is FALSE) THEN ${id} ELSE NULL END  ;;
   }
 
   measure: live_products {
     type: count_distinct
-    sql:  ${id} ;;
-    filters: {
-      field: discontinued
-      value: "0"
-    }
+    sql:  CASE WHEN ${discontinued} is FALSE then ${id} else null end ;;
   }
 }

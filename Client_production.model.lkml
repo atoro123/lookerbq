@@ -1006,6 +1006,14 @@ explore: event_log {
       sql_on: ${product_product.id} = ${order_item_log.product_id} ;;
       relationship: one_to_many
     }
+
+    join: merchant_merchant_industries {
+      sql_on: ${merchant_merchant_industries.merchant_id} = ${merchant_merchant.id} ;;
+    }
+
+    join: merchant_industry {
+      sql_on: ${merchant_industry.id} = ${merchant_merchant_industries.industry_id} ;;
+    }
   }
 
   explore: vsi_fraud {
