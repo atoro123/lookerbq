@@ -57,6 +57,11 @@ dimension: result_str{
     else '0' end ;;
   }
 
+  dimension: All_Completed_Orders {
+    type: number
+    sql: ${TABLE}.completed_orders ;;
+  }
+
   dimension: Source_Completed_Orders {
     type: number
     hidden: yes

@@ -542,10 +542,23 @@ explore: harvest_merchant_mapping {
     sql_on: ${merchant_merchant.id} = ${harvest_merchant_mapping.merchant_id} ;;
     relationship: one_to_one
   }
+
+  join: csd_tickets {
+    sql_on: ${external_source_merchant_mapping.csd_name} = ${csd_tickets.project_name} ;;
+  }
+
+  join: external_source_merchant_mapping {
+    sql_on: ${harvest_merchant_mapping.merchant_id} = ${external_source_merchant_mapping.merchant_id} ;;
+  }
 }
 
-explore: zendesk_tickets {
+explore: zen_desk_tickets {
   label: "Zen Desk"
+
+  join: external_source_merchant_mapping {
+    sql_on: ${external_source_merchant_mapping.zendesk_name} = ${zen_desk_tickets.merchant} ;;
+    relationship: many_to_one
+  }
 }
 
 explore: event_log {
@@ -827,7 +840,7 @@ explore: event_log {
 74,
 75,
 76,
-78) then ${order_event_log.object_id} else null end;;
+78,80) then ${order_event_log.object_id} else null end;;
       relationship: many_to_one
       fields: [order_order.id, order_order.cancelled_date, order_order.cancelled_month, order_order.cancelled_time, order_order.cancelled_year, order_order.created_date,
         order_order.created_month, order_order.created_time, order_order.created_year, order_order.customer_id, order_order.merchant_id, order_order.place_date, order_order.place_month,order_order.place_year,

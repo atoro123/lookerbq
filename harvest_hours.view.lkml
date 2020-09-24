@@ -138,4 +138,9 @@ view: harvest_hours {
     type: sum
     sql: ${TABLE}.Hours ;;
   }
+
+  measure: min_harvest_date {
+    type: date
+    sql: min(${date_date}) ;;
+  }
 }
