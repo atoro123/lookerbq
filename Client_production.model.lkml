@@ -1019,6 +1019,14 @@ explore: event_log {
       sql_on: ${product_product.id} = ${order_item_log.product_id} ;;
       relationship: one_to_many
     }
+
+    join: merchant_merchant_industries {
+      sql_on: ${merchant_merchant_industries.merchant_id} = ${merchant_merchant.id} ;;
+    }
+
+    join: merchant_industry {
+      sql_on: ${merchant_industry.id} = ${merchant_merchant_industries.industry_id} ;;
+    }
   }
 
   explore: vsi_fraud {
@@ -1070,4 +1078,13 @@ explore: event_log {
       sql_on: ${order_item.order_id} = ${order_order.id} ;;
       fields: [order_item.id, order_item.order_id, order_item.subscription_id, order_item.product_id, order_item.quantity, order_item.price, order_item.total_price, order_item.offer_id]
     }
+  }
+
+  explore: article_stats {
+    hidden: yes
+  }
+
+
+  explore:  temp_churn_performance_data {
+    hidden: yes
   }

@@ -301,7 +301,7 @@ view: order_order {
 
   measure: order_processing {
     type: number
-    sql: ${completed_orders}/${attempted_orders};;
+    sql: ${completed_orders}/if(${attempted_orders}=0,null,${attempted_orders});;
     value_format: "0.0%"
     drill_fields: [place_date,customer_id,customer_customer.merchant_user_id,sub_total,status,rejected_reason,rejected_message]
   }
@@ -471,10 +471,21 @@ view: order_order {
     sql: max(${place_date});;
   }
 
+    measure: Min_Order_Date {
+      type: date
+      sql: min(${place_date});;
+    }
+
     measure: Max_Completed__Order_Date {
       type: date
       sql: MAX(CASE WHEN (${status}  = 5) THEN (DATE(${place_date})) ELSE NULL END);;
     }
+
+    measure: Min_Completed__Order_Date {
+      type: date
+      sql: MIN(CASE WHEN (${status}  = 5) THEN (DATE(${place_date})) ELSE NULL END);;
+    }
+
 
   dimension: Rejected_Reason_Code {
     label: "Rejected Reason Code"
