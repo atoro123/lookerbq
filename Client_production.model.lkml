@@ -621,6 +621,7 @@ explore: event_log {
   explore: oos_event_log {
    from: oos_event_log
     label: "4) Event Log - Order Item"
+    persist_for: "60 minutes"
     join: customer_customer {
     sql_on: ${oos_event_log.customer_id} = ${customer_customer.id} ;;
     relationship: many_to_one
