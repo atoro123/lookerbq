@@ -19,4 +19,8 @@ include: "*.view.lkml"               # include all views in the views/ folder in
 #   }
 # }
 explore: churn_diagnostics_view {
+  join: merchant_merchant {
+    sql_on: ${churn_diagnostics_view.merchant_id} = ${merchant_merchant.id} ;;
+    relationship: many_to_one
+  }
 }
