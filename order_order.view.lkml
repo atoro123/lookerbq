@@ -19,6 +19,11 @@ view: order_order {
     sql: ${TABLE}.id ;;
   }
 
+  dimension: last_date {
+    type: string
+    sql: case when ${status}=5 then ${place_date} end ;;
+  }
+
   dimension_group: cancelled {
     type: time
     timeframes: [
