@@ -155,7 +155,7 @@ view: churn_prediction_monitor {
 
   measure: sum_correct {
     type: sum
-    sql: if((${percentile_value} > 0.5 AND ${cancelled} = 1) OR (${percentile_value} < 0.5 AND ${cancelled} = 0), 1, 0) ;;
+    sql: if((${percentile_value} > 0.7 AND ${cancelled} = 1) OR (${percentile_value} < 0.7 AND ${cancelled} = 0), 1, 0) ;;
     value_format_name: decimal_2
   }
 
