@@ -24,3 +24,24 @@ explore: churn_diagnostics_view {
     relationship: many_to_one
   }
 }
+
+explore: churn_prediction_monitor {
+}
+
+
+explore: churn_prediction_log {
+}
+
+
+explore: churn_prediction_exclusion {
+}
+
+
+explore: churn_prediction_log_looker {
+}
+
+
+
+
+explore: event_log {
+}
