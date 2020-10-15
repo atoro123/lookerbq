@@ -52,7 +52,7 @@ view: churn_diagnostics_view {
 
   dimension: end_date {
     type: string
-    sql: DATE${TABLE}.end_date) ;;
+    sql: DATE(${TABLE}.end_date) ;;
   }
 
   dimension: mid_date {
@@ -155,6 +155,15 @@ view: churn_diagnostics_view {
     sql: ${TABLE}.baseline_coverage ;;
   }
 
+  dimension: val_logloss {
+    type: number
+    sql: ${TABLE}.val_logloss ;;
+  }
+
+  dimension: insample_logloss {
+    type: number
+    sql: ${TABLE}.insample_logloss ;;
+  }
 
   dimension: pre_coverage {
     type: number
