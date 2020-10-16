@@ -40,6 +40,8 @@ explore: churn_prediction_exclusion {
 explore: churn_prediction_log_looker {
 }
 
+explore: churn_prediction_full {
+}
 
 
 
