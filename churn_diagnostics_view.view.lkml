@@ -83,12 +83,12 @@ view: churn_diagnostics_view {
 
 
   dimension: model_id {
-    type: string
+    type: number
     sql: ${TABLE}.model_id ;;
   }
 
   dimension: merchant_id {
-    type: string
+    type: number
     sql: ${TABLE}.merchant_id ;;
   }
 
@@ -175,7 +175,7 @@ view: churn_diagnostics_view {
   }
 
 
-  measure: act_cutoff_accuracy {
+  dimension: act_cutoff_accuracy {
     type: number
     sql: ${TABLE}.act_cutoff_accuracy ;;
   }
