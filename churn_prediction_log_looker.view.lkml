@@ -1,37 +1,20 @@
-view: churn_prediction_monitor {
-  sql_table_name: `production-202017.looker_scratch.churn_prediction_monitor`
+view: churn_prediction_log_looker {
+  sql_table_name: `production-202017.looker_scratch.churn_prediction_log_looker`
     ;;
 
-
-  measure: over_caught_70 {
-    type: sum
-    sql: if(${percentile_value} > 0.7 AND ${cancelled} = 1, 1, 0) ;;
-    value_format_name: decimal_2
+  dimension: active {
+    type: yesno
+    sql: ${TABLE}.active ;;
   }
-
-  measure: sum_cancelled {
-    type: sum
-    sql: ${cancelled} ;;
-    value_format_name: decimal_2
-  }
-
-  measure: avg_percentile_value {
-    type: average
-    sql: ${percentile_value} ;;
-    value_format_name: decimal_2
-  }
-
-  measure: sum_correct {
-    type: sum
-    sql: if((${percentile_value} > 0.5 AND ${cancelled} = 1) OR (${percentile_value} < 0.5 AND ${cancelled} = 0), 1, 0) ;;
-    value_format_name: decimal_2
-  }
-
-
 
   dimension: cancelled {
     type: number
     sql: ${TABLE}.cancelled ;;
+  }
+
+  dimension: caught {
+    type: number
+    sql: ${TABLE}.caught ;;
   }
 
   dimension: confidence_value {
@@ -39,19 +22,33 @@ view: churn_prediction_monitor {
     sql: ${TABLE}.confidence_value ;;
   }
 
+  dimension_group: created_dt {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${TABLE}.created_dt ;;
+  }
+
   dimension: customer_id {
     type: number
     sql: ${TABLE}.customer_id ;;
   }
 
-  dimension: date_changed {
-    type: number
-    sql: ${TABLE}.date_changed ;;
-  }
-
   dimension: merchant_id {
     type: number
     sql: ${TABLE}.merchant_id ;;
+  }
+
+  dimension: missed {
+    type: number
+    sql: ${TABLE}.missed ;;
   }
 
   dimension: model_id {
@@ -63,27 +60,39 @@ view: churn_prediction_monitor {
     type: time
     timeframes: [
       raw,
-      time,
       date,
       week,
       month,
       quarter,
       year
     ]
+    convert_tz: no
+    datatype: date
     sql: ${TABLE}.next_order_date ;;
+  }
+
+  dimension: next_order_id {
+    type: number
+    sql: ${TABLE}.next_order_id ;;
+  }
+
+  dimension: next_order_item_id {
+    type: number
+    sql: ${TABLE}.next_order_item_id ;;
   }
 
   dimension_group: order {
     type: time
     timeframes: [
       raw,
-      time,
       date,
       week,
       month,
       quarter,
       year
     ]
+    convert_tz: no
+    datatype: date
     sql: ${TABLE}.order_date ;;
   }
 
@@ -97,6 +106,11 @@ view: churn_prediction_monitor {
     sql: ${TABLE}.percentile_value ;;
   }
 
+  dimension: prediction_id {
+    type: number
+    sql: ${TABLE}.prediction_id ;;
+  }
+
   dimension: product_id {
     type: number
     sql: ${TABLE}.product_id ;;
@@ -107,7 +121,7 @@ view: churn_prediction_monitor {
     sql: ${TABLE}.subscription_id ;;
   }
 
-  dimension_group: timestamp {
+  dimension_group: updated_dt {
     type: time
     timeframes: [
       raw,
@@ -118,21 +132,26 @@ view: churn_prediction_monitor {
       quarter,
       year
     ]
-    sql: ${TABLE}.timestamp ;;
-  }
-
-  dimension: upcoming_order_id {
-    type: number
-    sql: ${TABLE}.upcoming_order_id ;;
-  }
-
-  dimension: upcoming_order_item_id {
-    type: number
-    sql: ${TABLE}.upcoming_order_item_id ;;
+    sql: ${TABLE}.updated_dt ;;
   }
 
   measure: count {
     type: count
     drill_fields: []
+  }
+
+  measure: sum_cancelled {
+    sql: ${cancelled} ;;
+    type: sum
+  }
+
+  measure: sum_missed {
+    sql: ${missed} ;;
+    type: sum
+  }
+
+  measure: sum_caught {
+    sql: ${caught} ;;
+    type: sum
   }
 }

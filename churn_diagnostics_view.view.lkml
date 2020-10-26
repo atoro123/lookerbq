@@ -1,6 +1,6 @@
 view: churn_diagnostics_view {
   # # You can specify the table name if it's different from the view name:
-  sql_table_name: looker_scratch.churn_model ;;
+  sql_table_name: churn_model_tables.churn_performance ;;
 
   measure: avg_baseline_coverage {
     type: average
@@ -38,21 +38,26 @@ view: churn_diagnostics_view {
     value_format_name: decimal_2
   }
 
+  dimension: timestamp {
+    type: string
+    sql: ${TABLE}.timestamp ;;
+  }
+
 
   dimension: start_date {
     type: string
-    sql: ${TABLE}.start_date ;;
+    sql:DATE(${TABLE}.start_date) ;;
   }
 
 
   dimension: end_date {
     type: string
-    sql: ${TABLE}.end_date ;;
+    sql: DATE(${TABLE}.end_date) ;;
   }
 
   dimension: mid_date {
     type: string
-    sql: ${TABLE}.mid_date ;;
+    sql: DATE(${TABLE}.mid_date) ;;
   }
 
 
@@ -71,9 +76,20 @@ view: churn_diagnostics_view {
     primary_key: yes
   }
 
-  dimension: merchant {
+  dimension: model {
     type: string
-    sql: ${TABLE}.merchant ;;
+    sql: concat(${TABLE}.merchant_id, "_", ${TABLE}.model_id);;
+  }
+
+
+  dimension: model_id {
+    type: number
+    sql: ${TABLE}.model_id ;;
+  }
+
+  dimension: merchant_id {
+    type: number
+    sql: ${TABLE}.merchant_id ;;
   }
 
   dimension: precision_val {
@@ -139,6 +155,15 @@ view: churn_diagnostics_view {
     sql: ${TABLE}.baseline_coverage ;;
   }
 
+  dimension: val_logloss {
+    type: number
+    sql: ${TABLE}.val_logloss ;;
+  }
+
+  dimension: insample_logloss {
+    type: number
+    sql: ${TABLE}.insample_logloss ;;
+  }
 
   dimension: pre_coverage {
     type: number
@@ -150,7 +175,7 @@ view: churn_diagnostics_view {
   }
 
 
-  measure: act_cutoff_accuracy {
+  dimension: act_cutoff_accuracy {
     type: number
     sql: ${TABLE}.act_cutoff_accuracy ;;
   }
@@ -192,7 +217,8 @@ view: churn_diagnostics_view {
       avg_baseline_accuracy,
       avg_act_coverage,
       avg_act_accuracy,
-      merchant,
+      merchant_id,
+      model_id,
       precision_val,
       fscore,
       support,
@@ -220,7 +246,8 @@ view: churn_diagnostics_view {
       end_date,
       mid_date,
       train_set_size,
-      test_set_size
+      test_set_size,
+      model
     ]
   }
 }
