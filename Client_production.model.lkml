@@ -1089,3 +1089,5 @@ explore: event_log {
   explore:  temp_churn_performance_data {
     hidden: yes
   }
+
+  explore:  product_combination{}
