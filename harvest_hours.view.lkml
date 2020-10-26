@@ -95,16 +95,17 @@ view: harvest_hours {
 
   dimension: work_section {
     type: string
-    sql: case when ${notes} like '%email%' then 'Email'
-    when ${notes} like '%offer%' then 'Offers'
-    when ${notes} like '%msi%' then 'MSI'
-    when ${notes} like '%smi%' then 'SMI'
-    when ${notes} like '%import%' then 'Imports'
-    when ${notes} like '%tag%' then 'Page Tag'
-    when ${notes} like '%migration%' then 'Migration'
-    when ${notes} like '%reorder%' then 'Reorder'
-    when ${notes} like '%international%' then 'International'
-    when ${notes} like '%promos%' then 'Advanced Promos'
+    sql: case when lower(${notes}) like '%email%' then 'Email'
+    when lower(${notes}) like '%offer%' then 'Offers'
+    when lower(${notes}) like '%msi%' then 'MSI'
+    when lower(${notes}) like '%smi%' then 'SMI'
+    when lower(${notes}) like '%import%' then 'Imports'
+    when lower(${notes}) like '%tag%' then 'Page Tag'
+    when lower(${notes}) like '%migration%' then 'Migration'
+    when lower(${notes}) like '%reorder%' then 'Reorder'
+    when lower(${notes}) like '%international%' then 'International'
+    when lower(${notes}) like '%promos%' then 'Advanced Promos'
+    when lower(${notes}) like '%custom other%' then 'Custom Other'
     else 'Other' end
     ;;
   }
