@@ -83,3 +83,12 @@ explore: analytics_summary {
 }
   persist_with: daily_refresh
   }
+
+
+explore: offline_reportjob {
+  join: merchant_merchant {
+    view_label: "Merchant"
+    sql_on: ${merchant_merchant.public_id} = ${offline_reportjob.merchant_public_id};;
+    relationship: one_to_many
+  }
+}
