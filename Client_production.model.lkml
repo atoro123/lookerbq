@@ -559,6 +559,11 @@ explore: zen_desk_tickets {
     sql_on: ${external_source_merchant_mapping.zendesk_name} = ${zen_desk_tickets.merchant} ;;
     relationship: many_to_one
   }
+
+  join: harvest_merchant_mapping {
+    sql_on: ${harvest_merchant_mapping.account} = ${external_source_merchant_mapping.harvest_name} ;;
+    relationship: one_to_one
+  }
 }
 
 explore: event_log {
