@@ -327,4 +327,57 @@ view: zen_desk_tickets {
     type: count
     drill_fields: [id]
   }
+
+  dimension: Issue_Tags {
+    type: string
+    sql:  case when ${tags} like '%email%' then 'Email'
+when ${tags} like '%piplines%' then 'Pipeline'
+when ${tags} like '%promotions%' then 'Promotions'
+when ${tags} like '%software_not_working_as_expected%' then 'Software Not Working'
+when ${tags} like '%offers%' then 'Offers'
+when ${tags} like '%client_settings%' then 'Client Settings'
+when ${tags} like '%order%' then 'Orders'
+when ${tags} like '%api%' then 'API'
+when ${tags} like '%bug%' then 'Bug'
+when ${tags} like '%missing_documentation%' then 'Missing Documentation'
+when ${tags} like '%product_feed%' then 'Product Feed'
+when ${tags} like '%advanced_offer%' then 'Advanced Offers'
+when ${tags} like '%web_widget%' then 'Web Widget'
+when ${tags} like '%msi%' then 'MSI'
+when ${tags} like '%service/process%' then 'Service and Process'
+when ${tags} like '%styling%' then 'Styling'
+when ${tags} like '%feature_not_available%' then 'Feature not Available'
+when ${tags} like '%cartridge%' then 'Cartridge'
+when ${tags} like '%purchase_post%' then 'Purchase Post'
+when ${tags} like '%page_tagging%' then 'Page Tagging'
+when ${tags} like '%advanced%' then 'Advanced Offers'
+when ${tags} like '%browser_issue%' then 'Browser Issue'
+when ${tags} like '%sms%' then 'SMS'
+when ${tags} like '%order_placement%' then 'Order Placement'
+when ${tags} like '%unclear_documenation%' then 'Unclear Documentation'
+when ${tags} like '%advanced_editing%' then 'Advanced Editing'
+when ${tags} like '%msi_-_copy%' then 'MSI Copy'
+when ${tags} like '%instant_upsell%' then 'IU'
+when ${tags} like '%international%' then 'Internation'
+when ${tags} like '%atg%' then 'ATG'
+else 'other' end
+ ;;
+  }
+  dimension: Platform_Tags {
+    type: string
+    sql:  case when ${tags} like '%shopify%' then 'Shopfy'
+when ${tags} like '%magento_2%' then 'Magento 2'
+when ${tags} like '%sfcc%' then 'Salesforce'
+when ${tags} like '%bigcommerce%' then 'Bigcommerce'
+else 'other' end
+ ;;
+  }
+
+  dimension: Produvt_Level_Tag {
+    type: string
+    sql:  case when ${tags} like '%essentials%' then 'Eseentials'
+      when ${tags} like '%enterprise%' then 'Enteprise'
+      else 'other' end
+       ;;
+  }
 }
