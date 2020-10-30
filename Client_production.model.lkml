@@ -399,6 +399,12 @@ explore: subscription_subscription {
   join: acv_contract {
     sql_on: ${acv_contract.merchant_id} = subscription_log.${subscription_log.merchant_id} ;;
   }
+
+  join: harvest_merchant_mapping {
+    type: left_outer
+    sql_on: ${harvest_merchant_mapping.merchant_id} = ${subscription_subscription.merchant_id} ;;
+    relationship: many_to_one
+  }
   }
 
 explore: customer_customer {
