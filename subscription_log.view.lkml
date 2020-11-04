@@ -321,7 +321,8 @@ measure: total_activation_revenue_forecast_this_month {
 
   dimension: In_Store {
     type: yesno
-    sql: ${offer_id} in (2309,2547,1881,1883,1674,1675,1676,1678,1914,1924,1926,1919) ;;
+    sql: (${offer_id} in (2309,2547,1881,1883,1674,1675,1676,1678,1914,1924,1926,1919)) or
+    (${subscription_subscription.merchant_id} = 393 and ${subscription_subscription.store_id} <> '');;
   }
 
   dimension: Program {
