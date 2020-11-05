@@ -32,6 +32,12 @@ view: harvest_merchant_mapping {
     sql: ${TABLE}.launch_date ;;
   }
 
+  dimension: launch_date_filter {
+    type: date_time
+    hidden: yes
+    sql: timestamp(${launch_date}) ;;
+  }
+
   dimension: client_stage {
     type: string
     sql: ${TABLE}.client_stage ;;
