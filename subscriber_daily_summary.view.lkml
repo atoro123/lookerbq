@@ -53,4 +53,14 @@ view: subscriber_daily_summary {
     hidden: yes
 
   }
+
+  measure: Total_Cancels {
+    type: sum
+    sql: ${cancel} ;;
+  }
+
+  measure: Total_Adds {
+    type: sum
+    sql: ${new} ;;
+  }
 }
