@@ -64,7 +64,7 @@ where oo.status in (1,5)
   }
 
   measure: Count_Orders {
-    type: count
-    sql: ${order_id}r ;;
+    type: count_distinct
+    sql: ${order_id} ;;
   }
   }
