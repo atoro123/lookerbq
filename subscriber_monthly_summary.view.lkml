@@ -51,7 +51,7 @@ view: subscriber_monthly_summary {
     sql: ${cancel} ;;
   }
   measure:total_adds  {
-    type: number
+    type: sum
     sql: ${new};;
   }
 

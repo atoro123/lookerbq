@@ -63,4 +63,14 @@ view: subscription_daily_summary {
     type: number
     sql: ${active} ;;
   }
+
+  measure: Total_Cancels {
+    type: sum
+    sql: ${cancel} ;;
+  }
+
+  measure: Total_Adds {
+    type: sum
+    sql: ${new} ;;
+  }
 }

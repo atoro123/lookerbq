@@ -32,6 +32,12 @@ view: harvest_merchant_mapping {
     sql: ${TABLE}.launch_date ;;
   }
 
+  dimension: launch_date_filter {
+    type: date_time
+    hidden: yes
+    sql: timestamp(${launch_date}) ;;
+  }
+
   dimension: client_stage {
     type: string
     sql: ${TABLE}.client_stage ;;
@@ -88,8 +94,10 @@ view: harvest_merchant_mapping {
     sql: ${TABLE}.Sub_Industry ;;
   }
 
+
   measure: Sub_Industry_list {
     type: list
     list_field: Sub_Industry
   }
+
 }
