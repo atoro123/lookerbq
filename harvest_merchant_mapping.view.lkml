@@ -77,4 +77,19 @@ view: harvest_merchant_mapping {
     type: string
     sql: ${TABLE}.platform ;;
   }
+
+  dimension: Industry {
+    type: string
+    sql: ${TABLE}.Industry ;;
+  }
+
+  dimension: Sub_Industry {
+    type: string
+    sql: ${TABLE}.Sub_Industry ;;
+  }
+
+  measure: Sub_Industry_list {
+    type: list
+    list_field: Sub_Industry
+  }
 }
