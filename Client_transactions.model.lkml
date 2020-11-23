@@ -50,6 +50,14 @@ explore: subscription_log {  access_filter: {field:merchant_id
       relationship: many_to_one
     }
 
+    join: merchant_merchant_industries {
+      sql_on: ${merchant_merchant_industries.merchant_id} = ${merchant_merchant.id} ;;
+    }
+
+    join: merchant_industry {
+      sql_on: ${merchant_industry.id} = ${merchant_merchant_industries.industry_id} ;;
+    }
+
     join: subscription_subscription {
       sql_on: ${subscription_log.subscription_id} = ${subscription_subscription.id} ;;
       relationship: many_to_one

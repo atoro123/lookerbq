@@ -148,4 +148,16 @@ view: event_log {
     type: count_distinct
     sql: ${customer_id} ;;
   }
+
+  measure: Max_Logged {
+    type: date
+    sql: max(${logged_date}) ;;
+  }
+
+  measure: Min_Logged {
+    type: date
+    sql: min(${logged_date}) ;;
+  }
+
+
 }

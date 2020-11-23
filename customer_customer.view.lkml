@@ -170,7 +170,7 @@ view: customer_customer {
     sql: ${subscription_subscription.id} ;;
     filters: {
       field: subscription_subscription.live
-      value: "1"
+      value: "yes"
     }
   }
 
@@ -180,7 +180,7 @@ view: customer_customer {
     sql: ${subscription_subscription.id} ;;
     filters: {
       field: subscription_subscription.live
-      value: "0"
+      value: "no"
     }
   }
 
