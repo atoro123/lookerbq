@@ -93,4 +93,11 @@ view: harvest_merchant_mapping {
     type: string
     sql: ${TABLE}.Sub_Industry ;;
   }
+
+
+  measure: Sub_Industry_list {
+    type: list
+    list_field: Sub_Industry
+  }
+
 }
