@@ -244,6 +244,11 @@ explore: subscription_subscription {
     relationship: one_to_many
   }
 
+  join: subscription_order_count {
+    sql_on: ${subscription_order_count.subscription_id}.subscription_id} = ${subscription_subscription.id} ;;
+    relationship: one_to_many
+  }
+
   join: lv_brands {
     view_label: "Lucky Vitamin Brands"
     sql_on: ${lv_brands.sku} = ${product_product.sku} ;;
@@ -865,7 +870,8 @@ explore: event_log {
         order_order.place_time, order_order.rejected_message, order_order.shipping_address_id, order_order.status, order_order.Order_Status_Name, order_order.sub_total, order_order.Average_Order_Value,
         order_order.average_sub_total, order_order.rejected_reason, order_order.completed_orders, order_order.completed_orders_revenue, order_order.attempted_orders, order_order.Contains_IU, order_order.clean_order_place,
         order_order.order_revenue, order_order.skipped_orders, order_order.skipped_orders_revenue, order_order.order_processing, order_order.distinct_order_items, order_order.days, order_order.rejected_orders,
-        order_order.Max_Order_Date, order_order.Max_Completed__Order_Date, order_order.Order_Status_Name, order_order.BOPUS_Order, order_order.VSI_Email_BOPUS, order_order.Distinct_Customers, order_order.order_merchant_id, order_order.public_id]
+        order_order.Max_Order_Date, order_order.Max_Completed__Order_Date, order_order.Order_Status_Name, order_order.BOPUS_Order, order_order.VSI_Email_BOPUS, order_order.Distinct_Customers, order_order.order_merchant_id, order_order.public_id,
+        order_order.Order_Status_Name]
     }
 
     join: order_item_object {
