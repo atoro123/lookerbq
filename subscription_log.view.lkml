@@ -73,7 +73,8 @@ view: subscription_log {
       month_name,
       quarter,
       year,
-      day_of_month
+      day_of_month,
+      day_of_week
     ]
     sql: ${TABLE}.logged ;;
   }
