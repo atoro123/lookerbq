@@ -530,6 +530,12 @@ explore: customer_customer {
 
   }
 
+  join: harvest_merchant_mapping {
+    type: left_outer
+    sql_on: ${harvest_merchant_mapping.merchant_id} = ${merchant_merchant.id} ;;
+    relationship: many_to_one
+  }
+
 
   join: customer_IU_tracker {
     type: full_outer
