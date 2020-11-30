@@ -245,7 +245,7 @@ explore: subscription_subscription {
   }
 
   join: subscription_order_count {
-    sql_on: ${subscription_order_count.subscription_id}.subscription_id} = ${subscription_subscription.id} ;;
+    sql_on: ${subscription_order_count.subscription_id} = ${subscription_subscription.id} ;;
     relationship: one_to_many
   }
 
