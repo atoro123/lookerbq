@@ -88,6 +88,11 @@ view: order_item {
     drill_fields: [order_details*]
   }
 
+  measure: average {
+    type: average
+    drill_fields: [order_details*]
+  }
+
   ## Custom Dimensions / Measures
 
 
