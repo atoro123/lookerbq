@@ -50,12 +50,20 @@ explore: subscription_log {  access_filter: {field:merchant_id
       relationship: many_to_one
     }
 
+    join: merchant_merchant_industries {
+      sql_on: ${merchant_merchant_industries.merchant_id} = ${merchant_merchant.id} ;;
+    }
+
+    join: merchant_industry {
+      sql_on: ${merchant_industry.id} = ${merchant_merchant_industries.industry_id} ;;
+    }
+
     join: subscription_subscription {
       sql_on: ${subscription_log.subscription_id} = ${subscription_subscription.id} ;;
       relationship: many_to_one
       fields: [subscription_subscription.id, subscription_subscription.customer_id, subscription_subscription.merchant_id, subscription_subscription.product_id, subscription_subscription.quantity, subscription_subscription.frequency_days,
         subscription_subscription.cancel_reason, subscription_subscription.cancelled_date, subscription_subscription.cancelled_month, subscription_subscription.offer_id, subscription_subscription.created_date, subscription_subscription.created_month,
-        subscription_subscription.live, subscription_subscription.subscription_type,subscription_subscription.is_min_created, subscription_subscription.Lifetime, subscription_subscription.extra_data, subscription_subscription.store_id]
+        subscription_subscription.live, subscription_subscription.subscription_type,subscription_subscription.is_min_created, subscription_subscription.Lifetime, subscription_subscription.extra_data, subscription_subscription.store_id, subscription_subscription.In_Store]
     }
 
     join: acv_contract {

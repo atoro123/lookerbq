@@ -42,13 +42,13 @@ include: "event_log.view.lkml"
     }
 
     dimension: From_Order_Date {
-      type: date
-      sql: cast(json_extract_scalar(${object_metadata}, '$.from') as TIMESTAMP) ;;
+      type: date_time
+      sql: TIMESTAMP(PARSE_DATE("%m/%d/%E4Y", json_extract_scalar(${object_metadata}, '$.from'))) ;;
     }
 
     dimension: To_Order_Date {
-      type: date
-      sql: cast(json_extract_scalar(${object_metadata}, '$.to') as TIMESTAMP) ;;
+      type: date_time
+      sql: TIMESTAMP(PARSE_DATE("%m/%d/%E4Y", json_extract_scalar(${object_metadata}, '$.to'))) ;;
     }
 
    dimension: Change_Order_From_Date {

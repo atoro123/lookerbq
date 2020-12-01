@@ -6,22 +6,22 @@ view: gmv_weekly {
 
   dimension: july_actuals {
     type: number
-    sql: ${TABLE}.July_Actuals ;;
+    sql: ${TABLE}.Month_Three_Actuals ;;
   }
 
   dimension: base_gmv_forecast_october {
     type: number
-    sql: ${TABLE}.Base_GMV_Forecast_October ;;
+    sql: ${TABLE}.Base_GMV_Forecast_Month_Three ;;
   }
 
   dimension: base_gmv_forecast_september {
     type: number
-    sql: ${TABLE}.Base_GMV_Forecast_September ;;
+    sql: ${TABLE}.Base_GMV_Forecast_Month_Two ;;
   }
 
   dimension: base_gmv_forecast_august {
     type: number
-    sql: ${TABLE}.Base_GMV_Forecast_August ;;
+    sql: ${TABLE}.Base_GMV_Forecast_Month_One ;;
   }
 
   dimension: client_name {
@@ -36,42 +36,42 @@ view: gmv_weekly {
 
   dimension: may_actuals {
     type: number
-    sql: ${TABLE}.May_Actuals ;;
+    sql: ${TABLE}.Past_Month_One_Actuals ;;
   }
 
   dimension: growth_october {
     type: number
-    sql: ${TABLE}.Growth_October ;;
+    sql: ${TABLE}.Growth_Month_Three ;;
   }
 
   dimension: growth_september {
     type: number
-    sql: ${TABLE}.Growth_September ;;
+    sql: ${TABLE}.Growth_Month_Two ;;
   }
 
   dimension: growth_august {
     type: number
-    sql: ${TABLE}.Growth_August ;;
+    sql: ${TABLE}.Growth_Month_One ;;
   }
 
   dimension: october_qtr_adjust {
     type: number
-    sql: ${TABLE}.October_Qtr_Adjust ;;
+    sql: ${TABLE}.Month_Three_Qtr_Adjust ;;
   }
 
   dimension: september_qtr_adjust {
     type: number
-    sql: ${TABLE}.September_Qtr_Adjust ;;
+    sql: ${TABLE}.Month_Two_Qtr_Adjust ;;
   }
 
   dimension: June_actuals {
     type: number
-    sql: ${TABLE}.June_Actuals ;;
+    sql: ${TABLE}.Past_Month_Two_Actuals ;;
   }
 
   dimension: august_qtr_adjust {
     type: number
-    sql: ${TABLE}.August_Qtr_Adjust ;;
+    sql: ${TABLE}.Month_One_Qtr_Adjust ;;
   }
 
   dimension: merchant_id {
@@ -81,42 +81,42 @@ view: gmv_weekly {
 
   dimension: total_forecast_october {
     type: number
-    sql: ${TABLE}.Total_Forecast_October ;;
+    sql: ${TABLE}.Total_Forecast_Month_Three ;;
   }
 
   measure: october_forecast {
     type: sum
-    sql: ${TABLE}.Total_Forecast_October  ;;
+    sql: ${TABLE}.Total_Forecast_Month_Three  ;;
   }
 
   dimension: total_forecast_september {
     type: number
-    sql: ${TABLE}.Total_Forecast_September ;;
+    sql: ${TABLE}.Total_Forecast_Month_Two ;;
   }
 
   measure: september_forecast {
     type: sum
-    sql: ${TABLE}.Total_Forecast_September  ;;
+    sql: ${TABLE}.Total_Forecast_Month_Two  ;;
   }
 
   dimension: total_forecast_august {
     type: number
-    sql: ${TABLE}.Total_Forecast_August ;;
+    sql: ${TABLE}.Total_Forecast_Month_One ;;
   }
 
   measure: august_forecast {
     type: sum
-    sql: ${TABLE}.Total_Forecast_august  ;;
+    sql: ${TABLE}.Total_Forecast_Month_One  ;;
   }
 
   dimension: total_q3_forecast {
     type: number
-    sql: ${TABLE}.Total_Q3_Forecast ;;
+    sql: ${TABLE}.Total_Q_Forecast ;;
   }
 
   measure: Q3_forecast {
     type: sum
-    sql: ${TABLE}.Total_Q3_Forecast ;;
+    sql: ${TABLE}.Total_Q_Forecast ;;
   }
 
   measure: count {

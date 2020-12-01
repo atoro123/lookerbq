@@ -54,7 +54,8 @@ view: subscription_subscription {
       day_of_month,
       hour,
       hour_of_day,
-      week_of_year
+      week_of_year,
+      day_of_week
     ]
     sql: ${TABLE}.created ;;
   }
@@ -414,7 +415,8 @@ view: subscription_subscription {
 
   dimension: In_Store {
     type: yesno
-    sql: ${offer_id} in (2309,2547,1881,1883,1674,1675,1676,1678,1914,1924,1926,1919,4115) ;;
+    sql: ${offer_id} in (2309,2547,1881,1883,1674,1675,1676,1678,1914,1924,1926,1919,4115)
+    or  (${merchant_id} = 393 and ${store_id} <> '');;
   }
 
   dimension: Program {
@@ -494,13 +496,17 @@ view: subscription_subscription {
     sql: case when ${merchant_id} = 76 then json_extract_scalar(${extra_data}, '$.store_id')
     when ${merchant_id} = 113 then json_extract_scalar(${extra_data}, '$.store_id')
     when ${merchant_id} = 127 then json_extract_scalar(${extra_data}, '$.store_number')
-    when ${merchant_id} = 210 then json_extract_scalar(${extra_data}, '$.store_id[0]') else null end ;;
+    when ${merchant_id} = 210 then json_extract_scalar(${extra_data}, '$.store_id[0]')
+    when ${merchant_id} = 393 then json_extract_scalar(${extra_data}, '$.retail_location_id')
+    else null end ;;
   }
 
 
   dimension: store_associate_id {
-    type: number
-    sql: case when ${merchant_id} = 76 then json_extract_scalar(${extra_data}, '$.associate_id') else null end;;
+    type: string
+    sql: case when ${merchant_id} = 76 then json_extract_scalar(${extra_data}, '$.associate_id')
+    when ${merchant_id} = 393 then json_extract_scalar(${extra_data}, '$.associate_id')
+    else null end;;
   }
 
   measure: susbcription_price {

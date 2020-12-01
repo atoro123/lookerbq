@@ -221,6 +221,10 @@ view: order_order {
   dimension: rejected_reason {
     sql:
     case
+    when (${rejected_message} like '%could not be submitted' and ${merchant_id} = 150) then 'Order Could not be Submitted'
+    when ${rejected_message} like '%KOUNT%' then 'KOUNT Technical Issue'
+    when ${rejected_message} like '%020%' then 'Technical Issue'
+    when ${rejected_message} like '%998%' then 'Order Failed Data Validation'
     when ${rejected_message} like '%500%' then 'Payment Expired'
     when ${rejected_message} like '%520%' then 'Generic Error Code'
     when ${rejected_message} like '%140%' then 'Payment was declined'
@@ -228,9 +232,23 @@ view: order_order {
     when ${rejected_message} like '%120%' then 'Invalid Payment'
     when ${rejected_message} like '%110%' then 'Invalid Credit Card Number'
     when ${status} = 14 then 'Response Processing Error'
+    when ${rejected_message} like '{}' then 'No Response'
     when ${rejected_message} is NULL then NULL
     else 'Other' end;;
     }
+
+  dimension: GNC_Rejection_Code {
+    sql: case when ${rejected_message} like '%170%' then '170 No Aurus Token or No Payment in Customer Wallet'
+          when ${rejected_message} like '%140%'  then '140 Payment Declined'
+          when ${rejected_message} like '%020%' then '020 Create Order Failed'
+          when ${rejected_message} like '%500%' then '500 Error Credit Card Expired'
+          when ${rejected_message} like '%160%' then '160 Fraud Do Not Retry'
+          when ${rejected_message} like '%130%' then '130 Invalid Billing Address'
+          when ${rejected_message} like '%{}%' then '140 Payment Declined'
+          when ${rejected_message} like '%998%' then 'Generic Error'
+          when ${rejected_message} like '%110%' then '110 Error Invalid Card Number'
+          else 'other' end;;
+  }
 
   measure: completed_orders {
     type: count
@@ -263,6 +281,11 @@ view: order_order {
     or ${subscription_subscription.subscription_type} = 'IU Replenishment'
     or ${order_offer.offer_name} like '%IU%'
     or ${order_offer.offer_name} like '%Impulse Upsell%')) or (${order_item.one_time} is True and ${order_item.subscription_id} is NULL);;}
+
+  dimension: Contains_Honest_GWP {
+    type:  yesno
+    sql: ${order_item.offer_id} = 6081;;
+    }
 
   measure: order_revenue {
     type: sum
@@ -484,6 +507,11 @@ view: order_order {
     measure: Min_Completed__Order_Date {
       type: date
       sql: MIN(CASE WHEN (${status}  = 5) THEN (DATE(${place_date})) ELSE NULL END);;
+    }
+
+    measure: Distinct_Subscription {
+      type: count_distinct
+      sql: ${order_item.subscription_id} ;;
     }
 
 
