@@ -28,6 +28,8 @@ explore: churn_diagnostics_view {
 explore: churn_prediction_monitor {
 }
 
+explore: churn_prediction_monitor_actives {
+}
 
 explore: churn_prediction_log {
 }
@@ -43,7 +45,10 @@ explore: churn_prediction_log_looker {
 explore: churn_prediction_full {
 }
 
-
+explore: message_messageeventlog_log{
+}
+explore: churn_prediction_reporting{
+}
 
 explore: event_log {
 }

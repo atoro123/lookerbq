@@ -54,7 +54,8 @@ view: subscription_subscription {
       day_of_month,
       hour,
       hour_of_day,
-      week_of_year
+      week_of_year,
+      day_of_week
     ]
     sql: ${TABLE}.created ;;
   }
