@@ -60,8 +60,8 @@ view: subscription_daily_summary {
   }
 
   measure: active_end {
-    type: number
-    sql: ${active} ;;
+    type:  sum
+    sql:  cast(${active} as signed) ;;
   }
 
   measure: Total_Cancels {
