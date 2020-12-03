@@ -1108,7 +1108,8 @@ explore: event_log {
     hidden: yes
   }
 
-
+  explore: appcues_data {
+  }
   explore:  temp_churn_performance_data {
     hidden: yes
   }
