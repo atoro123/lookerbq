@@ -1,5 +1,5 @@
 view: churn_prediction_reporting {
-  sql_table_name: `production-202017.looker_scratch.churn_prediction_reporting`
+  sql_table_name: `production-202017.looker_scratch.churn_prediction_reporting_static`
     ;;
 
   dimension: active {
@@ -254,5 +254,10 @@ view: churn_prediction_reporting {
   measure: sum_emailed {
     type: sum
     sql: ${emailed} ;;
+  }
+
+  measure: min_pred {
+    type: min
+    sql: ${percentile_value} ;;
   }
 }
