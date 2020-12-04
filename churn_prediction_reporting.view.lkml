@@ -188,6 +188,40 @@ view: churn_prediction_reporting {
       ELSE 0 END;;
   }
 
+
+  dimension: Tier_1{
+    type: string
+    sql: case when ${emailed} = 1 then "Emailed"  else null end;;
+  }
+
+  dimension: Tier_2{
+    type: string
+    sql: case when ${email_opened} <> 1 then "Not Opened" when  ${email_opened} = 1 then "Opened" else null end;;
+  }
+
+  dimension: Tier_3{
+    type: string
+    sql: case when ${email_opened} <> 1 and (${churn_prediction_reporting.order_moved} = 1 OR ${churn_prediction_reporting.order_not_completed} = 1) then "Not Opened Moved"
+    when ${email_opened} <> 1 and ${churn_prediction_reporting.order_completed} = 1 then "Not Opened Success"
+    when ${email_opened} <> 1 and ${churn_prediction_reporting.sub_cancelled} = 1 then "Not Opened Cancelled"
+    when ${email_opened} = 1 and ${email_clicked} <> 1 then "Opened Not Clicked"
+    when ${email_opened} = 1 and ${email_clicked} = 1 then "Opened and Clicked"
+    else null end;;
+  }
+
+  dimension: Tier_4{
+    type: string
+    sql: case when ${email_opened} = 1 and ${email_clicked} <> 1 and ${order_completed} = 1 then "Not Clicked Success"
+    when ${email_opened} = 1 and ${email_clicked} <> 1 and ${sub_cancelled} = 1 then "Not Clicked Cancelled"
+    when ${email_opened} = 1 and ${email_clicked} <> 1 and (${order_moved} = 1 OR ${churn_prediction_reporting.order_not_completed} = 1) then "Not Clicked Moved"
+    when ${email_opened} = 1 and ${email_clicked} = 1 and ${sub_cancelled} = 1 then "Clicked Cancelled"
+    when ${email_opened} = 1 and ${email_clicked} = 1 and (${order_moved} = 1 OR ${churn_prediction_reporting.order_not_completed} = 1) then "Clicked Moved"
+    when ${email_opened} = 1 and ${email_clicked} = 1 and ${order_completed} = 1 then "Clicked Success"
+
+    else null end
+    ;;
+  }
+
   measure: count_distinct_items {
     type: count_distinct
     sql: ${next_order_item_id};;
