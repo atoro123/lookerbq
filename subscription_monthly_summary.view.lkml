@@ -17,6 +17,24 @@ view: subscription_monthly_summary {
     sql: ${TABLE}.cancel ;;
   }
 
+  dimension: reactivate {
+    type: number
+    sql: ${TABLE}.reactivate ;;
+  }
+
+  measure: month_reacts  {
+    type: sum
+    sql: ${reactivate} ;;
+    filters: {
+      field: subscription_type
+      value: "NULL"
+    }
+    filters: {
+      field: frequency_days
+      value: "NULL"
+    }
+  }
+
   dimension_group: date {
     type: time
     timeframes: [
