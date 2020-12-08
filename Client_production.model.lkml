@@ -225,7 +225,13 @@ relationship: one_to_many
 
   join: acv_contract {
     sql_on: ${acv_contract.merchant_id} = ${order_order.merchant_id} ;;
-    relationship: many_to_one}}
+    relationship: many_to_one}
+
+  join: harvest_merchant_mapping {
+    type: left_outer
+    sql_on: ${harvest_merchant_mapping.merchant_id} = ${order_order.merchant_id} ;;
+    relationship: many_to_one
+  }}
 
 
 explore: subscription_subscription {
@@ -1051,6 +1057,12 @@ explore: event_log {
     join: merchant_industry {
       sql_on: ${merchant_industry.id} = ${merchant_merchant_industries.industry_id} ;;
     }
+
+    join: harvest_merchant_mapping {
+      type: left_outer
+      sql_on: ${harvest_merchant_mapping.merchant_id} = ${product_product.merchant_id} ;;
+      relationship: many_to_one
+    }
   }
 
   explore: vsi_fraud {
@@ -1115,3 +1127,7 @@ explore: event_log {
   }
 
   explore:  product_combination{}
+
+explore: industry_info{
+  hidden: yes
+}
