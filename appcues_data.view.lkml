@@ -214,6 +214,22 @@ view: appcues_data {
                   }
     }}
 
+dimension: name_sort {
+      type: string
+        case: {
+          when: {
+            sql: ${name} = 'appcues:flow_started' ;;
+            label: "Flow Started"
+          }
+          when: {
+            sql: ${name} = 'appcues:flow_skipped' ;;
+            label: "Flow Skipped"
+          }
+          when: {
+            sql: ${name} = 'appcues:flow_skipped' ;;
+            label: "Flow Completed"
+          }}}
+
 
 measure: count_distinct_users {
       type: count_distinct
