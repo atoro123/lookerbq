@@ -144,4 +144,39 @@ view: harvest_hours {
     type: date
     sql: min(${date_date}) ;;
   }
+
+  dimension: before_or_after_launch{
+    sql: case when ${date_date} < max(${harvest_merchant_mapping.launch_date}) then 'before'
+    when ${date_date} = max(${harvest_merchant_mapping.launch_date}) then 'launch'
+    when ${date_date} < max(${harvest_merchant_mapping.launch_date}) then 'after'
+    else null
+    end
+    ;;
+  }
+
+
+  measure: Implementation_Hours {
+    type: sum
+    sql:  ${TABLE}.Hours;;
+    filters: [project:"Implementation",billable: "Yes"]
+    }
+
+  measure: Implementation_Hours_Pre_Launch{
+    type: sum
+    sql:  CASE WHEN (cast(${date_date}as DATE) < cast(max(${harvest_merchant_mapping.launch_date}) as DATE) THEN  ${TABLE}.Hours else null END;;
+  }
+
+  measure: Implementation_Hours_Post_Launch{
+    type: sum
+    sql:  ${TABLE}.Hours;;
+    filters: [project:"Implementation",billable: "Yes"]
+  }
+
+  measure: Annual_Contract_Hours_Used {
+    type: sum
+    sql:  case when (${harvest_hours.date_date} >= ${acv_contract.gmv_start_date}) AND (${harvest_hours.date_date} <= ${acv_contract.gmv_end_date}) then ${TABLE}.Hours else 0 end;;
+    filters: [project:"-Implementation,-Internal Time Tracking"]
+  }
+
+
 }

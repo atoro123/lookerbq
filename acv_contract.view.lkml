@@ -133,6 +133,7 @@ view: acv_contract {
 
   dimension: merchant_id {
     type: number
+    primary_key: yes
     sql: ${TABLE}.merchant_id ;;
   }
 

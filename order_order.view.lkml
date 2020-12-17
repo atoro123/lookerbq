@@ -504,6 +504,11 @@ view: order_order {
       sql: MAX(CASE WHEN (${status}  = 5) THEN (DATE(${place_date})) ELSE NULL END);;
     }
 
+    measure: Max_Failed__Order_Date {
+      type: date
+      sql: MAX(CASE WHEN (${status}  = 3) THEN (DATE(${place_date})) ELSE NULL END);;
+    }
+
     measure: Min_Completed__Order_Date {
       type: date
       sql: MIN(CASE WHEN (${status}  = 5) THEN (DATE(${place_date})) ELSE NULL END);;
