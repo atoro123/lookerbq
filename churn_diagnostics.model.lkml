@@ -52,3 +52,9 @@ explore: churn_prediction_reporting{
 
 explore: event_log {
 }
+
+explore: frequency_scratch {
+}
+
+explore: suggested_frequencies {
+}
