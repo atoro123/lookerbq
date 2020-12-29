@@ -58,6 +58,11 @@ explore: subscription_log {  access_filter: {field:merchant_id
       sql_on: ${merchant_industry.id} = ${merchant_merchant_industries.industry_id} ;;
     }
 
+    join: industry_info {
+      sql_on: ${merchant_merchant.id} = ${industry_info.merchant_id} ;;
+      relationship: one_to_many
+    }
+
     join: subscription_subscription {
       sql_on: ${subscription_log.subscription_id} = ${subscription_subscription.id} ;;
       relationship: many_to_one
@@ -275,6 +280,7 @@ explore: order_item_log {access_filter: {field:merchant_id
   join: merchant_industry {
     sql_on: ${merchant_industry.id} = ${merchant_merchant_industries.industry_id} ;;
   }
+
 }
 
 explore: order_log {access_filter: {field:merchant_id

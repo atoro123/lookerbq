@@ -89,6 +89,12 @@ view: incrementality_180_day {
     value_format_name: usd
   }
 
+  measure: avg_spend_pre {
+    type: average
+    sql: ${spend_pre} ;;
+    value_format_name: usd
+  }
+
   measure: avg_trans {
     type: average
     sql: ${transactions_post} ;;

@@ -380,4 +380,14 @@ else 'other' end
       else 'other' end
        ;;
   }
+
+  measure: sum_resolution_time {
+    type: sum
+    sql: ${resolution_time} ;;
+  }
+
+  measure: avg_resolution_time {
+    type: average
+    sql: ${resolution_time} ;;
+  }
 }

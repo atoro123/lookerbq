@@ -128,6 +128,11 @@ relationship: one_to_many
     relationship: one_to_many
   }
 
+  join: industry_info {
+    sql_on: ${merchant_merchant.id} = ${industry_info.merchant_id} ;;
+    relationship: one_to_many
+  }
+
   join: customer_address {
     view_label: "Customer Address"
     sql_on: ${customer_address.customer_id} = ${order_order.customer_id} ;;
@@ -225,7 +230,13 @@ relationship: one_to_many
 
   join: acv_contract {
     sql_on: ${acv_contract.merchant_id} = ${order_order.merchant_id} ;;
-    relationship: many_to_one}}
+    relationship: many_to_one}
+
+  join: harvest_merchant_mapping {
+    type: left_outer
+    sql_on: ${harvest_merchant_mapping.merchant_id} = ${order_order.merchant_id} ;;
+    relationship: many_to_one
+  }}
 
 
 explore: subscription_subscription {
@@ -303,6 +314,11 @@ explore: subscription_subscription {
   join: merchant_industry {
     view_label: "Merchant"
     sql_on: ${merchant_merchant_industries.industry_id} = ${merchant_industry.id};;
+    relationship: one_to_many
+  }
+
+  join: industry_info {
+    sql_on: ${merchant_merchant.id} = ${industry_info.merchant_id} ;;
     relationship: one_to_many
   }
 
@@ -492,6 +508,11 @@ explore: customer_customer {
     relationship: one_to_many
   }
 
+  join: industry_info {
+    sql_on: ${merchant_merchant.id} = ${industry_info.merchant_id} ;;
+    relationship: one_to_many
+  }
+
   join: customers_impulse_upsell {
     type: left_outer
     sql_on: ${customer_customer.id} = ${customers_impulse_upsell.customer_id} ;;
@@ -558,6 +579,11 @@ explore: harvest_merchant_mapping {
   join: merchant_merchant {
     sql_on: ${merchant_merchant.id} = ${harvest_merchant_mapping.merchant_id} ;;
     relationship: one_to_one
+  }
+
+  join: industry_info {
+    sql_on: ${merchant_merchant.id} = ${industry_info.merchant_id} ;;
+    relationship: one_to_many
   }
 
   join: csd_tickets {
@@ -638,6 +664,11 @@ explore: event_log {
     relationship: many_to_one
   }
 
+  join: industry_info {
+    sql_on: ${merchant_merchant.id} = ${industry_info.merchant_id} ;;
+    relationship: one_to_many
+  }
+
   }
 
   explore: oos_event_log {
@@ -713,6 +744,11 @@ explore: event_log {
     join: merchant_merchant {
       sql_on: ${merchant_merchant.id} = ${customer_customer.merchant_id} ;;
       relationship: many_to_one
+    }
+
+    join: industry_info {
+      sql_on: ${merchant_merchant.id} = ${industry_info.merchant_id} ;;
+      relationship: one_to_many
     }
   }
 
@@ -978,6 +1014,11 @@ explore: event_log {
     join: merchant_industry {
       sql_on: ${merchant_industry.id} = ${merchant_merchant_industries.industry_id} ;;
     }
+
+    join: industry_info {
+      sql_on: ${merchant_merchant.id} = ${industry_info.merchant_id} ;;
+      relationship: one_to_many
+    }
   }
 
   explore: product_product {
@@ -1051,6 +1092,17 @@ explore: event_log {
     join: merchant_industry {
       sql_on: ${merchant_industry.id} = ${merchant_merchant_industries.industry_id} ;;
     }
+
+    join: industry_info {
+      sql_on: ${merchant_merchant.id} = ${industry_info.merchant_id} ;;
+      relationship: one_to_many
+    }
+
+    join: harvest_merchant_mapping {
+      type: left_outer
+      sql_on: ${harvest_merchant_mapping.merchant_id} = ${product_product.merchant_id} ;;
+      relationship: many_to_one
+    }
   }
 
   explore: vsi_fraud {
@@ -1108,9 +1160,31 @@ explore: event_log {
     hidden: yes
   }
 
-
+  explore: appcues_data {
+  }
   explore:  temp_churn_performance_data {
     hidden: yes
   }
 
   explore:  product_combination{}
+
+explore: industry_info{
+  hidden: yes
+}
+
+  explore: merchant_merchant{
+    hidden: yes
+    join: merchant_merchant_industries {
+      sql_on: ${merchant_merchant_industries.merchant_id} = ${merchant_merchant.id} ;;
+    }
+
+    join: merchant_industry {
+      sql_on: ${merchant_industry.id} = ${merchant_merchant_industries.industry_id} ;;
+    }
+
+    join: harvest_merchant_mapping {
+      type: left_outer
+      sql_on: ${harvest_merchant_mapping.merchant_id} = ${merchant_merchant.id} ;;
+      relationship: many_to_one
+  }
+  }

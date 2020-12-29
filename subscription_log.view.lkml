@@ -279,7 +279,8 @@ view: subscription_log {
 5288,
 5310,
 5869,
-6013"}
+6013,
+6135"}
     filters: {
       field: customer_id
       value: "not 25589248, 25654747, 25682404, 25886965"
