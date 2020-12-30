@@ -77,9 +77,9 @@ view: suggested_frequencies {
     sql: ${TABLE}.rec_change_reason ;;
   }
 
-  dimension: rec_value {
+  dimension: new_rec_value {
     type: number
-    sql: ${TABLE}.rec_value ;;
+    sql: ${TABLE}.new_rec_value ;;
   }
 
   measure: count {
