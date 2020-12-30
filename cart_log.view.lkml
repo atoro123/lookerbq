@@ -105,6 +105,10 @@ view: cart_log {
     sql: ${TABLE}.merchant_user_id ;;
   }
 
+  dimension: merchant_store_id {
+    type: string
+    sql: ${TABLE}.merchant_store_id ;;
+  }
   dimension: offer_id {
     type: number
     sql: ${TABLE}.offer_id ;;
