@@ -77,6 +77,11 @@ view: suggested_frequencies {
     sql: ${TABLE}.rec_change_reason ;;
   }
 
+  dimension: rec_value {
+    type: number
+    sql: ${TABLE}.rec_value ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [name]
