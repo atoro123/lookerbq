@@ -1171,3 +1171,20 @@ explore: event_log {
 explore: industry_info{
   hidden: yes
 }
+
+  explore: merchant_merchant{
+    hidden: yes
+    join: merchant_merchant_industries {
+      sql_on: ${merchant_merchant_industries.merchant_id} = ${merchant_merchant.id} ;;
+    }
+
+    join: merchant_industry {
+      sql_on: ${merchant_industry.id} = ${merchant_merchant_industries.industry_id} ;;
+    }
+
+    join: harvest_merchant_mapping {
+      type: left_outer
+      sql_on: ${harvest_merchant_mapping.merchant_id} = ${merchant_merchant.id} ;;
+      relationship: many_to_one
+  }
+  }

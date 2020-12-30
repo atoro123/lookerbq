@@ -45,6 +45,7 @@ view: harvest_merchant_mapping {
 
   dimension: merchant_id {
     type: number
+    primary_key: yes
     sql: ${TABLE}.merchant_id ;;
   }
 
@@ -63,7 +64,7 @@ view: harvest_merchant_mapping {
     sql: ${TABLE}.target_hours ;;
   }
 
-  dimension: integratioh_start_date {
+  dimension: integration_start_date {
     type: date
     sql: ${TABLE}.integration_date ;;
   }
@@ -75,7 +76,7 @@ view: harvest_merchant_mapping {
 
   dimension: integration_hours_target {
     type: number
-    sql: case when ${integration_hours} = 0 then "Unlimited"
+    sql: case when ${integration_hours} = 0 then 0
     else ${integration_hours} end;;
   }
 
@@ -98,6 +99,33 @@ view: harvest_merchant_mapping {
   measure: Sub_Industry_list {
     type: list
     list_field: Sub_Industry
+  }
+
+  dimension: today {
+    type: date
+    hidden: yes
+    sql: CURRENT_DATE() ;;
+  }
+
+  measure: Days_Since_start_of_Integration{
+    type:number
+    sql: date_diff(
+            case when ${launch_date} is null then CURRENT_DATE()
+              else Date(EXTRACT(YEAR FROM ${launch_date}),EXTRACT(MONTH FROM ${launch_date}),EXTRACT(DAY FROM ${launch_date}))
+              end,
+            DATE(EXTRACT(YEAR FROM ${integration_start_date}),EXTRACT(MONTH FROM ${integration_start_date}),EXTRACT(DAY FROM ${integration_start_date})),
+            DAY) ;;
+  }
+
+  measure: Launch_Day{
+    type:string
+    sql: max(${launch_date_filter});;
+  }
+
+  measure: Pre_Live_Contracted_Hours {
+    type: sum_distinct
+    sql_distinct_key: ${merchant_id} ;;
+    sql: ${integration_hours} ;;
   }
 
 }
