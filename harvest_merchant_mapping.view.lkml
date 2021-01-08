@@ -161,6 +161,12 @@ view: harvest_merchant_mapping {
     sql: CURRENT_DATE() ;;
   }
 
+  dimension: Integration_Percent_Complete {
+    type: number
+    sql: ${TABLE}.Integration_Checklist ;;
+    value_format: "0\%"
+  }
+
   measure: Days_Since_start_of_Integration{
     type:number
     sql: date_diff(
