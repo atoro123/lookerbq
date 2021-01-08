@@ -1,5 +1,5 @@
 view: harvest_merchant_mapping {
-  sql_table_name: `production-202017.ogv2_consumerinsight.harvest_merchant_mapping`
+  sql_table_name: `production-202017.ogv2_consumerinsight.new_harvest_merchant_mapping`
     ;;
 
   dimension: account {
@@ -14,7 +14,7 @@ view: harvest_merchant_mapping {
 
   dimension: client_status {
     type: string
-    sql: ${TABLE}.client_stats ;;
+    sql: ${TABLE}.client_status ;;
   }
 
   dimension: product_level {
@@ -61,17 +61,32 @@ view: harvest_merchant_mapping {
 
   dimension: annual_target_hours {
     type: number
-    sql: ${TABLE}.target_hours ;;
+    sql: ${TABLE}.annual_target_hours ;;
   }
 
-  dimension: integration_start_date {
+  dimension: client_status_tracker_id {
+    type: string
+    sql: ${TABLE}.client_status_tracker_id ;;
+  }
+
+  dimension: integratioh_start_date {
     type: date
     sql: ${TABLE}.integration_date ;;
   }
 
   dimension: integration_hours {
     type: number
-    sql: ${TABLE}.intergration_hours ;;
+    sql: ${TABLE}.integration_hours ;;
+  }
+
+  dimension: days_since_contract {
+    type: number
+    sql: ${TABLE}.days_since_contract ;;
+  }
+
+  dimension: integration_effort {
+    type: string
+    sql: ${TABLE}.integration_effort ;;
   }
 
   dimension: integration_hours_target {
@@ -85,6 +100,36 @@ view: harvest_merchant_mapping {
     sql: ${TABLE}.platform ;;
   }
 
+  dimension: project_slippage {
+    type: number
+    sql: ${TABLE}.project_slippage ;;
+  }
+
+  dimension: remaining_launch_outlook {
+    type: string
+    sql: ${TABLE}.remaining_launch_outlook ;;
+  }
+
+  dimension: current_estimated_launch_date {
+    type: date
+    sql: ${TABLE}.current_estimated_launch_date ;;
+  }
+
+  dimension: risk_level {
+    type: string
+    sql: ${TABLE}.level_of_risk ;;
+  }
+
+  dimension: status_notes {
+    type: string
+    sql: ${TABLE}.status_notes ;;
+  }
+
+  dimension: original_expected_launch_date {
+    type: date
+    sql: ${TABLE}.original_expected_launch_date ;;
+  }
+
   dimension: Industry {
     type: string
     sql: ${TABLE}.Industry ;;
@@ -95,6 +140,15 @@ view: harvest_merchant_mapping {
     sql: ${TABLE}.Sub_Industry ;;
   }
 
+  dimension: implementation_fee {
+    type: number
+    sql: ${TABLE}.implementation_fee ;;
+  }
+
+  dimension: percent_completed_integration {
+    type: number
+    sql: ${TABLE}.Integration_Checklist ;;
+  }
 
   measure: Sub_Industry_list {
     type: list
@@ -113,7 +167,7 @@ view: harvest_merchant_mapping {
             case when ${launch_date} is null then CURRENT_DATE()
               else Date(EXTRACT(YEAR FROM ${launch_date}),EXTRACT(MONTH FROM ${launch_date}),EXTRACT(DAY FROM ${launch_date}))
               end,
-            DATE(EXTRACT(YEAR FROM ${integration_start_date}),EXTRACT(MONTH FROM ${integration_start_date}),EXTRACT(DAY FROM ${integration_start_date})),
+            DATE(EXTRACT(YEAR FROM ${integratioh_start_date}),EXTRACT(MONTH FROM ${integratioh_start_date}),EXTRACT(DAY FROM ${integratioh_start_date})),
             DAY) ;;
   }
 
