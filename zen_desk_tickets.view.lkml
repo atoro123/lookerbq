@@ -35,7 +35,7 @@ view: zen_desk_tickets {
       quarter,
       year
     ]
-    sql: ${TABLE}.Assigned_At ;;
+    sql: timestamp(${TABLE}.Assigned_At) ;;
   }
 
   dimension: assignee_stations {
@@ -64,7 +64,7 @@ view: zen_desk_tickets {
       quarter,
       year
     ]
-    sql: ${TABLE}.Created_At ;;
+    sql: timestamp(${TABLE}.Created_At) ;;
   }
 
   dimension: documentation_needed {
@@ -315,7 +315,7 @@ view: zen_desk_tickets {
       quarter,
       year
     ]
-    sql: ${TABLE}.Updated_At ;;
+    sql: timestamp(${TABLE}.Updated_At) ;;
   }
 
   dimension: via {
