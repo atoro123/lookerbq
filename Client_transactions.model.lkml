@@ -68,7 +68,8 @@ explore: subscription_log {  access_filter: {field:merchant_id
       relationship: many_to_one
       fields: [subscription_subscription.id, subscription_subscription.customer_id, subscription_subscription.merchant_id, subscription_subscription.product_id, subscription_subscription.quantity, subscription_subscription.frequency_days,
         subscription_subscription.cancel_reason, subscription_subscription.cancelled_date, subscription_subscription.cancelled_month, subscription_subscription.offer_id, subscription_subscription.created_date, subscription_subscription.created_month,
-        subscription_subscription.live, subscription_subscription.subscription_type,subscription_subscription.is_min_created, subscription_subscription.Lifetime, subscription_subscription.extra_data, subscription_subscription.store_id, subscription_subscription.In_Store]
+        subscription_subscription.live, subscription_subscription.subscription_type,subscription_subscription.is_min_created, subscription_subscription.Lifetime, subscription_subscription.extra_data, subscription_subscription.store_id, subscription_subscription.In_Store,
+        subscription_subscription.public_id]
     }
 
     join: acv_contract {
@@ -82,6 +83,12 @@ explore: subscription_log {  access_filter: {field:merchant_id
       relationship: one_to_one
       fields: [customer_facts.Cancelled_date, customer_facts.Cancelled_month, customer_facts.customer_creation_count, customer_facts.customer_id,
         customer_facts.Customer_Live, customer_facts.created_date, customer_facts.created_month, customer_facts.merchant_id]
+    }
+
+    join: acv_tiers {
+      type: left_outer
+      sql_on: ${acv_tiers.merchant_id} = ${subscription_log.merchant_id} ;;
+      relationship: many_to_one
     }
 }
 
