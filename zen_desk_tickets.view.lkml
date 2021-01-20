@@ -297,6 +297,8 @@ view: zen_desk_tickets {
   dimension: ticket_id {
     type: number
     sql: ${TABLE}.Ticket_ID ;;
+    html:
+    <a href="https://ordergroove.zendesk.com/agent/tickets/{{ value }}">{{ value }}</a> ;;
   }
 
   dimension: ticket_type {
@@ -325,7 +327,7 @@ view: zen_desk_tickets {
 
   measure: count {
     type: count
-    drill_fields: [id]
+    drill_fields: [ticket_id,subject]
   }
 
   dimension: Issue_Tags {
