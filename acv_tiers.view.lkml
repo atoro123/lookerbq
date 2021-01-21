@@ -12,6 +12,11 @@ view: acv_tiers {
     sql: ${TABLE}.account_owner ;;
   }
 
+  dimension: SF_Account_ID {
+    type: string
+    sql: ${TABLE}.Account_ID ;;
+  }
+
   dimension: account_type {
     type: string
     sql: ${TABLE}.account_type ;;
