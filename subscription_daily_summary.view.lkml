@@ -12,6 +12,16 @@ view: subscription_daily_summary {
     sql: ${TABLE}.active ;;
   }
 
+  dimension: reactivate {
+    type: number
+    sql: ${TABLE}.reactivate ;;
+  }
+
+  measure: Total_Reactivations{
+    type: sum
+    sql: ${reactivate} ;;
+  }
+
   dimension: cancel {
     type: number
     sql: ${TABLE}.cancel ;;
