@@ -82,6 +82,11 @@ view: acv_tiers {
     sql: ${TABLE}.gmv_end_date ;;
   }
 
+  dimension: Annual_GMV_Days_Left {
+    type: number
+    sql: date_diff(${gmv_end_date},current_date(), DAY)  ;;
+  }
+
   dimension_group: gmv_start {
     type: time
     timeframes: [

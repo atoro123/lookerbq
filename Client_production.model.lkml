@@ -599,6 +599,11 @@ explore: harvest_merchant_mapping {
   join: external_source_merchant_mapping {
     sql_on: ${harvest_merchant_mapping.merchant_id} = ${external_source_merchant_mapping.merchant_id} ;;
   }
+
+  join: acv_tiers {
+    sql_on: ${acv_tiers.merchant_id} = ${harvest_merchant_mapping.merchant_id} ;;
+    relationship: one_to_one
+  }
 }
 
 explore: zen_desk_tickets {
