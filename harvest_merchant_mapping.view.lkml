@@ -27,6 +27,11 @@ view: harvest_merchant_mapping {
     sql: ${TABLE}.signed_date ;;
   }
 
+  dimension: contract_signed_date {
+    type: date
+    sql: ${TABLE}.contract_signed_date ;;
+  }
+
   dimension: launch_date {
     type: date
     sql: ${TABLE}.launch_date ;;
@@ -61,7 +66,7 @@ view: harvest_merchant_mapping {
 
   dimension: annual_target_hours {
     type: number
-    sql: ${TABLE}.annual_target_hours ;;
+    sql: ${TABLE}.Target_Hours ;;
   }
 
   dimension: client_status_tracker_id {
