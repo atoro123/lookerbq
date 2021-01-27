@@ -4,6 +4,10 @@ view: industry_info {
     sql: SELECT merchant_id, Industry, Sub_Industry
 FROM production-202017.ogv2_consumerinsight.harvest_merchant_mapping
 ,UNNEST(SPLIT(Sub_Industry, '; ')) Sub_Industry
+UNION ALL
+SELECT merchant_id, Industry, Sub_Industry
+FROM production-202017.ogv2_consumerinsight.harvest_merchant_mapping
+where sub_industry is null and merchant_id is not null
        ;;
     }
 

@@ -76,6 +76,12 @@ view: merchant_merchant {
     drill_fields: [id, program_name, name]
   }
 
+  measure: count_distinct {
+    type: count_distinct
+    sql: ${id} ;;
+    drill_fields: [id, program_name, name]
+  }
+
   dimension: Brand {
     type: string
     sql: case when ${id} = 135 then ${name}

@@ -236,7 +236,13 @@ relationship: one_to_many
     type: left_outer
     sql_on: ${harvest_merchant_mapping.merchant_id} = ${order_order.merchant_id} ;;
     relationship: many_to_one
-  }}
+  }
+  join: acv_tiers {
+    type: left_outer
+    sql_on: ${acv_tiers.merchant_id} = ${order_order.merchant_id} ;;
+    relationship: many_to_one
+  }
+  }
 
 
 explore: subscription_subscription {
@@ -592,6 +598,11 @@ explore: harvest_merchant_mapping {
 
   join: external_source_merchant_mapping {
     sql_on: ${harvest_merchant_mapping.merchant_id} = ${external_source_merchant_mapping.merchant_id} ;;
+  }
+
+  join: acv_tiers {
+    sql_on: ${acv_tiers.merchant_id} = ${harvest_merchant_mapping.merchant_id} ;;
+    relationship: one_to_one
   }
 }
 
@@ -1110,6 +1121,9 @@ explore: event_log {
   }
 
   explore: acv_contract {}
+
+  explore: acv_tiers {
+  }
 
   explore:  log_conversationlog {
     label: "9) Conversation Log"

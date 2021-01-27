@@ -44,7 +44,6 @@ view: offer_offer {
 
   dimension: js_name {
     type: string
-    hidden: yes
     sql: ${TABLE}.js_name ;;
   }
 

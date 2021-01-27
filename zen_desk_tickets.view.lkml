@@ -35,7 +35,7 @@ view: zen_desk_tickets {
       quarter,
       year
     ]
-    sql: ${TABLE}.Assigned_At ;;
+    sql: timestamp(${TABLE}.Assigned_At) ;;
   }
 
   dimension: assignee_stations {
@@ -64,7 +64,7 @@ view: zen_desk_tickets {
       quarter,
       year
     ]
-    sql: ${TABLE}.Created_At ;;
+    sql: timestamp(${TABLE}.Created_At) ;;
   }
 
   dimension: documentation_needed {
@@ -297,6 +297,8 @@ view: zen_desk_tickets {
   dimension: ticket_id {
     type: number
     sql: ${TABLE}.Ticket_ID ;;
+    html:
+    <a href="https://ordergroove.zendesk.com/agent/tickets/{{ value }}">{{ value }}</a> ;;
   }
 
   dimension: ticket_type {
@@ -315,7 +317,7 @@ view: zen_desk_tickets {
       quarter,
       year
     ]
-    sql: ${TABLE}.Updated_At ;;
+    sql: timestamp(${TABLE}.Updated_At) ;;
   }
 
   dimension: via {
@@ -325,7 +327,7 @@ view: zen_desk_tickets {
 
   measure: count {
     type: count
-    drill_fields: [id]
+    drill_fields: [ticket_id,subject]
   }
 
   dimension: Issue_Tags {
