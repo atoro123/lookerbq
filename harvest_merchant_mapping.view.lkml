@@ -188,4 +188,84 @@ view: harvest_merchant_mapping {
     sql: ${integration_hours} ;;
   }
 
+  dimension: add_ons {
+    type: string
+    sql: ${TABLE}.`add_ons` ;;
+  }
+
+  dimension: custom_packages {
+    type: string
+    sql: ${TABLE}.`custom_packages` ;;
+  }
+
+
+  dimension: Build_Your_Own_Bundle {
+    type: string
+    group_label: "Custom Packages List"
+    sql: case when ${custom_packages} like '%Build Your Own Bundle%' then 'yes' else 'no' end ;;
+  }
+
+  dimension: eCommerce_Platform_Integrations {
+    type: string
+    group_label: "Custom Packages List"
+    sql: case when ${custom_packages} like '%eCommerce Platform Integrations%' then 'yes' else 'no' end ;;
+  }
+
+  dimension: Legacy_Advanced_Promos {
+    type: string
+    group_label: "Custom Packages List"
+    sql: case when ${custom_packages} like '%Legacy Advanced Promos%' then 'yes' else 'no' end ;;
+  }
+
+  dimension: Prepaid_Subscriptions {
+    type: string
+    group_label: "Custom Packages List"
+    sql: case when ${custom_packages} like '%Prepaid Subscriptions%' then 'yes' else 'no' end ;;
+  }
+
+  dimension: SMS_Reorder {
+    type: string
+    group_label: "Custom Packages List"
+    sql: case when ${custom_packages} like '%SMS Reorder%' then 'yes' else 'no' end ;;
+  }
+
+  dimension: Customer_Group_Pricing_and_Promotions {
+    type: string
+    group_label: "Custom Packages List"
+    sql: case when ${custom_packages} like '%Customer Group Pricing and Promotions%' then 'yes' else 'no' end ;;
+  }
+
+  dimension: Subscribe_More_Save_More {
+    type: string
+    group_label: "Custom Packages List"
+    sql: case when ${custom_packages} like '%Subscribe More, Save More%' then 'yes' else 'no' end ;;
+  }
+
+  dimension: Dynamic_Shipping_Method_or_Rate {
+    type: string
+    group_label: "Custom Packages List"
+    sql: case when ${custom_packages} like '%Dynamic Shipping Method or Rate%' then 'yes' else 'no' end ;;
+  }
+  dimension: Legacy_Other {
+    type: string
+    group_label: "Custom Packages List"
+    sql: case when ${custom_packages} like '%Legacy Other%' then 'yes' else 'no' end ;;
+  }
+  dimension: Modify_SMI_Based_on_SKU_or_Logic {
+    type: string
+    group_label: "Custom Packages List"
+    sql: case when ${custom_packages} like '%Modify SMI Based on SKU or Logic%' then 'yes' else 'no' end ;;
+  }
+  dimension: SMS_Subscription_Management {
+    type: string
+    group_label: "Custom Packages List"
+    sql: case when ${custom_packages} like '%SMS Subscription Management%' then 'yes' else 'no' end ;;
+  }
+
+  dimension: Gift_With_Purchase {
+    type: string
+    group_label: "Custom Packages List"
+    sql: case when ${custom_packages} like '%Gift With Purchase%' then 'yes' else 'no' end ;;
+  }
+
 }

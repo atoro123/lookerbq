@@ -190,4 +190,23 @@ view: harvest_hours {
     else null end;;
   }
 
+dimension: role_group {
+  type: string
+  sql: case   when ${roles} in ('Account Manager','Exec','  Relationship Manager','Success Associate','Success Coordinator') then 'Strategy'
+              when ${roles} like '%Solution%' or ${roles} like 'SCD' then 'Technical'
+              when ${roles} like '%Support%' then 'Supoort'
+              else ${roles} end;;
+}
+
+dimension: clean_task {
+    type: string
+    sql: case when ${task} = 'Client / Project Management' then 'Project Management'
+              when ${task} = 'Client Call / Meeting' then 'Client Meeting'
+              when ${task} = 'Debugging / Troubleshooting - Client Caused Issues' then 'Debugging & Troubleshooting'
+              when ${task} = 'Analysis / Discoverys' then 'Investigating'
+              when ${task} = 'Design & Development [Implementation Work]s' then 'Design & Development'
+              else ${task} end;;
+  }
+
+
 }
