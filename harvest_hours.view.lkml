@@ -192,8 +192,8 @@ view: harvest_hours {
 
 dimension: role_group {
   type: string
-  sql: case   when ${roles} in ('Account Manager','Exec','Relationship Manager','Success Associate','Success Coordinator') then 'Strategy'
-              when ${roles} like '%Solution%' or ${roles} like 'SCD' then 'Technical'
+  sql: case   when ${roles} in ('Account Manager','Exec','Relationship Manager','Success Associate','Success Coordinator','SCD') then 'Strategy'
+              when ${roles} like '%Solution%' or ${roles} like 'Production_Specialist' or ${roles} in ('Ops') then 'Technical'
               when ${roles} like '%Support%' then 'Support'
               else ${roles} end;;
 }
