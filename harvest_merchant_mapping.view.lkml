@@ -193,4 +193,140 @@ view: harvest_merchant_mapping {
     sql: ${integration_hours} ;;
   }
 
+  dimension: add_ons {
+    type: string
+    sql: ${TABLE}.`add_ons` ;;
+  }
+
+  dimension: custom_packages {
+    type: string
+    sql: ${TABLE}.`custom_packages` ;;
+  }
+
+
+  dimension: Build_Your_Own_Bundle {
+    type: string
+    group_label: "Custom Packages List"
+    sql: case when ${custom_packages} like '%Build Your Own Bundle%' then 'yes' else 'no' end ;;
+  }
+
+  dimension: eCommerce_Platform_Integrations {
+    type: string
+    group_label: "Custom Packages List"
+    sql: case when ${custom_packages} like '%eCommerce Platform Integrations%' then 'yes' else 'no' end ;;
+  }
+
+  dimension: Legacy_Advanced_Promos {
+    type: string
+    group_label: "Custom Packages List"
+    sql: case when ${custom_packages} like '%Legacy Advanced Promos%' then 'yes' else 'no' end ;;
+  }
+
+  dimension: Prepaid_Subscriptions {
+    type: string
+    group_label: "Custom Packages List"
+    sql: case when ${custom_packages} like '%Prepaid Subscriptions%' then 'yes' else 'no' end ;;
+  }
+
+  dimension: SMS_Reorder {
+    type: string
+    group_label: "Custom Packages List"
+    sql: case when ${custom_packages} like '%SMS Reorder%' then 'yes' else 'no' end ;;
+  }
+
+  dimension: Customer_Group_Pricing_and_Promotions {
+    type: string
+    group_label: "Custom Packages List"
+    sql: case when ${custom_packages} like '%Customer Group Pricing and Promotions%' then 'yes' else 'no' end ;;
+  }
+
+  dimension: Subscribe_More_Save_More {
+    type: string
+    group_label: "Custom Packages List"
+    sql: case when ${custom_packages} like '%Subscribe More, Save More%' then 'yes' else 'no' end ;;
+  }
+
+  dimension: Dynamic_Shipping_Method_or_Rate {
+    type: string
+    group_label: "Custom Packages List"
+    sql: case when ${custom_packages} like '%Dynamic Shipping Method or Rate%' then 'yes' else 'no' end ;;
+  }
+  dimension: Legacy_Other {
+    type: string
+    group_label: "Custom Packages List"
+    sql: case when ${custom_packages} like '%Legacy Other%' then 'yes' else 'no' end ;;
+  }
+  dimension: Modify_SMI_Based_on_SKU_or_Logic {
+    type: string
+    group_label: "Custom Packages List"
+    sql: case when ${custom_packages} like '%Modify SMI Based on SKU or Logic%' then 'yes' else 'no' end ;;
+  }
+  dimension: SMS_Subscription_Management {
+    type: string
+    group_label: "Custom Packages List"
+    sql: case when ${custom_packages} like '%SMS Subscription Management%' then 'yes' else 'no' end ;;
+  }
+
+  dimension: Gift_With_Purchase {
+    type: string
+    group_label: "Custom Packages List"
+    sql: case when ${custom_packages} like '%Gift With Purchase%' then 'yes' else 'no' end ;;
+  }
+
+  dimension: Customer_Segment {
+    type: string
+    sql: ${TABLE}.Customer_Segment ;;
+  }
+
+  dimension: Migration_Needed {
+    type: yesno
+    sql: ${TABLE}.Migration_Needed ;;
+  }
+
+  dimension: calculated_product {
+    type: string
+    sql: ${TABLE}.calculated_product ;;
+  }
+
+  dimension: Same_Brand_Multi_Site {
+    type: string
+    group_label: "Add Ons List"
+    sql: case when ${add_ons} like '%Same Brand Multi-Site%' then 'yes' else 'no' end ;;
+  }
+
+  dimension: Multi_Language_Support {
+    type: string
+    group_label: "Add Ons List"
+    sql: case when ${add_ons} like '%Multi-Language Support%' then 'yes' else 'no' end ;;
+  }
+
+  dimension: Advanced_Promos {
+    type: string
+    group_label: "Add Ons List"
+    sql: case when ${add_ons} like '%Advanced Promos%' then 'yes' else 'no' end ;;
+  }
+
+  dimension: Non_US_Domain_Single_Language {
+    type: string
+    group_label: "Add Ons List"
+    sql: case when ${add_ons} like '%Non-US Domain - Single Language%' then 'yes' else 'no' end ;;
+  }
+
+  dimension: Advanced_Configurations {
+    type: string
+    group_label: "Add Ons List"
+    sql: case when ${add_ons} like '%Advanced Configurations%' then 'yes' else 'no' end ;;
+  }
+
+  dimension: Non_US_Domain_Dual_Language {
+    type: string
+    group_label: "Add Ons List"
+    sql: case when ${add_ons} like '%Non-US Domain - Dual Language%' then 'yes' else 'no' end ;;
+  }
+
+  dimension: Different_Brand_Multi_Site {
+    type: string
+    group_label: "Add Ons List"
+    sql: case when ${add_ons} like '%Different Brand Multi-Site%' then 'yes' else 'no' end ;;
+  }
 }
