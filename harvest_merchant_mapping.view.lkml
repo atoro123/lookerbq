@@ -334,4 +334,9 @@ view: harvest_merchant_mapping {
     type: string
     sql: ${TABLE}.Current_Subscription_Provider ;;
   }
+
+  dimension: Contract_Type {
+  type: string
+  sql: ${TABLE}.Contract_Type ;;
+}
 }
