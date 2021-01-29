@@ -4,7 +4,9 @@ derived_table: {
     sql: select s.customer_id AS customer_id,
     s.id AS subscription_id,
    STRING_AGG(CAST((case when s.live = TRUE then status else null end) as STRING), ',' order by o.place) AS result_str,
-    count(distinct(case when o.status =5 then o.id else NULL end)) AS completed_orders
+    count(distinct(case when o.status =5 then o.id else NULL end)) AS completed_orders,
+    MAX(CASE WHEN (o.status  = 5) THEN (DATE(o.place)) ELSE NULL END) AS max_success,
+    MAX(CASE WHEN (o.status  = 3) THEN (DATE(o.place)) ELSE NULL END) max_rejected
         from order_item i
         join order_order o on o.id=i.order_id
         join subscription_subscription s on s.id=i.subscription_id
@@ -60,6 +62,16 @@ dimension: result_str{
   dimension: All_Completed_Orders {
     type: number
     sql: ${TABLE}.completed_orders ;;
+  }
+
+  dimension: Last_Successful_Date {
+    type: date
+    sql: ${TABLE}.max_success ;;
+  }
+
+  dimension: Last_Rejected_Date {
+    type: date
+    sql: ${TABLE}.max_rejected ;;
   }
 
   dimension: Source_Completed_Orders {
