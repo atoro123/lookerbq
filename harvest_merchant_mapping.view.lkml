@@ -339,4 +339,9 @@ view: harvest_merchant_mapping {
   type: string
   sql: ${TABLE}.Contract_Type ;;
 }
+
+  measure: hours_bought_total {
+    type: max
+    sql: ${hours_bought} ;;
+  }
 }
