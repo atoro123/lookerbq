@@ -273,6 +273,12 @@ view: harvest_merchant_mapping {
     sql: case when ${custom_packages} like '%Gift With Purchase%' then 'yes' else 'no' end ;;
   }
 
+  dimension: Custom_ESP_Integration {
+    type: string
+    group_label: "Custom Packages List"
+    sql: case when ${custom_packages} like '%Custom ESP Integration%' then 'yes' else 'no' end ;;
+  }
+
   dimension: Customer_Segment {
     type: string
     sql: ${TABLE}.Customer_Segment ;;
