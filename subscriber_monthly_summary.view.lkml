@@ -30,6 +30,7 @@ view: subscriber_monthly_summary {
       week,
       month,
       quarter,
+      month_name,
       year
     ]
     convert_tz: no
