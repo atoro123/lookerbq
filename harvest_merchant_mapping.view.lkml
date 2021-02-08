@@ -24,12 +24,12 @@ view: harvest_merchant_mapping {
 
   dimension: signed_date {
     type: date
-    sql: ${TABLE}.signed_date ;;
+    sql: TIMESTAMP(${TABLE}.signed_date) ;;
   }
 
   dimension: contract_signed_date {
     type: date
-    sql: ${TABLE}.contract_signed_date ;;
+    sql: TIMESTAMP(${TABLE}.contract_signed_date) ;;
   }
 
   dimension: launch_date {
@@ -328,5 +328,20 @@ view: harvest_merchant_mapping {
     type: string
     group_label: "Add Ons List"
     sql: case when ${add_ons} like '%Different Brand Multi-Site%' then 'yes' else 'no' end ;;
+  }
+
+  dimension: Current_Subscription_Provider {
+    type: string
+    sql: ${TABLE}.Current_Subscription_Provider ;;
+  }
+
+  dimension: Contract_Type {
+  type: string
+  sql: ${TABLE}.Contract_Type ;;
+}
+
+  measure: hours_bought_total {
+    type: max
+    sql: ${hours_bought} ;;
   }
 }

@@ -285,6 +285,11 @@ view: subscription_log {
       field: customer_id
       value: "not 25589248, 25654747, 25682404, 25886965"
     }
+
+    filters: {
+      field: source_id
+      value: "not 19"
+    }
   }
   measure: Average_subscription_value {
     type: number
@@ -464,6 +469,7 @@ measure: total_activation_revenue_forecast_this_month {
     sql: case when ${source_id} = 12 then 'MSI'
     when ${source_id} = 13 then 'CSA'
     when ${source_id} = 17 then 'Product Feed'
+    when ${source_id} = 19 then 'XML Import'
     else 'Other' end;;
   }
 
