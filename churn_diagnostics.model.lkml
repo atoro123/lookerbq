@@ -68,3 +68,10 @@ explore: ab_testing_results_no_c {
 
 explore: ab_testing_results_one_line {
 }
+
+explore: subscription_performance_product_level_one_line  {}
+
+explore: subscription_performance_product_level {}
+
+explore: model_performance {
+}
