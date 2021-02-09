@@ -64,7 +64,7 @@ view: zen_desk_tickets {
       quarter,
       year
     ]
-    sql: timestamp(${TABLE}.Created_At) ;;
+    sql: ${TABLE}.Created_At ;;
   }
 
   dimension: documentation_needed {
