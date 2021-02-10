@@ -604,6 +604,19 @@ explore: harvest_merchant_mapping {
     sql_on: ${acv_tiers.merchant_id} = ${harvest_merchant_mapping.merchant_id} ;;
     relationship: one_to_one
   }
+
+  join: custom_deals {
+    view_label: "Harvest Merchant Mapping"
+    sql_on: ${custom_deals.merchant_id} = ${harvest_merchant_mapping.merchant_id} ;;
+    relationship: one_to_many
+  }
+
+
+  join: custom_deals_pairs {
+    view_label: "Harvest Merchant Mapping"
+    sql_on: ${custom_deals_pairs.merchant_id} = ${harvest_merchant_mapping.merchant_id} ;;
+    relationship: one_to_many
+  }
 }
 
 explore: zen_desk_tickets {
