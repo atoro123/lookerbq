@@ -1,5 +1,5 @@
-view: ab_testing_results_one_line {
-  sql_table_name: `production-202017.looker_scratch.AB_testing_results_one_line`
+view: subscription_performance_product_level_one_line {
+  sql_table_name: `production-202017.looker_scratch.subscription_performance_product_level_one_line`
     ;;
 
   dimension: ab_grp {
@@ -10,68 +10,61 @@ view: ab_testing_results_one_line {
   dimension: avg_freq_active {
     type: number
     sql: ${TABLE}.avg_freq_active ;;
-    value_format: "0.##"
   }
 
   dimension: avg_sps_all {
     type: number
     sql: ${TABLE}.avg_sps_all ;;
-    value_format: "0.##"
   }
 
   dimension: avg_sps_finished {
     type: number
     sql: ${TABLE}.avg_sps_finished ;;
-    value_format: "0.##"
   }
 
   dimension: avg_sps_finished_nobounce {
     type: number
     sql: ${TABLE}.avg_sps_finished_nobounce ;;
-    value_format: "0.##"
   }
 
   dimension: cancelled {
     type: number
     sql: ${TABLE}.cancelled ;;
-    value_format: "0.##"
   }
 
   dimension: cancelled_change {
     type: number
     sql: ${TABLE}.cancelled_change ;;
-    value_format: "0.###"
-
   }
 
   dimension: changed {
     type: number
     sql: ${TABLE}.changed ;;
-    value_format: "0.##"
   }
 
   dimension: changed_change {
     type: number
     sql: ${TABLE}.changed_change ;;
-    value_format: "0.###"
+  }
+
+  dimension: delivered {
+    type: number
+    sql: ${TABLE}.delivered ;;
   }
 
   dimension: holdout_cancelled {
     type: number
     sql: ${TABLE}.holdout_cancelled ;;
-    value_format: "0.##"
   }
 
   dimension: holdout_changed {
     type: number
     sql: ${TABLE}.holdout_changed ;;
-    value_format: "0.##"
   }
 
   dimension: holdout_overstock_cancelled {
     type: number
     sql: ${TABLE}.holdout_overstock_cancelled ;;
-    value_format: "0.##"
   }
 
   dimension: merchant_id {
@@ -87,19 +80,11 @@ view: ab_testing_results_one_line {
   dimension: overstock_cancelled {
     type: number
     sql: ${TABLE}.overstock_cancelled ;;
-    value_format: "0.##"
   }
 
   dimension: overstock_cancelled_change {
     type: number
     sql: ${TABLE}.overstock_cancelled_change ;;
-    value_format: "0.###"
-  }
-
-  dimension: success_change {
-    type: number
-    sql: ${TABLE}.success_change ;;
-    value_format: "0.###"
   }
 
   dimension: product_count {

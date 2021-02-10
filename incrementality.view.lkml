@@ -69,7 +69,7 @@ view: incrementality {
       A.merchant_id = B.merchant_id
       GROUP BY
       A.merchant_id, A.customer_id, A.subscriber, A.mid_date, A.did_they_subscribe, reference_date, name, min_date
-      )
+      ) WHERE purchases_pre + transactions_pre + spend_pre + purchases_post + transactions_post + spend_post > 0
        ;;
   }
 

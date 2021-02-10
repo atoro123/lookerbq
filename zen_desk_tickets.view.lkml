@@ -35,7 +35,7 @@ view: zen_desk_tickets {
       quarter,
       year
     ]
-    sql: timestamp(${TABLE}.Assigned_At) ;;
+    sql: TIMESTAMP(${TABLE}.Assigned_At) ;;
   }
 
   dimension: assignee_stations {
@@ -64,7 +64,7 @@ view: zen_desk_tickets {
       quarter,
       year
     ]
-    sql: timestamp(${TABLE}.Created_At) ;;
+    sql: TIMESTAMP(${TABLE}.Created_At) ;;
   }
 
   dimension: documentation_needed {
@@ -147,7 +147,7 @@ view: zen_desk_tickets {
       quarter,
       year
     ]
-    sql: ${TABLE}.Initially_Assigned_At ;;
+    sql: TIMESTAMP(${TABLE}.Initially_Assigned_At) ;;
   }
 
   dimension: intiated_by {
@@ -261,7 +261,7 @@ view: zen_desk_tickets {
       quarter,
       year
     ]
-    sql: ${TABLE}.Solved_At ;;
+    sql: TIMESTAMP(${TABLE}.Solved_At) ;;
   }
 
   dimension: status {
@@ -317,7 +317,7 @@ view: zen_desk_tickets {
       quarter,
       year
     ]
-    sql: timestamp(${TABLE}.Updated_At) ;;
+    sql: TIMESTAMP(${TABLE}.Updated_At) ;;
   }
 
   dimension: via {
