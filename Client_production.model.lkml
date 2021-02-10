@@ -575,7 +575,7 @@ explore: customer_customer {
 explore: harvest_merchant_mapping {
   label: "Harvest"
   join: harvest_hours {
-    sql_on: ${harvest_hours.client} = ${harvest_merchant_mapping.account} ;;
+    sql_on: ${harvest_hours.client} = ${external_source_merchant_mapping.harvest_name} ;;
   }
 
   join: acv_contract {
