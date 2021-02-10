@@ -22,8 +22,17 @@ view: harvest_merchant_mapping {
     sql: ${TABLE}.product_level ;;
   }
 
-  dimension: signed_date {
-    type: date
+  dimension_group: signed_date {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
     sql: TIMESTAMP(${TABLE}.signed_date) ;;
   }
 
@@ -251,16 +260,19 @@ view: harvest_merchant_mapping {
     group_label: "Custom Packages List"
     sql: case when ${custom_packages} like '%Dynamic Shipping Method or Rate%' then 'yes' else 'no' end ;;
   }
+
   dimension: Legacy_Other {
     type: string
     group_label: "Custom Packages List"
     sql: case when ${custom_packages} like '%Legacy Other%' then 'yes' else 'no' end ;;
   }
+
   dimension: Modify_SMI_Based_on_SKU_or_Logic {
     type: string
     group_label: "Custom Packages List"
     sql: case when ${custom_packages} like '%Modify SMI Based on SKU or Logic%' then 'yes' else 'no' end ;;
   }
+
   dimension: SMS_Subscription_Management {
     type: string
     group_label: "Custom Packages List"
@@ -349,5 +361,11 @@ view: harvest_merchant_mapping {
   measure: hours_bought_total {
     type: max
     sql: ${hours_bought} ;;
+  }
+
+  dimension: Custom_deal_components {
+    type: number
+    sql:(CHAR_LENGTH(${custom_packages}) -
+CHAR_LENGTH(REPLACE(${custom_packages}, ';', '')) + 1);;
   }
 }
