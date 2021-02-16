@@ -290,7 +290,11 @@ view: subscription_log {
       field: source_id
       value: "not 19"
     }
-  }
+    filters: {
+      field: event_id
+      value: "2"
+    }
+    }
   measure: Average_subscription_value {
     type: number
     value_format_name: usd
