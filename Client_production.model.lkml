@@ -575,7 +575,7 @@ explore: customer_customer {
 explore: harvest_merchant_mapping {
   label: "Harvest"
   join: harvest_hours {
-    sql_on: ${harvest_hours.client} = ${harvest_merchant_mapping.account} ;;
+    sql_on: ${harvest_hours.client} = ${external_source_merchant_mapping.harvest_name} ;;
   }
 
   join: acv_contract {
@@ -603,6 +603,19 @@ explore: harvest_merchant_mapping {
   join: acv_tiers {
     sql_on: ${acv_tiers.merchant_id} = ${harvest_merchant_mapping.merchant_id} ;;
     relationship: one_to_one
+  }
+
+  join: custom_deals {
+    view_label: "Harvest Merchant Mapping"
+    sql_on: ${custom_deals.merchant_id} = ${harvest_merchant_mapping.merchant_id} ;;
+    relationship: one_to_many
+  }
+
+
+  join: custom_deals_pairs {
+    view_label: "Harvest Merchant Mapping"
+    sql_on: ${custom_deals_pairs.merchant_id} = ${harvest_merchant_mapping.merchant_id} ;;
+    relationship: one_to_many
   }
 }
 
