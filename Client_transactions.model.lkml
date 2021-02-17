@@ -90,6 +90,12 @@ explore: subscription_log {  access_filter: {field:merchant_id
       sql_on: ${acv_tiers.merchant_id} = ${subscription_log.merchant_id} ;;
       relationship: many_to_one
     }
+
+    join: tracking_event {
+      type: left_outer
+      sql_on: ${subscription_log.event_id} = ${tracking_event.id} ;;
+      relationship: many_to_one
+    }
 }
 
 explore: customer_experience_log {  access_filter: {field:merchant_id
