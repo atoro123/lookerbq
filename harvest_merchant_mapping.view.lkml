@@ -368,4 +368,19 @@ view: harvest_merchant_mapping {
     sql:(CHAR_LENGTH(${custom_packages}) -
 CHAR_LENGTH(REPLACE(${custom_packages}, ';', '')) + 1);;
   }
+
+  dimension: Solutions_Contact {
+    type: string
+    sql: ${TABLE}.Solutions_Contact ;;
+  }
+
+  dimension: Target_Integration_Hours {
+    type: number
+    sql: ${TABLE}.Target_Integration_Hours ;;
+  }
+
+  dimension: Success_Owner {
+    type: string
+    sql: ${TABLE}.Success_Owner ;;
+  }
 }
