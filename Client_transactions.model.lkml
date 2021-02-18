@@ -96,6 +96,12 @@ explore: subscription_log {  access_filter: {field:merchant_id
       sql_on: ${subscription_log.event_id} = ${tracking_event.id} ;;
       relationship: many_to_one
     }
+
+    join: harvest_merchant_mapping {
+      type: left_outer
+      sql_on: ${subscription_log.merchant_id} = ${harvest_merchant_mapping.merchant_id} ;;
+      relationship: many_to_one
+    }
 }
 
 explore: customer_experience_log {  access_filter: {field:merchant_id
