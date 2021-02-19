@@ -617,6 +617,66 @@ view: order_order {
     sql: ${order_item.product_id} ;;
   }
 
+    dimension_group: 2nd_retry_attempt_date {
+      type: time
+      timeframes: [
+        raw,
+        time,
+        date,
+        week,
+        week_of_year,
+        month,
+        month_num,
+        month_name,
+        day_of_month,
+        quarter,
+        year,
+        day_of_week
+      ]
+      sql:  TIMESTAMP(DATE_SUB(${place_date},INTERVAL (case when ${order_placementfailure.count} = 2 then 3
+        when ${order_placementfailure.count} = 3 then 6 end) DAY)) ;;
+    }
+
+    dimension_group: 3rd_retry_attempt_date {
+      type: time
+      timeframes: [
+        raw,
+        time,
+        date,
+        week,
+        week_of_year,
+        month,
+        month_num,
+        month_name,
+        day_of_month,
+        quarter,
+        year,
+        day_of_week
+      ]
+      sql:  TIMESTAMP(DATE_SUB(${place_date},INTERVAL (case when ${order_placementfailure.count} = 3 then 3 end) DAY)) ;;
+    }
+
+    dimension_group: 1st_retry_attempt_date {
+      type: time
+      timeframes: [
+        raw,
+        time,
+        date,
+        week,
+        week_of_year,
+        month,
+        month_num,
+        month_name,
+        day_of_month,
+        quarter,
+        year,
+        day_of_week
+      ]
+      sql:  TIMESTAMP(DATE_SUB(${place_date},INTERVAL (case when ${order_placementfailure.count} = 1 then 3
+              when ${order_placementfailure.count} = 2 then 6
+              when ${order_placementfailure.count} = 3 then 9 end) DAY)) ;;
+    }
+
 #
 #
 #   dimension: Last_week {
