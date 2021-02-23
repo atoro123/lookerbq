@@ -570,6 +570,16 @@ explore: customer_customer {
     sql_on: ${customer_IU_tracker.customer_id} = ${customer_customer.id} ;;
     relationship: one_to_one
   }
+
+  join: subscription_log {
+    sql_on: ${customer_customer.id} = ${subscription_log.customer_id} ;;
+    relationship: many_to_one
+    fields: [subscription_log.customer_id,subscription_log.total_price,subscription_log.subscription_type,subscription_log.sum_total_price,subscription_log.offer_id,subscription_log.source_id,subscription_log.event_id]
+  }
+
+  join: acv_contract {
+    sql_on: ${acv_contract.merchant_id} = ${harvest_merchant_mapping.merchant_id} ;;
+  }
 }
 
 explore: harvest_merchant_mapping {
@@ -616,6 +626,19 @@ explore: harvest_merchant_mapping {
     view_label: "Harvest Merchant Mapping"
     sql_on: ${custom_deals_pairs.merchant_id} = ${harvest_merchant_mapping.merchant_id} ;;
     relationship: one_to_many
+  }
+
+  join: custom_deals_add_ons {
+    view_label: "Harvest Merchant Mapping"
+    sql_on: ${custom_deals_add_ons.merchant_id} = ${harvest_merchant_mapping.merchant_id} ;;
+    relationship: many_to_one
+  }
+
+
+  join: custom_deals_add_on_pairs {
+    view_label: "Harvest Merchant Mapping"
+    sql_on: ${custom_deals_add_on_pairs.merchant_id} = ${harvest_merchant_mapping.merchant_id} ;;
+    relationship: many_to_one
   }
 }
 

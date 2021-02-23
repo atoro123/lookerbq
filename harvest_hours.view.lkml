@@ -182,7 +182,7 @@ view: harvest_hours {
   dimension: Project_Area {
     type: string
     sql: case when (${project} = "Implementation" and ${Last_Name} != "Analyst") then "Implementation"
-    when (${project} = "Internal Time Tracking" and ${Last_Name} != "Analyst") then "Internal Time Tracking"
+    when (${project} = "Internal Time Tracking") then "Internal Time Tracking"
     when (${project} = "Live Client Service" and ${Last_Name} != "Analyst") then "Live Client Service"
     when (${project} = "Post Launch" and ${Last_Name} != "Analyst") then "Post Launch"
     when (${project} = "Replatform/Reintegration" and ${Last_Name} != "Analyst") then "Replatform/Reintegration"
