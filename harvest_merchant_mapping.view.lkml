@@ -369,6 +369,12 @@ view: harvest_merchant_mapping {
 CHAR_LENGTH(REPLACE(${custom_packages}, ';', '')) + 1);;
   }
 
+  dimension: Custom_deal_add_ons {
+    type: number
+    sql:if(${add_ons} is null, null, (CHAR_LENGTH(${add_ons}) -
+      CHAR_LENGTH(REPLACE(${add_ons}, ';', '')) + 1));;
+  }
+
   dimension: Solutions_Contact {
     type: string
     sql: ${TABLE}.Solutions_Contact ;;

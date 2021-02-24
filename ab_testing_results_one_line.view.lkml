@@ -7,6 +7,11 @@ view: ab_testing_results_one_line {
     sql: ${TABLE}.AB_grp ;;
   }
 
+  dimension: significant {
+    type: string
+    sql: ${TABLE}.significant ;;
+  }
+
   dimension: avg_freq_active {
     type: number
     sql: ${TABLE}.avg_freq_active ;;

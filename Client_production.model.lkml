@@ -632,6 +632,19 @@ explore: harvest_merchant_mapping {
     sql_on: ${custom_deals_pairs.merchant_id} = ${harvest_merchant_mapping.merchant_id} ;;
     relationship: one_to_many
   }
+
+  join: custom_deals_add_ons {
+    view_label: "Harvest Merchant Mapping"
+    sql_on: ${custom_deals_add_ons.merchant_id} = ${harvest_merchant_mapping.merchant_id} ;;
+    relationship: many_to_one
+  }
+
+
+  join: custom_deals_add_on_pairs {
+    view_label: "Harvest Merchant Mapping"
+    sql_on: ${custom_deals_add_on_pairs.merchant_id} = ${harvest_merchant_mapping.merchant_id} ;;
+    relationship: many_to_one
+  }
 }
 
 explore: zen_desk_tickets {

@@ -27,6 +27,12 @@ view: suggested_frequencies {
     sql: ${TABLE}.name ;;
   }
 
+
+  dimension: sku {
+    type: string
+    sql: ${TABLE}.sku ;;
+  }
+
   dimension: ng_avg_orders_recieved_most_common_freq {
     type: number
     sql: ${TABLE}.ng_avg_orders_recieved_most_common_freq ;;
