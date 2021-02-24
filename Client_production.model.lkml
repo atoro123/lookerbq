@@ -615,6 +615,11 @@ explore: harvest_merchant_mapping {
     relationship: one_to_one
   }
 
+  join: gmv_weekly {
+    sql_on: ${harvest_merchant_mapping.merchant_id} = ${gmv_weekly.merchant_id} ;;
+    relationship: one_to_one
+  }
+
   join: custom_deals {
     view_label: "Harvest Merchant Mapping"
     sql_on: ${custom_deals.merchant_id} = ${harvest_merchant_mapping.merchant_id} ;;
