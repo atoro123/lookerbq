@@ -17,6 +17,11 @@ view: subscription_performance_product_level {
     sql: ${TABLE}.changed ;;
   }
 
+  dimension: delivered {
+    type: number
+    sql: ${TABLE}.delivered ;;
+  }
+
   dimension: merchant_id {
     type: number
     sql: ${TABLE}.merchant_id ;;
@@ -52,5 +57,9 @@ view: subscription_performance_product_level {
   measure: changed_quant {
     type: sum
     sql: ${changed} ;;
+  }
+  measure: delivered_quant {
+    type: sum
+    sql: ${delivered} ;;
   }
 }
