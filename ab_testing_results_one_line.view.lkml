@@ -73,6 +73,12 @@ view: ab_testing_results_one_line {
     value_format: "0.##"
   }
 
+  dimension: holdout_success {
+    type: number
+    sql: ${TABLE}.holdout_success ;;
+    value_format: "0.##"
+  }
+
   dimension: holdout_overstock_cancelled {
     type: number
     sql: ${TABLE}.holdout_overstock_cancelled ;;

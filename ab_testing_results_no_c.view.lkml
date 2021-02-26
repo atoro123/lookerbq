@@ -37,6 +37,11 @@ view: ab_testing_results_no_c {
     sql: ${TABLE}.changed ;;
   }
 
+  dimension: delivered {
+    type: number
+    sql: ${TABLE}.delivered ;;
+  }
+
   dimension: merchant_id {
     type: number
     sql: ${TABLE}.merchant_id ;;
@@ -83,5 +88,9 @@ view: ab_testing_results_no_c {
   measure: changed_quant {
     type: sum
     sql: ${changed} ;;
+  }
+  measure: delivered_quant {
+    type: sum
+    sql: ${delivered} ;;
   }
 }
