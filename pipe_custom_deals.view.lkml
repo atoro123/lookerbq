@@ -7,6 +7,16 @@ view: pipe_custom_deals {
     sql: ${TABLE}.Annual_Contract_Value__ACV_ ;;
   }
 
+  measure: Total_Contract_Value_ACV {
+    type: number
+    sql: ${annual_contract_value__acv_} ;;
+  }
+
+  dimension: Account_Name {
+    type: string
+    sql: ${TABLE}.Account_Name ;;
+  }
+
   dimension_group: close {
     type: time
     timeframes: [
@@ -35,6 +45,17 @@ view: pipe_custom_deals {
   dimension: implementation_fee {
     type: number
     sql: ${TABLE}.Implementation_Fee ;;
+  }
+
+  measure: Total_Implementation_Fee {
+    type: number
+    sql: ${implementation_fee} ;;
+  }
+
+  measure: Implementation_Percent_Of_ACv {
+    type: number
+    sql: ${implementation_fee}/${annual_contract_value__acv_} ;;
+    value_format: "0.00%"
   }
 
   dimension: migration_needed {

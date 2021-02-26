@@ -27,6 +27,23 @@ view: acv_tiers {
     sql: ${TABLE}.base_acv ;;
   }
 
+  measure: Total_Base_ACV {
+    type: sum
+    sql: ${base_acv} ;;
+  }
+
+  dimension: Implementation_Of_ACV {
+    type: number
+    sql: ${implementation_fee}/${base_acv} ;;
+    value_format: "0.00%"
+  }
+
+  measure: Average_Implementation_Of_ACV {
+    type: average
+    sql: ${Implementation_Of_ACV} ;;
+    value_format: "0.00%"
+  }
+
   dimension: base_gmv {
     type: number
     sql: ${TABLE}.base_gmv ;;
@@ -105,6 +122,11 @@ view: acv_tiers {
   dimension: implementation_fee {
     type: number
     sql: ${TABLE}.implementation_fee ;;
+  }
+
+  measure: Total_Implementation_Fee {
+    type: sum
+    sql: ${implementation_fee} ;;
   }
 
   dimension: level_of_risk {

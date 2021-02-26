@@ -72,11 +72,6 @@ explore: subscription_log {  access_filter: {field:merchant_id
         subscription_subscription.public_id,subscription_subscription.Program]
     }
 
-    join: acv_contract {
-      sql_on: ${acv_contract.merchant_id} = ${subscription_log.merchant_id} ;;
-      relationship: many_to_one
-    }
-
     join: customer_facts {
       type: left_outer
       sql_on: ${customer_customer.id} = ${customer_facts.customer_id} ;;
