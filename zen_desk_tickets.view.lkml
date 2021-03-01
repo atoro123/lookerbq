@@ -220,16 +220,6 @@ view: zen_desk_tickets {
     sql: ${TABLE}.Requester ;;
   }
 
-  dimension: requester_domain {
-    type: string
-    sql: ${TABLE}.Requester_Domain ;;
-  }
-
-  dimension: requester_email {
-    type: string
-    sql: ${TABLE}.Requester_Email ;;
-  }
-
   dimension: requester_external_id {
     type: string
     sql: ${TABLE}.Requester_External_ID ;;

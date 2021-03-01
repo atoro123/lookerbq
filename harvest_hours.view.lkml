@@ -174,7 +174,7 @@ view: harvest_hours {
 
   measure: Annual_Contract_Hours_Used {
     type: sum
-    sql:  case when (${harvest_hours.date_date} >= ${acv_contract.gmv_start_date}) AND (${harvest_hours.date_date} <= ${acv_contract.gmv_end_date}) then ${TABLE}.Hours else 0 end;;
+    sql:  case when (${harvest_hours.date_date} >= ${acv_tiers.gmv_start_date}) AND (${harvest_hours.date_date} <= ${acv_tiers.gmv_end_date}) then ${TABLE}.Hours else 0 end;;
     filters: [project:"-Implementation,-Internal Time Tracking"]
   }
 

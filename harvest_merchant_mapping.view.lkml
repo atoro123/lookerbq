@@ -1,5 +1,5 @@
 view: harvest_merchant_mapping {
-  sql_table_name: `production-202017.ogv2_consumerinsight.new_harvest_merchant_mapping`
+  sql_table_name: `production-202017.ogv2_consumerinsight.harvest_merchant_mapping`
     ;;
 
   dimension: account {
