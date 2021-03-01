@@ -215,9 +215,9 @@ view: zen_desk_tickets {
     sql: ${TABLE}.Replies ;;
   }
 
-  dimension: requester {
-    type: string
-    sql: ${TABLE}.Requester ;;
+  measure: Total_Replies {
+    type: sum
+    sql: ${replies} ;;
   }
 
   dimension: requester_external_id {
