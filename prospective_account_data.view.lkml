@@ -2,7 +2,7 @@ view: prospective_account_data {
     derived_table: {
       sql_trigger_value: select current_date ;;
       sql: select distinct account_name as Account, Annual_Contract_Value__ACV_ as ACV, Implementation_Fee as Implementation_Fee,
-      close_date as Close_Date
+      close_date as Close_Date, Opportunity_Name
            from `production-202017.ogv2_consumerinsight.Pipe_Custom_Deals`
            where Implementation_Fee is not null  ;;
       indexes: ["Account"]
@@ -16,6 +16,11 @@ view: prospective_account_data {
     dimension: ACV {
       type: number
       sql: ${TABLE}.ACV ;;
+    }
+
+    dimension: Opportunity_Name {
+      type: string
+      sql: ${TABLE}.Opportunity_Name ;;
     }
 
     dimension_group: Closing {
