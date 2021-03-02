@@ -215,19 +215,9 @@ view: zen_desk_tickets {
     sql: ${TABLE}.Replies ;;
   }
 
-  dimension: requester {
-    type: string
-    sql: ${TABLE}.Requester ;;
-  }
-
-  dimension: requester_domain {
-    type: string
-    sql: ${TABLE}.Requester_Domain ;;
-  }
-
-  dimension: requester_email {
-    type: string
-    sql: ${TABLE}.Requester_Email ;;
+  measure: Total_Replies {
+    type: sum
+    sql: ${replies} ;;
   }
 
   dimension: requester_external_id {
@@ -375,12 +365,29 @@ else 'other' end
  ;;
   }
 
+  measure: Average_Days_Open {
+    type: average
+    sql: date_diff(ifnull(${solved_date}, current_date()), ${created_date}, DAY) ;;
+    value_format: "0"
+  }
+
+  measure: Average_Touches {
+    type: average
+    sql: ${replies} ;;
+    value_format: "0"
+  }
+
   dimension: Produvt_Level_Tag {
     type: string
     sql:  case when ${tags} like '%essentials%' then 'Eseentials'
       when ${tags} like '%enterprise%' then 'Enteprise'
       else 'other' end
        ;;
+  }
+
+  measure: Average_Tickets {
+    type: average
+    sql: count(${id}) ;;
   }
 
   measure: sum_resolution_time {

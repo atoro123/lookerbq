@@ -482,6 +482,6 @@ measure: total_activation_revenue_forecast_this_month {
     sql: case when ${merchant_id} in (37,43,60,61,202,97,65) then "Loreal"
     when ${merchant_id} in (179,77,199,166,194,193,239) then "Unilever"
     when ${merchant_id} in (108,131,236) then "Newell"
-    else ${acv_contract.account_name} end;;
+    else ${acv_tiers.account_name} end;;
   }
 }

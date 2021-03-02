@@ -185,12 +185,6 @@ relationship: one_to_many
     relationship: one_to_one
   }
 
-  join: acv {
-    type: left_outer
-    sql_on: ${order_order.merchant_id} = ${acv.merchant_id} ;;
-    relationship: many_to_one
-  }
-
   join: event_log {
     type: left_outer
     sql_on: ${customer_customer.id} = ${event_log.customer_id} ;;
@@ -227,10 +221,6 @@ relationship: one_to_many
   join: gmv_forecast {
     sql_on: ${gmv_forecast.merchant_id} = ${order_order.merchant_id} ;;
     relationship: one_to_one}
-
-  join: acv_contract {
-    sql_on: ${acv_contract.merchant_id} = ${order_order.merchant_id} ;;
-    relationship: many_to_one}
 
   join: harvest_merchant_mapping {
     type: left_outer
@@ -423,8 +413,10 @@ explore: subscription_subscription {
     relationship: one_to_one
   }
 
-  join: acv_contract {
-    sql_on: ${acv_contract.merchant_id} = subscription_log.${subscription_log.merchant_id} ;;
+  join: acv_tiers {
+    type: left_outer
+    sql_on: ${acv_tiers.merchant_id} = ${subscription_log.merchant_id} ;;
+    relationship: many_to_one
   }
 
   join: harvest_merchant_mapping {
@@ -576,20 +568,12 @@ explore: customer_customer {
     relationship: many_to_one
     fields: [subscription_log.customer_id,subscription_log.total_price,subscription_log.subscription_type,subscription_log.sum_total_price,subscription_log.offer_id,subscription_log.source_id,subscription_log.event_id]
   }
-
-  join: acv_contract {
-    sql_on: ${acv_contract.merchant_id} = ${harvest_merchant_mapping.merchant_id} ;;
-  }
 }
 
 explore: harvest_merchant_mapping {
   label: "Harvest"
   join: harvest_hours {
     sql_on: ${harvest_hours.client} = ${external_source_merchant_mapping.harvest_name} ;;
-  }
-
-  join: acv_contract {
-    sql_on: ${acv_contract.merchant_id} = ${harvest_merchant_mapping.merchant_id} ;;
   }
 
   join: merchant_merchant {
@@ -612,6 +596,11 @@ explore: harvest_merchant_mapping {
 
   join: acv_tiers {
     sql_on: ${acv_tiers.merchant_id} = ${harvest_merchant_mapping.merchant_id} ;;
+    relationship: one_to_one
+  }
+
+  join: gmv_weekly {
+    sql_on: ${harvest_merchant_mapping.merchant_id} = ${gmv_weekly.merchant_id} ;;
     relationship: one_to_one
   }
 
@@ -642,17 +631,21 @@ explore: harvest_merchant_mapping {
   }
 }
 
+  explore: prospective_account_data {
+    label: "Prospective Accounts"
+  }
+
 explore: zen_desk_tickets {
   label: "Zen Desk"
 
-  join: external_source_merchant_mapping {
-    sql_on: ${external_source_merchant_mapping.zendesk_name} = ${zen_desk_tickets.merchant} ;;
+  join: zendesk_ticket_mapping {
+    sql_on: ${zendesk_ticket_mapping.zendesk_name} = ${zen_desk_tickets.merchant} ;;
     relationship: many_to_one
   }
 
   join: harvest_merchant_mapping {
-    sql_on: ${harvest_merchant_mapping.account} = ${external_source_merchant_mapping.harvest_name} ;;
-    relationship: one_to_one
+    sql_on: ${harvest_merchant_mapping.merchant_id} = ${zendesk_ticket_mapping.merchant_id} ;;
+    relationship: many_to_one
   }
 }
 
@@ -1155,8 +1148,6 @@ explore: event_log {
   explore: vsi_fraud {
     hidden: yes
   }
-
-  explore: acv_contract {}
 
   explore: acv_tiers {
   }

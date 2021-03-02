@@ -7,6 +7,11 @@ view: ab_testing_results_one_line {
     sql: ${TABLE}.AB_grp ;;
   }
 
+  dimension: significant {
+    type: string
+    sql: ${TABLE}.significant ;;
+  }
+
   dimension: avg_freq_active {
     type: number
     sql: ${TABLE}.avg_freq_active ;;
@@ -65,6 +70,12 @@ view: ab_testing_results_one_line {
   dimension: holdout_changed {
     type: number
     sql: ${TABLE}.holdout_changed ;;
+    value_format: "0.##"
+  }
+
+  dimension: holdout_success {
+    type: number
+    sql: ${TABLE}.holdout_success ;;
     value_format: "0.##"
   }
 

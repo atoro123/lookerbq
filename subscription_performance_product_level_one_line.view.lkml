@@ -47,6 +47,12 @@ view: subscription_performance_product_level_one_line {
     sql: ${TABLE}.changed_change ;;
   }
 
+  dimension: success_change {
+    type: number
+    sql: ${TABLE}.success_change ;;
+  }
+
+
   dimension: delivered {
     type: number
     sql: ${TABLE}.delivered ;;

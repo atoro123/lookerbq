@@ -28,6 +28,9 @@ explore: churn_diagnostics_view {
 explore: churn_prediction_monitor {
 }
 
+explore: churn_rolling_sum {
+}
+
 explore: churn_prediction_monitor_actives {
 }
 
