@@ -4,17 +4,17 @@ view: custom_deals_pairs {
     sql: Select a.merchant_id, a.custom_packages as custom_package_component_1, b.custom_packages as custom_package_component_2
 from(
 SELECT  merchant_id, custom_packages
-FROM production-202017.ogv2_consumerinsight.new_harvest_merchant_mapping,UNNEST(SPLIT(custom_packages, '; ')) custom_packages
+FROM production-202017.ogv2_consumerinsight.harvest_merchant_mapping,UNNEST(SPLIT(custom_packages, '; ')) custom_packages
 UNION ALL
 SELECT merchant_id, custom_packages
-FROM production-202017.ogv2_consumerinsight.new_harvest_merchant_mapping
+FROM production-202017.ogv2_consumerinsight.harvest_merchant_mapping
 where custom_packages is null and merchant_id is not null) a
 join
 (SELECT  merchant_id, custom_packages
-FROM production-202017.ogv2_consumerinsight.new_harvest_merchant_mapping,UNNEST(SPLIT(custom_packages, '; ')) custom_packages
+FROM production-202017.ogv2_consumerinsight.harvest_merchant_mapping,UNNEST(SPLIT(custom_packages, '; ')) custom_packages
 UNION ALL
 SELECT merchant_id, custom_packages
-FROM production-202017.ogv2_consumerinsight.new_harvest_merchant_mapping
+FROM production-202017.ogv2_consumerinsight.harvest_merchant_mapping
 where custom_packages is null and merchant_id is not null) b on a.merchant_id = b.merchant_id
 where a.custom_packages < b.custom_packages
 order by 1

@@ -4,17 +4,17 @@ view: custom_deals_add_on_pairs {
     sql: Select a.merchant_id, a.Add_Ons as Add_Ons_component_1, b.Add_Ons as Add_Ons_component_2
       from(
       SELECT  merchant_id, Add_Ons
-      FROM production-202017.ogv2_consumerinsight.new_harvest_merchant_mapping,UNNEST(SPLIT(Add_Ons, '; ')) Add_Ons
+      FROM production-202017.ogv2_consumerinsight.harvest_merchant_mapping,UNNEST(SPLIT(Add_Ons, '; ')) Add_Ons
       UNION ALL
       SELECT merchant_id, Add_Ons
-      FROM production-202017.ogv2_consumerinsight.new_harvest_merchant_mapping
+      FROM production-202017.ogv2_consumerinsight.harvest_merchant_mapping
       where Add_Ons is null and merchant_id is not null) a
       join
       (SELECT  merchant_id, Add_Ons
-      FROM production-202017.ogv2_consumerinsight.new_harvest_merchant_mapping,UNNEST(SPLIT(Add_Ons, '; ')) Add_Ons
+      FROM production-202017.ogv2_consumerinsight.harvest_merchant_mapping,UNNEST(SPLIT(Add_Ons, '; ')) Add_Ons
       UNION ALL
       SELECT merchant_id, Add_Ons
-      FROM production-202017.ogv2_consumerinsight.new_harvest_merchant_mapping
+      FROM production-202017.ogv2_consumerinsight.harvest_merchant_mapping
       where Add_Ons is null and merchant_id is not null) b on a.merchant_id = b.merchant_id
       where a.Add_Ons < b.Add_Ons
       order by 1

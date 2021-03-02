@@ -1,5 +1,5 @@
 view: harvest_merchant_mapping {
-  sql_table_name: `production-202017.ogv2_consumerinsight.new_harvest_merchant_mapping`
+  sql_table_name: `production-202017.ogv2_consumerinsight.harvest_merchant_mapping`
     ;;
 
   dimension: account {
@@ -291,6 +291,73 @@ view: harvest_merchant_mapping {
     sql: case when ${custom_packages} like '%Custom ESP Integration%' then 'yes' else 'no' end ;;
   }
 
+  dimension: Account_Updater {
+    type: string
+    group_label: "Custom Packages List"
+    sql: case when ${custom_packages} like '%Account Updater%' then 'yes' else 'no' end ;;
+  }
+
+  dimension: Alternate_Payment_Methods {
+    type: string
+    group_label: "Custom Packages List"
+    sql: case when ${custom_packages} like '%Alternate Payment Methods%' then 'yes' else 'no' end ;;
+  }
+
+  dimension: Committed_Plans {
+    type: string
+    group_label: "Custom Packages List"
+    sql: case when ${custom_packages} like '%Committed Plans%' then 'yes' else 'no' end ;;
+  }
+
+  dimension: Discovery_Box_Clubs_Curation {
+    type: string
+    group_label: "Custom Packages List"
+    sql: case when ${custom_packages} like '%Discovery Box, Clubs & Curation%' then 'yes' else 'no' end ;;
+  }
+
+  dimension: Gifting {
+    type: string
+    group_label: "Custom Packages List"
+    sql: case when ${custom_packages} like '%Gifting%' then 'yes' else 'no' end ;;
+  }
+
+  dimension: Memberships_Custom {
+    type: string
+    group_label: "Custom Packages List"
+    sql: case when ${custom_packages} like '%Memberships Custom%' then 'yes' else 'no' end ;;
+  }
+
+  dimension: Price_Lock_at_Sub_Level {
+    type: string
+    group_label: "Custom Packages List"
+    sql: case when ${custom_packages} like '%Price Lock at Sub Level%' then 'yes' else 'no' end ;;
+  }
+
+  dimension: Subscribe_Anywhere_Pick_up_Anywhere_One_Time {
+    type: string
+    group_label: "Custom Packages List"
+    sql: case when ${custom_packages} like '%Subscribe Anywhere Pick up Anywhere One Time%' then 'yes' else 'no' end ;;
+  }
+
+  dimension: Subscribe_Anywhere_Pick_up_Anywhere_Full_Time {
+    type: string
+    group_label: "Custom Packages List"
+    sql: case when ${custom_packages} like '%Subscribe Anywhere Pick up Anywhere Full Time%' then 'yes' else 'no' end ;;
+  }
+
+  dimension: Temporarily_Out_of_Stock {
+    type: string
+    group_label: "Custom Packages List"
+    sql: case when ${custom_packages} like '%Temporarily Out of Stock%' then 'yes' else 'no' end ;;
+  }
+
+ dimension: Real_Time_Inventory  {
+    type: string
+    group_label: "Custom Packages List"
+    sql: case when ${custom_packages} like '%Real Time Inventory %' then 'yes' else 'no' end ;;
+  }
+
+
   dimension: Customer_Segment {
     type: string
     sql: ${TABLE}.Customer_Segment ;;
@@ -315,7 +382,7 @@ view: harvest_merchant_mapping {
   dimension: Multi_Language_Support {
     type: string
     group_label: "Add Ons List"
-    sql: case when ${add_ons} like '%Multi-Language Support%' then 'yes' else 'no' end ;;
+    sql: case when ${add_ons} like '%Multi-Language Support%' or ${add_ons} like '%Non-US Domain - Dual Language%' then 'yes' else 'no' end ;;
   }
 
   dimension: Advanced_Promos {
@@ -336,17 +403,18 @@ view: harvest_merchant_mapping {
     sql: case when ${add_ons} like '%Advanced Configurations%' then 'yes' else 'no' end ;;
   }
 
-  dimension: Non_US_Domain_Dual_Language {
-    type: string
-    group_label: "Add Ons List"
-    sql: case when ${add_ons} like '%Non-US Domain - Dual Language%' then 'yes' else 'no' end ;;
-  }
-
   dimension: Different_Brand_Multi_Site {
     type: string
     group_label: "Add Ons List"
     sql: case when ${add_ons} like '%Different Brand Multi-Site%' then 'yes' else 'no' end ;;
   }
+
+  dimension: BigCommerce_Tax{
+    type: string
+    group_label: "Add Ons List"
+    sql: case when ${add_ons} like '%BigCommerce Tax%' then 'yes' else 'no' end ;;
+  }
+
 
   dimension: Current_Subscription_Provider {
     type: string
