@@ -365,12 +365,29 @@ else 'other' end
  ;;
   }
 
+  measure: Average_Days_Open {
+    type: average
+    sql: date_diff(ifnull(${solved_date}, current_date()), ${created_date}, DAY) ;;
+    value_format: "0"
+  }
+
+  measure: Average_Touches {
+    type: average
+    sql: ${replies} ;;
+    value_format: "0"
+  }
+
   dimension: Produvt_Level_Tag {
     type: string
     sql:  case when ${tags} like '%essentials%' then 'Eseentials'
       when ${tags} like '%enterprise%' then 'Enteprise'
       else 'other' end
        ;;
+  }
+
+  measure: Average_Tickets {
+    type: average
+    sql: count(${id}) ;;
   }
 
   measure: sum_resolution_time {
