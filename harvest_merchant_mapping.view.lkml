@@ -41,6 +41,20 @@ view: harvest_merchant_mapping {
     sql: TIMESTAMP(${TABLE}.contract_signed_date) ;;
   }
 
+  dimension_group: original_signed_date {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: TIMESTAMP(${TABLE}.Original_Signed_Date) ;;
+  }
+
   dimension: launch_date {
     type: date
     sql: ${TABLE}.launch_date ;;
@@ -355,6 +369,17 @@ view: harvest_merchant_mapping {
     type: string
     group_label: "Custom Packages List"
     sql: case when ${custom_packages} like '%Real Time Inventory %' then 'yes' else 'no' end ;;
+  }
+
+  dimension: Original_ACV {
+    type: number
+    sql: ${TABLE}.Original_ACV ;;
+  }
+
+  measure: Total_Original_ACV {
+    type: sum
+    sql: ${Original_ACV} ;;
+    value_format: "$#,##0"
   }
 
 
