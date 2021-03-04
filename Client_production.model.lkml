@@ -1150,6 +1150,11 @@ explore: event_log {
   }
 
   explore: acv_tiers {
+    join: harvest_merchant_mapping {
+      type: left_outer
+      sql_on: ${acv_tiers.merchant_id} = ${harvest_merchant_mapping.merchant_id} ;;
+      relationship: one_to_one
+    }
   }
 
   explore:  log_conversationlog {
