@@ -42,4 +42,16 @@ view: churn_rolling_sum {
     type: count
     drill_fields: []
   }
+
+
+  measure: Churn_Program_GMV {
+    type: sum
+    sql:  ${Targeted_GMV};;
+  }
+
+  measure: Baseline_equivalent_GMV {
+    type: sum
+    sql: ${Holdout_GMV_equivalent};;
+  }
+
 }

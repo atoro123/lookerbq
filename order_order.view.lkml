@@ -473,7 +473,6 @@ view: order_order {
   }
 
   measure: 140_errors {
-    hidden: yes
     type: count
     filters: {field:140_error
               value: "yes"
