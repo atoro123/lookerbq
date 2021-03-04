@@ -34,7 +34,7 @@ view: acv_tiers {
 
   dimension: Implementation_Of_ACV {
     type: number
-    sql: ${implementation_fee}/${base_acv} ;;
+    sql: ${implementation_fee}/${harvest_merchant_mapping.Original_ACV} ;;
     value_format: "0.00%"
   }
 

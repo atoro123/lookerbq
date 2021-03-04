@@ -330,6 +330,17 @@ measure: total_activation_revenue_forecast_this_month {
          end ;;
 }
 
+  measure: total_subscription_value_forecast_this_month {
+    required_fields: [logged_month]
+    label: "Sales Forecast This Month - Sub Value"
+    description: "Only use for Pre-Paid Merchants"
+    type: number
+    value_format_name: usd
+    sql: case when ${logged_month} = ${today_month}
+         then ((${total_subscription_value} / max(${today_day_of_month})) * ${days_in_month}) - ${total_subscription_value}         else null
+         end ;;
+  }
+
   dimension: In_Store {
     type: yesno
     sql: (${offer_id} in (2309,2547,1881,1883,1674,1675,1676,1678,1914,1924,1926,1919)) or
