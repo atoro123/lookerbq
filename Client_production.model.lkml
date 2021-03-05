@@ -232,6 +232,9 @@ relationship: one_to_many
     sql_on: ${acv_tiers.merchant_id} = ${order_order.merchant_id} ;;
     relationship: many_to_one
   }
+  join: coupon_onetimecoupon {
+    sql_on: ${coupon_onetimecoupon.order_public_id} = ${order_order.public_id} AND ${coupon_onetimecoupon.merchant_public_id} = ${merchant_merchant.public_id} ;;
+  }
   }
 
 

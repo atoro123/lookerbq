@@ -33,6 +33,11 @@ explore: analytics_conversion {  access_filter: {field:merchant_id
     relationship: many_to_one
   }
 
+  join: industry_info {
+      sql_on: ${merchant_merchant.id} = ${industry_info.merchant_id} ;;
+      relationship: one_to_many
+    }
+
   }
 
 explore: subscription_monthly_summary {
