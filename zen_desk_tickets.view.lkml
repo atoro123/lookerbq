@@ -9,11 +9,6 @@ view: zen_desk_tickets {
     sql: ${TABLE}.ID ;;
   }
 
-  dimension: admin_reviewed {
-    type: string
-    sql: ${TABLE}.Admin_Reviewed ;;
-  }
-
   dimension: agent_wait_time_in_minutes {
     type: number
     sql: ${TABLE}.Agent_Wait_Time_In_Minutes ;;
@@ -67,11 +62,6 @@ view: zen_desk_tickets {
     sql: TIMESTAMP(${TABLE}.Created_At) ;;
   }
 
-  dimension: documentation_needed {
-    type: string
-    sql: ${TABLE}.Documentation_Needed ;;
-  }
-
   dimension_group: due {
     type: time
     timeframes: [
@@ -84,11 +74,6 @@ view: zen_desk_tickets {
       year
     ]
     sql: ${TABLE}.Due_Date ;;
-  }
-
-  dimension: ecom_platform {
-    type: string
-    sql: ${TABLE}.Ecom_Platform ;;
   }
 
   dimension: email_address {
@@ -230,6 +215,17 @@ view: zen_desk_tickets {
     sql: ${TABLE}.Requester_ID ;;
   }
 
+  dimension: Requester_Domain {
+    type: string
+    sql: ${TABLE}.Requester_Domain ;;
+  }
+
+  dimension: Requester {
+    type: string
+    sql: case when ${Requester_Domain} = "ordergroove.com" then "Ordergroove"
+    else "Merchant" end;;
+  }
+
   dimension: resolution_time {
     type: number
     sql: ${TABLE}.Resolution_Time ;;
@@ -267,11 +263,6 @@ view: zen_desk_tickets {
   dimension: subject {
     type: string
     sql: ${TABLE}.Subject ;;
-  }
-
-  dimension: submitter {
-    type: string
-    sql: ${TABLE}.Submitter ;;
   }
 
   dimension: summation_column {
