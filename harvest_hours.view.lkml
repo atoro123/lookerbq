@@ -66,7 +66,9 @@ view: harvest_hours {
       week,
       month,
       quarter,
-      year
+      year,
+      fiscal_quarter,
+      fiscal_year
     ]
     convert_tz: no
     datatype: date

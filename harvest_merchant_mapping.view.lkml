@@ -31,7 +31,9 @@ view: harvest_merchant_mapping {
       week,
       month,
       quarter,
-      year
+      year,
+      fiscal_quarter,
+      fiscal_year
     ]
     sql: TIMESTAMP(${TABLE}.signed_date) ;;
   }
@@ -50,7 +52,9 @@ view: harvest_merchant_mapping {
       week,
       month,
       quarter,
-      year
+      year,
+      fiscal_quarter,
+      fiscal_year
     ]
     sql: TIMESTAMP(${TABLE}.Original_Signed_Date) ;;
   }
@@ -58,6 +62,22 @@ view: harvest_merchant_mapping {
   dimension: launch_date {
     type: date
     sql: ${TABLE}.launch_date ;;
+  }
+
+  dimension_group: launch_date {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year,
+      fiscal_quarter,
+      fiscal_year
+    ]
+    sql: TIMESTAMP(${TABLE}.launch_date) ;;
   }
 
   dimension: launch_date_filter {

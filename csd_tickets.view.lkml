@@ -23,7 +23,9 @@ view: csd_tickets {
       week,
       month,
       quarter,
-      year
+      year,
+      fiscal_quarter,
+      fiscal_year
     ]
     sql: ${TABLE}.Created ;;
   }
@@ -57,7 +59,9 @@ view: csd_tickets {
       week,
       month,
       quarter,
-      year
+      year,
+      fiscal_quarter,
+      fiscal_year
     ]
     sql: ${TABLE}.Last_Viewed ;;
   }
@@ -131,7 +135,9 @@ view: csd_tickets {
       week,
       month,
       quarter,
-      year
+      year,
+      fiscal_quarter,
+      fiscal_year
     ]
     sql: ${TABLE}.Resolved ;;
   }
@@ -155,7 +161,9 @@ view: csd_tickets {
       week,
       month,
       quarter,
-      year
+      year,
+      fiscal_quarter,
+      fiscal_year
     ]
     sql: ${TABLE}.Updated ;;
   }

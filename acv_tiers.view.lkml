@@ -77,7 +77,9 @@ view: acv_tiers {
       week,
       month,
       quarter,
-      year
+      year,
+      fiscal_quarter,
+      fiscal_year
     ]
     convert_tz: no
     datatype: date
@@ -112,7 +114,9 @@ view: acv_tiers {
       week,
       month,
       quarter,
-      year
+      year,
+      fiscal_quarter,
+      fiscal_year
     ]
     convert_tz: no
     datatype: date
@@ -153,7 +157,9 @@ view: acv_tiers {
       week,
       month,
       quarter,
-      year
+      year,
+      fiscal_quarter,
+      fiscal_year
     ]
     convert_tz: no
     datatype: date
