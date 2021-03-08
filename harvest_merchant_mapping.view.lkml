@@ -502,4 +502,15 @@ CHAR_LENGTH(REPLACE(${custom_packages}, ';', '')) + 1);;
     type: string
     sql: ${TABLE}.Success_Owner ;;
   }
+
+  dimension: Days_to_Launch {
+    type: number
+    sql: case when ${client_status} = 'Live' and ${original_signed_date_date} is not null and ${launch_date_date} is not null then DATE_DIFF( date(${launch_date_date}), date(${original_signed_date_date}), DAY) else null end ;;
+  }
+
+  measure: Avg_Days_to_Launch{
+    type: average
+    sql: ${Days_to_Launch} ;;
+    value_format: "0.0"
+  }
 }
