@@ -156,6 +156,10 @@ view: ds_reorder_outcomes_log {
           WHEN ds_reorder_outcomes_log.merchant_public_id = '4f14cabc853711e8bd25bc764e1107f2' THEN 209
           WHEN ds_reorder_outcomes_log.merchant_public_id = '85cfa0c6425311e89bdabc764e1107f2' THEN 202
           WHEN ds_reorder_outcomes_log.merchant_public_id = '4dcff40029ab11e5b9c4bc764e106cf4' THEN 127
+          WHEN ds_reorder_outcomes_log.merchant_public_id = 'a2bdf3ba8876ba9256f5bbba9ee29af8' THEN 37
+          WHEN ds_reorder_outcomes_log.merchant_public_id = 'ba70f69df3f4655a4f9b762838d36aca' THEN 43
+          WHEN ds_reorder_outcomes_log.merchant_public_id = '684d8c5e16d511eabe63bc764e10b970' THEN 291
+
           else null end
           ;;
   }
