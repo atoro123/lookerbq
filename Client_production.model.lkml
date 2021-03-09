@@ -580,6 +580,12 @@ explore: harvest_merchant_mapping {
     sql_on: ${harvest_hours.client} = ${external_source_merchant_mapping.harvest_name} ;;
   }
 
+  join: harvest {
+    view_label: "New Harvest"
+    sql_on: ${harvest.merchant_id} = ${harvest_merchant_mapping.merchant_id} ;;
+    relationship: one_to_many
+  }
+
   join: merchant_merchant {
     sql_on: ${merchant_merchant.id} = ${harvest_merchant_mapping.merchant_id} ;;
     relationship: one_to_one

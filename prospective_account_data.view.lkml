@@ -2,7 +2,7 @@ view: prospective_account_data {
     derived_table: {
       sql_trigger_value: select current_date ;;
       sql: select distinct account_name as Account, Annual_Contract_Value__ACV_ as ACV, Implementation_Fee as Implementation_Fee,
-      close_date as Close_Date, Opportunity_Name, Opportunity_Record_Type
+      close_date as Close_Date, Opportunity_Name, Opportunity_Record_Type, Stage, Close_Quarter
            from `production-202017.ogv2_consumerinsight.Pipe_Custom_Deals`
            where Implementation_Fee is not null  ;;
       indexes: ["Account"]
@@ -37,7 +37,9 @@ view: prospective_account_data {
         week,
         month,
         quarter,
-        year
+        year,
+        fiscal_quarter,
+        fiscal_year
       ]
       sql: timestamp(${TABLE}.Close_Date) ;;
     }
@@ -45,6 +47,16 @@ view: prospective_account_data {
     dimension: Implementation_Fee {
       type: number
       sql: ${TABLE}.Implementation_Fee;;
+    }
+
+    dimension: Stage {
+      type: string
+      sql: ${TABLE}.Stage ;;
+    }
+
+    dimension: Close_Quarter {
+      type: string
+      sql: ${TABLE}.Close_Quarter ;;
     }
 
     measure: Total_ACV {

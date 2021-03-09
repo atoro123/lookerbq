@@ -25,11 +25,19 @@ view: pipe_custom_deals {
       week,
       month,
       quarter,
-      year
+      year,
+      fiscal_quarter,
+      fiscal_year,
+      fiscal_quarter_of_year
     ]
     convert_tz: no
     datatype: date
     sql: ${TABLE}.Close_Date ;;
+  }
+
+  dimension: Close_Quarter {
+    type: string
+    sql: ${TABLE}.Close_Quarter ;;
   }
 
   dimension: current_subscription_provider {

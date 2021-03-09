@@ -132,6 +132,19 @@ view: harvest_hours {
     sql: ${TABLE}.Roles ;;
   }
 
+  dimension: Role_Rate {
+    type: number
+    sql: case when ${roles} in ("Account Manager", "Success Associate", "Success Coordinator", "SCD", "Relationship Manager") then 125
+    when ${roles} in ("Production Specialist", "Senior Production Specialist", "Solutions", "Solutions Architect", "Solutions Consultant", "Solutions Lead",
+    "Solutions Partner", "Support Specialist") then 104
+    else null end;;
+  }
+
+  measure: Work_Cost {
+    type: sum
+    sql: (${Role_Rate}*${hours}) ;;
+  }
+
   dimension: task {
     type: string
     sql: ${TABLE}.Task ;;

@@ -52,6 +52,11 @@ view: subscription_log {
     sql: ${TABLE}.frequency_days ;;
   }
 
+  measure: Average_Frequency {
+    type: average
+    sql: ${TABLE}.frequency_days ;;
+  }
+
   dimension: live {
     type: yesno
     sql: ${TABLE}.live ;;
