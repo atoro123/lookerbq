@@ -9,58 +9,6 @@ view: harvest_time_entries {
     sql: ${TABLE}.id ;;
   }
 
-  dimension_group: _sdc_batched {
-    type: time
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: ${TABLE}._sdc_batched_at ;;
-  }
-
-  dimension_group: _sdc_extracted {
-    type: time
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: ${TABLE}._sdc_extracted_at ;;
-  }
-
-  dimension_group: _sdc_received {
-    type: time
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: ${TABLE}._sdc_received_at ;;
-  }
-
-  dimension: _sdc_sequence {
-    type: number
-    sql: ${TABLE}._sdc_sequence ;;
-  }
-
-  dimension: _sdc_table_version {
-    type: number
-    sql: ${TABLE}._sdc_table_version ;;
-  }
-
   dimension: billable {
     type: yesno
     sql: ${TABLE}.billable ;;
@@ -85,7 +33,9 @@ view: harvest_time_entries {
       week,
       month,
       quarter,
-      year
+      year,
+      fiscal_quarter,
+      fiscal_year
     ]
     sql: ${TABLE}.created_at ;;
   }
@@ -93,6 +43,12 @@ view: harvest_time_entries {
   dimension: hours {
     type: number
     sql: ${TABLE}.hours ;;
+  }
+
+  measure: total_hours {
+    type: sum
+    sql: ${hours} ;;
+    value_format: "0.0"
   }
 
   dimension: is_billed {

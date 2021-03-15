@@ -639,6 +639,53 @@ explore: harvest_merchant_mapping {
     sql_on: ${custom_deals_add_on_pairs.merchant_id} = ${harvest_merchant_mapping.merchant_id} ;;
     relationship: many_to_one
   }
+
+  join: harvest_clients {
+    view_label: "Harvest"
+    type: inner
+    sql_on: case when REGEXP_CONTAINS(name, "-") is TRUE then ${harvest_clients.merchant_id} = ${harvest_merchant_mapping.merchant_id} else
+    ${harvest_clients.name} = ${harvest_merchant_mapping.account} end;;
+    relationship: one_to_one
+  }
+
+  join: harvest_time_entries {
+    view_label: "Harvest"
+    type: left_outer
+    sql_on: ${harvest_time_entries.client_id} = ${harvest_clients.id};;
+    relationship: one_to_many
+  }
+
+  join: harvest_tasks {
+    view_label: "Harvest"
+    type: left_outer
+    sql_on: ${harvest_tasks.id} = ${harvest_time_entries.task_id} ;;
+  }
+
+  join: harvest_users {
+    type: left_outer
+    view_label: "Harvest"
+    sql_on: ${harvest_users.id} = ${harvest_time_entries.user_id} ;;
+    relationship: many_to_one
+  }
+
+  join: harvest_user_roles {
+    view_label: "Harvest"
+    type: left_outer
+    sql_on: ${harvest_user_roles.user_id} = ${harvest_users.id} ;;
+  }
+
+  join: harvest_roles {
+    view_label: "Harvest"
+    type: left_outer
+    sql_on: ${harvest_roles.id} = ${harvest_user_roles.role_id} ;;
+  }
+
+  join: harvest_projects {
+    view_label: "Harvest"
+    type: left_outer
+    sql_on: ${harvest_projects.id} = ${harvest_time_entries.project_id} ;;
+    relationship: many_to_one
+  }
 }
 
   explore: prospective_account_data {
