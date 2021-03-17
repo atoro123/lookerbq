@@ -1,15 +1,16 @@
 # Un-hide and use this explore, or copy the joins into another explore, to get all the fully nested relationships from this view
-explore: organizations {
+explore: organizations_array {
+  from: zendesk_organizations
   hidden: yes
 
   join: organizations__tags {
     view_label: "Organizations: Tags"
-    sql: LEFT JOIN UNNEST(${organizations.tags}) as organizations__tags ;;
+    sql: LEFT JOIN UNNEST(${organizations_array.tags}) as organizations__tags ;;
     relationship: one_to_many
   }
 }
 
-view: organizations {
+view: zendesk_organizations {
   sql_table_name: `stitch-poc-306316.zendesk.organizations`
     ;;
   drill_fields: [id]

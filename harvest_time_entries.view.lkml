@@ -45,6 +45,12 @@ view: harvest_time_entries {
     sql: ${TABLE}.hours ;;
   }
 
+  measure: Work_Cost {
+    type: sum
+    sql: ${hours}*${harvest_roles.Role_Rate} ;;
+    value_format: "$0.00"
+  }
+
   measure: total_hours {
     type: sum
     sql: ${hours} ;;

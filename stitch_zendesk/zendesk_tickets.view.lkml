@@ -1,39 +1,39 @@
 # Un-hide and use this explore, or copy the joins into another explore, to get all the fully nested relationships from this view
-explore: tickets {
-  hidden: yes
+explore: zendesk_tickets_arrays {
+  from: zendesk_tickets
 
   join: tickets__tags {
     view_label: "Tickets: Tags"
-    sql: LEFT JOIN UNNEST(${tickets.tags}) as tickets__tags ;;
+    sql: LEFT JOIN UNNEST(${zendesk_tickets_arrays.tags}) as tickets__tags ;;
     relationship: one_to_many
   }
 
   join: tickets__follower_ids {
     view_label: "Tickets: Follower Ids"
-    sql: LEFT JOIN UNNEST(${tickets.follower_ids}) as tickets__follower_ids ;;
+    sql: LEFT JOIN UNNEST(${zendesk_tickets_arrays.follower_ids}) as tickets__follower_ids ;;
     relationship: one_to_many
   }
 
   join: tickets__followup_ids {
     view_label: "Tickets: Followup Ids"
-    sql: LEFT JOIN UNNEST(${tickets.followup_ids}) as tickets__followup_ids ;;
+    sql: LEFT JOIN UNNEST(${zendesk_tickets_arrays.followup_ids}) as tickets__followup_ids ;;
     relationship: one_to_many
   }
 
   join: tickets__custom_fields {
     view_label: "Tickets: Custom Fields"
-    sql: LEFT JOIN UNNEST(${tickets.custom_fields}) as tickets__custom_fields ;;
+    sql: LEFT JOIN UNNEST(${zendesk_tickets_arrays.custom_fields}) as tickets__custom_fields ;;
     relationship: one_to_many
   }
 
   join: tickets__collaborator_ids {
     view_label: "Tickets: Collaborator Ids"
-    sql: LEFT JOIN UNNEST(${tickets.collaborator_ids}) as tickets__collaborator_ids ;;
+    sql: LEFT JOIN UNNEST(${zendesk_tickets_arrays.collaborator_ids}) as tickets__collaborator_ids ;;
     relationship: one_to_many
   }
 }
 
-view: tickets {
+view: zendesk_tickets {
   sql_table_name: `stitch-poc-306316.zendesk.tickets`
     ;;
   drill_fields: [via__source__from__ticket_id]
@@ -227,6 +227,10 @@ view: tickets {
   dimension: tags {
     hidden: yes
     sql: ${TABLE}.tags ;;
+  }
+
+  dimension: tags_list {
+    sql: replace(trim(FORMAT('%t', array_concat(${tags})), "[]()"), "), (", ", ") ;;
   }
 
   dimension: type {

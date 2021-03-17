@@ -1,4 +1,4 @@
-view: groups {
+view: zendesk_groups {
   sql_table_name: `stitch-poc-306316.zendesk.groups`
     ;;
   drill_fields: [id]

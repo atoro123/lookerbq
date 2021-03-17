@@ -29,6 +29,14 @@ view: harvest_roles {
     sql: ${TABLE}.name ;;
   }
 
+  dimension: Role_Rate {
+    type: number
+    sql: case when ${Role_Name} in ("Account Manager", "Success Associate", "Success Coordinator", "SCD", "Relationship Manager") then 125
+          when ${Role_Name} in ("Production Specialist", "Senior Production Specialist", "Solutions", "Solutions Architect", "Solutions Consultant", "Solutions Lead",
+          "Solutions Partner", "Support Specialist") then 104
+          else null end;;
+  }
+
   dimension_group: updated {
     type: time
     timeframes: [

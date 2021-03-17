@@ -1,5 +1,6 @@
 # Un-hide and use this explore, or copy the joins into another explore, to get all the fully nested relationships from this view
 explore: users {
+  from: zendesk_users
   hidden: yes
 
   join: users__tags {
@@ -9,7 +10,7 @@ explore: users {
   }
 }
 
-view: users {
+view: zendesk_users {
   sql_table_name: `stitch-poc-306316.zendesk.users`
     ;;
   drill_fields: [id]

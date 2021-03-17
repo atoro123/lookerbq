@@ -1276,6 +1276,44 @@ explore: industry_info{
   hidden: yes
 }
 
+explore: zendesk_tickets {
+  join: zendesk_organizations {
+    type: left_outer
+    sql_on: ${zendesk_organizations.id} = ${zendesk_tickets.organization_id} ;;
+    relationship: many_to_one
+  }
+
+  join: zendesk_groups {
+    type: left_outer
+    sql_on: ${zendesk_groups.id} = ${zendesk_tickets.group_id} ;;
+    relationship: many_to_one
+  }
+
+  join: zendesk_ticket_metrics {
+    type: left_outer
+    sql_on: ${zendesk_ticket_metrics.ticket_id} = ${zendesk_tickets.id} ;;
+    relationship: many_to_one
+  }
+
+  join: requester {
+    from: zendesk_users
+    sql_on: ${requester.id} = ${zendesk_tickets.requester_id} ;;
+  }
+
+  join: requester_organization {
+    from: zendesk_organizations
+    view_label: "Requester"
+    sql_on: ${requester_organization.id} = ${requester.organization_id} ;;
+    fields: [requester_organization.id, requester_organization.name]
+    relationship: many_to_one
+  }
+
+  join: zendesk_ticket_custom_fields {
+   type: left_outer
+  sql_on: ${zendesk_ticket_custom_fields.Ticket_ID} = ${zendesk_tickets.id} ;;
+  }
+}
+
   explore: merchant_merchant{
     hidden: yes
     join: merchant_merchant_industries {

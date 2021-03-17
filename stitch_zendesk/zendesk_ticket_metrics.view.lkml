@@ -1,4 +1,4 @@
-view: ticket_metrics {
+view: zendesk_ticket_metrics {
   sql_table_name: `stitch-poc-306316.zendesk.ticket_metrics`
     ;;
   drill_fields: [id]
