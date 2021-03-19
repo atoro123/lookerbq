@@ -1,6 +1,7 @@
 connection: "production_bq"
 
 include: "*.view.lkml"
+include: "/stitch_zendesk/*.view.lkml"
 fiscal_month_offset: 1
 
 # include all views in this project
@@ -639,6 +640,53 @@ explore: harvest_merchant_mapping {
     sql_on: ${custom_deals_add_on_pairs.merchant_id} = ${harvest_merchant_mapping.merchant_id} ;;
     relationship: many_to_one
   }
+
+  join: harvest_clients {
+    view_label: "Harvest"
+    type: inner
+    sql_on: case when REGEXP_CONTAINS(name, "-") is TRUE then ${harvest_clients.merchant_id} = ${harvest_merchant_mapping.merchant_id} else
+    ${harvest_clients.name} = ${harvest_merchant_mapping.account} end;;
+    relationship: one_to_one
+  }
+
+  join: harvest_time_entries {
+    view_label: "Harvest"
+    type: left_outer
+    sql_on: ${harvest_time_entries.client_id} = ${harvest_clients.id};;
+    relationship: one_to_many
+  }
+
+  join: harvest_tasks {
+    view_label: "Harvest"
+    type: left_outer
+    sql_on: ${harvest_tasks.id} = ${harvest_time_entries.task_id} ;;
+  }
+
+  join: harvest_users {
+    type: left_outer
+    view_label: "Harvest"
+    sql_on: ${harvest_users.id} = ${harvest_time_entries.user_id} ;;
+    relationship: many_to_one
+  }
+
+  join: harvest_user_roles {
+    view_label: "Harvest"
+    type: left_outer
+    sql_on: ${harvest_user_roles.user_id} = ${harvest_users.id} ;;
+  }
+
+  join: harvest_roles {
+    view_label: "Harvest"
+    type: left_outer
+    sql_on: ${harvest_roles.id} = ${harvest_user_roles.role_id} ;;
+  }
+
+  join: harvest_projects {
+    view_label: "Harvest"
+    type: left_outer
+    sql_on: ${harvest_projects.id} = ${harvest_time_entries.project_id} ;;
+    relationship: many_to_one
+  }
 }
 
   explore: prospective_account_data {
@@ -1226,6 +1274,44 @@ explore: event_log {
 
 explore: industry_info{
   hidden: yes
+}
+
+explore: zendesk_tickets {
+  join: zendesk_organizations {
+    type: left_outer
+    sql_on: ${zendesk_organizations.id} = ${zendesk_tickets.organization_id} ;;
+    relationship: many_to_one
+  }
+
+  join: zendesk_groups {
+    type: left_outer
+    sql_on: ${zendesk_groups.id} = ${zendesk_tickets.group_id} ;;
+    relationship: many_to_one
+  }
+
+  join: zendesk_ticket_metrics {
+    type: left_outer
+    sql_on: ${zendesk_ticket_metrics.ticket_id} = ${zendesk_tickets.id} ;;
+    relationship: many_to_one
+  }
+
+  join: requester {
+    from: zendesk_users
+    sql_on: ${requester.id} = ${zendesk_tickets.requester_id} ;;
+  }
+
+  join: requester_organization {
+    from: zendesk_organizations
+    view_label: "Requester"
+    sql_on: ${requester_organization.id} = ${requester.organization_id} ;;
+    fields: [requester_organization.id, requester_organization.name]
+    relationship: many_to_one
+  }
+
+  join: zendesk_ticket_custom_fields {
+   type: left_outer
+  sql_on: ${zendesk_ticket_custom_fields.Ticket_ID} = ${zendesk_tickets.id} ;;
+  }
 }
 
   explore: merchant_merchant{

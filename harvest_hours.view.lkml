@@ -143,6 +143,7 @@ view: harvest_hours {
   measure: Work_Cost {
     type: sum
     sql: (${Role_Rate}*${hours}) ;;
+    value_format: "$0.00"
   }
 
   dimension: task {
