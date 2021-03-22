@@ -193,9 +193,19 @@ view: harvest_merchant_mapping {
     sql: ${TABLE}.implementation_fee ;;
   }
 
+  measure: Total_Implementation {
+    type: sum
+    sql: ${implementation_fee} ;;
+  }
+
   dimension: percent_completed_integration {
     type: number
     sql: ${TABLE}.Integration_Checklist ;;
+  }
+
+  measure: Intergration_Percent_Complete {
+    type: sum
+    sql: case when ${percent_completed_integration} is not null then cast(${percent_completed_integration} as FLOAT64) else 0 end ;;
   }
 
   measure: Sub_Industry_list {
