@@ -1302,4 +1302,15 @@ view: account {
   measure: count_distinct {
     type: count_distinct
     sql: ${id} ;;}
+
+  dimension: Days_to_Launch {
+    type: number
+    sql: case when ${client_status__c} = 'Live' and ${original_signed_date__c_date} is not null and ${actual_launch_date__c_date} is not null then DATE_DIFF( date(${actual_launch_date__c_date}), date(${original_signed_date__c_date}), DAY) else null end ;;
+  }
+
+  measure: Avg_Days_to_Launch{
+    type: average
+    sql: ${Days_to_Launch} ;;
+    value_format: "0.0"
+  }
 }
