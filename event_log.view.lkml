@@ -90,7 +90,8 @@ view: event_log {
 
   dimension: Action_Name  {
     type: string
-    sql: case when ${type_id} = 9 then 'Reactivated Subscription'
+    sql: case when ${type_id} = 5 then 'Subscription Cancelled'
+         when ${type_id} = 9 then 'Reactivated Subscription'
          when ${type_id} = 8 then 'Changed Shipping Address'
          when ${type_id} = 27 then 'Changed Shipping Address'
          when ${type_id} = 10 then 'Change Payment Info'
