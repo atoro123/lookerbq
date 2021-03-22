@@ -163,4 +163,92 @@ view: harvest_time_entries {
     type: count
     drill_fields: [id]
   }
+
+  ###
+  dimension: before_or_after_launch{
+    sql: case when ${created_date} < max(${account.actual_launch_date__c_date}) then 'before'
+          when ${created_date} = max(${account.actual_launch_date__c_date}) then 'launch'
+          when ${created_date} < max(${account.actual_launch_date__c_date}) then 'after'
+          else null
+          end
+          ;;
+  }
+
+
+  measure: Implementation_Hours {
+    group_label: "Implementation Hours"
+    type: sum
+    sql:  CASE WHEN ${harvest_projects.Project_Name} = "Implementation" then ${TABLE}.Hours else null end;;
+    value_format: "0.0"
+  }
+
+  measure: Implementation_Hours_Strategy {
+    group_label: "Implementation Hours"
+    type: sum
+    sql:  CASE WHEN ${harvest_projects.Project_Name} = "Implementation" and ${role_group} = "Strategy" then ${TABLE}.Hours else null end;;
+    value_format: "0.0"
+  }
+
+  measure: Implementation_Hours_Support {
+    group_label: "Implementation Hours"
+    type: sum
+    sql:  CASE WHEN ${harvest_projects.Project_Name} = "Implementation" and ${role_group} = "Strategy" then ${TABLE}.Hours else null end;;
+    value_format: "0.0"
+  }
+
+  measure: Implementation_Hours_Technical {
+    group_label: "Implementation Hours"
+    type: sum
+    sql:  CASE WHEN ${harvest_projects.Project_Name} = "Implementation" and ${role_group} = "Strategy" then ${TABLE}.Hours else null end;;
+    value_format: "0.0"
+  }
+
+  measure: Implementation_Hours_Pre_Launch{
+    group_label: "Implementation Hours"
+    type: sum
+    sql:  CASE WHEN (cast(${created_date}as DATE) < cast(max(${account.actual_launch_date__c_date}) as DATE) THEN  ${TABLE}.Hours else null END;;
+  }
+
+  measure: Implementation_Hours_Post_Launch{
+    group_label: "Implementation Hours"
+    type: sum
+    sql:  CASE WHEN (cast(${created_date}as DATE) >= cast(max(${account.actual_launch_date__c_date}) as DATE) THEN  ${TABLE}.Hours else null END;;
+  }
+
+
+  dimension: role_group {
+    type: string
+    sql: case   when ${harvest_roles.Role_Name} in ('Account Manager','Exec','Relationship Manager','Success Associate','Success Coordinator','SCD') then 'Strategy'
+              when ${harvest_roles.Role_Name} like '%Solution%' or ${harvest_roles.Role_Name} like '%Production Specialist%' or ${harvest_roles.Role_Name} in ('Ops') then 'Technical'
+              when ${harvest_roles.Role_Name} like '%Support%' then 'Support'
+              else ${harvest_roles.Role_Name} end;;
+  }
+
+  dimension: clean_task {
+    type: string
+    sql: case when ${harvest_tasks.name} = 'Client / Project Management' then 'Project Management'
+              when ${harvest_tasks.name} = 'Client Call / Meeting' then 'Client Meeting'
+              when ${harvest_tasks.name} = 'Debugging / Troubleshooting - Client Caused Issues' then 'Debugging & Troubleshooting'
+              when ${harvest_tasks.name} = 'Analysis / Discoverys' then 'Investigating'
+              when ${harvest_tasks.name} = 'Design & Development [Implementation Work]s' then 'Design & Development'
+              else ${harvest_tasks.name} end;;
+  }
+
+  dimension: work_section {
+    type: string
+    sql: case when lower(${notes}) like '%email%' then 'Email'
+          when lower(${notes}) like '%offer%' then 'Offers'
+          when lower(${notes}) like '%msi%' then 'MSI'
+          when lower(${notes}) like '%smi%' then 'SMI'
+          when lower(${notes}) like '%import%' then 'Imports'
+          when lower(${notes}) like '%tag%' then 'Page Tag'
+          when lower(${notes}) like '%migration%' then 'Migration'
+          when lower(${notes}) like '%reorder%' then 'Reorder'
+          when lower(${notes}) like '%international%' then 'International'
+          when lower(${notes}) like '%promos%' then 'Advanced Promos'
+          when lower(${notes}) like '%custom other%' then 'Custom Other'
+          else 'Other' end
+          ;;
+  }
+
 }
