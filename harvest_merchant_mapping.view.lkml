@@ -193,9 +193,19 @@ view: harvest_merchant_mapping {
     sql: ${TABLE}.implementation_fee ;;
   }
 
+  measure: Total_Implementation {
+    type: sum
+    sql: ${implementation_fee} ;;
+  }
+
   dimension: percent_completed_integration {
     type: number
     sql: ${TABLE}.Integration_Checklist ;;
+  }
+
+  measure: Intergration_Percent_Complete {
+    type: sum
+    sql: case when ${percent_completed_integration} is not null then cast(${percent_completed_integration} as FLOAT64) else 0 end ;;
   }
 
   measure: Sub_Industry_list {
@@ -512,5 +522,30 @@ CHAR_LENGTH(REPLACE(${custom_packages}, ';', '')) + 1);;
     type: average
     sql: ${Days_to_Launch} ;;
     value_format: "0.0"
+  }
+
+  dimension: Imp_Rate_Card_Fee {
+    type: number
+    sql: ${TABLE}.Imp_Fee_Rate_Card ;;
+  }
+
+  dimension: Rate_Card_ACV {
+    type: number
+    sql: ${TABLE}.Rate_Card_ACV ;;
+  }
+
+  dimension: Rate_Card_Implementation_Fee {
+    type: number
+    sql: ${TABLE}.Rate_Card_Implementation_Fee ;;
+  }
+
+  dimension: ACV_Rate_Card {
+    type: number
+    sql: ${TABLE}.ACV_Rate_Card ;;
+  }
+
+  dimension: Target_Hrs_Override_Notes {
+    type: string
+    sql: ${TABLE}.Target_Hrs_Override_Notes ;;
   }
 }
