@@ -238,6 +238,12 @@ relationship: one_to_many
   join: coupon_onetimecoupon {
     sql_on: ${coupon_onetimecoupon.order_public_id} = ${order_order.public_id} AND ${coupon_onetimecoupon.merchant_public_id} = ${merchant_merchant.public_id} ;;
   }
+
+  join: subscription_log {
+    sql_on: date(${order_order.place_date}) = date(${subscription_log.logged_date}) and ${order_order.merchant_id} = ${subscription_log.merchant_id} ;;
+  fields: [subscription_log.sum_total_price,subscription_log.event_id,subscription_log.subscription_type,subscription_log.logged_date,subscription_log.offer_id,subscription_log.customer_id,subscription_log.source_id]
+  relationship: many_to_many
+  }
   }
 
 
