@@ -188,6 +188,7 @@ view: deal_committee__c {
 
   dimension: custom__c {
     type: string
+    group_label: "Custom Packages List"
     sql: ${TABLE}.custom__c ;;
   }
 

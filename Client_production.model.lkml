@@ -1364,6 +1364,12 @@ explore: account {
     relationship: one_to_many
   }
 
+  join: custom_packages_sf_deal_committee {
+    view_label: "Review Items - Deal Committee"
+    sql_on: ${deal_committee__c.id} =  ${custom_packages_sf_deal_committee.id} ;;
+    relationship: one_to_many
+  }
+
   join: harvest_clients {
     type: inner
     sql_on: case when REGEXP_CONTAINS(${harvest_clients.name}, "-") is TRUE then ${harvest_clients.merchant_id} = ${account.merchant_id__c} else
