@@ -149,7 +149,7 @@ view: order_order {
       quarter,
       year
     ]
-    sql: DATE_ADD(TIMESTAMP(${TABLE}.place, INTERVAL 5 HOUR) ;;
+    sql: TIMESTAMP_ADD(TIMESTAMP(${TABLE}.place), INTERVAL 5 HOUR) ;;
   }
 
   dimension: public_id {
