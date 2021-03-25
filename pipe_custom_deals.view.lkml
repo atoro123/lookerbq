@@ -101,6 +101,16 @@ view: pipe_custom_deals {
     sql: ${TABLE}.Weighted_Implementation_Fee ;;
   }
 
+  dimension: ACV_Rate_Card {
+    type: number
+    sql: ${TABLE}.ACV_Rate_Card ;;
+  }
+
+  dimension: Implementation_Fee_Rate_Card {
+    type: number
+    sql: ${TABLE}.Implementation_Fee_Rate_Card ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [opportunity_name, product_name]
