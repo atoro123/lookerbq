@@ -661,7 +661,6 @@ explore: harvest_merchant_mapping {
     type: left_outer
     sql_on: ${harvest_time_entries.client_id} = ${harvest_clients.id};;
     relationship: one_to_many
-    fields: [-harvest_time_entries.before_or_after_launch,-harvest_time_entries.Implementation_Hours_Strategy,-harvest_time_entries.Implementation_Hours_Support,-harvest_time_entries.Implementation_Hours_Technical,-harvest_time_entries.Implementation_Hours_Pre_Launch,-harvest_time_entries.Implementation_Hours_Post_Launch]
   }
 
   join: harvest_tasks {
@@ -694,6 +693,10 @@ explore: harvest_merchant_mapping {
     type: left_outer
     sql_on: ${harvest_projects.id} = ${harvest_time_entries.project_id} ;;
     relationship: many_to_one
+  }
+
+  join: account {
+    sql: ${account.merchant_id__c} = ${harvest_merchant_mapping.merchant_id} ;;
   }
 }
 
