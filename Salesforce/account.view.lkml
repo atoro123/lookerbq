@@ -683,6 +683,7 @@ view: account {
   dimension: name {
     type: string
     sql: ${TABLE}.name ;;
+    label: "Account Name"
   }
 
   dimension: needs_shopify_scripts__c {

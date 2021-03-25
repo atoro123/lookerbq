@@ -1079,6 +1079,7 @@ view: opportunity {
   dimension: name {
     type: string
     sql: ${TABLE}.name ;;
+    label: "Opportunity Name"
   }
 
   dimension: next_steps__c {

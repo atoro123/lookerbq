@@ -254,7 +254,7 @@ view: deal_committee__c {
 
   dimension: customer_segment__c {
     type: string
-    sql: ${TABLE}.customer_segment__c ;;
+    sql: case when ${TABLE}.customer_segment__c is null then (case when ${account.customer_segment__c} is null then null else ${account.customer_segment__c} end) else  ${TABLE}.customer_segment__c end;;
   }
 
   dimension: discovery_box_clubs_curation_csd_p__c {
@@ -815,7 +815,7 @@ view: deal_committee__c {
   measure: count_distinct {
     type: count_distinct
     sql: ${id} ;;
-    drill_fields: [id, name]
+    drill_fields: [id, account.name, opportunity.name,overall_deal_committee_decision__c, status__c, customer_segment__c, partner_account__c.name, review_items__c]
   }
 
   measure: acv_sum {
@@ -844,4 +844,33 @@ view: deal_committee__c {
     type: sum
     sql: ${account_updater_solution_hrs__c},${alternate_payment_methods_solution_hrs__c},${build_your_own_bundle_solution_hrs__c},${custom_solution_hrs__c},${custom_esp_integration_solution_hrs__c},${customer_group_pricing_solution_hrs__c},${discovery_box_clubs_curation_solut__c},${gifting_solutions_hrs__c},${ecommerce_platform_solution_hrs__c},${gift_with_purchase_solution_hrs__c},${language_solutions_hrs__c},${memberships_custom_solution_hrs__c},${other_2_solutions_hrs__c},${other_3_solutions_hrs__c},${other_solutions_hrs__c},${prepaid_subscriptions_solution_hrs__c},${sms_reorder_solution_hrs__c},${price_lock_at_sub_level_solution_hrs__c},${product_specific_promo_solutions_hrs__c},${subscribe_more_save_more_solution_hrs__c} ;;
     }
+
+  dimension: total_custom_features {
+    type: number
+    sql:     case when ${account_updater__c} is not null then 1 else 0 end +
+              case when ${alternate_payment_methods__c} is not null then 1 else 0 end +
+              case when ${build_your_own_bundle__c} is not null then 1 else 0 end +
+              case when ${custom__c} is not null then 1 else 0 end +
+              case when ${custom_esp_integration__c} is not null then 1 else 0 end +
+              case when ${customer_group_pricing_and_promotions__c} is not null then 1 else 0 end +
+              case when ${discovery_box_clubs_curation_custo__c} is not null then 1 else 0 end +
+              case when ${ecommerce_platform_integrations__c} is not null then 1 else 0 end +
+              case when ${gift_with_purchase__c} is not null then 1 else 0 end +
+              case when ${gifting__c} is not null then 1 else 0 end +
+              case when ${language__c} is not null then 1 else 0 end +
+              case when ${memberships_custom__c} is not null then 1 else 0 end +
+              case when ${migration_needed__c} is not null then 1 else 0 end +
+              case when ${modify_smi_based_on_sku_or_logic__c} is not null then 1 else 0 end +
+              case when ${nth_order__c} is not null then 1 else 0 end +
+              case when ${other_2__c} is not null then 1 else 0 end +
+              case when ${other_3__c} is not null then 1 else 0 end +
+              case when ${other__c} is not null then 1 else 0 end +
+              case when ${prepaid_subscriptions__c} is not null then 1 else 0 end +
+              case when ${price_lock_at_sub_level__c} is not null then 1 else 0 end +
+              case when ${psis__c} is not null then 1 else 0 end +
+              case when ${sms_reorder__c} is not null then 1 else 0 end +
+              case when ${subscribe_anywhere_pickup_anywhere_ful__c} is not null then 1 else 0 end +
+              case when ${subscribe_more_save_more__c} is not null then 1 else 0 end;;
+
+  }
 }

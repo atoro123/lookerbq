@@ -179,6 +179,7 @@ view: partner_account__c {
   dimension: name {
     type: string
     sql: ${TABLE}.name ;;
+    label: "ECommerce Platform"
   }
 
   dimension: notes__c {
