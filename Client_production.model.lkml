@@ -238,6 +238,12 @@ relationship: one_to_many
   join: coupon_onetimecoupon {
     sql_on: ${coupon_onetimecoupon.order_public_id} = ${order_order.public_id} AND ${coupon_onetimecoupon.merchant_public_id} = ${merchant_merchant.public_id} ;;
   }
+
+  join: subscription_log {
+    sql_on: date(${order_order.place_date}) = date(${subscription_log.logged_date}) and ${order_order.merchant_id} = ${subscription_log.merchant_id} ;;
+  fields: [subscription_log.sum_total_price,subscription_log.event_id,subscription_log.subscription_type,subscription_log.logged_date,subscription_log.offer_id,subscription_log.customer_id,subscription_log.source_id]
+  relationship: many_to_many
+  }
   }
 
 
@@ -655,6 +661,7 @@ explore: harvest_merchant_mapping {
     type: left_outer
     sql_on: ${harvest_time_entries.client_id} = ${harvest_clients.id};;
     relationship: one_to_many
+    fields: [-harvest_time_entries.before_or_after_launch,-harvest_time_entries.Implementation_Hours_Strategy,-harvest_time_entries.Implementation_Hours_Support,-harvest_time_entries.Implementation_Hours_Technical,-harvest_time_entries.Implementation_Hours_Pre_Launch,-harvest_time_entries.Implementation_Hours_Post_Launch]
   }
 
   join: harvest_tasks {
@@ -1351,6 +1358,10 @@ explore: account {
     fields: [name]
   }
 
+  join: partner_account__c {
+    sql_on: ${account.ecommerce_platform2__c} = ${partner_account__c.id} ;;
+  }
+
 
   join: custom_packages_sf {
   ###need to wait on prod in order to have derived tables
@@ -1359,5 +1370,51 @@ explore: account {
     relationship: one_to_many
   }
 
+  join: custom_packages_sf_deal_committee {
+    view_label: "Review Items - Deal Committee"
+    sql_on: ${deal_committee__c.id} =  ${custom_packages_sf_deal_committee.id} ;;
+    relationship: one_to_many
+  }
+
+  join: harvest_clients {
+    type: inner
+    sql_on: case when REGEXP_CONTAINS(${harvest_clients.name}, "-") is TRUE then ${harvest_clients.merchant_id} = ${account.merchant_id__c} else
+    ${harvest_clients.name} = ${account.name} end;;
+    relationship: one_to_one
+  }
+
+  join: harvest_time_entries {
+    type: left_outer
+    sql_on: ${harvest_time_entries.client_id} = ${harvest_clients.id};;
+    relationship: one_to_many
+  }
+
+  join: harvest_tasks {
+    type: left_outer
+    sql_on: ${harvest_tasks.id} = ${harvest_time_entries.task_id} ;;
+  }
+
+  join: harvest_users {
+    type: left_outer
+    sql_on: ${harvest_users.id} = ${harvest_time_entries.user_id} ;;
+    relationship: many_to_one
+  }
+
+  join: harvest_user_roles {
+    view_label: "Harvest Roles"
+    type: left_outer
+    sql_on: ${harvest_user_roles.user_id} = ${harvest_users.id} ;;
+  }
+
+  join: harvest_roles {
+    type: left_outer
+    sql_on: ${harvest_roles.id} = ${harvest_user_roles.role_id} ;;
+  }
+
+  join: harvest_projects {
+    type: left_outer
+    sql_on: ${harvest_projects.id} = ${harvest_time_entries.project_id} ;;
+    relationship: many_to_one
+  }
 
 }

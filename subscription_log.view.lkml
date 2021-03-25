@@ -189,7 +189,7 @@ view: subscription_log {
     type: sum
     label: "Total Activation"
     value_format_name: usd
-    sql: ${total_price} ;;
+    sql: case when (${subscription_type} <> 'IU replenishment' and ${event_id} = 2) then ${total_price} else null end;;
     filters: {field:offer_id
       value:"not 168,
 177,
