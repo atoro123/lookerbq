@@ -873,4 +873,10 @@ view: deal_committee__c {
               case when ${subscribe_more_save_more__c} is not null then 1 else 0 end;;
 
   }
+
+  measure: average_features {
+    type: average
+    sql: ${total_custom_features} ;;
+    value_format: "0.0"
+  }
 }
