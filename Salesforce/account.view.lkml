@@ -1066,6 +1066,11 @@ view: account {
     sql: ${TABLE}.target_integration_hours_internal__c ;;
   }
 
+  measure: target_integration_hours {
+    type: sum
+    sql: ${target_integration_hours_internal__c} ;;
+  }
+
   dimension: technologies__c {
     type: string
     sql: ${TABLE}.technologies__c ;;
@@ -1287,7 +1292,7 @@ view: account {
 
   measure: count {
     type: count
-    drill_fields: [id, name, account_history.count, opportunity.count]
+    drill_fields: [id, name, account_history.count, current_subscription_provider__c,opportunity.count]
   }
 
   measure: avg_original_acv__c {
@@ -1313,5 +1318,10 @@ view: account {
     type: average
     sql: ${Days_to_Launch} ;;
     value_format: "0.0"
+  }
+
+  measure: total_implementation {
+    type: sum
+    sql: ${implementation_fee__c} ;;
   }
 }
