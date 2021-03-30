@@ -807,6 +807,11 @@ view: deal_committee__c {
     sql: ${TABLE}.weighted_acv__c ;;
   }
 
+  dimension: Email_Service_Provider__c {
+    type: string
+    sql: ${TABLE}.Email_Service_Provider__c ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [id, name]
@@ -815,7 +820,7 @@ view: deal_committee__c {
   measure: count_distinct {
     type: count_distinct
     sql: ${id} ;;
-    drill_fields: [id, account.name, opportunity.name,overall_deal_committee_decision__c, status__c, customer_segment__c, partner_account__c.name, review_items__c]
+    drill_fields: [id, account.name, opportunity.name,overall_deal_committee_decision__c, status__c, customer_segment__c, partner_account__c.name, review_items__c, Email_Service_Provider__c]
   }
 
   measure: acv_sum {
