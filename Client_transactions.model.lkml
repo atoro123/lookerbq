@@ -248,6 +248,10 @@ explore: cart_log {
     fields: [order_order.id, order_order.merchant_id, order_order.customer_id, order_order.sub_total, order_order.place_date, order_order.place_month, order_order.cancelled_date,
       order_order.cancelled_month, order_order.status, order_order.order_merchant_id, order_order.rejected_message, order_order.public_id]
   }
+
+  join: merchant_merchant {
+    sql_on: ${cart_log.merchant_id} = ${merchant_merchant.id} ;;
+  }
 }
 
 explore: order_item_log {access_filter: {field:merchant_id
