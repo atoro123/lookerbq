@@ -529,6 +529,16 @@ CHAR_LENGTH(REPLACE(${custom_packages}, ';', '')) + 1);;
     sql: ${TABLE}.Imp_Fee_Rate_Card ;;
   }
 
+  dimension: Imp_Fee_Rate_Card {
+    type: number
+    sql: ${TABLE}.Imp_Fee_Rate_Card ;;
+  }
+
+  measure: Total_Imp_Fee_Rate_Card {
+    type: sum
+    sql: ${Imp_Fee_Rate_Card} ;;
+  }
+
   dimension: Rate_Card_ACV {
     type: number
     sql: ${TABLE}.Rate_Card_ACV ;;

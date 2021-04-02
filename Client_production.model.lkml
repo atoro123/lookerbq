@@ -1323,6 +1323,16 @@ explore: zendesk_tickets {
    type: left_outer
   sql_on: ${zendesk_ticket_custom_fields.Ticket_ID} = ${zendesk_tickets.id} ;;
   }
+
+  join: zendesk_ticket_mapping {
+    type: left_outer
+    sql_on: ${zendesk_ticket_custom_fields.Merchant} = ${zendesk_ticket_mapping.zendesk_name} ;;
+  }
+
+  join: harvest_merchant_mapping {
+    type: left_outer
+    sql_on: ${harvest_merchant_mapping.merchant_id} = ${zendesk_ticket_mapping.merchant_id} ;;
+  }
 }
 
   explore: merchant_merchant{
