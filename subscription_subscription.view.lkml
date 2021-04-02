@@ -656,6 +656,13 @@ view: subscription_subscription {
     sql: min(${created_date});;
   }
 
+  dimension: TSC_Ordering_Offers {
+    description: "Filter allows you to select either BOPIS or Ship to Home (STH)"
+    type: string
+    sql: case when ${offer_id} in (5700,5763) then "BOPIS"
+    when ${offer_id} in (5701, 5761, 5762) then "STH" end;;
+  }
+
 #
 #   dimension: current_date {
 #     type: date_month

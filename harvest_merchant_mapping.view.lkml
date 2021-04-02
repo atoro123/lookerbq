@@ -564,6 +564,11 @@ CHAR_LENGTH(REPLACE(${custom_packages}, ';', '')) + 1);;
     sql: ${TABLE}.ACV_Rate_Card ;;
   }
 
+  measure: Total_ACV_Rate_Card {
+    type: sum
+    sql: ${Rate_Card_ACV} ;;
+  }
+
   dimension: Target_Hrs_Override_Notes {
     type: string
     sql: ${TABLE}.Target_Hrs_Override_Notes ;;
