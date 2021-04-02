@@ -3,6 +3,7 @@ connection: "production_bq"
 include: "*.view.lkml"
 include: "/stitch_zendesk/*.view.lkml"
 include: "/Salesforce/*.view.lkml"
+include: "/Salesforce/Derived_Tables_sf/*.view.lkml"
 fiscal_month_offset: 1
 
 # include all views in this project
@@ -1428,6 +1429,21 @@ explore: account {
     type: left_outer
     sql_on: ${harvest_projects.id} = ${harvest_time_entries.project_id} ;;
     relationship: many_to_one
+  }
+
+  join: account_custom_packages_pairs {
+      sql_on: ${account_custom_packages_pairs.merchant_id} = ${account.merchant_id__c} ;;
+    relationship: one_to_many
+  }
+
+  join: account_add_ons_pairs {
+    sql_on: ${account_add_ons_pairs.merchant_id} = ${account.merchant_id__c} ;;
+    relationship: one_to_many
+  }
+
+  join: account_add_ons {
+    sql_on: ${account_add_ons.merchant_id__c} = ${account.merchant_id__c} ;;
+    relationship: one_to_many
   }
 
 }

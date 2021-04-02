@@ -1389,4 +1389,17 @@ view: account {
               case when ${Subscribe_More_Save_More} = 'yes' then 1 else 0 end;;
 
     }
+
+  dimension: total_add_ons {
+    type: number
+    sql:     case when ${Same_Brand_Multi_Site} = 'yes' then 1 else 0 end +
+              case when ${Multi_Language_Support} = 'yes' then 1 else 0 end +
+              case when ${Advanced_Promos} = 'yes' then 1 else 0 end +
+              case when ${Non_US_Domain_Single_Language} = 'yes' then 1 else 0 +
+              case when ${Advanced_Configurations} = 'yes' then 1 else 0 end +
+              case when ${Different_Brand_Multi_Site} = 'yes' then 1 else 0 end +
+              case when ${BigCommerce_Tax} = 'yes' then 1 else 0 end
+              end;;
+
+    }
 }
