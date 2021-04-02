@@ -267,13 +267,11 @@ view: harvest_time_entries {
   measure: Solutions_Hours_Cost {
     type: sum
     sql: case when ${harvest_roles.Role_group} = 'Solutions' then (${hours}*${harvest_roles.Role_Rate}) else null end ;;
-    value_format: "$0,000"
   }
 
 
   measure: Success_Hours_Cost {
     type: sum
     sql: case when ${harvest_roles.Role_group} = 'Success' then (${hours}*${harvest_roles.Role_Rate}) else null end ;;
-    value_format: "$0,000"
   }
 }
