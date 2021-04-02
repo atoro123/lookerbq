@@ -1290,6 +1290,48 @@ view: account {
     sql: case when ${custom_packages__c} like '%Real Time Inventory %' then 'yes' else 'no' end ;;
   }
 
+  dimension: Same_Brand_Multi_Site {
+    type: string
+    group_label: "Add Ons List"
+    sql: case when ${add_ons__c} like '%Same Brand Multi-Site%' then 'yes' else 'no' end ;;
+  }
+
+  dimension: Multi_Language_Support {
+    type: string
+    group_label: "Add Ons List"
+    sql: case when ${add_ons__c} like '%Multi-Language Support%' or ${add_ons__c} like '%Non-US Domain - Dual Language%' then 'yes' else 'no' end ;;
+  }
+
+  dimension: Advanced_Promos {
+    type: string
+    group_label: "Add Ons List"
+    sql: case when ${add_ons__c} like '%Advanced Promos%' then 'yes' else 'no' end ;;
+  }
+
+  dimension: Non_US_Domain_Single_Language {
+    type: string
+    group_label: "Add Ons List"
+    sql: case when ${add_ons__c} like '%Non-US Domain - Single Language%' then 'yes' else 'no' end ;;
+  }
+
+  dimension: Advanced_Configurations {
+    type: string
+    group_label: "Add Ons List"
+    sql: case when ${add_ons__c} like '%Advanced Configurations%' then 'yes' else 'no' end ;;
+  }
+
+  dimension: Different_Brand_Multi_Site {
+    type: string
+    group_label: "Add Ons List"
+    sql: case when ${add_ons__c} like '%Different Brand Multi-Site%' then 'yes' else 'no' end ;;
+  }
+
+  dimension: BigCommerce_Tax{
+    type: string
+    group_label: "Add Ons List"
+    sql: case when ${add_ons__c} like '%BigCommerce Tax%' then 'yes' else 'no' end ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [id, name, account_history.count, current_subscription_provider__c,opportunity.count]
@@ -1324,4 +1366,27 @@ view: account {
     type: sum
     sql: ${implementation_fee__c} ;;
   }
+
+  dimension: total_custom_features {
+    type: number
+    sql:     case when ${Account_Updater} = 'yes' then 1 else 0 end +
+              case when ${Alternate_Payment_Methods} = 'yes' then 1 else 0 end +
+              case when ${Build_Your_Own_Bundle} = 'yes' then 1 else 0 end +
+              case when ${Custom_ESP_Integration} = 'yes' then 1 else 0 end +
+              case when ${Customer_Group_Pricing_and_Promotions} = 'yes' then 1 else 0 end +
+              case when ${Discovery_Box_Clubs_Curation} = 'yes' then 1 else 0 end +
+              case when ${eCommerce_Platform_Integrations} = 'yes' then 1 else 0 end +
+              case when ${Gift_With_Purchase} = 'yes' then 1 else 0 end +
+              case when ${Gifting} = 'yes' then 1 else 0 end +
+              case when ${Multi_Language_Support} = 'yes' then 1 else 0 end +
+              case when ${Memberships_Custom} = 'yes' then 1 else 0 end +
+              case when ${migration_needed__c} = 'yes' then 1 else 0 end +
+              case when ${Modify_SMI_Based_on_SKU_or_Logic} = 'yes' then 1 else 0 end +
+              case when ${Prepaid_Subscriptions} = 'yes' then 1 else 0 end +
+              case when ${Price_Lock_at_Sub_Level} = 'yes' then 1 else 0 end +
+              case when ${SMS_Reorder} = 'yes' then 1 else 0 end +
+              case when ${Subscribe_Anywhere_Pick_up_Anywhere_Full_Time} = 'yes' then 1 else 0 end +
+              case when ${Subscribe_More_Save_More} = 'yes' then 1 else 0 end;;
+
+    }
 }

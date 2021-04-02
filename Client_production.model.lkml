@@ -1365,6 +1365,16 @@ explore: account {
     sql_on: ${account.ecommerce_platform2__c} = ${partner_account__c.id} ;;
   }
 
+  join: parent_account {
+    from: account
+    sql_on: ${account.parentid} = ${parent_account.id};;
+    fields: [parent_account.name]
+  }
+
+  join: user {
+    view_label: "Primary Success Owner"
+    sql_on: ${user.id} = ${account.primary_success_owner__c} ;;
+  }
 
   join: custom_packages_sf {
   ###need to wait on prod in order to have derived tables
