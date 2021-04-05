@@ -1342,6 +1342,11 @@ view: account {
     sql: ${original_acv__c} ;;
   }
 
+  measure: annual_support_hours_max {
+    type: max
+    sql: ${annual_support_hours__c} ;;
+  }
+
   measure: sum_original_acv__c {
     type: sum
     sql: ${original_acv__c} ;;

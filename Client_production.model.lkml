@@ -1456,4 +1456,8 @@ explore: account {
     relationship: one_to_many
   }
 
+  join: merchant_merchant {
+    sql_on: ${merchant_merchant.id} = ${account.merchant_id__c} ;;
+  }
+
 }
