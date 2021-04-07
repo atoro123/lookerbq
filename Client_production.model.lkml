@@ -1460,4 +1460,8 @@ explore: account {
     sql_on: ${merchant_merchant.id} = ${account.merchant_id__c} ;;
   }
 
+  join: client_status_tracker__c {
+    sql_on: ${account.client_status__c} = ${client_status_tracker__c.id} ;;
+  }
+
 }

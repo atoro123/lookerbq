@@ -166,9 +166,9 @@ view: harvest_time_entries {
 
   ###
   dimension: before_or_after_launch{
-    sql: case when ${created_date} < max(${account.actual_launch_date__c_date}) then 'before'
-          when ${created_date} = max(${account.actual_launch_date__c_date}) then 'launch'
-          when ${created_date} < max(${account.actual_launch_date__c_date}) then 'after'
+    sql: case when ${created_date} < ${account.actual_launch_date__c_date} then 'before'
+          when ${created_date} >= ${account.actual_launch_date__c_date} then 'after'
+          when ${account.actual_launch_date__c_date} is null then 'before'
           else null
           end
           ;;
@@ -206,13 +206,15 @@ view: harvest_time_entries {
   measure: Implementation_Hours_Pre_Launch{
     group_label: "Implementation Hours"
     type: sum
-    sql:  CASE WHEN (cast(${created_date}as DATE) < cast(max(${account.actual_launch_date__c_date}) as DATE) THEN  ${TABLE}.Hours else null END;;
+    sql:  CASE WHEN ${before_or_after_launch} = 'before' THEN  ${TABLE}.Hours else null END;;
+    value_format: "0.0"
   }
 
   measure: Implementation_Hours_Post_Launch{
     group_label: "Implementation Hours"
     type: sum
-    sql:  CASE WHEN (cast(${created_date}as DATE) >= cast(max(${account.actual_launch_date__c_date}) as DATE) THEN  ${TABLE}.Hours else null END;;
+    sql:  CASE WHEN ${before_or_after_launch} = 'after' THEN  ${TABLE}.Hours else null END;;
+    value_format: "0.0"
   }
 
 

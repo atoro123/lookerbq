@@ -519,6 +519,11 @@ view: account {
     sql: ${TABLE}.integration_hours_included__c ;;
   }
 
+  measure: integration_hours_included {
+    type: max
+    sql: ${integration_hours_included__c} ;;
+  }
+
   dimension: is_parent_account__c {
     type: yesno
     sql: ${TABLE}.is_parent_account__c ;;
