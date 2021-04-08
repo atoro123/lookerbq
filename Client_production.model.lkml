@@ -113,7 +113,6 @@ relationship: one_to_many
     relationship: one_to_many
   }
 
-
   join: subscription_monthly_summary {
     type: left_outer
     sql_on: ${subscription_monthly_summary.date_date} = ${subscription_subscription.created_date} ;;
@@ -1463,5 +1462,9 @@ explore: account {
   join: client_status_tracker__c {
     sql_on: ${account.client_status__c} = ${client_status_tracker__c.id} ;;
   }
+}
 
+explore: illy_program_subscribers {
+  label: "illy Programs Subscribers"
+  view_label: "illy Programs Subscribers"
 }

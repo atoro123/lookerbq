@@ -354,8 +354,8 @@ measure: total_activation_revenue_forecast_this_month {
 
   dimension: Program {
     type: string
-    sql: case when ${offer_id} in (2348,4356,2750,2762) then "illylovers Coffee (Select)"
-         when ${offer_id} in (2346,3061,3221,3232,3369,3327,2751,2763) then "illylovers Machine (Select)"
+    sql: case when ${offer_id} in (2347,2348,4356,2750,2762,2347,3895,2498,2491,2489,2492,2490,2488,3724,2498,3034,4591,4792,5160,5428) then "illylovers Coffee (Select)"
+         when ${offer_id} in (2346,3061,3221,3232,3369,3327,2751,2763,2496,2493,2497,2494,2495) then "illylovers Machine (Select)"
         when ${offer_id} in (3118,3119,3120,3448,3449) then "Health Box"
         when ${offer_id} in (3443,3444,3445,3446,3447) then "Health Box Plus"
         Else "PDP" end;;

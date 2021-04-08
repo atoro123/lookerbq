@@ -1,45 +1,4 @@
-# Un-hide and use this explore, or copy the joins into another explore, to get all the fully nested relationships from this view
-explore: ticket_comments {
-  hidden: yes
-
-  join: ticket_comments__metadata__flags {
-    view_label: "Ticket Comments: Metadata Flags"
-    sql: LEFT JOIN UNNEST(${ticket_comments.metadata__flags}) as ticket_comments__metadata__flags ;;
-    relationship: one_to_many
-  }
-
-  join: ticket_comments__attachments {
-    view_label: "Ticket Comments: Attachments"
-    sql: LEFT JOIN UNNEST(${ticket_comments.attachments}) as ticket_comments__attachments ;;
-    relationship: one_to_many
-  }
-
-  join: ticket_comments__via__source__from__ticket_ids {
-    view_label: "Ticket Comments: Via Source From Ticket Ids"
-    sql: LEFT JOIN UNNEST(${ticket_comments.via__source__from__ticket_ids}) as ticket_comments__via__source__from__ticket_ids ;;
-    relationship: one_to_many
-  }
-
-  join: ticket_comments__attachments__value__thumbnails {
-    view_label: "Ticket Comments: Attachments Value Thumbnails"
-    sql: LEFT JOIN UNNEST(${ticket_comments__attachments.value__thumbnails}) as ticket_comments__attachments__value__thumbnails ;;
-    relationship: one_to_many
-  }
-
-  join: ticket_comments__metadata__notifications_suppressed_for {
-    view_label: "Ticket Comments: Metadata Notifications Suppressed For"
-    sql: LEFT JOIN UNNEST(${ticket_comments.metadata__notifications_suppressed_for}) as ticket_comments__metadata__notifications_suppressed_for ;;
-    relationship: one_to_many
-  }
-
-  join: ticket_comments__via__source__from__original_recipients {
-    view_label: "Ticket Comments: Via Source From Original Recipients"
-    sql: LEFT JOIN UNNEST(${ticket_comments.via__source__from__original_recipients}) as ticket_comments__via__source__from__original_recipients ;;
-    relationship: one_to_many
-  }
-}
-
-view: ticket_comments {
+view: zendesk_ticket_comments {
   sql_table_name: `stitch-poc-306316.zendesk.ticket_comments`
     ;;
   drill_fields: [id]
