@@ -1333,6 +1333,34 @@ explore: zendesk_tickets {
     type: left_outer
     sql_on: ${harvest_merchant_mapping.merchant_id} = ${zendesk_ticket_mapping.merchant_id} ;;
   }
+
+  join: zendesk_ticket_comments {
+    view_label: "Ticket Comments"
+    type: left_outer
+    sql_on: ${zendesk_ticket_comments.ticket_id} = ${zendesk_tickets.id} ;;
+  }
+
+  join: zendesk_users {
+    view_label: "Ticket Comments"
+    type: left_outer
+    sql_on: ${zendesk_users.id} = ${zendesk_ticket_comments.author_id} ;;
+    fields: [zendesk_users.id]
+  }
+
+  join: group_memberships {
+    view_label: "Ticket Comments"
+    type: left_outer
+    sql_on: ${zendesk_users.id} = ${group_memberships.user_id} ;;
+    fields: [group_memberships.user_id, group_memberships.group_id]
+  }
+
+  join: Commentor_Group {
+    from: zendesk_groups
+    view_label: "Ticket Comments"
+    type: left_outer
+    sql_on: ${Commentor_Group.id} = ${group_memberships.group_id} ;;
+    fields: [Commentor_Group.id, Commentor_Group.name]
+  }
 }
 
   explore: merchant_merchant{
