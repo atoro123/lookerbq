@@ -1,7 +1,7 @@
 view: zendesk_ticket_comments {
   sql_table_name: `stitch-poc-306316.zendesk.ticket_comments`
     ;;
-  drill_fields: [id]
+  drill_fields: [id, ticket_id]
 
   dimension: id {
     primary_key: yes
@@ -291,11 +291,7 @@ view: zendesk_ticket_comments {
   set: detail {
     fields: [
       id,
-      via__source__to__name,
-      via__source__from__name,
-      tickets.via__source__to__name,
-      tickets.via__source__from__name,
-      tickets.via__source__from__ticket_id
+      ticket_id
     ]
   }
 }
