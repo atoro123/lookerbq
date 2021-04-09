@@ -152,6 +152,12 @@ view: order_order {
     sql: TIMESTAMP_ADD(TIMESTAMP(${TABLE}.place), INTERVAL 5 HOUR) ;;
   }
 
+  dimension: Is_CC_Recycle_Order {
+    description: "Order went into CC Recycling Process"
+    type: yesno
+    sql: ${recycle_ccexpirationdatelog.order_id} is not null ;;
+  }
+
   dimension: public_id {
     type: string
     sql: ${TABLE}.public_id ;;

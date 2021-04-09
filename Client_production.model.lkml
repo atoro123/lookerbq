@@ -301,6 +301,14 @@ explore: subscription_subscription {
     sql_on: ${order_item.order_id} = ${order_order.id} ;;
     relationship: many_to_many
   }
+
+  join: recycle_ccexpirationdatelog {
+    type: left_outer
+    view_label: "Credit Card Recycling"
+    sql_on: ${recycle_ccexpirationdatelog.order_id} = ${order_order.id} ;;
+    relationship: one_to_many
+  }
+
   join: customer_facts {
     type: left_outer
     view_label: "Customer"
@@ -485,6 +493,14 @@ explore: customer_customer {
     relationship: many_to_one
 
   }
+
+  join: recycle_ccexpirationdatelog {
+    type: left_outer
+    view_label: "Credit Card Recycling"
+    sql_on: ${recycle_ccexpirationdatelog.order_id} = ${order_order.id} ;;
+    relationship: one_to_many
+  }
+
   join: order_item {
     view_label: "Order Item"
     sql_on: ${order_order.id} = ${order_item.order_id} ;;
