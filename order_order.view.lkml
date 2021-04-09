@@ -368,7 +368,7 @@ view: order_order {
       year,
       day_of_week
     ]
-    sql: DATE_SUB(DATE(${place_date}),INTERVAL ${subtracted_days_for_original} DAY) ;;
+    sql: TIMESTAMP(DATE_SUB(DATE(${place_date}),INTERVAL ${subtracted_days_for_original} DAY)) ;;
 
   }
 
