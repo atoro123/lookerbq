@@ -90,6 +90,13 @@ relationship: one_to_many
     relationship: one_to_one
 }
 
+  join: recycle_ccexpirationdatelog {
+    type: left_outer
+    view_label: "Credit Card Recycling"
+    sql_on: ${recycle_ccexpirationdatelog.order_id} = ${order_order.id} ;;
+    relationship: one_to_many
+  }
+
 
   join: product_product {
     view_label: "Product"
