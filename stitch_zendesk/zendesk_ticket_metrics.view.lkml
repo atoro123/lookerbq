@@ -292,4 +292,9 @@ view: zendesk_ticket_metrics {
     type: count
     drill_fields: [id, tickets.via__source__to__name, tickets.via__source__from__name, tickets.via__source__from__ticket_id]
   }
+
+  measure: Total_Replies {
+    type: sum
+    sql: ${replies} ;;
+  }
 }

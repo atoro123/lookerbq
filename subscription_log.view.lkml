@@ -490,6 +490,7 @@ measure: total_activation_revenue_forecast_this_month {
     when ${source_id} = 13 then 'CSA'
     when ${source_id} = 17 then 'Product Feed'
     when ${source_id} = 19 then 'XML Import'
+    when ${source_id} = 22 then 'MSI'
     else 'Other' end;;
   }
 

@@ -1,47 +1,46 @@
 view: vsi_fraud {
   derived_table: {
     sql_trigger_value: SELECT FLOOR(((TIMESTAMP_DIFF(CURRENT_TIMESTAMP(),'1970-01-01 00:00:00',SECOND)) - 60*60*8)/(60*60*24)) ;;
-    sql: select c.MerchantUser as 'Merchant User ID', c.Customer as 'OG User ID', c.SendNow as 'Trigger Date',(case when c.Trigger = 24 then 'Send Now' else 'Change Order Date' end) as 'Trigger', c.AddressChange as 'Address Change Date', c.SendNowPayload as 'Trigger Payload', c.ShippingChangePayload as 'Shipping Change Payload', d.Public as 'Subscription Public ID', d.Created, d.PName as 'Product Name',
-      d.Quantity, d.Price, c.Order, d.ItemID, d.merchantorderid, d.total
+    sql: select c.MerchantUser as Merchant_User_ID, c.Customer as OG_User_ID, c.SendNow as Trigger_Date,(case when c.Trigger = 24 then 'Send Now' else 'Change Order Date' end) as Trigger, c.AddressChange as Address_Change_Date, c.SendNowPayload as Trigger_Payload, c.ShippingChangePayload as Shipping_Change_Payload, d.Public as Subscription_Public_ID, d.Created, d.PName as Product_Name,
+      d.Quantity, d.Price, c.Order1, d.ItemID, d.merchantorderid, d.total
       from
-      (select a.Customer1 as 'MerchantUser', a.Customer2 as 'customer', a.Logged as 'SendNow', a.Even as 'Trigger', b.logged as 'AddressChange', a.Payload as 'SendNowPayload', b.Payload as 'ShippingChangePayload', a.Even as 'SendNowEvent', b.Even as 'ChangeAddressEvent', a.Order as 'Order'
+      (select a.Customer1 as MerchantUser, a.Customer2 as customer, a.Logged as SendNow, a.Even as Trigger, b.logged as AddressChange, a.Payload as SendNowPayload, b.Payload as ShippingChangePayload, a.Even as SendNowEvent, b.Even as ChangeAddressEvent, a.Order1 as Order1
       from
-      (select el.id, cc.merchant_user_id as 'Customer1', cc.id as 'Customer2', date(el.logged) as 'Logged', el.object_metadata as 'Payload', el.type_id as 'Even', el.object_id as 'Order'
-      from event_log el
-      left join customer_customer cc
+      (select el.id, cc.merchant_user_id as Customer1, cc.id as Customer2, date(el.logged) as Logged, el.object_metadata as Payload, el.type_id as Even, el.object_id as Order1
+      from `production-202017.ogv2_production.event_log` el
+      left join `production-202017.ogv2_production.customer_customer` cc
       on cc.id = el.customer_id
       where cc.merchant_id = 113
       and el.type_id in (24,25)
-      and el.logged between subdate(CURDATE(), INTERVAL 1 DAY) and Curdate()
-      group by 1) a
+      and date(el.logged) between date_sub(CURRENT_DATE(), INTERVAL 1 DAY) and CURRENT_DATE()
+      ) a
       left join
-      (select el.id, cc.merchant_user_id as 'Customer1', cc.id as 'Customer2', date(el.logged) as 'Logged', el.object_metadata as 'Payload', el.type_id as 'Even'
-      from event_log el
-      left join customer_customer cc
+      (select el.id, cc.merchant_user_id as Customer1, cc.id as Customer2, date(el.logged) as Logged, el.object_metadata as Payload, el.type_id as Even
+      from `production-202017.ogv2_production.event_log` el
+      left join `production-202017.ogv2_production.customer_customer` cc
       on cc.id = el.customer_id
       where cc.merchant_id = 113
       and el.type_id in (27,8,18)
-      and el.logged between subdate(CURDATE(), INTERVAL 1 DAY) and Curdate()
-      group by 1) b
+      and date(el.logged) between date_sub(CURRENT_DATE(), INTERVAL 1 DAY) and CURRENT_DATE()
+      ) b
       on a.Customer1 = b.Customer1
       and a.Customer2 = b.Customer2
-      where b.Logged - a.Logged = 0) c
+      where Date_DIFF(b.Logged, a.Logged, DAY) = 0) c
       left join
-      (select oi.id as 'ItemID', ss.public_id as 'Public', oo.customer_id as 'customer', ss.created as 'Created', pp.name 'PName', oi.quantity as 'quantity', pp.price as 'price', oo.id as 'orderid', oo.order_merchant_id 'merchantorderid', oo.sub_total as 'total'
-      from order_order oo
-      left join order_item oi
+      (select oi.id as ItemID, ss.public_id as Public, oo.customer_id as customer, ss.created as Created, pp.name PName, oi.quantity as quantity, pp.price as price, oo.id as orderid, oo.order_merchant_id as merchantorderid, oo.sub_total as total
+      from `production-202017.ogv2_production.order_order` oo
+      left join `production-202017.ogv2_production.order_item` oi
       on oi.order_id = oo.id
-      left join subscription_subscription ss
+      left join `production-202017.ogv2_production.subscription_subscription` ss
       on ss.id = oi.subscription_id
-      left join product_product pp
+      left join `production-202017.ogv2_production.product_product` pp
       on pp.id = oi.product_id
       where oo.merchant_id = 113
       and oo.status not in (1,4)
-      and oo.place between subdate(CURDATE(), INTERVAL 1 DAY) and adddate(Curdate(), INTERVAL 12 DAY)
-      group by 1) d
-      on d.orderid = c.Order
+      and oo.place between date_sub(CURRENT_DATE(), INTERVAL 1 DAY) and date_add(Current_date(), INTERVAL 12 DAY)
+      ) d
+      on d.orderid = c.Order1
       and d.customer = c.customer
-      group by c.Order, d.ItemID
       ;
        ;;
 
