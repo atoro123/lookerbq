@@ -108,6 +108,13 @@ view: zendesk_ticket_metrics {
     sql: ${TABLE}.created_at ;;
   }
 
+  measure: Average_Days_Open {
+    type: average
+    sql: date_diff(ifnull(${solved_date}, current_date()), ${created_date}, DAY) ;;
+    value_format: "0"
+  }
+
+
   dimension: first_resolution_time_in_minutes__business {
     type: number
     sql: ${TABLE}.first_resolution_time_in_minutes.business ;;

@@ -415,4 +415,11 @@ view: order_item {
     or ${subscription_subscription.subscription_type} = 'IU Replenishment'
     or ${order_offer.offer_name} like '%IU%'
     or ${order_offer.offer_name} like '%Impulse Upsell%')) or (${one_time} = 1 and ${subscription_id} is NULL);;}
+
+  dimension: TSC_Ordering_Offers {
+    description: "Filter allows you to select either BOPIS or Ship to Home (STH)"
+    type: string
+    sql: case when ${offer_id} in (5700,5763) then "BOPIS"
+      when ${offer_id} in (5701, 5761, 5762) then "STH" end;;
+  }
 }

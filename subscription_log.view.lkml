@@ -501,4 +501,11 @@ measure: total_activation_revenue_forecast_this_month {
     when ${merchant_id} in (108,131,236) then "Newell"
     else ${acv_tiers.account_name} end;;
   }
+
+  dimension: TSC_Ordering_Offers {
+    description: "Filter allows you to select either BOPIS or Ship to Home (STH)"
+    type: string
+    sql: case when ${offer_id} in (5700,5763) then "BOPIS"
+      when ${offer_id} in (5701, 5761, 5762) then "STH" end;;
+  }
 }

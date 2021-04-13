@@ -83,4 +83,15 @@ view: subscription_daily_summary {
     type: sum
     sql: ${new} ;;
   }
+
+  measure: Beginning_Active_Base{
+    type: number
+    sql: ${active}-${Total_Adds}+${Total_Cancels};;
+  }
+
+  measure: Churn {
+    type: number
+    sql: ${Total_Cancels}/((${active}+${Beginning_Active_Base})/2) ;;
+    value_format: "0.0%"
+  }
 }
