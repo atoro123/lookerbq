@@ -285,7 +285,7 @@ view: order_order {
     or ${subscription_offer.offer_name} LIKE '%IU%'
     or ${subscription_offer.offer_name} LIKE '%Impulse Upsell%'
     or ${subscription_offer.offer_type} IN (12,13,14,19,20,23)
-    or ${subscription_subscription.subscription_type} = 'IU Replenishment'
+    or ${subscription_subscription.subscription_type} = 'IU replenishment'
     or ${order_offer.offer_name} like '%IU%'
     or ${order_offer.offer_name} like '%Impulse Upsell%')) or (${order_item.one_time} is True and ${order_item.subscription_id} is NULL);;}
 
@@ -368,7 +368,7 @@ view: order_order {
       year,
       day_of_week
     ]
-    sql: DATE_SUB(DATE(${place_date}),INTERVAL ${subtracted_days_for_original} DAY) ;;
+    sql: TIMESTAMP(DATE_SUB(DATE(${place_date}),INTERVAL ${subtracted_days_for_original} DAY)) ;;
 
   }
 

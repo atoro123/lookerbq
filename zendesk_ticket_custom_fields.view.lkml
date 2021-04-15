@@ -9,7 +9,8 @@ max(if(cf.value.id = 360040008654, cf.value.value, NULL)) AS Ecom_Platform,
 max(if(cf.value.id = 360048654134, cf.value.value, NULL)) AS Product_Tags,
 max(if(cf.value.id = 360048528994, cf.value.value, NULL)) AS Documentation_Needed,
 max(if(cf.value.id = 360048654134, cf.value.value, NULL)) AS What_Do_You_Need_Help_With,
-max(if(cf.value.id = 1500002349661, cf.value.value, NULL)) AS Ticket_Resolution
+max(if(cf.value.id = 1500002349661, cf.value.value, NULL)) AS Ticket_Resolution,
+max(if(cf.value.id = 360021022514, cf.value.value, NULL)) AS Ticket_Type
 from (
 SELECT zt.id, cf
 FROM `stitch-poc-306316.zendesk.tickets` zt
@@ -26,6 +27,11 @@ group by id
       type: number
       primary_key: yes
       sql: ${TABLE}.id ;;
+    }
+
+    dimension: Ticket_Type {
+      type: string
+      sql: ${TABLE}.Ticket_Type ;;
     }
 
     dimension: Merchant {

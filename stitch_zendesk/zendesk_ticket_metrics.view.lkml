@@ -108,6 +108,13 @@ view: zendesk_ticket_metrics {
     sql: ${TABLE}.created_at ;;
   }
 
+  measure: Average_Days_Open {
+    type: average
+    sql: date_diff(ifnull(${solved_date}, current_date()), ${created_date}, DAY) ;;
+    value_format: "0"
+  }
+
+
   dimension: first_resolution_time_in_minutes__business {
     type: number
     sql: ${TABLE}.first_resolution_time_in_minutes.business ;;
@@ -291,5 +298,10 @@ view: zendesk_ticket_metrics {
   measure: count {
     type: count
     drill_fields: [id, tickets.via__source__to__name, tickets.via__source__from__name, tickets.via__source__from__ticket_id]
+  }
+
+  measure: Total_Replies {
+    type: sum
+    sql: ${replies} ;;
   }
 }

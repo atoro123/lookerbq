@@ -69,9 +69,19 @@ view: subscriber_daily_summary {
     sql: ${new} ;;
   }
 
-
   measure: Ending_Active_Base {
     type: number
     sql: ${active} ;;
+    }
+
+  measure: Beginning_Active_Base{
+    type: number
+    sql: ${active}-${Total_Adds}+${Total_Cancels};;
+  }
+
+  measure: Churn {
+    type: number
+    sql: ${Total_Cancels}/((${active}+${Beginning_Active_Base})/2) ;;
+    value_format: "0.0%"
   }
 }
