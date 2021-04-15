@@ -282,6 +282,11 @@ view: zendesk_ticket_comments {
     group_item_label: "Name"
   }
 
+  measure: Distinct_Tickets {
+    type: count_distinct
+    sql: ${ticket_id} ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [detail*]
