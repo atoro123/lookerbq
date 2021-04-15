@@ -68,4 +68,10 @@ view: subscriber_daily_summary {
     type: sum
     sql: ${new} ;;
   }
+
+
+  measure: Ending_Active_Base {
+    type: number
+    sql: ${active} ;;
+  }
 }
