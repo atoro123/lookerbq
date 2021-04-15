@@ -415,7 +415,7 @@ view: subscription_subscription {
 
   dimension: In_Store {
     type: yesno
-    sql: ${offer_id} in (2309,2547,1881,1883,1674,1675,1676,1678,1914,1924,1926,1919,4115)
+    sql: ${offer_id} in (2309,2547,1881,1883,1674,1675,1676,1678,1914,1924,1926,1919,4115,4554,4576)
     or  (${merchant_id} = 393 and ${store_id} <> '');;
   }
 
