@@ -611,6 +611,16 @@ view: order_order {
             else 'other' end;;
     }
 
+    measure: pending_orders {
+      description: "Count of Pending Orders"
+      type: count
+      filters: {
+        field: status
+        value: "1"
+      }
+      drill_fields: [order_details*]
+    }
+
       measure: Order_Fullfillment {
         type: number
         description: "% of Orders slated for placement that were sucessful. Includes Cancelled"

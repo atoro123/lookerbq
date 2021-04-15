@@ -84,6 +84,12 @@ view: subscription_daily_summary {
     sql: ${new} ;;
   }
 
+  measure: Ending_Active_Base {
+    type: number
+    sql: ${active} ;;
+
+  }
+
   measure: Beginning_Active_Base{
     type: number
     sql: ${active}-${Total_Adds}+${Total_Cancels};;
