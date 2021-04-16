@@ -29,7 +29,9 @@ view: subscription_subscription {
       month,
       quarter,
       year,
-      day_of_month
+      day_of_month,
+      month_name,
+      month_num
     ]
     sql: TIMESTAMP(${TABLE}.cancelled) ;;
   }
@@ -55,7 +57,8 @@ view: subscription_subscription {
       hour,
       hour_of_day,
       week_of_year,
-      day_of_week
+      day_of_week,
+      month_num
     ]
     sql: ${TABLE}.created ;;
   }
