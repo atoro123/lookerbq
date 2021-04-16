@@ -633,6 +633,21 @@ view: order_order {
     sql: ${order_item.product_id} ;;
   }
 
+    dimension: Diaper_Order {
+      description: "Order contains an Honest D&W Product"
+      group_label: "Client Specific"
+      type: yesno
+      sql: ${honest_diaper_orders.order_id} is not null ;;
+    }
+
+
+    dimension: SIS_Import_Order {
+      description: "Order contains an Honet SIS Import"
+      group_label: "Client Specific"
+      type: yesno
+      sql: ${honest_sis_orders.order_id} is not null ;;
+    }
+
     dimension_group: 2nd_retry_attempt_date {
       type: time
       timeframes: [
