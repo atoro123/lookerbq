@@ -412,9 +412,9 @@ view: order_item {
     or ${subscription_offer.offer_name} LIKE '%IU%'
     or ${subscription_offer.offer_name} LIKE '%Impulse Upsell%'
     or ${subscription_offer.offer_type} IN (12,13,14,19,20,23)
-    or ${subscription_subscription.subscription_type} = 'IU Replenishment'
+    or ${subscription_subscription.subscription_type} = 'IU replenishment'
     or ${order_offer.offer_name} like '%IU%'
-    or ${order_offer.offer_name} like '%Impulse Upsell%')) or (${one_time} = 1 and ${subscription_id} is NULL);;}
+    or ${order_offer.offer_name} like '%Impulse Upsell%')) or (${one_time} is TRUE and ${subscription_id} is NULL);;}
 
   dimension: TSC_Ordering_Offers {
     description: "Filter allows you to select either BOPIS or Ship to Home (STH)"

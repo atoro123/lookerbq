@@ -195,6 +195,27 @@ relationship: one_to_many
     relationship: one_to_one
   }
 
+  join: honest_diaper_orders {
+    type: left_outer
+    view_label: "Honest"
+    sql_on: ${honest_diaper_orders.order_id} = ${order_order.id} ;;
+    relationship: one_to_one
+  }
+
+  join: honest_sis_orders {
+    type: left_outer
+    view_label: "Honest"
+    sql_on: ${honest_sis_orders.order_id} = ${order_order.id} ;;
+    relationship: one_to_one
+  }
+
+  join: honest_overlap {
+    type: left_outer
+    view_label: "Subscription"
+    sql_on: ${honest_overlap.customer_id} = ${subscription_subscription.customer_id} ;;
+    relationship: many_to_one
+  }
+
   join: event_log {
     type: left_outer
     sql_on: ${customer_customer.id} = ${event_log.customer_id} ;;
@@ -307,6 +328,27 @@ explore: subscription_subscription {
     view_label: "Credit Card Recycling"
     sql_on: ${recycle_ccexpirationdatelog.order_id} = ${order_order.id} ;;
     relationship: one_to_many
+  }
+
+  join: honest_diaper_orders {
+    type: left_outer
+    view_label: "Honest"
+    sql_on: ${honest_diaper_orders.order_id} = ${order_order.id} ;;
+    relationship: one_to_one
+  }
+
+  join: honest_sis_orders {
+    type: left_outer
+    view_label: "Honest"
+    sql_on: ${honest_sis_orders.order_id} = ${order_order.id} ;;
+    relationship: one_to_one
+  }
+
+  join: honest_overlap {
+    type: left_outer
+    view_label: "Subscription"
+    sql_on: ${honest_overlap.customer_id} = ${subscription_subscription.customer_id} ;;
+    relationship: many_to_one
   }
 
   join: customer_facts {
@@ -492,6 +534,20 @@ explore: customer_customer {
     sql_on: ${customer_facts.customer_id} = ${order_order.customer_id} ;;
     relationship: many_to_one
 
+  }
+
+  join: honest_diaper_orders {
+    type: left_outer
+    view_label: "Honest"
+    sql_on: ${honest_diaper_orders.order_id} = ${order_order.id} ;;
+    relationship: one_to_one
+  }
+
+  join: honest_sis_orders {
+    type: left_outer
+    view_label: "Honest"
+    sql_on: ${honest_sis_orders.order_id} = ${order_order.id} ;;
+    relationship: one_to_one
   }
 
   join: recycle_ccexpirationdatelog {

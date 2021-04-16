@@ -537,7 +537,7 @@ view: subscription_subscription {
 
   dimension: dead_import {
     type: yesno
-    sql: case when ${live} = 0 and ${cancelled_month} is null then 1 else 0 end ;;
+    sql: case when ${live} is false and ${cancelled_month} is null then TRUE else FALSE end ;;
   }
 
   dimension: current_date {
