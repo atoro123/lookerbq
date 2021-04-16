@@ -31,7 +31,8 @@ view: subscriber_monthly_summary {
       month,
       quarter,
       month_name,
-      year
+      year,
+      month_num
     ]
     convert_tz: no
     datatype: date
