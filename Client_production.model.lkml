@@ -1519,3 +1519,7 @@ explore: illy_program_subscribers {
   label: "illy Programs Subscribers"
   view_label: "illy Programs Subscribers"
 }
+
+explore: kind_susbcription_bundle {
+  hidden: yes
+}

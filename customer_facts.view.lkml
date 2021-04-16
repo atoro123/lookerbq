@@ -98,7 +98,8 @@ view: customer_facts {
       quarter,
       year,
       day_of_month,
-      month_num
+      month_num,
+      week_of_year
     ]
     label: "Customer Cancelled"
     description: "last date that a customer unsubscribed"
