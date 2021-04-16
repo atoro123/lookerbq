@@ -47,7 +47,8 @@ view: customer_facts {
       year,
       day_of_month,
       week_of_year,
-      day_of_week
+      day_of_week,
+      month_num
     ]
     label: "Customer Creation"
     description: "first date that a customer subscribed"
@@ -96,7 +97,8 @@ view: customer_facts {
       month_name,
       quarter,
       year,
-      day_of_month
+      day_of_month,
+      month_num
     ]
     label: "Customer Cancelled"
     description: "last date that a customer unsubscribed"
