@@ -136,6 +136,10 @@ explore: customer_experience_log {  access_filter: {field:merchant_id
     sql_on: ${customer_customer.id} = ${order_item_log.customer_id} ;;
   }
 
+    join: vsi_iu_log {
+      sql_on: ${vsi_iu_log.key} = ${order_item_log.vsi_iu_key} ;;
+    }
+
   join: order_item {
     relationship: one_to_many
     sql_on: ${order_order.id} = ${order_item.order_id} ;;
@@ -257,10 +261,15 @@ explore: cart_log {
 explore: order_item_log {access_filter: {field:merchant_id
     user_attribute:merchant_id}
   persist_with: daily_refresh
+
   join: product_product {
     sql_on: ${product_product.id} = ${order_item_log.product_id} ;;
     relationship: many_to_one
   }
+
+    join: vsi_iu_log {
+      sql_on: ${vsi_iu_log.key} = ${order_item_log.vsi_iu_key} ;;
+    }
 
   join: customer_customer {
     type: left_outer
@@ -308,7 +317,12 @@ explore: order_log {access_filter: {field:merchant_id
   join: order_item_log {
     sql_on: ${order_item_log.order_id} = ${order_log.order_id} ;;
     relationship: many_to_many
-  }}
+  }
+    join: vsi_iu_log {
+      sql_on: ${vsi_iu_log.key} = ${order_item_log.vsi_iu_key} ;;
+    }
+
+  }
 
 explore: impulse_upsell_adds {access_filter: {field:merchant_id
     user_attribute:merchant_id}

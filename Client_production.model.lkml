@@ -1273,6 +1273,10 @@ explore: event_log {
       relationship: one_to_many
     }
 
+    join: vsi_iu_log {
+      sql_on: ${vsi_iu_log.key} = ${order_item_log.vsi_iu_key} ;;
+    }
+
     join: merchant_merchant_industries {
       sql_on: ${merchant_merchant_industries.merchant_id} = ${merchant_merchant.id} ;;
     }

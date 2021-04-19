@@ -138,4 +138,15 @@ view: order_item_log {
     type: count_distinct
     sql: ${item_id} ;;
   }
+
+  dimension: vsi_iu_key {
+    type: string
+    hidden: yes
+    sql: concat(${customer_id}, "-", ${order_id}, "-", ${product_id}, "-", ${logged_date}) ;;
+  }
+
+  dimension: IU_One_Time {
+    type: yesno
+    sql: ${vsi_iu_log.key} is null ;;
+  }
 }
