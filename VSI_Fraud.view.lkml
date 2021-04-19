@@ -55,49 +55,49 @@ view: vsi_fraud {
     dimension: merchant_user_id {
       type: string
       label: "Merchant User ID"
-      sql: ${TABLE}.`Merchant User ID` ;;
+      sql: ${TABLE}.Merchant_User_ID ;;
     }
 
     dimension: og_user_id {
       type: number
       label: "OG User ID"
-      sql: ${TABLE}.`OG User ID` ;;
+      sql: ${TABLE}.OG_User_ID ;;
     }
 
     dimension: trigger_date {
       type: date
       label: "Trigger Date"
-      sql: ${TABLE}.`Trigger Date` ;;
+      sql: ${TABLE}.Trigger_Date ;;
     }
 
     dimension: trigger_type {
       type: string
       label: "Event Trigger"
-      sql: ${TABLE}.`Trigger` ;;
+      sql: ${TABLE}.Trigger ;;
     }
 
     dimension: address_change_date {
       type: date
       label: "Address Change Date"
-      sql: ${TABLE}.`Address Change Date` ;;
+      sql: ${TABLE}.Address_Change_Date ;;
     }
 
     dimension: trigger_payload {
       type: string
       label: "Event Trigger Payload"
-      sql: ${TABLE}.`Trigger Payload` ;;
+      sql: ${TABLE}.Trigger_Payload ;;
     }
 
     dimension: shipping_change_payload {
       type: string
       label: "Shipping Change Payload"
-      sql: ${TABLE}.`Shipping Change Payload` ;;
+      sql: ${TABLE}.Shipping_Change_Payload ;;
     }
 
     dimension: subscription_public_id {
       type: string
       label: "Subscription Public ID"
-      sql: ${TABLE}.`Subscription Public ID` ;;
+      sql: ${TABLE}.Subscription_Public_ID ;;
     }
 
     dimension_group: created {
@@ -108,7 +108,7 @@ view: vsi_fraud {
     dimension: product_name {
       type: string
       label: "Product Name"
-      sql: ${TABLE}.`Product Name` ;;
+      sql: ${TABLE}.Product_Name ;;
     }
 
     dimension: quantity {
@@ -123,7 +123,7 @@ view: vsi_fraud {
 
     dimension: order {
       type: number
-      sql: ${TABLE}.`Order` ;;
+      sql: ${TABLE}.Order1 ;;
       value_format: "0"
     }
 
