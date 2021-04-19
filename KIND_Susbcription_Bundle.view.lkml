@@ -1,6 +1,6 @@
 view: kind_susbcription_bundle {
   derived_table: {
-    sql_trigger_value: select current_date ;;
+    sql_trigger_value: SELECT FLOOR(((TIMESTAMP_DIFF(CURRENT_TIMESTAMP(),'1970-01-01 00:00:00',SECOND)) - 60*60*8)/(60*60*24));;
     sql: select subscription_subscription.id as OG_SubID, customer_customer.merchant_user_id as KIND_Customer_ID, product_product.sku as Component_SKU, product_product.name as Product_Name, subscription_subscription.live
               from ogv2_production.customer_customer
               join ogv2_production.subscription_subscription on customer_customer.id = subscription_subscription.customer_id
