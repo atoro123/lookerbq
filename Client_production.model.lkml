@@ -46,6 +46,10 @@ explore: order_order {
     type: left_outer
   }
 
+  join: customer_payment {
+    sql_on: ${order_order.payment_id} = ${customer_payment.id};;
+  }
+
   join: subscription_subscription {
     view_label: "Subscription"
     sql_on: ${order_item.subscription_id} = ${subscription_subscription.id} ;;
