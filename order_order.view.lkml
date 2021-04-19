@@ -227,19 +227,22 @@ view: order_order {
   dimension: rejected_reason {
     sql:
     case
-    when (${rejected_message} like '%could not be submitted' and ${merchant_id} = 150) then 'Order Could not be Submitted'
-    when ${rejected_message} like '%KOUNT%' then 'KOUNT Technical Issue'
-    when ${rejected_message} like '%020%' then 'Technical Issue'
-    when ${rejected_message} like '%998%' then 'Order Failed Data Validation'
     when ${rejected_message} like '%500%' then 'Payment Expired'
+    when (${rejected_message} like '%020%' and ${merchant_id} = 150) then 'Technical Issue'
     when ${rejected_message} like '%520%' then 'Generic Error Code'
+    when (${rejected_message} like '%KOUNT%' and ${merchant_id} = 150) then 'KOUNT Technical Issue'
     when ${rejected_message} like '%140%' then 'Payment was declined'
     when ${rejected_message} like '%130%' then 'Invalid Billing or Shipping Address'
     when ${rejected_message} like '%120%' then 'Invalid Payment'
     when ${rejected_message} like '%110%' then 'Invalid Credit Card Number'
-    when ${rejected_message} like '%100%' then 'Could not obtain a Customer Payment record'
     when ${status} = 14 then 'Response Processing Error'
-    when ${rejected_message} like '{}' then 'No Response'
+    when ${rejected_message} like '%Aurus%' then 'Aurus Payment Token Not Available'
+    when ${rejected_message} like '%creation%' then 'Order Creation Failed'
+    when ${rejected_message} like '%wallet%' then 'No CC Saved'
+    when ${rejected_message} like '%order placement failed%' then 'Order Placement Failure'
+    when ${rejected_message} like '%998%' then 'Order Failed Data Validation'
+    when ${rejected_message} like '%cart%' then 'Cart Build Failure'
+    when ${rejected_message} like '%fraud%' then 'Rejected Due to Fraud'
     when ${rejected_message} is NULL then NULL
     else 'Other' end;;
     }

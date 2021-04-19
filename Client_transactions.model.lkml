@@ -308,7 +308,12 @@ explore: order_log {access_filter: {field:merchant_id
   join: order_item_log {
     sql_on: ${order_item_log.order_id} = ${order_log.order_id} ;;
     relationship: many_to_many
-  }}
+  }
+
+    join: vsi_iu_log {
+      sql_on: ${vsi_iu_log.key} = ${order_item_log.vsi_iu_key} ;;
+    }
+  }
 
 explore: impulse_upsell_adds {access_filter: {field:merchant_id
     user_attribute:merchant_id}
