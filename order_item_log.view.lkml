@@ -144,4 +144,9 @@ view: order_item_log {
     type: count_distinct
     sql: ${item_id} ;;
   }
+
+  dimension: IU_One_Time {
+    type: yesno
+    sql: ${vsi_iu_log.key} is null ;;
+  }
 }
