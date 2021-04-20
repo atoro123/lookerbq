@@ -112,6 +112,11 @@ view: harvest_hours {
     ;;
   }
 
+  dimension: merchant_id {
+    type: number
+    sql: case when REGEXP_CONTAINS(${client}, "-") is TRUE then cast(split(right(${client},6), "-")[offset(1)] as numeric) end;;
+  }
+
   dimension: notes {
     type: string
     sql: ${TABLE}.Notes ;;
