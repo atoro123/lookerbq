@@ -668,7 +668,8 @@ explore: customer_customer {
 explore: harvest_merchant_mapping {
   label: "Harvest"
   join: harvest_hours {
-    sql_on: ${harvest_hours.client} = ${external_source_merchant_mapping.harvest_name} ;;
+    sql_on: case when REGEXP_CONTAINS(client, "-") is TRUE then ${harvest_hours.merchant_id} = ${harvest_merchant_mapping.merchant_id} else
+    ${harvest_hours.client} = ${harvest_merchant_mapping.account} end;;
   }
 
   join: harvest {
