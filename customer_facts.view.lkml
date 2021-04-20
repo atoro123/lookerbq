@@ -81,6 +81,13 @@ view: customer_facts {
     type: yesno
     sql: ${TABLE}.Live ;;
   }
+
+  measure:  Live_Subscribers {
+    type: count_distinct
+    sql: case when ${Customer_Live} is TRUE then ${customer_id} else null end ;;
+  }
+
+
   dimension: merchant_id {
     type: number
     sql: ${TABLE}.merchant_id ;;
