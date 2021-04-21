@@ -71,7 +71,7 @@ view: subscription_daily_summary {
 
   measure: active_end {
     type:  sum
-    sql:  cast(${active} as signed) ;;
+    sql:  ${active} ;;
   }
 
   measure: Total_Cancels {
@@ -92,7 +92,7 @@ view: subscription_daily_summary {
 
   measure: Beginning_Active_Base{
     type: number
-    sql: ${active}-${Total_Adds}+${Total_Cancels};;
+    sql: ${active_end}-${Total_Adds}+${Total_Cancels};;
   }
 
   measure: Churn {
