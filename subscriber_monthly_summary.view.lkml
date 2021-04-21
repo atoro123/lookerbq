@@ -78,7 +78,7 @@ view: subscriber_monthly_summary {
   }
   measure: churn_rate {
     type: number
-    sql: (${total_cancels}/${average_month_base}) ;;
+    sql: case when ${average_month_base} = 0 then 0 else (${total_cancels}/${average_month_base}) end ;;
     value_format: "0.00%"
   }
 }

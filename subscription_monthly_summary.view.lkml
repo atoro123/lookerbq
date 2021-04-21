@@ -182,14 +182,14 @@ measure: average_month_base {
 
   measure: churn_rate_frequency {
     type:  number
-    sql:  ${frequency_cancels}/${average_month_base_frequency}
+    sql:  case when ${average_month_base_frequency} = 0 then 0 else ${frequency_cancels}/${average_month_base_frequency} end
       ;;
     value_format: "0.00%"
   }
 
 measure: churn_rate {
   type:  number
-  sql:  ${month_cancels}/${average_month_base}
+  sql:  case when ${average_month_base} = 0 then 0 else ${month_cancels}/${average_month_base} end
   ;;
   value_format: "0.00%"
 }
