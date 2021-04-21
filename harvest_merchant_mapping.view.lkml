@@ -54,7 +54,8 @@ view: harvest_merchant_mapping {
       quarter,
       year,
       fiscal_quarter,
-      fiscal_year
+      fiscal_year,
+      fiscal_quarter_of_year
     ]
     sql: TIMESTAMP(${TABLE}.Original_Signed_Date) ;;
   }
