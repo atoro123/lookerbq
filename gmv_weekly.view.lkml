@@ -59,4 +59,64 @@ view: gmv_weekly {
     type: sum
     sql: ${3rd_Month_Forecast} ;;
   }
+
+  dimension: Jan_2021_Forecast {
+    type: number
+    sql: ${TABLE}.Jan_2021 ;;
+  }
+
+  dimension: Dec_2020_Forecast {
+    type: number
+    sql: ${TABLE}.Dec_2020 ;;
+  }
+
+  dimension: Nov_2020_Forecast {
+    type: number
+    sql: ${TABLE}.Nov_2020 ;;
+  }
+
+  dimension: Oct_2020_Forecast {
+    type: number
+    sql: ${TABLE}.Oct_2020 ;;
+  }
+
+  dimension: Sep_2020_Forecast {
+    type: number
+    sql: ${TABLE}.Sep_2020 ;;
+  }
+
+  dimension: Aug_2020_Forecast {
+    type: number
+    sql: ${TABLE}.Sep_2020 ;;
+  }
+
+  measure: Total_Jan_2021_Forecast {
+    type: sum
+    sql: ${Jan_2021_Forecast};;
+  }
+
+  measure: Total_Dec_2020_Forecast {
+    type: sum
+    sql: ${Dec_2020_Forecast};;
+  }
+
+  measure: Total_Nov_2020_Forecast {
+    type: sum
+    sql: ${Nov_2020_Forecast};;
+  }
+
+  measure: Total_Oct_2020_Forecast {
+    type: sum
+    sql: ${Oct_2020_Forecast};;
+  }
+
+  measure: Total_Sep_2020_Forecast {
+    type: sum
+    sql: ${Sep_2020_Forecast};;
+  }
+
+  measure: Total_Aug_2020_Forecast {
+    type: sum
+    sql: ${Aug_2020_Forecast};;
+  }
 }
