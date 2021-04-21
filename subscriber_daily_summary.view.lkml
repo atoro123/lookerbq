@@ -81,7 +81,7 @@ view: subscriber_daily_summary {
 
   measure: Churn {
     type: number
-    sql: ${Total_Cancels}/((${active_end}+${Beginning_Active_Base})/2) ;;
+    sql: case when ((${active_end}+${Beginning_Active_Base})/2) = 0 then 0 else ${Total_Cancels}/((${active_end}+${Beginning_Active_Base})/2) end ;;
     value_format: "0.0%"
   }
 }
