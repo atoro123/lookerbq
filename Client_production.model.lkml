@@ -1576,7 +1576,7 @@ explore: account {
   }
 
   join: client_status_tracker__c {
-    sql_on: ${account.client_status__c} = ${client_status_tracker__c.id} ;;
+    sql_on: ${account.id} = ${client_status_tracker__c.account__c} ;;
   }
 }
 
