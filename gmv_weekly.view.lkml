@@ -22,16 +22,19 @@ view: gmv_weekly {
   dimension: 1st_Month_Forecast {
     type: number
     sql: ${TABLE}.Month_1 ;;
+    value_format: "$#,##0.00"
   }
 
   dimension: 2nd_Month_Forecast {
     type: number
     sql: ${TABLE}.Month_2 ;;
+    value_format: "$#,##0.00"
   }
 
   dimension: 3rd_Month_Forecast {
     type: number
     sql: ${TABLE}.Month_3 ;;
+    value_format: "$#,##0.00"
   }
 
   dimension: merchant_id {
@@ -48,75 +51,90 @@ view: gmv_weekly {
   measure: Total_Month_1_Forecast {
     type: sum
     sql: ${1st_Month_Forecast} ;;
+    value_format: "$#,##0.00"
   }
 
   measure: Total_Month_2_Forecast {
     type: sum
     sql: ${2nd_Month_Forecast};;
+    value_format: "$#,##0.00"
   }
 
   measure: Total_Month_3_Forecast {
     type: sum
     sql: ${3rd_Month_Forecast} ;;
+    value_format: "$#,##0.00"
   }
 
   dimension: Jan_2021_Forecast {
     type: number
     sql: ${TABLE}.Jan_2021 ;;
+    value_format: "$#,##0.00"
   }
 
   dimension: Dec_2020_Forecast {
     type: number
     sql: ${TABLE}.Dec_2020 ;;
+    value_format: "$#,##0.00"
   }
 
   dimension: Nov_2020_Forecast {
     type: number
     sql: ${TABLE}.Nov_2020 ;;
+    value_format: "$#,##0.000"
   }
 
   dimension: Oct_2020_Forecast {
     type: number
     sql: ${TABLE}.Oct_2020 ;;
+    value_format: "$#,##0.00"
   }
 
   dimension: Sep_2020_Forecast {
     type: number
     sql: ${TABLE}.Sep_2020 ;;
+    value_format: "$#,##0.00"
   }
 
   dimension: Aug_2020_Forecast {
     type: number
     sql: ${TABLE}.Sep_2020 ;;
+    value_format: "$#,##0.00"
   }
 
   measure: Total_Jan_2021_Forecast {
     type: sum
     sql: ${Jan_2021_Forecast};;
+    value_format: "$#,##0.00"
   }
 
   measure: Total_Dec_2020_Forecast {
     type: sum
     sql: ${Dec_2020_Forecast};;
+    value_format: "$#,##0.00"
   }
 
   measure: Total_Nov_2020_Forecast {
     type: sum
     sql: ${Nov_2020_Forecast};;
+    value_format: "$#,##0.00"
   }
 
   measure: Total_Oct_2020_Forecast {
     type: sum
     sql: ${Oct_2020_Forecast};;
+    value_format: "$#,##0.00"
   }
 
   measure: Total_Sep_2020_Forecast {
     type: sum
     sql: ${Sep_2020_Forecast};;
+    value_format: "$#,##0.00"
   }
 
   measure: Total_Aug_2020_Forecast {
     type: sum
     sql: ${Aug_2020_Forecast};;
+    value_format: "$#,##0.00"
   }
 }

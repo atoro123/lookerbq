@@ -304,4 +304,9 @@ view: zendesk_ticket_metrics {
     type: sum
     sql: ${replies} ;;
   }
+
+ measure: Average_Touches {
+   type: average
+  sql: ${replies} ;;
+ }
 }
