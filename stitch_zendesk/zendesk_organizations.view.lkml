@@ -147,6 +147,33 @@ view: zendesk_organizations {
     drill_fields: [detail*]
   }
 
+  dimension: client_status {
+    type: string
+    sql: ${TABLE}.organization_fields.client_status ;;
+  }
+
+  dimension: merchant_id {
+    type: string
+    sql: ${TABLE}.organization_fields.merchant_id ;;
+  }
+
+  dimension: platform {
+    type: string
+    sql: ${TABLE}.organization_fields.ecommerce_platform ;;
+  }
+
+  dimension: customer_segment {
+    type: string
+    sql: ${TABLE}.organization_fields.customer_segment ;;
+  }
+
+  dimension: Success_Owner{
+    type: string
+    sql: ${TABLE}.organization_fields.success_owner  ;;
+  }
+
+
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
