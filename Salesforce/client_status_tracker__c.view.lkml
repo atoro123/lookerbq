@@ -441,4 +441,14 @@ view: client_status_tracker__c {
     type: count
     drill_fields: [id, name]
   }
+
+  measure: Days_Since_start_of_Integration{
+    type:number
+    sql: date_diff(
+            case when ${actual_launch_date__c_date} is null then CURRENT_DATE()
+              else Date(EXTRACT(YEAR FROM ${actual_launch_date__c_date}),EXTRACT(MONTH FROM ${actual_launch_date__c_date}),EXTRACT(DAY FROM ${actual_launch_date__c_date}))
+              end,
+            DATE(EXTRACT(YEAR FROM ${integration_start_date__c_date}),EXTRACT(MONTH FROM ${integration_start_date__c_date}),EXTRACT(DAY FROM ${integration_start_date__c_date})),
+            DAY) ;;
+  }
 }
