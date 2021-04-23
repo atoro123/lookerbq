@@ -574,4 +574,11 @@ CHAR_LENGTH(REPLACE(${custom_packages}, ';', '')) + 1);;
     type: string
     sql: ${TABLE}.Target_Hrs_Override_Notes ;;
   }
+
+  measure: Total_Imp_Percent_Of_ACV {
+    type: number
+    sql: ${Total_Implementation}/${Total_Original_ACV} ;;
+    value_format: "0%"
+    drill_fields: [parent_account, account, signed_date_fiscal_quarter, Customer_Segment, platform, Total_Imp_Percent_Of_ACV]
+  }
 }

@@ -670,6 +670,7 @@ explore: harvest_merchant_mapping {
   join: harvest_hours {
     sql_on: case when REGEXP_CONTAINS(client, "-") is TRUE then ${harvest_hours.merchant_id} = ${harvest_merchant_mapping.merchant_id} else
     ${harvest_hours.client} = ${harvest_merchant_mapping.account} end;;
+    relationship: one_to_many
   }
 
   join: harvest {
