@@ -1563,12 +1563,12 @@ explore: account {
   }
 
   join: account_add_ons_pairs {
-    sql_on: ${account_add_ons_pairs.merchant_id} = ${account.merchant_id__c} ;;
+    sql_on: ${account_add_ons_pairs.id} = ${account.id} ;;
     relationship: one_to_many
   }
 
   join: account_add_ons {
-    sql_on: ${account_add_ons.merchant_id__c} = ${account.merchant_id__c} ;;
+    sql_on: ${account_add_ons.id} = ${account.id} ;;
     relationship: one_to_many
   }
 
