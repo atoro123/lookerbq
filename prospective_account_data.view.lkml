@@ -106,5 +106,13 @@ view: prospective_account_data {
     type: number
     sql: (${Implementation_Fee}/${ACV})  ;;
     value_format: "0.00%"
+    drill_fields: [Account, Opportunity_Name, Opportunity_Type, Close_Quarter, Closing_date]
   }
+
+  measure: Total_Implementation_Fee_Of_ACV {
+    type: number
+    sql: ${Total_Implementation_Fee}/${Total_ACV} ;;
+    value_format: "0.00%"
+    drill_fields: [Account, Opportunity_Name, Opportunity_Type, Close_Quarter, Closing_date]
    }
+  }
