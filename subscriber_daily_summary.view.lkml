@@ -70,7 +70,7 @@ view: subscriber_daily_summary {
   }
 
   measure: Ending_Active_Base {
-    type: number
+    type: max
     sql: ${active} ;;
     }
 
