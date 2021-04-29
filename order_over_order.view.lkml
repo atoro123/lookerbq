@@ -6,7 +6,10 @@ derived_table: {
    STRING_AGG(CAST((case when s.live = TRUE then status else null end) as STRING), ',' order by o.place) AS result_str,
     count(distinct(case when o.status =5 then o.id else NULL end)) AS completed_orders,
     MAX(CASE WHEN (o.status  = 5) THEN (DATE(o.place)) ELSE NULL END) AS max_success,
-    MAX(CASE WHEN (o.status  = 3) THEN (DATE(o.place)) ELSE NULL END) max_rejected
+    MAX(CASE WHEN (o.status  = 3) THEN (DATE(o.place)) ELSE NULL END) max_rejected,
+     count(distinct (case when o.status =3 then o.id else NULL end)) as rejected_orders,
+    count(distinct (case when o.status in (3,5,14) then o.id else NULL end)) as attempted_orders,
+    count(distinct (case when o.status =4 then o.id else NULL end)) as cancelled_orders
         from order_item i
         join order_order o on o.id=i.order_id
         join subscription_subscription s on s.id=i.subscription_id
@@ -84,5 +87,18 @@ dimension: result_str{
     type: average
     sql: ${Source_Completed_Orders} ;;
     value_format: "0.0"
+  }
+
+  dimension: Cancelled_Orders {
+    type: number
+    sql: ${TABLE}.cancelled_orders ;;
+  }
+
+  dimension: Bucket_Cancelled_Orders {
+    type: tier
+    style: interval
+    tiers: [0,1,2,3,4,5,6,7,8,9,10]
+    sql: ${Cancelled_Orders} ;;
+    value_format: "0"
   }
 }

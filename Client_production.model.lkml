@@ -4,6 +4,7 @@ include: "*.view.lkml"
 include: "/stitch_zendesk/*.view.lkml"
 include: "/Salesforce/*.view.lkml"
 include: "/Salesforce/Derived_Tables_sf/*.view.lkml"
+include: "/JIRA/*.view.lkml"
 fiscal_month_offset: 1
 
 # include all views in this project
