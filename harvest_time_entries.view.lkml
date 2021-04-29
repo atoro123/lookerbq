@@ -248,6 +248,7 @@ view: harvest_time_entries {
           when lower(${notes}) like '%international%' then 'International'
           when lower(${notes}) like '%promos%' then 'Advanced Promos'
           when lower(${notes}) like '%custom other%' then 'Custom Other'
+          when ${harvest_tasks.name} = 'Migration' then 'Migration'
           else 'Other' end
           ;;
   }
