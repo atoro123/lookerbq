@@ -64,4 +64,24 @@ group by 1,2,3,4,5,6,7  ;;
     type: sum
     sql: ${Story_Points} ;;
   }
+
+  dimension: Jira_Hours {
+    type: number
+    sql: ${Story_Points}*4 ;;
+  }
+
+  dimension: CSD_Cost {
+    type: number
+    sql: ${Jira_Hours}*67 ;;
+  }
+
+  measure: Total_CSD_Cost {
+    type: sum
+    sql: ${CSD_Cost} ;;
+  }
+
+  measure: Total_CSD_Forecast_Cost {
+    type: number
+    sql: ${Total_CSD_Cost}/(${harvest_merchant_mapping.Intergration_Percent_Complete}/100) ;;
+  }
   }
