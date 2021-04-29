@@ -63,6 +63,26 @@ view: subscription_subscription {
     sql: ${TABLE}.created ;;
   }
 
+  parameter: timeframe_picker {
+    label: "Date Granularity"
+    type: string
+    allowed_value: { value: "Date" }
+    allowed_value: { value: "Week" }
+    allowed_value: { value: "Month" }
+    allowed_value: { value: "Quarter" }
+    default_value: "Date"
+  }
+
+  dimension: dynamic_created_timeframe {
+    type: string
+    sql:
+    case when {% parameter timeframe_picker %} = 'Date' then date(${created_date})
+    when {% parameter timeframe_picker %} = 'Week' then date(${created_week})
+    when {% parameter timeframe_picker %} = 'Month' then date(FORMAT_TIMESTAMP('%Y-%m-01', ${created_date}))
+    when {% parameter timeframe_picker %} = 'Quarter' then date((FORMAT_TIMESTAMP('%Y-%m-01', TIMESTAMP_TRUNC(CAST(${created_date} AS TIMESTAMP), QUARTER))))
+    end ;;
+  }
+
   dimension_group: GMT_created {
     type: time
     timeframes: [
