@@ -53,7 +53,7 @@ view: harvest_time_entries {
 
   measure: Forecast_Work_Cost {
     type:  sum
-    sql: (${hours}*${harvest_roles.Role_Rate})/((case when ${harvest_merchant_mapping.percent_completed_integration} is not null then cast(${harvest_merchant_mapping.percent_completed_integration} as FLOAT64) else 0 end)/100) ;;
+    sql: (${hours}*${harvest_roles.Role_Rate})/((case when if(${harvest_merchant_mapping.percent_completed_integration} = 0, 1,${harvest_merchant_mapping.percent_completed_integration})  is not null then cast(if(${harvest_merchant_mapping.percent_completed_integration} = 0, 1,${harvest_merchant_mapping.percent_completed_integration}) as FLOAT64) else null end)/100) ;;
   }
 
   measure: total_hours {
