@@ -244,7 +244,7 @@ view: subscription_subscription {
     ]
     convert_tz: no
     datatype: date
-    sql: TIMESTAMP(${TABLE}.start_date) ;;
+    sql: ${TABLE}.start_date ;;
   }
 
   dimension: subscription_type {
