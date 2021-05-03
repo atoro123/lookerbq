@@ -1580,7 +1580,13 @@ explore: account {
   join: client_status_tracker__c {
     sql_on: ${account.id} = ${client_status_tracker__c.account__c} ;;
   }
+
+  join: opportunity_field_history {
+    sql_on: ${opportunity.id} = ${opportunity_field_history.opportunityid} ;;
+    relationship: one_to_many
+  }
 }
+
 
 explore: illy_program_subscribers {
   label: "illy Programs Subscribers"

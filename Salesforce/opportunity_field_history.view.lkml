@@ -130,4 +130,45 @@ view: opportunity_field_history {
     type: count
     drill_fields: [id, opportunity.forecastcategoryname, opportunity.name, opportunity.stagename, opportunity.id]
   }
+
+  dimension: oldvalue_Closedate {
+    type: date
+    sql: case when ${field} = 'CloseDate' then CAST(${opportunity_field_history.oldvalue} as TIMESTAMP) else null end ;;
+  }
+
+  dimension_group: oldvalue_date {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year,
+      fiscal_quarter
+    ]
+    sql:timestamp(${oldvalue_Closedate});;
+  }
+
+
+  dimension: newvalue_Closedate {
+    type: date
+    sql: case when ${field} = 'CloseDate' then CAST(${opportunity_field_history.newvalue} as TIMESTAMP) else null end ;;
+  }
+
+  dimension_group: newvalue_date {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year,
+      fiscal_quarter
+    ]
+    sql:timestamp(${newvalue_Closedate});;
+  }
 }
