@@ -694,6 +694,10 @@ explore: harvest_merchant_mapping {
     sql_on: ${external_source_merchant_mapping.csd_name} = ${csd_tickets.project_name} ;;
   }
 
+  join: jira_ticket {
+    sql_on: ${external_source_merchant_mapping.csd_name} = ${jira_ticket.Project_Name} ;;
+  }
+
   join: external_source_merchant_mapping {
     sql_on: ${harvest_merchant_mapping.merchant_id} = ${external_source_merchant_mapping.merchant_id} ;;
   }
@@ -1528,6 +1532,12 @@ explore: account {
     type: left_outer
     sql_on: ${harvest_time_entries.client_id} = ${harvest_clients.id};;
     relationship: one_to_many
+  }
+
+  join: harvest_merchant_mapping {
+    type: left_outer
+    sql_on: case when REGEXP_CONTAINS(name, "-") is TRUE then ${harvest_clients.merchant_id} = ${harvest_merchant_mapping.merchant_id} else
+    ${harvest_clients.name} = ${harvest_merchant_mapping.account} end;;
   }
 
   join: harvest_tasks {

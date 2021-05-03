@@ -45,7 +45,7 @@ view: harvest_clients {
 
   dimension: merchant_id {
     type: number
-    sql: case when REGEXP_CONTAINS(harvest_clients.name, "-") is TRUE then cast(split(right(harvest_clients.name,6), "-")[offset(1)] as numeric) end;;
+    sql: case when REGEXP_CONTAINS(harvest_clients.name, "- ") is TRUE then cast(split(right(harvest_clients.name,6), "-")[offset(1)] as numeric) end;;
   }
 
   dimension: merchant_name {
