@@ -358,6 +358,7 @@ measure: total_activation_revenue_forecast_this_month {
          when ${offer_id} in (2346,3061,3221,3232,3369,3327,2751,2763,2496,2493,2497,2494,2495) then "illylovers Machine (Select)"
         when ${offer_id} in (3118,3119,3120,3448,3449) then "Health Box"
         when ${offer_id} in (3443,3444,3445,3446,3447) then "Health Box Plus"
+        when ${product_product.sku} in ("small-batch-series-wholebean","signature-series-wholebean","small-batch-series-drip","single-origin-wholebean","signature-series-drip","single-origin-drip","small-batch-series-press-per","signature-series-press-per","small-batch-series-espresso","single-origin-press-per","small-batch-series-commercial") then "Curated"
         Else "PDP" end;;
   }
 
