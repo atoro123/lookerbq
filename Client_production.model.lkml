@@ -1608,7 +1608,4 @@ explore: kind_susbcription_bundle {
 }
 
 explore: email_daily_summary {
-  join: merchant_merchant {
-    sql_on: ${merchant_merchant.id} = ${email_daily_summary.merchant_id};;
   }
-}
