@@ -66,4 +66,25 @@ view: email_daily_summary {
     type: sum
     sql: ${clicks} ;;
   }
+
+  measure: open_rate {
+    group_label: "Rates"
+    type: number
+    sql: SAFE_DIVIDE(${opens_sum},${sent_sum}) ;;
+    value_format: "0.0%"
+  }
+
+  measure: click_rate {
+    group_label: "Rates"
+    type: number
+    sql: SAFE_DIVIDE(${clicks_sum},${sent_sum}) ;;
+    value_format: "0.0%"
+  }
+
+  measure: click_to_open_rate {
+    group_label: "Rates"
+    type: number
+    sql: SAFE_DIVIDE(${clicks_sum},${opens_sum}) ;;
+    value_format: "0.0%"
+  }
 }
