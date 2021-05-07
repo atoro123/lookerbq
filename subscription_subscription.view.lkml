@@ -112,7 +112,7 @@ view: subscription_subscription {
       year,
       day_of_month
     ]
-    sql: date_add(${TABLE}.cancelled, INTERVAL 4 HOUR) ;;
+    sql: TIMESTAMP(date_add(${TABLE}.cancelled, INTERVAL 4 HOUR)) ;;
   }
 
   dimension: customer_id {
