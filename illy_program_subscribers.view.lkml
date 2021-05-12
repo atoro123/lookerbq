@@ -31,7 +31,6 @@ view: illy_program_subscribers {
     dimension: customer_id {
       type: number
       primary_key: yes
-      hidden: yes
       sql: ${TABLE}.customer_id ;;
     }
 
@@ -248,6 +247,18 @@ view: illy_program_subscribers {
       label: "PDP Cancelled"
       sql: ${TABLE}.pdp_cancel ;;
     }
+
+  dimension: Machine_Lifetime {
+    description: "Lifetime of Machine Subscribers"
+    type: number
+    sql:if(${cancelled_machine_date} is null,DATE_DIFF(CURRENT_DATE(),${created_machine_date}, MONTH) , DATE_DIFF(${cancelled_machine_date},${created_machine_date}, MONTH)) ;;
+  }
+
+  dimension: Coffee_Lifetime {
+    description: "Lifetime of Coffee Subscribers"
+    type: number
+    sql:if(${cancelled_coffee_date} is null,DATE_DIFF(CURRENT_DATE(),${created_coffee_date}, MONTH) , DATE_DIFF(${cancelled_coffee_date},${created_coffee_date}, MONTH)) ;;
+  }
 
     measure: customer_count {
       type: count_distinct
