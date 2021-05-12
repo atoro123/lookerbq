@@ -70,6 +70,11 @@ group by 1,2,3,4,5,6,7  ;;
     sql: ${Story_Points}*4 ;;
   }
 
+  measure: Total_Hours {
+    type:  sum
+    sql: ${Jira_Hours} ;;
+  }
+
   dimension: CSD_Cost {
     type: number
     sql: ${Jira_Hours}*67 ;;

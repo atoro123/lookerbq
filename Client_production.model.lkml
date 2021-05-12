@@ -1601,6 +1601,18 @@ explore: account {
     sql_on: ${opportunity.id} = ${opportunity_field_history.opportunityid} ;;
     relationship: one_to_many
   }
+
+  join: external_source_merchant_mapping {
+    sql_on: ${account.merchant_id__c} = ${external_source_merchant_mapping.merchant_id} ;;
+  }
+
+  join: csd_tickets {
+    sql_on: ${external_source_merchant_mapping.csd_name} = ${csd_tickets.project_name} ;;
+  }
+
+  join: jira_ticket {
+    sql_on: ${external_source_merchant_mapping.csd_name} = ${jira_ticket.Project_Name} ;;
+  }
 }
 
 
