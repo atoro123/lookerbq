@@ -786,7 +786,8 @@ explore: harvest_merchant_mapping {
   }
 
   join: account {
-    sql: ${account.merchant_id__c} = ${harvest_merchant_mapping.merchant_id} ;;
+    sql_on: ${account.merchant_id__c} = ${harvest_merchant_mapping.merchant_id} ;;
+    relationship: one_to_one
   }
 }
 
