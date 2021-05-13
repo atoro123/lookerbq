@@ -122,6 +122,19 @@ view: record_type {
   dimension: name {
     type: string
     sql: ${TABLE}.name ;;
+    order_by_field: name_order
+  }
+
+  dimension: name_order {
+    type: string
+    sql: if(${name} = 'New Business',0,
+          if(${name} = 'Renewal',1,
+          if(${name} = 'Cross sell',2,
+          if(${name} = 'Upsell',3,
+          if(${name} = 'GMV Increase',4,5)))))
+
+
+    ;;
   }
 
   dimension: namespaceprefix {

@@ -1724,6 +1724,26 @@ view: opportunity {
     type: count_distinct
     sql: ${id} ;;}
 
+  parameter: timeframe_picker {
+    label: "Date Granularity"
+    type: string
+    allowed_value: { value: "Week" }
+    allowed_value: { value: "Month" }
+    allowed_value: { value: "Quarter" }
+    allowed_value: { value: "Year" }
+    default_value: "Quarter"
+  }
+
+  dimension: dynamic_created_timeframe {
+    type: string
+    sql:
+    case when {% parameter timeframe_picker %} = 'Date' then date(${closedate_date})
+    when {% parameter timeframe_picker %} = 'Week' then date(${closedate_week})
+    when {% parameter timeframe_picker %} = 'Month' then date(FORMAT_TIMESTAMP('%Y-%m-01', ${closedate_date}))
+    when {% parameter timeframe_picker %} = 'Quarter' then date((FORMAT_TIMESTAMP('%Y-%m-01', TIMESTAMP_TRUNC(CAST(${closedate_date} AS TIMESTAMP), QUARTER))))
+    end ;;
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [

@@ -1483,6 +1483,11 @@ explore: account {
     sql_on: ${account.id} = ${opportunity.accountid} ;;
   }
 
+  join: opportunity_record_type {
+    from: record_type
+    sql_on: ${opportunity.recordtypeid} = ${opportunity_record_type.id} ;;
+  }
+
   join: deal_committee__c {
     type: inner
     sql_on: case when ${deal_committee__c.opportunity_name__c} is not null then ${opportunity.id} else ${account.id} end = case when ${deal_committee__c.opportunity_name__c} is not null then ${deal_committee__c.opportunity_name__c} else ${deal_committee__c.account_name__c} end  ;;
