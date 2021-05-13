@@ -1429,6 +1429,11 @@ explore: zendesk_tickets {
     sql_on: ${harvest_merchant_mapping.merchant_id} = ${zendesk_ticket_mapping.merchant_id} ;;
   }
 
+  join: account {
+    type: left_outer
+    sql_on: ${account.merchant_id__c} = ${zendesk_ticket_mapping.merchant_id};;
+  }
+
   join: zendesk_ticket_comments {
     view_label: "Ticket Comments"
     type: left_outer
