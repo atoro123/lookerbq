@@ -62,6 +62,12 @@ view: harvest_time_entries {
     value_format: "0.0"
   }
 
+  measure: annual_contract_hours {
+    type: sum
+    sql: case when (${harvest_time_entries.created_date} >= ${account.gmv_start_date__c_date}) AND (${harvest_time_entries.created_date} <= ${account.gmv_end_date__c_date}) then ${hours} else 0 end;;
+    value_format: "0.0"
+  }
+
   dimension: is_billed {
     type: yesno
     sql: ${TABLE}.is_billed ;;
