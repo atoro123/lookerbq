@@ -796,7 +796,8 @@ view: account {
       month,
       quarter,
       year,
-      fiscal_quarter
+      fiscal_quarter,
+      fiscal_quarter_of_year
     ]
     sql: ${TABLE}.original_signed_date__c ;;
   }
@@ -996,7 +997,8 @@ view: account {
       month,
       quarter,
       year,
-      fiscal_quarter
+      fiscal_quarter,
+      fiscal_quarter_of_year
     ]
     sql: ${TABLE}.signed_date__c ;;
   }
