@@ -100,6 +100,11 @@ view: cart_log {
     sql: ${TABLE}.merchant_order_id ;;
   }
 
+  measure: Distinct_Merchant_Order_IDs {
+    type: count_distinct
+    sql: ${merchant_order_id} ;;
+  }
+
   dimension: merchant_user_id {
     type: string
     sql: ${TABLE}.merchant_user_id ;;

@@ -87,6 +87,6 @@ group by 1,2,3,4,5,6,7  ;;
 
   measure: Total_CSD_Forecast_Cost {
     type: sum
-    sql: (${CSD_Cost})/((case when if(${harvest_merchant_mapping.percent_completed_integration} = 0, 1,${harvest_merchant_mapping.percent_completed_integration})  is not null then cast(if(${harvest_merchant_mapping.percent_completed_integration} = 0, 1,${harvest_merchant_mapping.percent_completed_integration}) as FLOAT64) else null end)/100) ;;
+    sql: (${CSD_Cost})/((case when if(${client_status_tracker__c.percent_completed_integration} = 0, 1,${client_status_tracker__c.percent_completed_integration})  is not null then cast(if(${client_status_tracker__c.percent_completed_integration} = 0, 1,${client_status_tracker__c.percent_completed_integration}) as FLOAT64) else null end)/100) ;;
   }
   }

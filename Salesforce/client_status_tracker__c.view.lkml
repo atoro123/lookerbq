@@ -215,6 +215,17 @@ view: client_status_tracker__c {
   dimension: integration_checklist__c {
     type: number
     sql: ${TABLE}.integration_checklist__c ;;
+    value_format: "0\%"
+  }
+
+  dimension: percent_completed_integration {
+    type: number
+    sql: ${TABLE}.integration_checklist__c ;;
+  }
+
+  measure: Intergration_Percent_Complete {
+    type: sum
+    sql: case when ${percent_completed_integration} is not null then cast(${percent_completed_integration} as FLOAT64) else 0 end ;;
   }
 
   dimension: integration_effort__c {

@@ -789,6 +789,10 @@ explore: harvest_merchant_mapping {
     sql_on: ${account.merchant_id__c} = ${harvest_merchant_mapping.merchant_id} ;;
     relationship: one_to_one
   }
+
+  join: client_status_tracker__c {
+    sql_on: ${account.id} = ${client_status_tracker__c.account__c} ;;
+  }
 }
 
   explore: prospective_account_data {
