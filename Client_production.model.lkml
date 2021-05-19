@@ -28,10 +28,10 @@ fiscal_month_offset: 1
 
 # explore: order_item {}
 datagroup: daily_refresh {
-  sql_trigger: SELECT FLOOR(((TIMESTAMP_DIFF(CURRENT_TIMESTAMP(),'1970-01-01 00:00:00',SECOND)) - 60*60*8)/(60*60*24)) ;;
-  max_cache_age: "24 hours"
+  sql_trigger: SELECT FLOOR(((TIMESTAMP_DIFF(CURRENT_TIMESTAMP(),'1970-01-01 00:00:00',SECOND)) - 60*60*6)/(60*60*24)) ;;
+  max_cache_age: "2 hours"
 }
-persist_for: "24 hours"
+persist_for: "2 hours"
 
 explore: order_order {
   view_label: "Order"
