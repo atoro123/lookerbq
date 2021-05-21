@@ -823,6 +823,11 @@ explore: harvest_merchant_mapping {
     from: record_type
     sql_on: ${opportunity.recordtypeid} = ${opportunity_record_type.id} ;;
   }
+
+  join: partner_account__c {
+    sql_on: ${account.ecommerce_platform2__c} = ${partner_account__c.id} ;;
+    fields: [partner_account__c.id, partner_account__c.name]
+  }
 }
 
   explore: prospective_account_data {
