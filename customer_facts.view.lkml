@@ -27,6 +27,12 @@ view: customer_facts {
     drill_fields: [customer_customer.merchant_user_id,created_date]
   }
 
+  measure: new_customers_created {
+    sql: case when ${created_date} = ${subscription_subscription.created_date} then ${customer_id} else null end ;;
+    type: count_distinct
+    drill_fields: [customer_customer.merchant_user_id,created_date]
+  }
+
   dimension: customer_id {
     type: number
     primary_key: yes
