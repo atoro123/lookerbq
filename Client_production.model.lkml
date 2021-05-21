@@ -277,6 +277,16 @@ relationship: one_to_many
   fields: [subscription_log.sum_total_price,subscription_log.event_id,subscription_log.subscription_type,subscription_log.logged_date,subscription_log.offer_id,subscription_log.customer_id,subscription_log.source_id]
   relationship: many_to_many
   }
+
+  join: account {
+    sql_on: ${account.merchant_id__c} = ${order_order.merchant_id} ;;
+    relationship: one_to_one
+  }
+
+  join: user {
+    view_label: "Primary Success Owner"
+    sql_on: ${user.id} = ${account.primary_success_owner__c} ;;
+  }
   }
 
 
@@ -792,6 +802,31 @@ explore: harvest_merchant_mapping {
 
   join: client_status_tracker__c {
     sql_on: ${account.id} = ${client_status_tracker__c.account__c} ;;
+  }
+
+  join: parent_account {
+    from: account
+    sql_on: ${account.parentid} = ${parent_account.id};;
+    fields: [parent_account.name]
+  }
+
+  join: user {
+    view_label: "Primary Success Owner"
+    sql_on: ${user.id} = ${account.primary_success_owner__c} ;;
+  }
+
+  join: opportunity {
+    sql_on: ${account.id} = ${opportunity.accountid} ;;
+  }
+
+  join: opportunity_record_type {
+    from: record_type
+    sql_on: ${opportunity.recordtypeid} = ${opportunity_record_type.id} ;;
+  }
+
+  join: partner_account__c {
+    sql_on: ${account.ecommerce_platform2__c} = ${partner_account__c.id} ;;
+    fields: [partner_account__c.id, partner_account__c.name]
   }
 }
 

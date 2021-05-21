@@ -464,6 +464,11 @@ view: account {
     sql: ${TABLE}.gmv_end_date__c ;;
   }
 
+  dimension: Annual_GMV_Days_Left {
+    type: number
+    sql: date_diff(${gmv_end_date__c_date},current_date(), DAY)  ;;
+  }
+
   dimension: gmv_for_quadrants__c {
     type: string
     sql: ${TABLE}.gmv_for_quadrants__c ;;
@@ -935,6 +940,46 @@ view: account {
   dimension: psf_billing_terms__c {
     type: string
     sql: ${TABLE}.psf_billing_terms__c ;;
+  }
+
+  dimension: rate_card_acv__c {
+    type: number
+    sql: ${TABLE}.rate_card_acv__c ;;
+  }
+
+  measure: Total_Rate_Card_ACV {
+    type: sum
+    sql: ${rate_card_acv__c} ;;
+  }
+
+  dimension: rate_card_implementation_fee__c {
+    type: number
+    sql: ${TABLE}.rate_card_implementation_fee__c ;;
+  }
+
+  measure: Total_Rate_Card_Implementation_Fee {
+    type: sum
+    sql: ${rate_card_implementation_fee__c} ;;
+  }
+
+  dimension: imp_fee_rate_card__c {
+    type: number
+    sql: ${TABLE}.imp_fee_rate_card__c ;;
+  }
+
+  measure: Total_Implementation_Fee_Rate_Card {
+    type: sum
+    sql: ${imp_fee_rate_card__c} ;;
+  }
+
+  dimension: acv_rate_card__c {
+    type: number
+    sql: ${TABLE}.acv_rate_card__c ;;
+  }
+
+  measure: Total_ACV_Rate_Card {
+    type: sum
+    sql: ${acv_rate_card__c} ;;
   }
 
   dimension: rc_stage_current_point__c {

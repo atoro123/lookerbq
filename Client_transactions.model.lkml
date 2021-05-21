@@ -1,6 +1,11 @@
 connection: "production_bq"
 
-include: "*.view.lkml"                       # include all views in this project
+include: "*.view.lkml"
+include: "/stitch_zendesk/*.view.lkml"
+include: "/Salesforce/*.view.lkml"
+include: "/Salesforce/Derived_Tables_sf/*.view.lkml"
+include: "/JIRA/*.view.lkml"
+# include all views in this project
 # include: "my_dashboard.dashboard.lookml"   # include a LookML dashboard called my_dashboard
 
 # # Select the views that should be a part of this model,
@@ -96,6 +101,16 @@ explore: subscription_log {  access_filter: {field:merchant_id
       type: left_outer
       sql_on: ${subscription_log.merchant_id} = ${harvest_merchant_mapping.merchant_id} ;;
       relationship: many_to_one
+    }
+
+    join: account {
+      sql_on: ${account.merchant_id__c} = ${subscription_log.merchant_id} ;;
+      relationship: one_to_one
+    }
+
+    join: user {
+      view_label: "Primary Success Owner"
+      sql_on: ${user.id} = ${account.primary_success_owner__c} ;;
     }
 }
 
