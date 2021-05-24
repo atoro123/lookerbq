@@ -178,6 +178,7 @@ explore: customer_experience_log {  access_filter: {field:merchant_id
 
   join: customer_facts {
     sql_on: ${customer_customer.id} = ${customer_facts.customer_id} ;;
+    fields: [-customer_facts.new_customers_created]
     relationship: one_to_one
   }
 }
