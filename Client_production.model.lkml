@@ -815,6 +815,12 @@ explore: harvest_merchant_mapping {
     sql_on: ${user.id} = ${account.primary_success_owner__c} ;;
   }
 
+  join: Sales_Owner {
+    from: user
+    view_label: "Primary Sales Owner"
+    sql_on: ${user.id} = ${account.ownerid} ;;
+  }
+
   join: opportunity {
     sql_on: ${account.id} = ${opportunity.accountid} ;;
   }
@@ -1471,6 +1477,10 @@ explore: zendesk_tickets {
   join: account {
     type: left_outer
     sql_on: ${account.merchant_id__c} = ${zendesk_ticket_mapping.merchant_id};;
+  }
+
+  join: partner_account__c {
+    sql_on: ${account.ecommerce_platform2__c} = ${partner_account__c.id} ;;
   }
 
   join: zendesk_ticket_comments {
