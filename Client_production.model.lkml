@@ -1669,6 +1669,9 @@ explore: account {
   }
 }
 
+explore:   historical_information_google_sheet_connected {
+}
+
 
 explore: illy_program_subscribers {
   label: "illy Programs Subscribers"
