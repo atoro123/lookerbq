@@ -306,6 +306,10 @@ explore: subscription_subscription {
     relationship: one_to_many
   }
 
+  join: account {
+    sql_on: ${acv_tiers.merchant_id} = ${account.merchant_id__c} ;;
+  }
+
   join: subscription_order_count {
     sql_on: ${subscription_order_count.subscription_id} = ${subscription_subscription.id} ;;
     relationship: one_to_many
@@ -676,22 +680,11 @@ explore: customer_customer {
   }
 }
 
-explore: harvest_merchant_mapping {
+explore: Account_Mapping {
+  from: account
   label: "Harvest"
-  join: harvest_hours {
-    sql_on: case when REGEXP_CONTAINS(client, "-") is TRUE then ${harvest_hours.merchant_id} = ${harvest_merchant_mapping.merchant_id} else
-    ${harvest_hours.client} = ${harvest_merchant_mapping.account} end;;
-    relationship: one_to_many
-  }
-
-  join: harvest {
-    view_label: "New Harvest"
-    sql_on: ${harvest.merchant_id} = ${harvest_merchant_mapping.merchant_id} ;;
-    relationship: one_to_many
-  }
-
   join: merchant_merchant {
-    sql_on: ${merchant_merchant.id} = ${harvest_merchant_mapping.merchant_id} ;;
+    sql_on: ${merchant_merchant.id} = ${Account_Mapping.merchant_id__c} ;;
     relationship: one_to_one
   }
 
@@ -709,50 +702,50 @@ explore: harvest_merchant_mapping {
   }
 
   join: external_source_merchant_mapping {
-    sql_on: ${harvest_merchant_mapping.merchant_id} = ${external_source_merchant_mapping.merchant_id} ;;
+    sql_on: ${Account_Mapping.merchant_id__c} = ${external_source_merchant_mapping.merchant_id} ;;
   }
 
   join: acv_tiers {
-    sql_on: ${acv_tiers.merchant_id} = ${harvest_merchant_mapping.merchant_id} ;;
+    sql_on: ${acv_tiers.merchant_id} = ${Account_Mapping.merchant_id__c} ;;
     relationship: one_to_one
   }
 
   join: gmv_weekly {
-    sql_on: ${harvest_merchant_mapping.merchant_id} = ${gmv_weekly.merchant_id} ;;
+    sql_on: ${Account_Mapping.merchant_id__c} = ${gmv_weekly.merchant_id} ;;
     relationship: one_to_one
   }
 
   join: custom_deals {
     view_label: "Harvest Merchant Mapping"
-    sql_on: ${custom_deals.merchant_id} = ${harvest_merchant_mapping.merchant_id} ;;
+    sql_on: ${custom_deals.merchant_id} = ${Account_Mapping.merchant_id__c} ;;
     relationship: one_to_many
   }
 
 
   join: custom_deals_pairs {
     view_label: "Harvest Merchant Mapping"
-    sql_on: ${custom_deals_pairs.merchant_id} = ${harvest_merchant_mapping.merchant_id} ;;
+    sql_on: ${custom_deals_pairs.merchant_id} = ${Account_Mapping.merchant_id__c} ;;
     relationship: one_to_many
   }
 
   join: custom_deals_add_ons {
     view_label: "Harvest Merchant Mapping"
-    sql_on: ${custom_deals_add_ons.merchant_id} = ${harvest_merchant_mapping.merchant_id} ;;
+    sql_on: ${custom_deals_add_ons.merchant_id} = ${Account_Mapping.merchant_id__c} ;;
     relationship: many_to_one
   }
 
 
   join: custom_deals_add_on_pairs {
     view_label: "Harvest Merchant Mapping"
-    sql_on: ${custom_deals_add_on_pairs.merchant_id} = ${harvest_merchant_mapping.merchant_id} ;;
+    sql_on: ${custom_deals_add_on_pairs.merchant_id} = ${Account_Mapping.merchant_id__c} ;;
     relationship: many_to_one
   }
 
   join: harvest_clients {
     view_label: "Harvest"
     type: inner
-    sql_on: case when REGEXP_CONTAINS(name, "-") is TRUE then ${harvest_clients.merchant_id} = ${harvest_merchant_mapping.merchant_id} else
-    ${harvest_clients.name} = ${harvest_merchant_mapping.account} end;;
+    sql_on: case when REGEXP_CONTAINS(name, "-") is TRUE then ${harvest_clients.merchant_id} = ${Account_Mapping.merchant_id__c} else
+    ${harvest_clients.name} = ${Account_Mapping.name} end;;
     relationship: one_to_one
   }
 
@@ -796,7 +789,7 @@ explore: harvest_merchant_mapping {
   }
 
   join: account {
-    sql_on: ${account.merchant_id__c} = ${harvest_merchant_mapping.merchant_id} ;;
+    sql_on: ${account.merchant_id__c} = ${Account_Mapping.merchant_id__c} ;;
     relationship: one_to_one
   }
 
@@ -1361,14 +1354,6 @@ explore: event_log {
 
   explore: vsi_fraud {
     hidden: yes
-  }
-
-  explore: acv_tiers {
-    join: harvest_merchant_mapping {
-      type: left_outer
-      sql_on: ${acv_tiers.merchant_id} = ${harvest_merchant_mapping.merchant_id} ;;
-      relationship: one_to_one
-    }
   }
 
   explore:  log_conversationlog {

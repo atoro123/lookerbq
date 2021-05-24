@@ -89,4 +89,9 @@ measure: Total_Implementation_Fee {
   type: sum
   sql: ${implementation_fee} ;;
 }
+
+measure: Account_Count {
+  type: count_distinct
+  sql: ${account_id} ;;
+}
 }
