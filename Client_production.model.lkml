@@ -800,6 +800,11 @@ explore: harvest_merchant_mapping {
     relationship: one_to_one
   }
 
+  join: prospective_clients {
+    sql_on: ${account.id} = ${prospective_clients.account_id} ;;
+    relationship: one_to_one
+  }
+
   join: client_status_tracker__c {
     sql_on: ${account.id} = ${client_status_tracker__c.account__c} ;;
   }
