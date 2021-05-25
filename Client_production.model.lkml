@@ -681,7 +681,6 @@ explore: customer_customer {
 }
 
 explore: harvest_merchant_mapping {
-
   label: "Harvest"
   join: harvest_hours {
     sql_on: case when REGEXP_CONTAINS(client, "-") is TRUE then ${harvest_hours.merchant_id} = ${harvest_merchant_mapping.merchant_id} else
@@ -756,7 +755,7 @@ explore: harvest_merchant_mapping {
   join: harvest_clients {
     view_label: "Harvest"
     type: inner
-    sql_on: case when REGEXP_CONTAINS(name, "-") is TRUE then ${harvest_clients.merchant_id} = ${harvest_merchant_mapping.merchant_id} else
+    sql_on: case when REGEXP_CONTAINS(${harvest_clients.name}, "-") is TRUE then ${harvest_clients.merchant_id} = ${harvest_merchant_mapping.merchant_id} else
       ${harvest_clients.name} = ${harvest_merchant_mapping.account} end;;
     relationship: one_to_one
   }
@@ -801,7 +800,7 @@ explore: harvest_merchant_mapping {
   }
 
   join: account {
-    sql_on: ${account.merchant_id__c} = ${harvest_merchant_mapping.merchant_id} ;;
+    sql_on: ${account.name} = ${harvest_merchant_mapping.account} ;;
     relationship: one_to_one
   }
 

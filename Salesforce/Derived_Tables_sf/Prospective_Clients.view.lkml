@@ -3,7 +3,7 @@ view: prospective_clients {
     sql_trigger_value: select current_date ;;
     sql: select distinct accountid, name, stagename, fiscalquarter, fiscal, fiscalyear, annual_contract_value_acv__c,
     estimated_close_quarter__c, isclosed, customer_segment__c,
-ecommerce_partner__c, ownerid, implementation_fee_rate_card__c, setup_fee__c
+ecommerce_partner__c, ownerid, implementation_fee_rate_card__c, setup_fee__c, acv_rate_card__c
 from `stitch-poc-306316.salesforce.Opportunity`
 where setup_fee__c is not null
   ;;
@@ -18,6 +18,16 @@ where setup_fee__c is not null
 dimension: oppurtunity_name {
   type: string
   sql: ${TABLE}.name ;;
+}
+
+dimension: ACV_Rate_Card {
+  type: number
+  sql: ${TABLE}.acv_rate_card__c ;;
+}
+
+measure: Total_ACV_Rate_Card {
+  type: sum
+  sql: ${ACV_Rate_Card} ;;
 }
 
 dimension: oppurtunity_stage {
@@ -78,6 +88,11 @@ dimension: salesid {
 dimension: implementation_fee_rate_card {
   type: number
   sql: ${TABLE}.implementation_fee_rate_card__c ;;
+}
+
+measure: Total_Imp_Fee_Rate_Card {
+  type: sum
+  sql: ${implementation_fee_rate_card} ;;
 }
 
 measure: Total_ACV {
