@@ -1667,3 +1667,7 @@ explore: kind_susbcription_bundle {
 
 explore: email_daily_summary {
   }
+
+  explore: illy_us_capsule_subscribers {
+
+  }
