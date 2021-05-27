@@ -306,6 +306,10 @@ explore: subscription_subscription {
     relationship: one_to_many
   }
 
+  join: account {
+    sql_on: ${acv_tiers.merchant_id} = ${account.merchant_id__c} ;;
+  }
+
   join: subscription_order_count {
     sql_on: ${subscription_order_count.subscription_id} = ${subscription_subscription.id} ;;
     relationship: one_to_many
@@ -680,7 +684,7 @@ explore: harvest_merchant_mapping {
   label: "Harvest"
   join: harvest_hours {
     sql_on: case when REGEXP_CONTAINS(client, "-") is TRUE then ${harvest_hours.merchant_id} = ${harvest_merchant_mapping.merchant_id} else
-    ${harvest_hours.client} = ${harvest_merchant_mapping.account} end;;
+      ${harvest_hours.client} = ${harvest_merchant_mapping.account} end;;
     relationship: one_to_many
   }
 
@@ -751,8 +755,8 @@ explore: harvest_merchant_mapping {
   join: harvest_clients {
     view_label: "Harvest"
     type: inner
-    sql_on: case when REGEXP_CONTAINS(name, "-") is TRUE then ${harvest_clients.merchant_id} = ${harvest_merchant_mapping.merchant_id} else
-    ${harvest_clients.name} = ${harvest_merchant_mapping.account} end;;
+    sql_on: case when REGEXP_CONTAINS(${harvest_clients.name}, "-") is TRUE then ${harvest_clients.merchant_id} = ${harvest_merchant_mapping.merchant_id} else
+      ${harvest_clients.name} = ${harvest_merchant_mapping.account} end;;
     relationship: one_to_one
   }
 
@@ -796,7 +800,12 @@ explore: harvest_merchant_mapping {
   }
 
   join: account {
-    sql_on: ${account.merchant_id__c} = ${harvest_merchant_mapping.merchant_id} ;;
+    sql_on: ${account.name} = ${harvest_merchant_mapping.account} ;;
+    relationship: one_to_one
+  }
+
+  join: prospective_clients {
+    sql_on: ${account.id} = ${prospective_clients.account_id} ;;
     relationship: one_to_one
   }
 
@@ -833,24 +842,6 @@ explore: harvest_merchant_mapping {
   join: partner_account__c {
     sql_on: ${account.ecommerce_platform2__c} = ${partner_account__c.id} ;;
     fields: [partner_account__c.id, partner_account__c.name]
-  }
-}
-
-  explore: prospective_account_data {
-    label: "Prospective Accounts"
-  }
-
-explore: zen_desk_tickets {
-  label: "Zen Desk"
-
-  join: zendesk_ticket_mapping {
-    sql_on: ${zendesk_ticket_mapping.zendesk_name} = ${zen_desk_tickets.merchant} ;;
-    relationship: many_to_one
-  }
-
-  join: harvest_merchant_mapping {
-    sql_on: ${harvest_merchant_mapping.merchant_id} = ${zendesk_ticket_mapping.merchant_id} ;;
-    relationship: many_to_one
   }
 }
 
@@ -1358,14 +1349,6 @@ explore: event_log {
     hidden: yes
   }
 
-  explore: acv_tiers {
-    join: harvest_merchant_mapping {
-      type: left_outer
-      sql_on: ${acv_tiers.merchant_id} = ${harvest_merchant_mapping.merchant_id} ;;
-      relationship: one_to_one
-    }
-  }
-
   explore:  log_conversationlog {
     label: "9) Conversation Log"
   }
@@ -1699,4 +1682,8 @@ explore: kind_susbcription_bundle {
 }
 
 explore: email_daily_summary {
+  }
+
+  explore: illy_us_capsule_subscribers {
+
   }

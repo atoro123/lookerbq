@@ -119,6 +119,27 @@ view: account {
     sql: ${TABLE}.actual_launch_date__c ;;
   }
 
+  parameter: timeframe_picker {
+    label: "Date Granularity"
+    type: string
+    allowed_value: { value: "Week" }
+    allowed_value: { value: "Month" }
+    allowed_value: { value: "Quarter" }
+    allowed_value: { value: "Year" }
+    default_value: "Quarter"
+  }
+
+  dimension: dynamic_created_timeframe {
+    label: "Dynamic Launch Date"
+    type: string
+    sql:
+    case when {% parameter timeframe_picker %} = 'Date' then date(${actual_launch_date__c_date})
+    when {% parameter timeframe_picker %} = 'Week' then date(${actual_launch_date__c_week})
+    when {% parameter timeframe_picker %} = 'Month' then date(FORMAT_TIMESTAMP('%Y-%m-01', ${actual_launch_date__c_date}))
+    when {% parameter timeframe_picker %} = 'Quarter' then date((FORMAT_TIMESTAMP('%Y-%m-01', TIMESTAMP_TRUNC(CAST(${actual_launch_date__c_date} AS TIMESTAMP), QUARTER))))
+    end ;;
+  }
+
   dimension: add_ons__c {
     type: string
     sql: ${TABLE}.add_ons__c ;;
