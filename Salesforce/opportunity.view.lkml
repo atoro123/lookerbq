@@ -1727,6 +1727,7 @@ view: opportunity {
   parameter: timeframe_picker {
     label: "Date Granularity"
     type: string
+    allowed_value: { value: "Date" }
     allowed_value: { value: "Week" }
     allowed_value: { value: "Month" }
     allowed_value: { value: "Quarter" }
@@ -1741,6 +1742,7 @@ view: opportunity {
     when {% parameter timeframe_picker %} = 'Week' then date(${closedate_week})
     when {% parameter timeframe_picker %} = 'Month' then date(FORMAT_TIMESTAMP('%Y-%m-01', ${closedate_date}))
     when {% parameter timeframe_picker %} = 'Quarter' then DATE_ADD(date((FORMAT_TIMESTAMP('%Y-%m-01', TIMESTAMP_TRUNC(CAST(CAST(DATETIME_ADD(CAST(TIMESTAMP_TRUNC(CAST(opportunity.closedate  AS TIMESTAMP), MONTH) AS DATETIME), INTERVAL -1 MONTH) AS TIMESTAMP) AS TIMESTAMP), QUARTER)))), INTERVAL 1 MONTH)
+    when {% parameter timeframe_picker %} = 'Year' then date(FORMAT_TIMESTAMP('%Y-01-01', ${closedate_date}))
     end ;;
   }
 

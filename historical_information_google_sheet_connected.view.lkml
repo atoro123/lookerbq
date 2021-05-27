@@ -286,6 +286,7 @@ view: historical_information_google_sheet_connected {
   parameter: timeframe_picker {
     label: "Date Granularity"
     type: string
+    allowed_value: { value: "Date" }
     allowed_value: { value: "Week" }
     allowed_value: { value: "Month" }
     allowed_value: { value: "Quarter" }
@@ -300,6 +301,7 @@ view: historical_information_google_sheet_connected {
     when {% parameter timeframe_picker %} = 'Week' then date(${date_date})
     when {% parameter timeframe_picker %} = 'Month' then date(FORMAT_TIMESTAMP('%Y-%m-01', ${date_date}))
     when {% parameter timeframe_picker %} = 'Quarter' then DATE_ADD(date((FORMAT_TIMESTAMP('%Y-%m-01', TIMESTAMP_TRUNC(CAST(CAST(DATETIME_ADD(CAST(TIMESTAMP_TRUNC(CAST(${date_date} AS TIMESTAMP), MONTH) AS DATETIME), INTERVAL -1 MONTH) AS TIMESTAMP) AS TIMESTAMP), QUARTER)))), INTERVAL 1 MONTH)
+    when {% parameter timeframe_picker %} = 'Year' then date(FORMAT_TIMESTAMP('%Y-01-01', ${date_date}))
     end ;;
   }
 }
