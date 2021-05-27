@@ -422,7 +422,7 @@ view: subscription_subscription {
   dimension: Subscription_lifetime {
     type: number
     hidden: no
-    sql:DATE_DIFF(${cancelled_date},${created_date}, DAY) ;;
+    sql:case when ${cancelled_date} is null then DATE_DIFF(CURRENT_DATE(),${created_date}, DAY) else DATE_DIFF(${cancelled_date},${created_date}, DAY) end;;
   }
 
   dimension: Lifetime {

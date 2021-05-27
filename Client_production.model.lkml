@@ -1667,6 +1667,22 @@ explore: account {
   join: jira_ticket {
     sql_on: ${external_source_merchant_mapping.csd_name} = ${jira_ticket.Project_Name} ;;
   }
+
+  # join: contact {
+  #   sql_on: ${account.id} = ${contact.accountid} ;;
+  # }
+
+  # join: campaign_member {
+  #   sql_on: ${contact.id} = ${campaign_member.id} ;;
+  # }
+
+  # join: lead {
+  #   sql_on: ${lead.id} = ${campaign_member.leadid} ;;
+  # }
+
+  # join: downsell_record__c {
+  #   sql_on: ${downsell_record__c.downsell_date__c_date} = ${opportunity.closedate_date} ;;
+  # }
 }
 
 explore:   historical_information_google_sheet_connected {

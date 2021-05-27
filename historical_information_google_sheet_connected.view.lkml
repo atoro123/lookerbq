@@ -5,6 +5,8 @@ view: historical_information_google_sheet_connected {
   dimension_group: date {
     type: time
     timeframes: [
+      date,
+      week,
       month,
       quarter,
       year
@@ -278,5 +280,26 @@ view: historical_information_google_sheet_connected {
     type: sum
     sql: ${ending_acv} ;;
     value_format: "$#,##0.00"
+  }
+
+
+  parameter: timeframe_picker {
+    label: "Date Granularity"
+    type: string
+    allowed_value: { value: "Week" }
+    allowed_value: { value: "Month" }
+    allowed_value: { value: "Quarter" }
+    allowed_value: { value: "Year" }
+    default_value: "Quarter"
+  }
+
+  dimension: dynamic_created_timeframe {
+    type: string
+    sql:
+    case when {% parameter timeframe_picker %} = 'Date' then date(${date_date})
+    when {% parameter timeframe_picker %} = 'Week' then date(${date_date})
+    when {% parameter timeframe_picker %} = 'Month' then date(FORMAT_TIMESTAMP('%Y-%m-01', ${date_date}))
+    when {% parameter timeframe_picker %} = 'Quarter' then DATE_ADD(date((FORMAT_TIMESTAMP('%Y-%m-01', TIMESTAMP_TRUNC(CAST(CAST(DATETIME_ADD(CAST(TIMESTAMP_TRUNC(CAST(${date_date} AS TIMESTAMP), MONTH) AS DATETIME), INTERVAL -1 MONTH) AS TIMESTAMP) AS TIMESTAMP), QUARTER)))), INTERVAL 1 MONTH)
+    end ;;
   }
 }

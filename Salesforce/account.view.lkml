@@ -54,6 +54,21 @@ view: account {
     sql: ${TABLE}._sdc_received_at ;;
   }
 
+  dimension_group: churn_date {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year,
+      fiscal_quarter
+    ]
+    sql: ${TABLE}.churn_date ;;
+  }
+
   dimension: _sdc_sequence {
     type: number
     sql: ${TABLE}._sdc_sequence ;;

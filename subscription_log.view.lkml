@@ -509,4 +509,9 @@ measure: total_activation_revenue_forecast_this_month {
     sql: case when ${offer_id} in (5700,5763) then "BOPIS"
       when ${offer_id} in (5701, 5761, 5762) then "STH" end;;
   }
+
+  measure: min_logged {
+    type: min
+    sql: ${logged_date} ;;
+  }
 }

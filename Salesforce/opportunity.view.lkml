@@ -1740,7 +1740,7 @@ view: opportunity {
     case when {% parameter timeframe_picker %} = 'Date' then date(${closedate_date})
     when {% parameter timeframe_picker %} = 'Week' then date(${closedate_week})
     when {% parameter timeframe_picker %} = 'Month' then date(FORMAT_TIMESTAMP('%Y-%m-01', ${closedate_date}))
-    when {% parameter timeframe_picker %} = 'Quarter' then date((FORMAT_TIMESTAMP('%Y-%m-01', TIMESTAMP_TRUNC(CAST(${closedate_date} AS TIMESTAMP), QUARTER))))
+    when {% parameter timeframe_picker %} = 'Quarter' then DATE_ADD(date((FORMAT_TIMESTAMP('%Y-%m-01', TIMESTAMP_TRUNC(CAST(CAST(DATETIME_ADD(CAST(TIMESTAMP_TRUNC(CAST(opportunity.closedate  AS TIMESTAMP), MONTH) AS DATETIME), INTERVAL -1 MONTH) AS TIMESTAMP) AS TIMESTAMP), QUARTER)))), INTERVAL 1 MONTH)
     end ;;
   }
 
