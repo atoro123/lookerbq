@@ -1668,6 +1668,10 @@ explore: account {
   # }
 }
 
+explore: Salesforce_leads {
+  from: lead
+}
+
 explore:   historical_information_google_sheet_connected {
 }
 
