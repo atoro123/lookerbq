@@ -1663,10 +1663,20 @@ explore: account {
   #   sql_on: ${lead.id} = ${campaign_member.leadid} ;;
   # }
 
-  # join: downsell_record__c {
-  #   sql_on: ${downsell_record__c.downsell_date__c_date} = ${opportunity.closedate_date} ;;
-  # }
+  join: downsell_record__c {
+    sql_on: ${downsell_record__c.account__c} = ${account.id} ;;
+  }
+
+  join: historical_information_google_sheet_connected {
+    type:full_outer
+    relationship: many_to_one
+    sql_on: DATE_TRUNC(date(${opportunity.closedate_date}), month) = ${historical_information_google_sheet_connected.date_date} ;;
+  }
 }
+
+explore: ltv_predict_164_to_delete {}
+
+explore: opportunity_downsell_aggregations {}
 
 explore: Salesforce_leads {
   from: lead
