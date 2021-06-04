@@ -134,10 +134,11 @@ view: account {
     type: string
     sql:
     case when {% parameter timeframe_picker %} = 'Date' then date(${actual_launch_date__c_date})
-    when {% parameter timeframe_picker %} = 'Week' then date(${actual_launch_date__c_week})
+    when {% parameter timeframe_picker %} = 'Week' then date(${actual_launch_date__c_date})
     when {% parameter timeframe_picker %} = 'Month' then date(FORMAT_TIMESTAMP('%Y-%m-01', ${actual_launch_date__c_date}))
-    when {% parameter timeframe_picker %} = 'Quarter' then date((FORMAT_TIMESTAMP('%Y-%m-01', TIMESTAMP_TRUNC(CAST(${actual_launch_date__c_date} AS TIMESTAMP), QUARTER))))
-    end ;;
+    when {% parameter timeframe_picker %} = 'Quarter' then DATE_ADD(date((FORMAT_TIMESTAMP('%Y-%m-01', TIMESTAMP_TRUNC(CAST(CAST(DATETIME_ADD(CAST(TIMESTAMP_TRUNC(CAST(${actual_launch_date__c_date} AS TIMESTAMP), MONTH) AS DATETIME), INTERVAL -1 MONTH) AS TIMESTAMP) AS TIMESTAMP), QUARTER)))), INTERVAL 1 MONTH)
+    when {% parameter timeframe_picker %} = 'Year' then date(FORMAT_TIMESTAMP('%Y-01-01', ${actual_launch_date__c_date}))
+    end  ;;
   }
 
   dimension: add_ons__c {

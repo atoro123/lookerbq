@@ -287,6 +287,12 @@ relationship: one_to_many
     view_label: "Primary Success Owner"
     sql_on: ${user.id} = ${account.primary_success_owner__c} ;;
   }
+
+  join: parent_account {
+    from: account
+    sql_on: ${account.parentid} = ${parent_account.id};;
+    fields: [parent_account.name]
+  }
   }
 
 
@@ -1355,6 +1361,7 @@ explore: event_log {
 
   explore: order_reminder_cancels {
     label: "Order Reminder Cancels"
+    hidden: yes
   }
 
   explore: order_export {
@@ -1675,6 +1682,7 @@ explore:   historical_information_google_sheet_connected {
 explore: illy_program_subscribers {
   label: "illy Programs Subscribers"
   view_label: "illy Programs Subscribers"
+  hidden: yes
 }
 
 explore: kind_susbcription_bundle {
@@ -1685,5 +1693,5 @@ explore: email_daily_summary {
   }
 
   explore: illy_us_capsule_subscribers {
-
+    hidden: yes
   }

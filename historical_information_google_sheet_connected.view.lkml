@@ -144,9 +144,27 @@ view: historical_information_google_sheet_connected {
     sql: ${TABLE}.GOAL__GMV_Collected_Goal_ ;;
   }
 
+  dimension: goal_monthly_gmv_runrate {
+    type: number
+    sql: ${goal__gmv_collected_goal_}*12 ;;
+    value_format: "$#,##0.00"
+  }
+
+  measure: gmv_goal_runrate {
+    type: sum
+    label: "GMV Goal Run Rate"
+    sql: ${goal_monthly_gmv_runrate} ;;
+    value_format: "$#,##0.00"
+  }
+
   dimension: goal__launches {
     type: number
     sql: ${TABLE}.GOAL__Launches ;;
+  }
+
+  measure: Launch_Goal {
+    type: sum
+    sql: ${goal__launches} ;;
   }
 
   dimension: goal__net_new_acv {
@@ -222,11 +240,13 @@ view: historical_information_google_sheet_connected {
   dimension: ytd_gross_retention {
     type: number
     sql: ${TABLE}.YTD_Gross_Retention ;;
+    value_format: "0%"
   }
 
   dimension: ytd_net_retention {
     type: number
     sql: ${TABLE}.YTD_Net_Retention ;;
+    value_format: "0%"
   }
 
   measure: count {
