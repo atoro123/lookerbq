@@ -2,6 +2,12 @@ view: historical_information_google_sheet_connected {
   sql_table_name: `production-202017.ogv2_consumerinsight.Historical_Information_Google_Sheet_connected`
     ;;
 
+  dimension: primary {
+    hidden: yes
+    primary_key: yes
+    sql:  concat(${date_date},"PK") ;;
+  }
+
   dimension_group: date {
     type: time
     timeframes: [
