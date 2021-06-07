@@ -1735,6 +1735,24 @@ view: opportunity {
     default_value: "Quarter"
   }
 
+  dimension: category {
+    type: string
+    sql: case when ${recordtypeid} in ('012C0000000QLHVIA4','0121A000000CCahQAG','0121A000000GV5xQAG','0120h000000IB51AAG') then 'New ACV' else null end ;;
+  }
+
+  measure: goal {
+    type: max
+    sql: case when ${recordtypeid} = '012C0000000QLHVIA4' then ${historical_information_google_sheet_connected.goal__new_acv___new_bus}
+    when ${recordtypeid} = '0121A000000CCahQAG' then ${historical_information_google_sheet_connected.goal__new_acv_goal___cross_sells}
+    when ${recordtypeid} = '0121A000000GV5xQAG' then ${historical_information_google_sheet_connected.goal__new_acv_goal___upsells}
+    else null end ;;
+  }
+
+  measure: new_acv_goal {
+    type: max
+    sql: ${historical_information_google_sheet_connected.goal__new_acv} ;;
+  }
+
   dimension: dynamic_created_timeframe {
     type: string
     sql:

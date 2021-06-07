@@ -1065,8 +1065,41 @@ view: lead {
     sql: ${TABLE}.zoominfo_state__c ;;
   }
 
+  measure: Custom_Goal {
+    type: max
+    sql: case when ${qualified_status2__c} = 'SQL' then ${historical_information_google_sheet_connected.goal__sqls}
+    when ${qualified_status2__c} = 'Unqualified Lead' then ${historical_information_google_sheet_connected.goal__uqls}
+    else 0 end ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [id, name]
+  }
+
+  dimension: category_type {
+    type: string
+  }
+
+  parameter: timeframe_picker {
+    label: "Date Granularity"
+    type: string
+    allowed_value: { value: "Date" }
+    allowed_value: { value: "Week" }
+    allowed_value: { value: "Month" }
+    allowed_value: { value: "Quarter" }
+    allowed_value: { value: "Year" }
+    default_value: "Quarter"
+  }
+
+  dimension: dynamic_timeframe {
+    type: string
+    sql:
+    case when {% parameter timeframe_picker %} = 'Date' then date(${createddate_date})
+    when {% parameter timeframe_picker %} = 'Week' then date(${createddate_week})
+    when {% parameter timeframe_picker %} = 'Month' then date(FORMAT_TIMESTAMP('%Y-%m-01', ${createddate_date}))
+    when {% parameter timeframe_picker %} = 'Quarter' then DATE_ADD(date((FORMAT_TIMESTAMP('%Y-%m-01', TIMESTAMP_TRUNC(CAST(CAST(DATETIME_ADD(CAST(TIMESTAMP_TRUNC(CAST(createddate  AS TIMESTAMP), MONTH) AS DATETIME), INTERVAL -1 MONTH) AS TIMESTAMP) AS TIMESTAMP), QUARTER)))), INTERVAL 1 MONTH)
+    when {% parameter timeframe_picker %} = 'Year' then date(FORMAT_TIMESTAMP('%Y-01-01', ${createddate_date}))
+    end ;;
   }
 }

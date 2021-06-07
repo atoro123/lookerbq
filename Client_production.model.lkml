@@ -834,6 +834,12 @@ explore: harvest_merchant_mapping {
     sql_on: ${account.id} = ${opportunity.accountid} ;;
   }
 
+  join: historical_information_google_sheet_connected {
+    type:full_outer
+    relationship: many_to_one
+    sql_on: DATE_TRUNC(date(${opportunity.closedate_date}), month) = ${historical_information_google_sheet_connected.date_date} ;;
+  }
+
   join: opportunity_record_type {
     from: record_type
     sql_on: ${opportunity.recordtypeid} = ${opportunity_record_type.id} ;;
@@ -1667,6 +1673,12 @@ explore: account {
     sql_on: ${downsell_record__c.account__c} = ${account.id} ;;
   }
 
+  join: opportunity_downsell {
+    from: downsell_record__c
+    type: full_outer
+    sql_on: ${opportunity.closedate_date} = ${downsell_record__c.downsell_date__c_date} ;;
+  }
+
   join: historical_information_google_sheet_connected {
     type:full_outer
     relationship: many_to_one
@@ -1680,6 +1692,12 @@ explore: opportunity_downsell_aggregations {}
 
 explore: Salesforce_leads {
   from: lead
+
+  join: historical_information_google_sheet_connected {
+    type:full_outer
+    relationship: many_to_one
+    sql_on: ${Salesforce_leads.dynamic_timeframe} = ${historical_information_google_sheet_connected.dynamic_created_timeframe};;
+  }
 }
 
 explore:   historical_information_google_sheet_connected {

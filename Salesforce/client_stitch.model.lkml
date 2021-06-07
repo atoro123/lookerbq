@@ -17,6 +17,7 @@ explore: account {
 
   join: opportunity {
     sql_on: ${account.id} = ${opportunity.accountid} ;;
+    fields: [-goal,-new_acv_goal]
   }
 
   join: deal_committee__c {

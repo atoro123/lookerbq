@@ -288,6 +288,16 @@ view: historical_information_google_sheet_connected {
     value_format: "$#,##0.00"
   }
 
+  dimension: goal__uqls {
+    type: number
+    sql: ${TABLE}.GOAL__UQLs ;;
+  }
+
+  measure: SQL_Goal {
+    type: max
+    sql: ${goal__sqls};;
+  }
+
 
   parameter: timeframe_picker {
     label: "Date Granularity"

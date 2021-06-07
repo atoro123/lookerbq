@@ -61,6 +61,7 @@ GROUP BY
       measure: acv_sum {
         type: sum
         sql: ${acv} ;;
+        value_format: "#,##0"
       }
 
     dimension: name_order {
@@ -74,6 +75,11 @@ GROUP BY
 
 
     ;;
+  }
+
+  dimension: category {
+    type: string
+    sql: case when ${record_type} = 'Beginning ACV' then 'Historical' else 'ACV' end ;;
   }
 
   parameter: timeframe_picker {
