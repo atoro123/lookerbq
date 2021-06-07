@@ -888,6 +888,12 @@ view: lead {
     sql: ${TABLE}.qualified_status2__c ;;
   }
 
+  dimension: Lead_Status {
+    type: string
+    sql: case when ${qualified_status2__c} in ('MQL','Unqualified Lead') then 'UQL'
+    when ${qualified_status2__c} in ('SQL') then 'SQL' else 'UQL' end;;
+  }
+
   dimension: qualified_status__c {
     type: string
     sql: ${TABLE}.qualified_status__c ;;
