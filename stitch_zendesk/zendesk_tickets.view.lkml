@@ -1,6 +1,7 @@
 # Un-hide and use this explore, or copy the joins into another explore, to get all the fully nested relationships from this view
 explore: zendesk_tickets_arrays {
   from: zendesk_tickets
+  hidden: yes
 
   join: tickets__tags {
     view_label: "Tickets: Tags"
