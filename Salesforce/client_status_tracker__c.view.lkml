@@ -80,6 +80,28 @@ view: client_status_tracker__c {
     sql: ${TABLE}.actual_launch_date__c ;;
   }
 
+  parameter: timeframe_picker {
+    label: "Date Granularity"
+    type: string
+    allowed_value: { value: "Week" }
+    allowed_value: { value: "Month" }
+    allowed_value: { value: "Quarter" }
+    allowed_value: { value: "Year" }
+    default_value: "Quarter"
+  }
+
+  dimension: dynamic_created_timeframe {
+    label: "Dynamic Expected Launch Date"
+    type: string
+    sql:
+    case when {% parameter timeframe_picker %} = 'Date' then date(${current_estimated_launch_date__c_date})
+    when {% parameter timeframe_picker %} = 'Week' then date(${current_estimated_launch_date__c_date})
+    when {% parameter timeframe_picker %} = 'Month' then date(FORMAT_TIMESTAMP('%Y-%m-01', ${current_estimated_launch_date__c_date}))
+    when {% parameter timeframe_picker %} = 'Quarter' then DATE_ADD(date((FORMAT_TIMESTAMP('%Y-%m-01', TIMESTAMP_TRUNC(CAST(CAST(DATETIME_ADD(CAST(TIMESTAMP_TRUNC(CAST(${current_estimated_launch_date__c_date} AS TIMESTAMP), MONTH) AS DATETIME), INTERVAL -1 MONTH) AS TIMESTAMP) AS TIMESTAMP), QUARTER)))), INTERVAL 1 MONTH)
+    when {% parameter timeframe_picker %} = 'Year' then date(FORMAT_TIMESTAMP('%Y-01-01', ${current_estimated_launch_date__c_date}))
+    end  ;;
+  }
+
   dimension: app_cartridge_installed__c {
     type: string
     sql: ${TABLE}.app_cartridge_installed__c ;;
