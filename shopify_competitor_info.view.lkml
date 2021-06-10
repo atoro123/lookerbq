@@ -134,14 +134,24 @@ view: shopify_competitor_info {
     sql: ${total_sales_charge} ;;
   }
 
-  measure: Total_Shopify_Revenue {
+  measure: Total_Shopify_Orders {
     type: sum
     sql: ${total_sales} ;;
+  }
+
+  measure: Total_Shopify_Revenue {
+    type: sum
+    sql: ${total_revenue} ;;
   }
 
   measure: conversion {
     description: "New Subscribers over Sessions"
     sql: Safe_Divide(sum(${new_subscriptions}),sum(${sessions})) ;;
+    value_format: "0.0%"
+  }
+
+  measure: subs_over_order_conversion {
+    sql: Safe_Divide(sum(${new_subscriptions}),sum(${total_sales})) ;;
     value_format: "0.0%"
   }
 
