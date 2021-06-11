@@ -166,6 +166,11 @@ view: shopify_competitor_info {
     sql: ${custs_with_active_subscriptions} ;;
   }
 
+  measure: Avg_Base {
+    type: average
+    sql: ${custs_with_active_subscriptions} ;;
+  }
+
 
   measure: count {
     type: count
