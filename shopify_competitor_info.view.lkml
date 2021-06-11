@@ -161,6 +161,11 @@ view: shopify_competitor_info {
     value_format: "0"
   }
 
+  measure: Max_Base {
+    type: max
+    sql: ${custs_with_active_subscriptions} ;;
+  }
+
 
   measure: count {
     type: count
