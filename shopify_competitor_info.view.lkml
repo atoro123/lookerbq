@@ -171,6 +171,11 @@ view: shopify_competitor_info {
     sql: ${custs_with_active_subscriptions} ;;
   }
 
+  measure: average_cancels {
+    type: average
+    sql: ${new_unsubscriptions} ;;
+  }
+
 
   measure: count {
     type: count
