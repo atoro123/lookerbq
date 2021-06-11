@@ -534,6 +534,10 @@ explore: customer_customer {
     relationship: many_to_one
   }
 
+  join: account {
+    sql_on: ${merchant_merchant.id} = ${account.merchant_id__c} ;;
+  }
+
   join: experience_experiencesetting {
     view_label: "Experience Setting"
     sql_on: ${customer_customer.merchant_user_id} = ${experience_experiencesetting.merchant_user_id} AND ${merchant_merchant.public_id} = ${experience_experiencesetting.merchant_public_id};;
