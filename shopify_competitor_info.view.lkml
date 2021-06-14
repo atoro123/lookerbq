@@ -95,6 +95,13 @@ view: shopify_competitor_info {
   }
 
   dimension: Old_Program_live {
+    type: date
+    sql: case when ${merchant_id} = 414 then '2020-12-16'
+    when ${merchant_id} = 362 then '2021-05-25'
+    when ${merchant_id} = 543 then '2021-06-04'
+    when ${merchant_id} = 436 then '2021-02-22'
+    when ${merchant_id} =  446  then '2021-06-10'
+    else null end;;
   }
 
   measure: daily_conversion_average {
@@ -151,6 +158,7 @@ view: shopify_competitor_info {
   }
 
   measure: subs_over_order_conversion {
+    type: number
     sql: Safe_Divide(sum(${new_subscriptions}),sum(${total_sales})) ;;
     value_format: "0.0%"
   }
@@ -175,7 +183,6 @@ view: shopify_competitor_info {
     type: average
     sql: ${new_unsubscriptions} ;;
   }
-
 
   measure: count {
     type: count
