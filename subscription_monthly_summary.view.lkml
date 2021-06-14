@@ -45,7 +45,8 @@ view: subscription_monthly_summary {
       month_name,
       quarter,
       year,
-      month_num
+      month_num,
+      day_of_month
 
     ]
     convert_tz: no

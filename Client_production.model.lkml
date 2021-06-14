@@ -1475,6 +1475,10 @@ explore: zendesk_tickets {
     sql_on: ${account.merchant_id__c} = ${zendesk_ticket_mapping.merchant_id};;
   }
 
+  join: client_status_tracker__c {
+    sql_on: ${account.id} = ${client_status_tracker__c.account__c} ;;
+  }
+
   join: partner_account__c {
     sql_on: ${account.ecommerce_platform2__c} = ${partner_account__c.id} ;;
   }

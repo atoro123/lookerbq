@@ -108,6 +108,12 @@ explore: subscription_log {  access_filter: {field:merchant_id
       relationship: one_to_one
     }
 
+    join: parent_account {
+      from: account
+      sql_on: ${account.parentid} = ${parent_account.id};;
+      fields: [parent_account.name]
+    }
+
     join: user {
       view_label: "Primary Success Owner"
       sql_on: ${user.id} = ${account.primary_success_owner__c} ;;
