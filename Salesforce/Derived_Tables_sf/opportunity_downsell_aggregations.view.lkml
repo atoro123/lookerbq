@@ -5,27 +5,30 @@ view: opportunity_downsell_aggregations {
 
 SELECT     opportunity_record_type.name  AS record_type,
                         (CAST(opportunity.closedate  AS TIMESTAMP)) AS date,
+                        opportunity.id as custom_id,
                         ROUND(COALESCE(CAST( ( SUM(DISTINCT (CAST(ROUND(COALESCE( opportunity.annual_contract_value_acv__c  ,0)*(1/1000*1.0), 9) AS NUMERIC) + (cast(cast(concat('0x', substr(to_hex(md5(CAST( opportunity.id   AS STRING))), 1, 15)) as int64) as numeric) * 4294967296 + cast(cast(concat('0x', substr(to_hex(md5(CAST( opportunity.id   AS STRING))), 16, 8)) as int64) as numeric)) * 0.000000001 )) - SUM(DISTINCT (cast(cast(concat('0x', substr(to_hex(md5(CAST( opportunity.id   AS STRING))), 1, 15)) as int64) as numeric) * 4294967296 + cast(cast(concat('0x', substr(to_hex(md5(CAST( opportunity.id   AS STRING))), 16, 8)) as int64) as numeric)) * 0.000000001) )  / (1/1000*1.0) AS FLOAT64), 0), 6) AS acv
             FROM `stitch-poc-306316.salesforce.Opportunity` as opportunity
             LEFT JOIN `stitch-poc-306316.salesforce.RecordType`
                  AS opportunity_record_type ON Opportunity.recordtypeid = opportunity_record_type.id
             WHERE (opportunity.stagename ) = 'Closed Won' AND ((opportunity_record_type.name ) <> 'Renewal' OR (opportunity_record_type.name ) IS NULL)
-group by 1,2
+group by 1,2,3
 UNION ALL
 SELECT  'Downsell',
                     (CAST(downsell_record__c.downsell_date__c  AS TIMESTAMP)) AS downsell_record__c_downsell_date__c_date,
+                    downsell_record__c.id,
                     ROUND(COALESCE(CAST( ( SUM(DISTINCT (CAST(ROUND(COALESCE( downsell_record__c.downsell_amount__c  ,0)*(1/1000*1.0), 9) AS NUMERIC) + (cast(cast(concat('0x', substr(to_hex(md5(CAST( downsell_record__c.id   AS STRING))), 1, 15)) as int64) as numeric) * 4294967296 + cast(cast(concat('0x', substr(to_hex(md5(CAST( downsell_record__c.id   AS STRING))), 16, 8)) as int64) as numeric)) * 0.000000001 )) - SUM(DISTINCT (cast(cast(concat('0x', substr(to_hex(md5(CAST( downsell_record__c.id   AS STRING))), 1, 15)) as int64) as numeric) * 4294967296 + cast(cast(concat('0x', substr(to_hex(md5(CAST( downsell_record__c.id   AS STRING))), 16, 8)) as int64) as numeric)) * 0.000000001) )  / (1/1000*1.0) AS FLOAT64), 0), 6) AS downsell_record__c_downsell_sum
             FROM    `stitch-poc-306316.salesforce.Downsell_Record__c` AS downsell_record__c
-group by 1,2
+group by 1,2,3
 UNION ALL
 Select 'Churn',
     (CAST(account.churn_date__c  AS TIMESTAMP)) AS account_churn_date_date,
+    account.id,
     COALESCE(SUM(account.original_acv__c ), 0) AS account_sum_original_acv__c
 FROM `stitch-poc-306316.salesforce.Account`
      AS account
-WHERE (account.account_type__c ) = 'Former Customer'
+WHERE (account.account_type__c ) = 'Former Customer' and churn_date__c is not null
 GROUP BY
-    1,2
+    1,2,3
 
 
 
@@ -63,6 +66,10 @@ GROUP BY
         sql: ${acv} ;;
         value_format: "#,##0"
       }
+
+    dimension: custom_id {
+      sql: ${TABLE}.custom_id ;;
+    }
 
     dimension: name_order {
     type: string

@@ -273,7 +273,8 @@ relationship: one_to_many
   }
 
   join: subscription_log {
-    sql_on: date(${order_order.place_date}) = date(${subscription_log.logged_date}) and ${order_order.merchant_id} = ${subscription_log.merchant_id} ;;
+  type: full_outer
+  sql_on: date(${order_order.place_date}) = date(${subscription_log.logged_date}) and ${order_order.merchant_id} = ${subscription_log.merchant_id} ;;
   fields: [subscription_log.sum_total_price,subscription_log.event_id,subscription_log.subscription_type,subscription_log.logged_date,subscription_log.offer_id,subscription_log.customer_id,subscription_log.source_id]
   relationship: many_to_many
   }
@@ -531,6 +532,10 @@ explore: customer_customer {
     view_label: "Merchant"
     sql_on: ${customer_customer.merchant_id} = ${merchant_merchant.id} ;;
     relationship: many_to_one
+  }
+
+  join: account {
+    sql_on: ${merchant_merchant.id} = ${account.merchant_id__c} ;;
   }
 
   join: experience_experiencesetting {
@@ -1684,11 +1689,11 @@ explore: account {
     sql_on: ${downsell_record__c.account__c} = ${account.id} ;;
   }
 
-  join: opportunity_downsell {
-    from: downsell_record__c
-    type: full_outer
-    sql_on: ${opportunity.closedate_date} = ${downsell_record__c.downsell_date__c_date} ;;
-  }
+  # join: opportunity_downsell {
+  #   from: downsell_record__c
+  #   type: full_outer
+  #   sql_on: ${opportunity.closedate_date} = ${downsell_record__c.downsell_date__c_date} ;;
+  # }
 
   join: historical_information_google_sheet_connected {
     type:full_outer
@@ -1699,7 +1704,13 @@ explore: account {
 
 explore: ltv_predict_164_to_delete {}
 
-explore: opportunity_downsell_aggregations {}
+explore: opportunity_downsell_aggregations {
+  join: account {
+    type: left_outer
+    relationship: many_to_one
+    sql: ${account.id} = ${opportunity_downsell_aggregations.custom_id} ;;
+  }
+}
 
 explore: Salesforce_leads {
   from: lead
@@ -1714,7 +1725,6 @@ explore: Salesforce_leads {
 explore:   historical_information_google_sheet_connected {
 }
 
-
 explore: illy_program_subscribers {
   label: "illy Programs Subscribers"
   view_label: "illy Programs Subscribers"
@@ -1724,6 +1734,8 @@ explore: illy_program_subscribers {
 explore: kind_susbcription_bundle {
   hidden: yes
 }
+
+explore: shopify_competitor_info {}
 
 explore: email_daily_summary {
   }
