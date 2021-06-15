@@ -22,6 +22,11 @@ view: shopify_competitor_info {
     sql: ${TABLE}.Custs_with_Active_Subscriptions ;;
   }
 
+  dimension: is_last_day_of_month {
+    type: yesno
+    sql:SELECT EXTRACT( DAY FROM DATE_ADD(${day_raw}, INTERVAL 1 DAY)) = 1 ;;
+  }
+
   dimension_group: day {
     type: time
     description: "%m/%d/%E4Y"
