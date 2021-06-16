@@ -106,6 +106,9 @@ view: shopify_competitor_info {
     when ${merchant_id} = 543 then '2021-06-04'
     when ${merchant_id} = 436 then '2021-02-22'
     when ${merchant_id} =  446  then '2021-06-10'
+    when ${merchant_id} =  542  then '2021-06-02'
+    when ${merchant_id} =  464  then '2021-03-04'
+    when ${merchant_id} =  512  then '2021-05-10'
     else null end;;
   }
 
