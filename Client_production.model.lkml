@@ -1539,6 +1539,7 @@ explore: account {
   label: "Salesforce"
 
   join: opportunity {
+    relationship: one_to_many
     sql_on: ${account.id} = ${opportunity.accountid} ;;
   }
 
