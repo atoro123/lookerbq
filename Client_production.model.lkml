@@ -314,7 +314,7 @@ explore: subscription_subscription {
   }
 
   join: account {
-    sql_on: ${acv_tiers.merchant_id} = ${account.merchant_id__c} ;;
+    sql_on: ${subscription_subscription.merchant_id} = ${account.merchant_id__c} ;;
   }
 
   join: subscription_order_count {

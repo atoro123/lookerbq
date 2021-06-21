@@ -66,7 +66,7 @@ view: account {
       year,
       fiscal_quarter
     ]
-    sql: ${TABLE}.churn_date ;;
+    sql: ${TABLE}.churn_date__c ;;
   }
 
   dimension: _sdc_sequence {
@@ -138,6 +138,18 @@ view: account {
     when {% parameter timeframe_picker %} = 'Month' then date(FORMAT_TIMESTAMP('%Y-%m-01', ${actual_launch_date__c_date}))
     when {% parameter timeframe_picker %} = 'Quarter' then DATE_ADD(date((FORMAT_TIMESTAMP('%Y-%m-01', TIMESTAMP_TRUNC(CAST(CAST(DATETIME_ADD(CAST(TIMESTAMP_TRUNC(CAST(${actual_launch_date__c_date} AS TIMESTAMP), MONTH) AS DATETIME), INTERVAL -1 MONTH) AS TIMESTAMP) AS TIMESTAMP), QUARTER)))), INTERVAL 1 MONTH)
     when {% parameter timeframe_picker %} = 'Year' then date(FORMAT_TIMESTAMP('%Y-01-01', ${actual_launch_date__c_date}))
+    end  ;;
+  }
+
+  dimension: dynamic_churn_timeframe {
+    label: "Dynamic Churn Date"
+    type: string
+    sql:
+    case when {% parameter timeframe_picker %} = 'Date' then date(${churn_date_date})
+    when {% parameter timeframe_picker %} = 'Week' then date(${churn_date_date})
+    when {% parameter timeframe_picker %} = 'Month' then date(FORMAT_TIMESTAMP('%Y-%m-01', ${churn_date_date}))
+    when {% parameter timeframe_picker %} = 'Quarter' then DATE_ADD(date((FORMAT_TIMESTAMP('%Y-%m-01', TIMESTAMP_TRUNC(CAST(CAST(DATETIME_ADD(CAST(TIMESTAMP_TRUNC(CAST(${churn_date_date} AS TIMESTAMP), MONTH) AS DATETIME), INTERVAL -1 MONTH) AS TIMESTAMP) AS TIMESTAMP), QUARTER)))), INTERVAL 1 MONTH)
+    when {% parameter timeframe_picker %} = 'Year' then date(FORMAT_TIMESTAMP('%Y-01-01', ${churn_date_date}))
     end  ;;
   }
 
@@ -1439,6 +1451,7 @@ view: account {
   measure: sum_original_acv__c {
     type: sum
     sql: ${original_acv__c} ;;
+    drill_fields: [id,name,original_acv__c,actual_launch_date__c_date,churn_date_date]
   }
 
   measure: count_distinct {

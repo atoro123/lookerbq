@@ -39,6 +39,10 @@ view: opportunity {
     sql: ${TABLE}._sdc_extracted_at ;;
   }
 
+  dimension: secondary_cateogry {
+    sql: case when ${recordtypeid} in ('0121A000000CCahQAG','0121A000000GV5xQAG','0120h000000IB51AAG') then 'Expansion' else '' end ;;
+  }
+
   dimension_group: _sdc_received {
     type: time
     timeframes: [
@@ -1712,6 +1716,7 @@ view: opportunity {
     type: sum
     sql: ${annual_contract_value_acv__c} ;;
     value_format: "$#,##0.00"
+    drill_fields: [id,name,closedate_date,account.name,annual_contract_value_acv__c]
   }
 
   measure: avg_acv {

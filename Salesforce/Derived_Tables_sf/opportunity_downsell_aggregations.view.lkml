@@ -41,6 +41,14 @@ GROUP BY
       order_by_field: name_order
     }
 
+    dimension: opportunity_id {
+      sql:if(${name_order} < 6,${custom_id},null);;
+    }
+
+  dimension: account_id {
+    sql:if(${name_order} = 6,${custom_id},null);;
+  }
+
     dimension_group: date {
       type: time
       timeframes: [
@@ -68,6 +76,7 @@ GROUP BY
       }
 
     dimension: custom_id {
+      type: string
       sql: ${TABLE}.custom_id ;;
     }
 
@@ -87,6 +96,10 @@ GROUP BY
   dimension: category {
     type: string
     sql: case when ${record_type} = 'Beginning ACV' then 'Historical' else 'ACV' end ;;
+  }
+
+  dimension: secondary_cateogry {
+    sql: case when ${record_type} in ('Cross sell','Upsell','GMV Increase') then 'Expansion' else ${record_type} end ;;
   }
 
   parameter: timeframe_picker {
