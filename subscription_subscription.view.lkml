@@ -700,6 +700,16 @@ view: subscription_subscription {
       when ${offer_id} in (5701, 5761, 5762,5204, 3374, 4353, 3298) then "STH" end;;
   }
 
+  measure: Max_created_Date {
+    type: date
+    sql: max(${created_date});;
+  }
+
+  measure: Max_cancelled_Date {
+    type: date
+    sql: max(${cancelled_date});;
+  }
+
 #
 #   dimension: current_date {
 #     type: date_month
