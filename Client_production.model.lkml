@@ -1706,11 +1706,6 @@ explore: account {
 explore: ltv_predict_164_to_delete {}
 
 explore: opportunity_downsell_aggregations {
-  join: account {
-    type: left_outer
-    relationship: many_to_one
-    sql: ${account.id} = ${opportunity_downsell_aggregations.custom_id} ;;
-  }
 }
 
 explore: Salesforce_leads {

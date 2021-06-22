@@ -66,7 +66,7 @@ GROUP BY
 
       dimension: acv {
         type: number
-        sql: ${TABLE}.acv ;;
+        sql: abs(${TABLE}.acv) ;;
       }
 
       measure: acv_sum {
@@ -74,6 +74,12 @@ GROUP BY
         sql: ${acv} ;;
         value_format: "#,##0"
       }
+
+    measure: Net_acv_sum {
+    type: sum
+    sql: case when ${secondary_cateogry} = "Downsell" or ${secondary_cateogry} = "Churn" then -1*${acv} else ${acv} end;;
+    value_format: "#,##0"
+  }
 
     dimension: custom_id {
       type: string

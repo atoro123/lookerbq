@@ -68,7 +68,7 @@ view: downsell_record__c {
 
   dimension: downsell_amount__c {
     type: number
-    sql: ${TABLE}.downsell_amount__c ;;
+    sql: abs(${TABLE}.downsell_amount__c) ;;
   }
 
   dimension_group: downsell_date__c {
