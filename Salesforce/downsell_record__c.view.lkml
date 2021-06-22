@@ -85,6 +85,28 @@ view: downsell_record__c {
     sql: ${TABLE}.downsell_date__c ;;
   }
 
+  parameter: timeframe_picker {
+    label: "Date Granularity"
+    type: string
+    allowed_value: { value: "Week" }
+    allowed_value: { value: "Month" }
+    allowed_value: { value: "Quarter" }
+    allowed_value: { value: "Year" }
+    default_value: "Quarter"
+  }
+
+  dimension: dynamic_created_timeframe {
+    label: "Dynamic Launch Date"
+    type: string
+    sql:
+    case when {% parameter timeframe_picker %} = 'Date' then date(${downsell_date__c_date})
+    when {% parameter timeframe_picker %} = 'Week' then date(${downsell_date__c_date})
+    when {% parameter timeframe_picker %} = 'Month' then date(FORMAT_TIMESTAMP('%Y-%m-01', ${downsell_date__c_date}))
+    when {% parameter timeframe_picker %} = 'Quarter' then DATE_ADD(date((FORMAT_TIMESTAMP('%Y-%m-01', TIMESTAMP_TRUNC(CAST(CAST(DATETIME_ADD(CAST(TIMESTAMP_TRUNC(CAST(${downsell_date__c_date} AS TIMESTAMP), MONTH) AS DATETIME), INTERVAL -1 MONTH) AS TIMESTAMP) AS TIMESTAMP), QUARTER)))), INTERVAL 1 MONTH)
+    when {% parameter timeframe_picker %} = 'Year' then date(FORMAT_TIMESTAMP('%Y-01-01', ${downsell_date__c_date}))
+    end  ;;
+  }
+
   dimension: name {
     type: string
     sql: ${TABLE}.name ;;
@@ -122,5 +144,6 @@ view: downsell_record__c {
   measure: downsell_sum {
     type: sum
     sql: ${downsell_amount__c} ;;
+    drill_fields: [id, name, original_acv__c, new_acv__c]
   }
 }
