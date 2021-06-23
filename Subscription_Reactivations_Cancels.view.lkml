@@ -1,9 +1,9 @@
 view: subscription_reactivations_cancels {
   derived_table: {
     sql_trigger_value: SELECT FLOOR(((TIMESTAMP_DIFF(CURRENT_TIMESTAMP(),'1970-01-01 00:00:00',SECOND)) - 60*60*8)/(60*60*24)) ;;
-    sql: select a.sub as subcription, a.user as merchant_user_id, a.og_user as OG_Customer_ID a.react as react, b.cancelled as cancel, ss.live as live, a.sku as SKU, a.name as Product_Name
+    sql: select a.sub as subscription, a.user as merchant_user_id, a.og_user as OG_Customer_ID, a.react as react, b.cancelled as cancel, ss.live as live, a.sku as SKU, a.name as Product_Name
 from
-(select sl.subscription_id as sub, cc.merchant_user_id as user, cc.id as og_user date(sl.logged) as react, pp.sku as sku, pp.name as name
+(select sl.subscription_id as sub, cc.merchant_user_id as user, cc.id as og_user, date(sl.logged) as react, pp.sku as sku, pp.name as name
 from `production-202017.og_transactions.subscription_log` sl
 left join `production-202017.ogv2_production.product_product` pp
 on pp.id = sl.product_id
@@ -38,7 +38,7 @@ where ss.merchant_id = 282 ;;
 
   dimension: Customer_ID {
     type: number
-    sql: ${TABLE}.og_user ;;
+    sql: ${TABLE}.OG_Customer_ID ;;
   }
 
   dimension: Reactivaton_Date {

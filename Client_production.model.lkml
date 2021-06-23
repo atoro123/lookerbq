@@ -1739,3 +1739,5 @@ explore: email_daily_summary {
   explore: illy_us_capsule_subscribers {
     hidden: yes
   }
+
+explore: subscription_reactivations_cancels {}
