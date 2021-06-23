@@ -29,6 +29,7 @@ where ss.merchant_id = 282 ;;
   dimension: Subscription_ID {
     type: number
     sql: ${TABLE}.subscription ;;
+    value_format: "0"
   }
 
   dimension: Merchant_User_ID {
@@ -39,6 +40,7 @@ where ss.merchant_id = 282 ;;
   dimension: Customer_ID {
     type: number
     sql: ${TABLE}.OG_Customer_ID ;;
+    value_format: "0"
   }
 
   dimension: Reactivaton_Date {
