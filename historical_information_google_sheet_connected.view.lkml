@@ -174,28 +174,29 @@ view: historical_information_google_sheet_connected {
   }
 
   dimension: goal__net_new_acv {
-    type: string
-    sql: ${TABLE}.GOAL__Net_New_ACV ;;
+    type: number
+    sql: cast(${TABLE}.GOAL__Net_New_ACV as numeric) ;;
   }
 
   dimension: goal__new_acv {
     type: number
-    sql: ${TABLE}.GOAL__New_ACV ;;
+    sql: cast(${TABLE}.GOAL__New_ACV as numeric) ;;
   }
 
   dimension: goal__new_acv___new_bus {
-    type: string
-    sql: ${TABLE}.GOAL__New_ACV___New_Bus ;;
+    type: number
+    sql: cast(${TABLE}.GOAL__New_ACV___New_Bus as numeric);;
   }
 
   dimension: goal__new_acv_goal___cross_sells {
-    type: string
-    sql: ${TABLE}.GOAL__New_ACV_Goal___Cross_Sells ;;
+    type: number
+    sql:  cast(${TABLE}.GOAL__New_ACV_Goal___Cross_Sells as numeric) ;;
   }
 
+
   dimension: goal__new_acv_goal___upsells {
-    type: string
-    sql: ${TABLE}.GOAL__New_ACV_Goal___Upsells ;;
+    type: number
+    sql:  ${TABLE}.GOAL__New_ACV_Goal___Upsells ;;
   }
 
   dimension: goal__next_q_qualified_pipe__unweighted_acv_ {

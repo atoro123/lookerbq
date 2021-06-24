@@ -1699,7 +1699,7 @@ explore: account {
   join: historical_information_google_sheet_connected {
     type:full_outer
     relationship: many_to_one
-    sql_on: DATE_TRUNC(date(${opportunity.closedate_date}), month) = ${historical_information_google_sheet_connected.date_date} ;;
+    sql_on: ${opportunity.dynamic_created_timeframe} = ${historical_information_google_sheet_connected.dynamic_created_timeframe} ;;
   }
 }
 

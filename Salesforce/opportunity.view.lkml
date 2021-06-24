@@ -1747,10 +1747,11 @@ view: opportunity {
 
   measure: goal {
     type: max
-    sql: case when ${recordtypeid} = '012C0000000QLHVIA4' then ${historical_information_google_sheet_connected.goal__new_acv___new_bus}
-    when ${recordtypeid} = '0121A000000CCahQAG' then ${historical_information_google_sheet_connected.goal__new_acv_goal___cross_sells}
-    when ${recordtypeid} = '0121A000000GV5xQAG' then ${historical_information_google_sheet_connected.goal__new_acv_goal___upsells}
-    else null end ;;
+    sql: case when ${recordtypeid} = "012C0000000QLHVIA4" then cast(${historical_information_google_sheet_connected.goal__new_acv___new_bus} as numeric)
+    when ${recordtypeid} = "0121A000000CCahQAG" then cast(${historical_information_google_sheet_connected.goal__new_acv_goal___upsells} as numeric)
+    when ${recordtypeid} = "0121A000000GV5xQAG" then cast(${historical_information_google_sheet_connected.goal__new_acv_goal___upsells} as numeric)
+    when ${recordtypeid} = "0120h000000IB51AAG" then cast(${historical_information_google_sheet_connected.goal__new_acv_goal___upsells} as numeric)
+    else 0 end ;;
   }
 
   measure: new_acv_goal {
