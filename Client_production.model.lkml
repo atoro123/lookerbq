@@ -1701,6 +1701,13 @@ explore: account {
     relationship: many_to_one
     sql_on: ${opportunity.dynamic_created_timeframe} = ${historical_information_google_sheet_connected.dynamic_created_timeframe} ;;
   }
+
+  join: account_historical_information_google_sheet_connected {
+    from: historical_information_google_sheet_connected
+    type:full_outer
+    relationship: many_to_one
+    sql_on: ${account.dynamic_churn_timeframe} = ${account_historical_information_google_sheet_connected.dynamic_created_timeframe} ;;
+  }
 }
 
 explore: ltv_predict_164_to_delete {}

@@ -319,6 +319,11 @@ view: historical_information_google_sheet_connected {
     sql: ${goal__sqls};;
   }
 
+  measure: Churn_goal {
+    type: max
+    sql: abs(${goal__churn_budget}) ;;
+  }
+
 
   parameter: timeframe_picker {
     label: "Date Granularity"
