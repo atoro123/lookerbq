@@ -1474,6 +1474,11 @@ view: account {
     sql: ${implementation_fee__c} ;;
   }
 
+  measure: sum_current_risk {
+    type: sum
+    sql: ${current_risk__c} ;;
+  }
+
   dimension: total_custom_features {
     type: number
     sql:     case when ${Account_Updater} = 'yes' then 1 else 0 end +

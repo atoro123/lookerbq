@@ -1713,7 +1713,8 @@ view: opportunity {
   }
 
   measure: sum_acv {
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${id} ;;
     sql: ${annual_contract_value_acv__c} ;;
     value_format: "$#,##0.00"
     drill_fields: [id,name,closedate_date,account.name,annual_contract_value_acv__c]

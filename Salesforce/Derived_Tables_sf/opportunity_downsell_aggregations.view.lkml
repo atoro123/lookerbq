@@ -23,7 +23,7 @@ UNION ALL
 Select 'Churn',
     (CAST(account.churn_date__c  AS TIMESTAMP)) AS account_churn_date_date,
     account.id,
-    COALESCE(SUM(account.original_acv__c ), 0) AS account_sum_original_acv__c
+    COALESCE(SUM(account.tier_1_bonus__c ), 0) AS account_sum_original_acv__c
 FROM `stitch-poc-306316.salesforce.Account`
      AS account
 WHERE (account.account_type__c ) = 'Former Customer' and churn_date__c is not null
