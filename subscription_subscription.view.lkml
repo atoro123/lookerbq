@@ -710,6 +710,12 @@ view: subscription_subscription {
     sql: max(${cancelled_date});;
   }
 
+  measure: cancelled_subs {
+    type: count_distinct
+    sql_distinct_key: ${id};;
+    sql: case when ${live} is false then ${id} else null end ;;
+  }
+
 #
 #   dimension: current_date {
 #     type: date_month
