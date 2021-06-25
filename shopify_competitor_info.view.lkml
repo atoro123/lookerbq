@@ -99,8 +99,12 @@ view: shopify_competitor_info {
       value_format: "0.0%"
   }
 
-  dimension: Old_Program_live {
-    type: date
+  dimension_group: Old_Program_live {
+    type: time
+    timeframes: [
+      date
+    ]
+    datatype: date
     sql: case when ${merchant_id} = 414 then '2020-12-16'
     when ${merchant_id} = 362 then '2021-05-25'
     when ${merchant_id} = 543 then '2021-06-04'
