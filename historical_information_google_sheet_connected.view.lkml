@@ -17,7 +17,7 @@ view: historical_information_google_sheet_connected {
       quarter,
       year
     ]
-    sql: date(PARSE_DATE('%m/%d/%Y',${TABLE}.Date)) ;;
+    sql: ${TABLE}.Date ;;
   }
 
   dimension: __of_brands {
