@@ -1574,6 +1574,12 @@ explore: account {
     sql_on: ${user.id} = ${account.primary_success_owner__c} ;;
   }
 
+  join: sales_user {
+    from: user
+    view_label: "Sales Owner"
+    sql_on: ${sales_user.id} = ${account.ownerid} ;;
+  }
+
   join: custom_packages_sf {
   ###need to wait on prod in order to have derived tables
     view_label: "Custom Packages - Account"

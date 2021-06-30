@@ -182,6 +182,7 @@ view: zendesk_tickets {
   dimension: id {
     type: number
     sql: ${TABLE}.id ;;
+    value_format: "0"
   }
 
   dimension: is_public {
@@ -315,16 +316,11 @@ view: zendesk_tickets {
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
-      via__source__from__ticket_id,
-      via__source__to__name,
-      via__source__from__name,
-      groups.name,
-      groups.id,
-      organizations.name,
-      organizations.id,
-      ticket_metrics.count,
-      ticket_audits.count,
-      ticket_comments.count
+     id,
+    created_date,
+    account.name,
+    subject,
+    url
     ]
   }
 }

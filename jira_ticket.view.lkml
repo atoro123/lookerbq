@@ -89,4 +89,10 @@ group by 1,2,3,4,5,6,7  ;;
     type: sum
     sql: (${CSD_Cost})/((case when if(${client_status_tracker__c.percent_completed_integration} = 0, 1,${client_status_tracker__c.percent_completed_integration})  is not null then cast(if(${client_status_tracker__c.percent_completed_integration} = 0, 1,${client_status_tracker__c.percent_completed_integration}) as FLOAT64) else null end)/100) ;;
   }
+
+  measure: Total_CSD_Forecast_Hours {
+    type: sum
+    sql: (${Story_Points}*4)/((case when if(${client_status_tracker__c.percent_completed_integration} = 0, 1,${client_status_tracker__c.percent_completed_integration})  is not null then cast(if(${client_status_tracker__c.percent_completed_integration} = 0, 1,${client_status_tracker__c.percent_completed_integration}) as FLOAT64) else null end)/100) ;;
+    value_format: "0.0"
+  }
   }
