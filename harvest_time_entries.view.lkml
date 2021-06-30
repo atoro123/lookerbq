@@ -56,6 +56,12 @@ view: harvest_time_entries {
     sql: (${hours}*${harvest_roles.Role_Rate})/((case when if(${client_status_tracker__c.percent_completed_integration} = 0, 1,${client_status_tracker__c.percent_completed_integration})  is not null then cast(if(${client_status_tracker__c.percent_completed_integration} = 0, 1,${client_status_tracker__c.percent_completed_integration}) as FLOAT64) else null end)/100) ;;
   }
 
+  measure: Forecast_Hours {
+    type:  sum
+    sql: (${hours})/((case when if(${client_status_tracker__c.percent_completed_integration} = 0, 1,${client_status_tracker__c.percent_completed_integration})  is not null then cast(if(${client_status_tracker__c.percent_completed_integration} = 0, 1,${client_status_tracker__c.percent_completed_integration}) as FLOAT64) else null end)/100) ;;
+    value_format: "0.0"
+  }
+
   measure: total_hours {
     type: sum
     sql: ${hours} ;;

@@ -168,6 +168,9 @@ view: client_status_tracker__c {
       date,
       week,
       month,
+      fiscal_quarter_of_year,
+      fiscal_year,
+      fiscal_quarter,
       quarter,
       year
     ]
