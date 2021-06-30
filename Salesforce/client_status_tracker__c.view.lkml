@@ -177,6 +177,11 @@ view: client_status_tracker__c {
     sql: ${TABLE}.current_estimated_launch_date__c ;;
   }
 
+  dimension: Months_Between_Sign_And_Expected_Launch {
+    type: number
+    sql: Date_Diff(${current_estimated_launch_date__c_date}, ${contract_signed_date__c_date}, MONTH) ;;
+  }
+
   dimension: current_impact_statement__c {
     type: string
     sql: ${TABLE}.current_impact_statement__c ;;
