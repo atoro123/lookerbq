@@ -17,7 +17,7 @@ view: historical_information_google_sheet_connected {
       quarter,
       year
     ]
-    sql: date(PARSE_DATE('%m/%d/%Y',${TABLE}._)) ;;
+    sql: ${TABLE}.Date ;;
   }
 
   dimension: __of_brands {
@@ -322,6 +322,16 @@ view: historical_information_google_sheet_connected {
   measure: Churn_goal {
     type: max
     sql: abs(${goal__churn_budget}) ;;
+  }
+
+  dimension: net_new_acv_goal {
+    type: number
+    sql: ${goal__new_acv}-${goal__churn_budget} ;;
+  }
+
+  measure: net_new_acv_goal_max {
+    type: max
+    sql: abs(${net_new_acv_goal}) ;;
   }
 
 

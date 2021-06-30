@@ -76,7 +76,8 @@ GROUP BY
       }
 
     measure: Net_acv_sum {
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${custom_id} ;;
     sql: case when ${secondary_cateogry} = "Downsell" or ${secondary_cateogry} = "Churn" then -1*${acv} else ${acv} end;;
     value_format: "#,##0"
   }
