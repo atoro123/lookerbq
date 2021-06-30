@@ -1747,12 +1747,65 @@ view: opportunity {
   }
 
   measure: goal {
-    type: max
+    type: sum_distinct
+    sql_distinct_key: case when ${recordtypeid} = "012C0000000QLHVIA4" then cast(${historical_information_google_sheet_connected.goal__new_acv___new_bus} as numeric)
+    when ${recordtypeid} = "0121A000000CCahQAG" then cast(${historical_information_google_sheet_connected.goal__new_acv_goal___upsells} as numeric)
+    when ${recordtypeid} = "0121A000000GV5xQAG" then cast(${historical_information_google_sheet_connected.goal__new_acv_goal___upsells} as numeric)
+    when ${recordtypeid} = "0120h000000IB51AAG" then cast(${historical_information_google_sheet_connected.goal__new_acv_goal___upsells} as numeric)
+    else 0 end ;;
     sql: case when ${recordtypeid} = "012C0000000QLHVIA4" then cast(${historical_information_google_sheet_connected.goal__new_acv___new_bus} as numeric)
     when ${recordtypeid} = "0121A000000CCahQAG" then cast(${historical_information_google_sheet_connected.goal__new_acv_goal___upsells} as numeric)
     when ${recordtypeid} = "0121A000000GV5xQAG" then cast(${historical_information_google_sheet_connected.goal__new_acv_goal___upsells} as numeric)
     when ${recordtypeid} = "0120h000000IB51AAG" then cast(${historical_information_google_sheet_connected.goal__new_acv_goal___upsells} as numeric)
     else 0 end ;;
+  }
+
+  measure: Platform_transaction_goal {
+    type: sum_distinct
+    sql_distinct_key:  case when ${partner_account__c.ECommerce_Platform_grouped} = 'Shopify' then cast(${historical_information_google_sheet_connected.GOAL__New_ACV___of_Transactions___Shopify} as numeric)
+              when ${partner_account__c.ECommerce_Platform_grouped} = 'Other' then cast(${historical_information_google_sheet_connected.GOAL__New_ACV___of_Transactions___Other} as numeric)
+              when ${partner_account__c.ECommerce_Platform_grouped} = 'BigCommerce' then cast(${historical_information_google_sheet_connected.GOAL__New_ACV___of_Transactions___Big_Commerce} as numeric)
+              when ${partner_account__c.ECommerce_Platform_grouped} = 'Magento 2' then cast(${historical_information_google_sheet_connected.GOAL__New_ACV___of_Transactions___Magento} as numeric)
+              when ${partner_account__c.ECommerce_Platform_grouped} = 'Salesforce Commerce Cloud' then cast(${historical_information_google_sheet_connected.GOAL__New_ACV___of_Transactions___Salesforce} as numeric) end
+         ;;
+    sql: case when ${partner_account__c.ECommerce_Platform_grouped} = 'Shopify' then cast(${historical_information_google_sheet_connected.GOAL__New_ACV___of_Transactions___Shopify} as numeric)
+              when ${partner_account__c.ECommerce_Platform_grouped} = 'Other' then cast(${historical_information_google_sheet_connected.GOAL__New_ACV___of_Transactions___Other} as numeric)
+              when ${partner_account__c.ECommerce_Platform_grouped} = 'BigCommerce' then cast(${historical_information_google_sheet_connected.GOAL__New_ACV___of_Transactions___Big_Commerce} as numeric)
+              when ${partner_account__c.ECommerce_Platform_grouped} = 'Magento 2' then cast(${historical_information_google_sheet_connected.GOAL__New_ACV___of_Transactions___Magento} as numeric)
+              when ${partner_account__c.ECommerce_Platform_grouped} = 'Salesforce Commerce Cloud' then cast(${historical_information_google_sheet_connected.GOAL__New_ACV___of_Transactions___Salesforce} as numeric) end
+        ;;
+  }
+
+  measure: Platform_ASP_goal {
+    type: sum_distinct
+    sql_distinct_key: case when ${partner_account__c.ECommerce_Platform_grouped} = 'Shopify' then cast(${historical_information_google_sheet_connected.GOAL__New_ACV_ASP___Shopify} as numeric)
+              when ${partner_account__c.ECommerce_Platform_grouped} = 'Other' then cast(${historical_information_google_sheet_connected.GOAL__New_ACV_ASP___Other} as numeric)
+              when ${partner_account__c.ECommerce_Platform_grouped} = 'BigCommerce' then cast(${historical_information_google_sheet_connected.GOAL__New_ACV_ASP___Big_Commerce} as numeric)
+              when ${partner_account__c.ECommerce_Platform_grouped} = 'Magento 2' then cast(${historical_information_google_sheet_connected.GOAL__New_ACV_ASP___Magento} as numeric)
+              when ${partner_account__c.ECommerce_Platform_grouped} = 'Salesforce Commerce Cloud' then cast(${historical_information_google_sheet_connected.GOAL__New_ACV_ASP___Salesforce} as numeric) end
+  ;;
+    sql: case when ${partner_account__c.ECommerce_Platform_grouped} = 'Shopify' then cast(${historical_information_google_sheet_connected.GOAL__New_ACV_ASP___Shopify} as numeric)
+              when ${partner_account__c.ECommerce_Platform_grouped} = 'Other' then cast(${historical_information_google_sheet_connected.GOAL__New_ACV_ASP___Other} as numeric)
+              when ${partner_account__c.ECommerce_Platform_grouped} = 'BigCommerce' then cast(${historical_information_google_sheet_connected.GOAL__New_ACV_ASP___Big_Commerce} as numeric)
+              when ${partner_account__c.ECommerce_Platform_grouped} = 'Magento 2' then cast(${historical_information_google_sheet_connected.GOAL__New_ACV_ASP___Magento} as numeric)
+              when ${partner_account__c.ECommerce_Platform_grouped} = 'Salesforce Commerce Cloud' then cast(${historical_information_google_sheet_connected.GOAL__New_ACV_ASP___Salesforce} as numeric) end
+        ;;
+  }
+
+  measure: Platform_goal {
+    type: sum_distinct
+    sql_distinct_key:  case when ${partner_account__c.ECommerce_Platform_grouped} = 'Shopify' then cast(${historical_information_google_sheet_connected.GOAL__New_ACV___Shopify} as numeric)
+              when ${partner_account__c.ECommerce_Platform_grouped} = 'Other' then cast(${historical_information_google_sheet_connected.GOAL__New_ACV___Other} as numeric)
+              when ${partner_account__c.ECommerce_Platform_grouped} = 'BigCommerce' then cast(${historical_information_google_sheet_connected.GOAL__New_ACV___Big_Commerce} as numeric)
+              when ${partner_account__c.ECommerce_Platform_grouped} = 'Magento 2' then cast(${historical_information_google_sheet_connected.GOAL__New_ACV___Magento} as numeric)
+              when ${partner_account__c.ECommerce_Platform_grouped} = 'Salesforce Commerce Cloud' then cast(${historical_information_google_sheet_connected.GOAL__New_ACV___Salesforce} as numeric) end
+ ;;
+    sql: case when ${partner_account__c.ECommerce_Platform_grouped} = 'Shopify' then cast(${historical_information_google_sheet_connected.GOAL__New_ACV___Shopify} as numeric)
+              when ${partner_account__c.ECommerce_Platform_grouped} = 'Other' then cast(${historical_information_google_sheet_connected.GOAL__New_ACV___Other} as numeric)
+              when ${partner_account__c.ECommerce_Platform_grouped} = 'BigCommerce' then cast(${historical_information_google_sheet_connected.GOAL__New_ACV___Big_Commerce} as numeric)
+              when ${partner_account__c.ECommerce_Platform_grouped} = 'Magento 2' then cast(${historical_information_google_sheet_connected.GOAL__New_ACV___Magento} as numeric)
+              when ${partner_account__c.ECommerce_Platform_grouped} = 'Salesforce Commerce Cloud' then cast(${historical_information_google_sheet_connected.GOAL__New_ACV___Salesforce} as numeric) end
+        ;;
   }
 
   measure: new_acv_goal {

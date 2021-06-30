@@ -1719,6 +1719,11 @@ explore: account {
 explore: ltv_predict_164_to_delete {}
 
 explore: opportunity_downsell_aggregations {
+  join: historical_information_google_sheet_connected {
+    type:left_outer
+    relationship: many_to_one
+    sql_on: ${opportunity_downsell_aggregations.date_month} = ${historical_information_google_sheet_connected.date_month};;
+  }
 }
 
 explore: Salesforce_leads {

@@ -4,7 +4,7 @@ view: opportunity_downsell_aggregations {
       sql:
 
 SELECT     opportunity_record_type.name  AS record_type,
-                        (CAST(opportunity.closedate  AS TIMESTAMP)) AS date,
+                        (CAST(opportunity.closedate  AS TIMESTAMP)) AS derived_date,
                         opportunity.id as custom_id,
                         ROUND(COALESCE(CAST( ( SUM(DISTINCT (CAST(ROUND(COALESCE( opportunity.annual_contract_value_acv__c  ,0)*(1/1000*1.0), 9) AS NUMERIC) + (cast(cast(concat('0x', substr(to_hex(md5(CAST( opportunity.id   AS STRING))), 1, 15)) as int64) as numeric) * 4294967296 + cast(cast(concat('0x', substr(to_hex(md5(CAST( opportunity.id   AS STRING))), 16, 8)) as int64) as numeric)) * 0.000000001 )) - SUM(DISTINCT (cast(cast(concat('0x', substr(to_hex(md5(CAST( opportunity.id   AS STRING))), 1, 15)) as int64) as numeric) * 4294967296 + cast(cast(concat('0x', substr(to_hex(md5(CAST( opportunity.id   AS STRING))), 16, 8)) as int64) as numeric)) * 0.000000001) )  / (1/1000*1.0) AS FLOAT64), 0), 6) AS acv
             FROM `stitch-poc-306316.salesforce.Opportunity` as opportunity
@@ -49,7 +49,7 @@ GROUP BY
     sql:if(${name_order} = 6,${custom_id},null);;
   }
 
-    dimension_group: date {
+  dimension_group: date {
       type: time
       timeframes: [
         raw,
@@ -61,7 +61,7 @@ GROUP BY
         year,
         fiscal_quarter
       ]
-      sql: ${TABLE}.date ;;
+      sql: ${TABLE}.derived_date ;;
       }
 
       dimension: acv {
@@ -100,6 +100,23 @@ GROUP BY
     ;;
   }
 
+
+  measure: goal {
+    type: sum_distinct
+    sql_distinct_key: case when ${record_type} = "New Business" then cast(${historical_information_google_sheet_connected.goal__new_acv___new_bus} as numeric)
+          when ${record_type} = "GMV Increase" then cast(${historical_information_google_sheet_connected.goal__new_acv_goal___upsells} as numeric)
+          when ${record_type} = "Upsell" then 0
+          when ${record_type} = "Cross sell" then 0
+          when ${record_type} = "Churn" then -abs(${historical_information_google_sheet_connected.goal__churn_budget})
+          else 0 end ;;
+    sql: case when ${record_type} = "New Business" then cast(${historical_information_google_sheet_connected.goal__new_acv___new_bus} as numeric)
+          when ${record_type} = "GMV Increase" then cast(${historical_information_google_sheet_connected.goal__new_acv_goal___upsells} as numeric)
+          when ${record_type} = "Upsell" then 0
+          when ${record_type} = "Cross sell" then 0
+          when ${record_type} = "Churn" then -abs(${historical_information_google_sheet_connected.goal__churn_budget})
+          else 0 end ;;
+  }
+
   dimension: category {
     type: string
     sql: case when ${record_type} = 'Beginning ACV' then 'Historical' else 'ACV' end ;;
@@ -126,7 +143,7 @@ GROUP BY
     case when {% parameter timeframe_picker %} = 'Date' then date(${date_date})
     when {% parameter timeframe_picker %} = 'Week' then date(${date_week})
     when {% parameter timeframe_picker %} = 'Month' then date(FORMAT_TIMESTAMP('%Y-%m-01', ${date_date}))
-    when {% parameter timeframe_picker %} = 'Quarter' then DATE_ADD(date((FORMAT_TIMESTAMP('%Y-%m-01', TIMESTAMP_TRUNC(CAST(CAST(DATETIME_ADD(CAST(TIMESTAMP_TRUNC(CAST(date  AS TIMESTAMP), MONTH) AS DATETIME), INTERVAL -1 MONTH) AS TIMESTAMP) AS TIMESTAMP), QUARTER)))), INTERVAL 1 MONTH)
+    when {% parameter timeframe_picker %} = 'Quarter' then DATE_ADD(date((FORMAT_TIMESTAMP('%Y-%m-01', TIMESTAMP_TRUNC(CAST(CAST(DATETIME_ADD(CAST(TIMESTAMP_TRUNC(CAST(derived_date  AS TIMESTAMP), MONTH) AS DATETIME), INTERVAL -1 MONTH) AS TIMESTAMP) AS TIMESTAMP), QUARTER)))), INTERVAL 1 MONTH)
     when {% parameter timeframe_picker %} = 'Year' then date(FORMAT_TIMESTAMP('%Y-01-01', ${date_date}))
     end ;;
   }
