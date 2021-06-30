@@ -15,7 +15,8 @@ view: historical_information_google_sheet_connected {
       week,
       month,
       quarter,
-      year
+      year,
+      fiscal_quarter
     ]
     sql: ${TABLE}.Date ;;
   }

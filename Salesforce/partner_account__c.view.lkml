@@ -184,7 +184,7 @@ view: partner_account__c {
 
   dimension: ECommerce_Platform_grouped {
     type: string
-    sql: case when ${name} in ('Shopify','Salesforec Commerce Cloud','Magento 2','BigCommerce') then ${name} else 'Other' end ;;
+    sql: case when ${name} in ('Shopify','Salesforce Commerce Cloud','Magento 2','BigCommerce') then ${name} else 'Other' end ;;
   }
 
   dimension: notes__c {
