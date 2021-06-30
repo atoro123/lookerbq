@@ -329,6 +329,66 @@ view: historical_information_google_sheet_connected {
     sql: ${goal__new_acv}-${goal__churn_budget} ;;
   }
 
+  dimension:  GOAL__New_ACV___of_Transactions___Shopify {
+    sql: ${TABLE}.GOAL__New_ACV___of_Transactions___Shopify ;;
+  }
+
+  dimension:  GOAL__New_ACV___of_Transactions___Other {
+    sql: ${TABLE}.GOAL__New_ACV___of_Transactions___Other ;;
+  }
+
+  dimension:  GOAL__New_ACV___of_Transactions___Big_Commerce {
+    sql: ${TABLE}.GOAL__New_ACV___of_Transactions___Big_Commerce ;;
+  }
+
+  dimension:  GOAL__New_ACV___of_Transactions___Magento {
+    sql: ${TABLE}.GOAL__New_ACV___of_Transactions___Magento ;;
+  }
+
+  dimension:  GOAL__New_ACV___of_Transactions___Salesforce {
+    sql: ${TABLE}.GOAL__New_ACV___of_Transactions___Salesforce ;;
+  }
+
+  dimension:  GOAL__New_ACV_ASP___Shopify {
+    sql: ${TABLE}.GOAL__New_ACV_ASP___Shopify ;;
+  }
+
+  dimension:  GOAL__New_ACV_ASP___Salesforce {
+    sql: ${TABLE}.GOAL__New_ACV_ASP___Salesforce ;;
+  }
+
+  dimension:  GOAL__New_ACV_ASP___Magento {
+    sql: ${TABLE}.GOAL__New_ACV_ASP___Magento ;;
+  }
+
+  dimension:  GOAL__New_ACV_ASP___Big_Commerce {
+    sql: ${TABLE}.GOAL__New_ACV_ASP___Big_Commerce ;;
+  }
+
+  dimension:  GOAL__New_ACV_ASP___Other {
+    sql: ${TABLE}.GOAL__New_ACV_ASP___Other ;;
+  }
+
+  dimension:  GOAL__New_ACV___Shopify {
+    sql: ${TABLE}.GOAL__New_ACV___Shopify ;;
+  }
+
+  dimension:  GOAL__New_ACV___Salesforce {
+    sql: ${TABLE}.GOAL__New_ACV___Salesforce ;;
+  }
+
+  dimension:  GOAL__New_ACV___Magento {
+    sql: ${TABLE}.GOAL__New_ACV___Magento ;;
+  }
+
+  dimension:  GOAL__New_ACV___Big_Commerce {
+    sql: ${TABLE}.GOAL__New_ACV___Big_Commerce ;;
+  }
+
+  dimension:  GOAL__New_ACV___Other {
+    sql: ${TABLE}.GOAL__New_ACV___Other ;;
+  }
+
   measure: net_new_acv_goal_max {
     type: max
     sql: abs(${net_new_acv_goal}) ;;
