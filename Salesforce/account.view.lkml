@@ -1454,7 +1454,8 @@ view: account {
   }
 
   measure: sum_original_acv__c {
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${id} ;;
     sql: ${tier_1_bonus__c} ;;
     drill_fields: [id,name,original_acv__c,actual_launch_date__c_date,churn_date_date]
   }
