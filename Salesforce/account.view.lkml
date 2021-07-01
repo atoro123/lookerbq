@@ -1097,6 +1097,11 @@ view: account {
     sql: ${TABLE}.signed_date__c ;;
   }
 
+  dimension: Months_Since_Signing {
+    type: number
+    sql: DATE_DIFF(Current_Date(), ${original_signed_date__c_date}, MONTH) ;;
+  }
+
   dimension: smi_technology__c {
     type: string
     sql: ${TABLE}.smi_technology__c ;;
