@@ -1475,7 +1475,8 @@ view: account {
   }
 
   measure: sum_current_risk {
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${id} ;;
     sql: ${current_risk__c} ;;
   }
 
