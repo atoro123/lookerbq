@@ -1472,12 +1472,12 @@ explore: zendesk_tickets {
 
   join: harvest_merchant_mapping {
     type: left_outer
-    sql_on: ${harvest_merchant_mapping.merchant_id} = ${zendesk_ticket_mapping.merchant_id} ;;
+    sql_on: ${harvest_merchant_mapping.account} = ${zendesk_organizations.name} ;;
   }
 
   join: account {
     type: left_outer
-    sql_on: ${account.merchant_id__c} = ${zendesk_ticket_mapping.merchant_id};;
+    sql_on: ${account.name} = ${zendesk_organizations.name};;
   }
 
   join: client_status_tracker__c {
