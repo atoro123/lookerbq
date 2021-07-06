@@ -88,6 +88,14 @@ relationship: one_to_many
     relationship: many_to_one
   }
 
+  join: customer_customer_order {
+    from: customer_customer
+    view_label: "Customer - Orders"
+    sql_on: ${customer_customer_order.id} = ${order_order.customer_id} ;;
+    fields: [customer_customer_order.id, customer_customer_order.merchant_id,
+      customer_customer_order.merchant_user_id]
+  }
+
   join: customer_facts {
     type: left_outer
     view_label: "Customer"
