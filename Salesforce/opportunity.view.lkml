@@ -179,7 +179,9 @@ view: opportunity {
       month,
       quarter,
       year,
-      fiscal_quarter
+      fiscal_quarter,
+      fiscal_quarter_of_year,
+      fiscal_year
     ]
     sql: ${TABLE}.auto_renewal_date__c ;;
   }

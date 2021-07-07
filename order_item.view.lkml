@@ -388,6 +388,12 @@ view: order_item {
     sql: ${order_id} ;;
   }
 
+  dimension: Quantity_All {
+    description: "Pulls in Quantity from Subscription if Order Item Quantity is null"
+    type: number
+    sql: if(${quantity} is null, ${subscription_subscription.quantity}, ${quantity}) ;;
+  }
+
 
 
   dimension:IU_One_Time {

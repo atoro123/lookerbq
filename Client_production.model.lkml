@@ -88,6 +88,14 @@ relationship: one_to_many
     relationship: many_to_one
   }
 
+  join: customer_customer_order {
+    from: customer_customer
+    view_label: "Customer - Orders"
+    sql_on: ${customer_customer_order.id} = ${order_order.customer_id} ;;
+    fields: [customer_customer_order.id, customer_customer_order.merchant_id,
+      customer_customer_order.merchant_user_id]
+  }
+
   join: customer_facts {
     type: left_outer
     view_label: "Customer"
@@ -1472,12 +1480,12 @@ explore: zendesk_tickets {
 
   join: harvest_merchant_mapping {
     type: left_outer
-    sql_on: ${harvest_merchant_mapping.merchant_id} = ${zendesk_ticket_mapping.merchant_id} ;;
+    sql_on: ${harvest_merchant_mapping.account} = ${zendesk_organizations.name} ;;
   }
 
   join: account {
     type: left_outer
-    sql_on: ${account.merchant_id__c} = ${zendesk_ticket_mapping.merchant_id};;
+    sql_on: ${account.name} = ${zendesk_organizations.name};;
   }
 
   join: client_status_tracker__c {
