@@ -274,7 +274,89 @@ view: order_order {
       field: status
       value: "3,5,14"}
     drill_fields: [id,order_merchant_id,customer_id,customer_customer.merchant_user_id,status,sub_total,rejected_reason,rejected_message,place_date]
-      }
+  }
+
+  measure: Cart_Build_Faillure_count {
+    type: count
+    group_label: "Failure Counts"
+    filters: {
+      field: rejected_reason
+      value: "Cart Build Faillure"}
+    drill_fields: [id,order_merchant_id,customer_id,customer_customer.merchant_user_id,status,sub_total,rejected_reason,rejected_message,place_date]
+  }
+
+  measure: Invalid_Billing_or_Shipping_Address_count {
+    type: count
+    group_label: "Failure Counts"
+    filters: {
+      field: rejected_reason
+      value: "Invalid Billing or Shipping Address"}
+    drill_fields: [id,order_merchant_id,customer_id,customer_customer.merchant_user_id,status,sub_total,rejected_reason,rejected_message,place_date]
+  }
+
+  measure: No_CC_Saved_count {
+    type: count
+    group_label: "Failure Counts"
+    filters: {
+      field: rejected_reason
+      value: "No CC Saved"}
+    drill_fields: [id,order_merchant_id,customer_id,customer_customer.merchant_user_id,status,sub_total,rejected_reason,rejected_message,place_date]
+  }
+
+  measure: Order_Creation_Failed_count {
+    type: count
+    group_label: "Failure Counts"
+    filters: {
+      field: rejected_reason
+      value: "Order Creation Failed"}
+    drill_fields: [id,order_merchant_id,customer_id,customer_customer.merchant_user_id,status,sub_total,rejected_reason,rejected_message,place_date]
+  }
+
+  measure: Order_Failed_Data_Validation_count {
+    type: count
+    group_label: "Failure Counts"
+    filters: {
+      field: rejected_reason
+      value: "Order Failed Data Validation"}
+    drill_fields: [id,order_merchant_id,customer_id,customer_customer.merchant_user_id,status,sub_total,rejected_reason,rejected_message,place_date]
+  }
+
+  measure: Other_count {
+    type: count
+    group_label: "Failure Counts"
+    filters: {
+      field: rejected_reason
+      value: "Other"}
+    drill_fields: [id,order_merchant_id,customer_id,customer_customer.merchant_user_id,status,sub_total,rejected_reason,rejected_message,place_date]
+  }
+
+  measure: Payment_Expired_count {
+    type: count
+    group_label: "Failure Counts"
+    filters: {
+      field: rejected_reason
+      value: "Payment Expired"}
+    drill_fields: [id,order_merchant_id,customer_id,customer_customer.merchant_user_id,status,sub_total,rejected_reason,rejected_message,place_date]
+  }
+
+  measure: Payment_was_declined_count {
+    type: count
+    group_label: "Failure Counts"
+    filters: {
+      field: rejected_reason
+      value: "Payment was declined"}
+    drill_fields: [id,order_merchant_id,customer_id,customer_customer.merchant_user_id,status,sub_total,rejected_reason,rejected_message,place_date]
+  }
+
+  measure: Rejected_Due_to_Fraud_count {
+    type: count
+    group_label: "Failure Counts"
+    filters: {
+      field: rejected_reason
+      value: "Rejected Due to Fraud"}
+    drill_fields: [id,order_merchant_id,customer_id,customer_customer.merchant_user_id,status,sub_total,rejected_reason,rejected_message,place_date]
+  }
+
 
   dimension: clean_order_place {
     type: string
