@@ -113,7 +113,7 @@ relationship: one_to_many
 
   join: product_product {
     view_label: "Product"
-  sql_on: ${product_product.id} = ${order_item.product_id};;
+  sql_on: ${product_product.id} = ${order_item.Product_ID_All};;
     relationship: one_to_many
   }
 
