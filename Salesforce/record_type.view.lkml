@@ -127,6 +127,7 @@ view: record_type {
 
   dimension: name_order {
     type: string
+    skip_drill_filter: yes
     sql: if(${name} = 'New Business',0,
           if(${name} = 'Renewal',1,
           if(${name} = 'Cross sell',2,
