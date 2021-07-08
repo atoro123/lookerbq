@@ -1726,6 +1726,7 @@ view: opportunity {
     type: average
     sql: ${annual_contract_value_acv__c} ;;
     value_format: "$#,##0.00"
+    drill_fields: [id,name,closedate_date,account.name,annual_contract_value_acv__c]
   }
 
   measure: count_distinct {
