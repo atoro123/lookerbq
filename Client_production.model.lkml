@@ -1722,6 +1722,12 @@ explore: account {
     relationship: many_to_one
     sql_on: ${account.dynamic_churn_timeframe} = ${account_historical_information_google_sheet_connected.dynamic_created_timeframe} ;;
   }
+
+  join: surveys__c {
+    type: left_outer
+    relationship: one_to_many
+    sql_on: ${account.id} = ${surveys__c.account_name__c} ;;
+  }
 }
 
 explore: ltv_predict_164_to_delete {}

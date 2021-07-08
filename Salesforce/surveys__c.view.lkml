@@ -202,6 +202,30 @@ view: surveys__c {
     sql: ${TABLE}.nps__c ;;
   }
 
+  measure: Promoter_Count {
+    type: count
+    sql: ${id} ;;
+    filters: [
+      nps__c: "Promoter"
+    ]
+  }
+
+  measure: Detractor_Count {
+    type: count
+    sql: ${id} ;;
+    filters: [
+      nps__c: "Detractor"
+    ]
+  }
+
+  measure: Neutral_Count {
+    type: count
+    sql: ${id} ;;
+    filters: [
+      nps__c: "Neutral"
+    ]
+  }
+
   dimension: nps_question__c {
     type: number
     sql: ${TABLE}.nps_question__c ;;
