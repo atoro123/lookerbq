@@ -425,6 +425,12 @@ view: subscription_subscription {
     sql:DATE_DIFF(${cancelled_date},${created_date}, DAY);;
   }
 
+  dimension: Subscription_7_day_survival {
+    type: yesno
+    hidden: no
+    sql: (case when ${Subscription_lifetime_current} > 7 then true else false end);;
+  }
+
   dimension: Subscription_lifetime_current {
     type: number
     hidden: no
