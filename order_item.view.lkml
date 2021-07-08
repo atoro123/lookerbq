@@ -394,6 +394,11 @@ view: order_item {
     sql: if(${quantity} is null, ${subscription_subscription.quantity}, ${quantity}) ;;
   }
 
+  dimension: Product_ID_All {
+    type: number
+    sql: if(${product_id} is null, ${subscription_subscription.product_id}, ${product_id})  ;;
+  }
+
 
 
   dimension:IU_One_Time {
