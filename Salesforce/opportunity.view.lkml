@@ -1659,6 +1659,18 @@ view: opportunity {
     sql: ${TABLE}.weighted_implementation_fee__c ;;
   }
 
+  measure: sum_implementation_fee {
+    type: sum_distinct
+    sql_distinct_key: ${id} ;;
+    sql: ${weighted_implementation_fee__c} ;;
+  }
+
+  measure: sum_setup_fee {
+    type: sum_distinct
+    sql_distinct_key: ${id} ;;
+    sql: ${setup_fee__c} ;;
+  }
+
   dimension: what_are_the_corporate_growth_objectives__c {
     type: string
     sql: ${TABLE}.what_are_the_corporate_growth_objectives__c ;;
