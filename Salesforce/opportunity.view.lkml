@@ -1663,12 +1663,14 @@ view: opportunity {
     type: sum_distinct
     sql_distinct_key: ${id} ;;
     sql: ${weighted_implementation_fee__c} ;;
+    drill_fields: [id,name,closedate_date,account.name,annual_contract_value_acv__c]
   }
 
   measure: sum_setup_fee {
     type: sum_distinct
     sql_distinct_key: ${id} ;;
     sql: ${setup_fee__c} ;;
+    drill_fields: [id,name,closedate_date,account.name,annual_contract_value_acv__c]
   }
 
   dimension: what_are_the_corporate_growth_objectives__c {
