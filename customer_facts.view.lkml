@@ -8,6 +8,7 @@ view: customer_facts {
       , min(subscription_subscription.created) as Created
       , TIMESTAMP(max(case when subscription_subscription.live is FALSE then subscription_subscription.cancelled else null end)) as Cancelled
       , max(subscription_subscription.live) as Live
+      , count(distinct case when subscription_subscription.live is TRUE then subscription_subscription.id else null end) as Active_Sub_Count
       , count(distinct order_order.id) as Total_Orders
       , count(distinct case when order_order.status = 5 then order_order.id else null end) as Completed_Orders
       , count(case when order_order.status = 5 then order_order.sub_total else null end) as Total_Spend
@@ -256,5 +257,10 @@ dimension: Bucket_LTV {
            when ${TABLE}.completed_orders = 2 then "2"
            when ${TABLE}.completed_orders = 1 then "1"
           else '0' end ;;
+  }
+
+  dimension: Active_Subscription_Count {
+    type: number
+    sql: ${TABLE}.Active_Sub_Count ;;
   }
 }
