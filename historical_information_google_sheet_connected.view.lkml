@@ -113,8 +113,8 @@ view: historical_information_google_sheet_connected {
 
   measure: sum_cost_of_revenue_expenses___pro_serve {
     type: sum_distinct
-    sql_distinct_key: ${date_date} ;;
-    sql: ${cost_of_revenue_expenses___pro_serve};;
+    sql_distinct_key: ${dynamic_created_timeframe} ;;
+    sql: ${goal__cost_of_revenue_expenses___pro_serve};;
     value_format: "$#,##0"
   }
 
