@@ -111,6 +111,13 @@ view: historical_information_google_sheet_connected {
     sql: ${TABLE}.Cost_of_Revenue_Expenses___Pro_Serve ;;
   }
 
+  measure: sum_cost_of_revenue_expenses___pro_serve {
+    type: sum_distinct
+    sql_distinct_key: ${dynamic_created_timeframe} ;;
+    sql: ${goal__cost_of_revenue_expenses___pro_serve};;
+    value_format: "$#,##0"
+  }
+
   dimension: downsells {
     type: number
     sql: ${TABLE}.Downsells ;;

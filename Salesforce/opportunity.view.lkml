@@ -1659,6 +1659,20 @@ view: opportunity {
     sql: ${TABLE}.weighted_implementation_fee__c ;;
   }
 
+  measure: sum_implementation_fee {
+    type: sum_distinct
+    sql_distinct_key: ${id} ;;
+    sql: ${weighted_implementation_fee__c} ;;
+    drill_fields: [id,name,closedate_date,account.name,annual_contract_value_acv__c]
+  }
+
+  measure: sum_setup_fee {
+    type: sum_distinct
+    sql_distinct_key: ${id} ;;
+    sql: ${setup_fee__c} ;;
+    drill_fields: [id,name,closedate_date,account.name,annual_contract_value_acv__c]
+  }
+
   dimension: what_are_the_corporate_growth_objectives__c {
     type: string
     sql: ${TABLE}.what_are_the_corporate_growth_objectives__c ;;
@@ -1726,6 +1740,7 @@ view: opportunity {
     type: average
     sql: ${annual_contract_value_acv__c} ;;
     value_format: "$#,##0.00"
+    drill_fields: [id,name,closedate_date,account.name,annual_contract_value_acv__c]
   }
 
   measure: count_distinct {
