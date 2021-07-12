@@ -161,14 +161,14 @@ view: historical_information_google_sheet_connected {
   dimension: goal_monthly_gmv_runrate {
     type: number
     sql: ${goal__gmv_collected_goal_}*12 ;;
-    value_format: "$#,##0.00"
+    value_format: "$#,##0"
   }
 
   measure: gmv_goal_runrate {
     type: sum
     label: "GMV Goal Run Rate"
     sql: ${goal_monthly_gmv_runrate} ;;
-    value_format: "$#,##0.00"
+    value_format: "$#,##0"
   }
 
   dimension: goal__launches {
@@ -272,49 +272,49 @@ view: historical_information_google_sheet_connected {
   measure: Beginning_ACV_sum{
     type: sum
     sql: ${beginning_acv} ;;
-    value_format: "$#,##0.00"
+    value_format: "$#,##0"
   }
 
   measure:New_ACV_new_sales_sum{
     type: sum
     sql: ${new_acv__new_sales_} ;;
-    value_format: "$#,##0.00"
+    value_format: "$#,##0"
   }
 
   measure: New_ACV_cross_sells_sum{
     type: sum
     sql: ${new_acv__cross_sells_} ;;
-    value_format: "$#,##0.00"
+    value_format: "$#,##0"
   }
 
   measure: New_ACV_upsells_sum{
     type: sum
     sql: ${new_acv__upsells_} ;;
-    value_format: "$#,##0.00"
+    value_format: "$#,##0"
   }
 
   measure: Churn_sum {
     type: sum
     sql: ${churn_} ;;
-    value_format: "$#,##0.00"
+    value_format: "$#,##0"
   }
 
   measure: Downsells_sum {
     type: sum
     sql: ${downsells} ;;
-    value_format: "$#,##0.00"
+    value_format: "$#,##0"
   }
 
   measure: Other_ACV_Sum{
     type: sum
     sql: ${other_acv} ;;
-    value_format: "$#,##0.00"
+    value_format: "$#,##0"
   }
 
   measure: Ending_ACV_Sum {
     type: sum
     sql: ${ending_acv} ;;
-    value_format: "$#,##0.00"
+    value_format: "$#,##0"
   }
 
   dimension: goal__uqls {
