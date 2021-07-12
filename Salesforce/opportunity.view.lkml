@@ -1661,6 +1661,7 @@ view: opportunity {
 
   measure: sum_implementation_fee {
     type: sum_distinct
+    value_format: "$#,##0"
     sql_distinct_key: ${id} ;;
     sql: ${weighted_implementation_fee__c} ;;
     drill_fields: [id,name,closedate_date,account.name,annual_contract_value_acv__c]
@@ -1779,6 +1780,7 @@ view: opportunity {
 
   measure: Platform_transaction_goal {
     type: sum_distinct
+    value_format: "$#,##0"
     sql_distinct_key:  case when ${partner_account__c.ECommerce_Platform_grouped} = 'Shopify' then cast(${historical_information_google_sheet_connected.GOAL__New_ACV___of_Transactions___Shopify} as numeric)
               when ${partner_account__c.ECommerce_Platform_grouped} = 'Other' then cast(${historical_information_google_sheet_connected.GOAL__New_ACV___of_Transactions___Other} as numeric)
               when ${partner_account__c.ECommerce_Platform_grouped} = 'BigCommerce' then cast(${historical_information_google_sheet_connected.GOAL__New_ACV___of_Transactions___Big_Commerce} as numeric)
@@ -1795,6 +1797,7 @@ view: opportunity {
 
   measure: Platform_ASP_goal {
     type: sum_distinct
+    value_format: "$#,##0"
     sql_distinct_key: case when ${partner_account__c.ECommerce_Platform_grouped} = 'Shopify' then cast(${historical_information_google_sheet_connected.GOAL__New_ACV_ASP___Shopify} as numeric)
               when ${partner_account__c.ECommerce_Platform_grouped} = 'Other' then cast(${historical_information_google_sheet_connected.GOAL__New_ACV_ASP___Other} as numeric)
               when ${partner_account__c.ECommerce_Platform_grouped} = 'BigCommerce' then cast(${historical_information_google_sheet_connected.GOAL__New_ACV_ASP___Big_Commerce} as numeric)
@@ -1811,6 +1814,7 @@ view: opportunity {
 
   measure: Platform_goal {
     type: sum_distinct
+    value_format: "$#,##0"
     sql_distinct_key:  case when ${partner_account__c.ECommerce_Platform_grouped} = 'Shopify' then cast(${historical_information_google_sheet_connected.GOAL__New_ACV___Shopify} as numeric)
               when ${partner_account__c.ECommerce_Platform_grouped} = 'Other' then cast(${historical_information_google_sheet_connected.GOAL__New_ACV___Other} as numeric)
               when ${partner_account__c.ECommerce_Platform_grouped} = 'BigCommerce' then cast(${historical_information_google_sheet_connected.GOAL__New_ACV___Big_Commerce} as numeric)
@@ -1827,6 +1831,7 @@ view: opportunity {
 
   measure: new_acv_goal {
     type: max
+    value_format: "$#,##0"
     sql: ${historical_information_google_sheet_connected.goal__new_acv} ;;
   }
 
