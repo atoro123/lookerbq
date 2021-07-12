@@ -144,6 +144,7 @@ view: downsell_record__c {
   measure: downsell_sum {
     type: sum
     sql: ${downsell_amount__c} ;;
+    value_format: "$#,##0"
     drill_fields: [id, name, original_acv__c, new_acv__c]
   }
 }

@@ -77,9 +77,10 @@ GROUP BY
 
     measure: Net_acv_sum {
     type: sum_distinct
+    value_format: "$#,##0"
     sql_distinct_key: ${custom_id} ;;
     sql: case when ${secondary_cateogry} = "Downsell" or ${secondary_cateogry} = "Churn" then -1*${acv} else ${acv} end;;
-    value_format: "#,##0"
+
   }
 
     dimension: custom_id {
@@ -103,6 +104,7 @@ GROUP BY
 
   measure: goal {
     type: sum_distinct
+    value_format: "$#,##0"
     sql_distinct_key: case when ${record_type} = "New Business" then cast(${historical_information_google_sheet_connected.goal__new_acv___new_bus} as numeric)
           when ${record_type} = "GMV Increase" then cast(${historical_information_google_sheet_connected.goal__new_acv_goal___upsells} as numeric)
           when ${record_type} = "Upsell" then 0

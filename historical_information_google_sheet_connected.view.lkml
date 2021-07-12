@@ -330,6 +330,7 @@ view: historical_information_google_sheet_connected {
   measure: Churn_goal {
     type: max
     sql: abs(${goal__churn_budget}) ;;
+    value_format: "$#,##0"
   }
 
   dimension: net_new_acv_goal {
