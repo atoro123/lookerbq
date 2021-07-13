@@ -891,7 +891,7 @@ view: lead {
   dimension: Lead_Status {
     type: string
     sql: case when ${qualified_status2__c} in ('MQL','Unqualified Lead') then 'UQL'
-    when ${qualified_status2__c} in ('SQL') and ${opportunity.power_of_1_sqo__c} = 1 then 'SQO'
+    when ${qualified_status2__c} in ('SQL') and ${opportunity.power_of_1_sqo__c} = 1 and ${opportunity.recordtypeid} = '012C0000000QLHVIA4' then 'SQO'
     when ${qualified_status2__c} in ('SQL') then 'SQL' else 'UQL' end;;
     order_by_field: lead_status_order
   }

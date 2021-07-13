@@ -327,6 +327,11 @@ view: historical_information_google_sheet_connected {
     sql: ${goal__sqls};;
   }
 
+  measure: UQL_Goal {
+    type: max
+    sql: ${goal__uqls};;
+  }
+
   measure: Churn_goal {
     type: max
     sql: abs(${goal__churn_budget}) ;;

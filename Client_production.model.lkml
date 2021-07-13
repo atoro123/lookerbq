@@ -1750,7 +1750,7 @@ explore: Salesforce_leads {
 
   join: opportunity {
     sql_on: ${Salesforce_leads.convertedopportunityid} = ${opportunity.id} ;;
-    fields: [-opportunity.Platform_transaction_goal,-opportunity.Platform_ASP_goal,-opportunity.Platform_goal]
+    fields: [opportunity.recordtypeid, opportunity.id, opportunity.power_of_1_sqo__c]
   }
 }
 
