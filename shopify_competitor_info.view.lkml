@@ -182,6 +182,15 @@ view: shopify_competitor_info {
     value_format: "0"
   }
 
+  dimension: Recurring_Orders {
+    sql: safe_divide(${total_sales_recurring},${avg_recurring_charge}) ;;
+  }
+
+  measure: average_orders {
+    type: average
+    sql: ${Recurring_Orders} ;;
+  }
+
   measure: Max_Base {
     type: max
     sql: ${custs_with_active_subscriptions} ;;

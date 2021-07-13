@@ -1486,6 +1486,7 @@ view: account {
     sql_distinct_key: ${id} ;;
     sql: ${current_risk__c} ;;
     value_format: "$#,##0"
+    drill_fields: [id,name,original_acv__c,actual_launch_date__c_date,churn_date_date]
   }
 
   dimension: total_custom_features {

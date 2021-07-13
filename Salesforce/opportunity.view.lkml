@@ -119,6 +119,11 @@ view: opportunity {
     sql: ${TABLE}.amount ;;
   }
 
+  measure: amount_sum {
+    type: sum
+    sql: ${amount} ;;
+  }
+
   dimension: annual_contract_value_acv__c {
     type: number
     sql: ${TABLE}.annual_contract_value_acv__c ;;
@@ -1652,6 +1657,11 @@ view: opportunity {
   dimension: weighted_acv__c {
     type: number
     sql: ${TABLE}.weighted_acv__c ;;
+  }
+
+  measure: sum_weighted_acv {
+    type: sum
+    sql: ${weighted_acv__c} ;;
   }
 
   dimension: weighted_implementation_fee__c {

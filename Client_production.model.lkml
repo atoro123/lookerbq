@@ -1745,8 +1745,12 @@ explore: Salesforce_leads {
 
   join: historical_information_google_sheet_connected {
     type:full_outer
-    relationship: many_to_one
     sql_on: ${Salesforce_leads.dynamic_timeframe} = ${historical_information_google_sheet_connected.dynamic_created_timeframe};;
+  }
+
+  join: opportunity {
+    sql_on: ${Salesforce_leads.convertedopportunityid} = ${opportunity.id} ;;
+    fields: [-opportunity.Platform_transaction_goal,-opportunity.Platform_ASP_goal,-opportunity.Platform_goal]
   }
 }
 

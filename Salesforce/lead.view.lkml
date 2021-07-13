@@ -891,7 +891,41 @@ view: lead {
   dimension: Lead_Status {
     type: string
     sql: case when ${qualified_status2__c} in ('MQL','Unqualified Lead') then 'UQL'
+    when ${qualified_status2__c} in ('SQL') and ${opportunity.power_of_1_sqo__c} = 1 then 'SQO'
     when ${qualified_status2__c} in ('SQL') then 'SQL' else 'UQL' end;;
+    order_by_field: lead_status_order
+  }
+
+
+  dimension: lead_status_order {
+    type: string
+    skip_drill_filter: yes
+    sql: if(${Lead_Status} = 'UQL',0,
+    if(${Lead_Status} = 'SQL',1,
+    if(${Lead_Status} = 'SQO',2,3)));;
+  }
+
+
+  measure: SQL_Count {
+    type: count_distinct
+    sql_distinct_key: ${id} ;;
+    sql: case when ${qualified_status2__c} in ('SQL') then ${id} else null end;;
+  }
+
+  measure: SQO_Count {
+    type: count_distinct
+    sql_distinct_key: ${convertedopportunityid} ;;
+    sql: case when ${qualified_status2__c} in ('SQL') and ${opportunity.power_of_1_sqo__c} = 1 then ${convertedopportunityid} else null end;;
+  }
+
+  measure: SQL_Conversion_Rate {
+    sql: safe_divide(${SQL_Count},${count}) ;;
+    value_format: "0.0%"
+  }
+
+  measure: SQO_Conversion_Rate {
+    sql: safe_divide(${SQO_Count},${SQL_Count}) ;;
+    value_format: "0.0%"
   }
 
   dimension: qualified_status__c {
@@ -1083,6 +1117,21 @@ view: lead {
     drill_fields: [id, name]
   }
 
+  measure: count_distinct {
+    type: count_distinct
+    sql_distinct_key: ${id} ;;
+    sql: ${id} ;;
+    drill_fields: [id, name]
+  }
+
+  measure: count_distinct_SQL {
+    type: count_distinct
+    sql_distinct_key: ${id} ;;
+    sql: case when ${qualified_status2__c} = 'SQL' then ${id} else null end ;;
+    drill_fields: [id, name]
+  }
+
+
   dimension: category_type {
     type: string
   }
@@ -1104,7 +1153,7 @@ view: lead {
     case when {% parameter timeframe_picker %} = 'Date' then date(${createddate_date})
     when {% parameter timeframe_picker %} = 'Week' then date(${createddate_week})
     when {% parameter timeframe_picker %} = 'Month' then date(FORMAT_TIMESTAMP('%Y-%m-01', ${createddate_date}))
-    when {% parameter timeframe_picker %} = 'Quarter' then DATE_ADD(date((FORMAT_TIMESTAMP('%Y-%m-01', TIMESTAMP_TRUNC(CAST(CAST(DATETIME_ADD(CAST(TIMESTAMP_TRUNC(CAST(createddate  AS TIMESTAMP), MONTH) AS DATETIME), INTERVAL -1 MONTH) AS TIMESTAMP) AS TIMESTAMP), QUARTER)))), INTERVAL 1 MONTH)
+    when {% parameter timeframe_picker %} = 'Quarter' then DATE_ADD(date((FORMAT_TIMESTAMP('%Y-%m-01', TIMESTAMP_TRUNC(CAST(CAST(DATETIME_ADD(CAST(TIMESTAMP_TRUNC(CAST(Salesforce_leads.createddate  AS TIMESTAMP), MONTH) AS DATETIME), INTERVAL -1 MONTH) AS TIMESTAMP) AS TIMESTAMP), QUARTER)))), INTERVAL 1 MONTH)
     when {% parameter timeframe_picker %} = 'Year' then date(FORMAT_TIMESTAMP('%Y-01-01', ${createddate_date}))
     end ;;
   }
