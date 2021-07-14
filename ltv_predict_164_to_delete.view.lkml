@@ -1,5 +1,5 @@
 view: ltv_predict_164_to_delete {
-  sql_table_name: `production-202017.ogv2_consumerinsight.LTV_Predict_164_to_delete`
+  sql_table_name: `production-202017.ogv2_consumerinsight.LTV_Predict_164_to_delete2`
     ;;
 
   dimension: count_ltv_predict_164_to_delete {
@@ -35,5 +35,15 @@ view: ltv_predict_164_to_delete {
   measure: count {
     type: count
     drill_fields: []
+  }
+
+  measure: median_median_lifetime {
+    type: median
+    sql: ${median_lifetime} ;;
+  }
+
+  measure: median_median_shipments {
+    type: median
+    sql: ${median_shipments} ;;
   }
 }

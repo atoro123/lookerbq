@@ -919,7 +919,7 @@ view: lead {
   }
 
   measure: SQL_Conversion_Rate {
-    sql: safe_divide(${SQL_Count},${count}) ;;
+    sql: safe_divide(${SQL_Count},${count_distinct}) ;;
     value_format: "0.0%"
   }
 
