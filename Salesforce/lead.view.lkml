@@ -1157,4 +1157,15 @@ view: lead {
     when {% parameter timeframe_picker %} = 'Year' then date(FORMAT_TIMESTAMP('%Y-01-01', ${createddate_date}))
     end ;;
   }
+
+  dimension: dynamic_timeframe_uql_date {
+    type: string
+    sql:
+    case when {% parameter timeframe_picker %} = 'Date' then date(${uql_date__c_date})
+    when {% parameter timeframe_picker %} = 'Week' then date(${uql_date__c_week})
+    when {% parameter timeframe_picker %} = 'Month' then date(FORMAT_TIMESTAMP('%Y-%m-01', ${uql_date__c_date}))
+    when {% parameter timeframe_picker %} = 'Quarter' then DATE_ADD(date((FORMAT_TIMESTAMP('%Y-%m-01', TIMESTAMP_TRUNC(CAST(CAST(DATETIME_ADD(CAST(TIMESTAMP_TRUNC(CAST(Salesforce_leads.uql_date__c  AS TIMESTAMP), MONTH) AS DATETIME), INTERVAL -1 MONTH) AS TIMESTAMP) AS TIMESTAMP), QUARTER)))), INTERVAL 1 MONTH)
+    when {% parameter timeframe_picker %} = 'Year' then date(FORMAT_TIMESTAMP('%Y-01-01', ${uql_date__c_date}))
+    end ;;
+  }
 }
