@@ -1662,6 +1662,7 @@ view: opportunity {
   measure: sum_weighted_acv {
     type: sum
     sql: ${weighted_acv__c} ;;
+    drill_fields: [id,name,closedate_date,account.name,annual_contract_value_acv__c]
   }
 
   dimension: weighted_implementation_fee__c {
