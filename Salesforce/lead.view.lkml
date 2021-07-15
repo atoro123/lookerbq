@@ -1085,7 +1085,8 @@ view: lead {
       week,
       month,
       quarter,
-      year
+      year,
+      fiscal_quarter
     ]
     sql: ${TABLE}.uql_date__c ;;
   }

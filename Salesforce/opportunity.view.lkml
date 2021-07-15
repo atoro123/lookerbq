@@ -1840,6 +1840,11 @@ view: opportunity {
         ;;
   }
 
+  measure: SQO_count {
+    type: count_distinct
+    sql: case when ${power_of_1_sqo__c} = 1 then ${id} else null end ;;
+  }
+
   measure: new_acv_goal {
     type: max
     value_format: "$#,##0"
@@ -1848,12 +1853,24 @@ view: opportunity {
 
   dimension: dynamic_created_timeframe {
     type: string
+    description: "actually the close date"
     sql:
     case when {% parameter timeframe_picker %} = 'Date' then date(${closedate_date})
     when {% parameter timeframe_picker %} = 'Week' then date(${closedate_week})
     when {% parameter timeframe_picker %} = 'Month' then date(FORMAT_TIMESTAMP('%Y-%m-01', ${closedate_date}))
     when {% parameter timeframe_picker %} = 'Quarter' then DATE_ADD(date((FORMAT_TIMESTAMP('%Y-%m-01', TIMESTAMP_TRUNC(CAST(CAST(DATETIME_ADD(CAST(TIMESTAMP_TRUNC(CAST(opportunity.closedate  AS TIMESTAMP), MONTH) AS DATETIME), INTERVAL -1 MONTH) AS TIMESTAMP) AS TIMESTAMP), QUARTER)))), INTERVAL 1 MONTH)
     when {% parameter timeframe_picker %} = 'Year' then date(FORMAT_TIMESTAMP('%Y-01-01', ${closedate_date}))
+    end ;;
+  }
+
+  dimension: dynamic_created_date_timeframe {
+    type: string
+    sql:
+    case when {% parameter timeframe_picker %} = 'Date' then date(${createddate_date})
+    when {% parameter timeframe_picker %} = 'Week' then date(${createddate_week})
+    when {% parameter timeframe_picker %} = 'Month' then date(FORMAT_TIMESTAMP('%Y-%m-01', ${createddate_date}))
+    when {% parameter timeframe_picker %} = 'Quarter' then DATE_ADD(date((FORMAT_TIMESTAMP('%Y-%m-01', TIMESTAMP_TRUNC(CAST(CAST(DATETIME_ADD(CAST(TIMESTAMP_TRUNC(CAST(opportunity.createddate  AS TIMESTAMP), MONTH) AS DATETIME), INTERVAL -1 MONTH) AS TIMESTAMP) AS TIMESTAMP), QUARTER)))), INTERVAL 1 MONTH)
+    when {% parameter timeframe_picker %} = 'Year' then date(FORMAT_TIMESTAMP('%Y-01-01', ${createddate_date}))
     end ;;
   }
 
