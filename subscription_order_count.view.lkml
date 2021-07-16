@@ -78,11 +78,13 @@ where oo.status in (1,5)
     type: average_distinct
     sql_distinct_key: ${order_item_id} ;;
     sql: case when ${completed_subscription_orders} in (4,9,14,19,24,29,34,39,44,49,54,59,64,69,74,79, 84,89,94,99,104,109,114,119) then ${order_item.Quantity_All} else null end ;;
+    value_format: "0.0"
   }
 
   measure: Not_4th_Order_average_quantity {
     type: average_distinct
     sql_distinct_key: ${order_item_id} ;;
     sql: case when ${completed_subscription_orders} not in (4,9,14,19,24,29,34,39,44,49,54,59,64,69,74,79, 84,89,94,99,104,109,114,119) then ${order_item.Quantity_All} else null end ;;
+    value_format: "0.0"
   }
   }
