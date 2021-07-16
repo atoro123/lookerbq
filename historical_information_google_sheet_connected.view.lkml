@@ -18,7 +18,7 @@ view: historical_information_google_sheet_connected {
       year,
       fiscal_quarter
     ]
-    sql: ${TABLE}.Date ;;
+    sql: TIMESTAMP(${TABLE}.Date) ;;
   }
 
   dimension: __of_brands {

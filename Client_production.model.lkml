@@ -1761,6 +1761,11 @@ explore: Salesforce_leads {
 }
 
 explore:   historical_information_google_sheet_connected {
+  join: opportunity_downsell_aggregations {
+    type: left_outer
+    relationship: one_to_many
+    sql_on: ${opportunity_downsell_aggregations.date_month} = ${historical_information_google_sheet_connected.date_month};;
+  }
 }
 
 explore: illy_program_subscribers {

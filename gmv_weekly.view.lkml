@@ -90,6 +90,24 @@ view: gmv_weekly {
     value_format: "$#,##0.00"
   }
 
+  dimension: May_2021_Forecast {
+    type: number
+    sql: ${TABLE}.May_2021 ;;
+    value_format: "$#,##0.00"
+  }
+
+  dimension: Jun_2021_Forecast {
+    type: number
+    sql: ${TABLE}.Jun_2021 ;;
+    value_format: "$#,##0.00"
+  }
+
+  dimension: Jul_2021_Forecast {
+    type: number
+    sql: ${TABLE}.Jul_2021 ;;
+    value_format: "$#,##0.00"
+  }
+
   dimension: Dec_2020_Forecast {
     type: number
     sql: ${TABLE}.Dec_2020 ;;
@@ -171,6 +189,24 @@ view: gmv_weekly {
   measure: Total_Apr_2021_Forecast {
     type: sum
     sql: ${Apr_2021_Forecast};;
+    value_format: "$#,##0.00"
+  }
+
+  measure: Total_May_2021_Forecast {
+    type: sum
+    sql: ${May_2021_Forecast};;
+    value_format: "$#,##0.00"
+  }
+
+  measure: Total_Jun_2021_Forecast {
+    type: sum
+    sql: ${Jun_2021_Forecast};;
+    value_format: "$#,##0.00"
+  }
+
+  measure: Total_Jul_2021_Forecast {
+    type: sum
+    sql: ${Jul_2021_Forecast};;
     value_format: "$#,##0.00"
   }
 }
