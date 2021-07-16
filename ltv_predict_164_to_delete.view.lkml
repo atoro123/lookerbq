@@ -46,4 +46,5 @@ view: ltv_predict_164_to_delete {
     type: median
     sql: ${median_shipments} ;;
   }
+
 }

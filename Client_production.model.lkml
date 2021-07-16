@@ -330,6 +330,12 @@ explore: subscription_subscription {
     relationship: one_to_many
   }
 
+  join: order_item_order_count {
+    from: subscription_order_count
+    sql_on: ${order_item_order_count.order_item_id} = ${order_item.id} ;;
+    relationship: one_to_many
+  }
+
   join: lv_brands {
     view_label: "Lucky Vitamin Brands"
     sql_on: ${lv_brands.sku} = ${product_product.sku} ;;

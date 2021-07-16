@@ -3,6 +3,7 @@ view: subscription_order_count {
       sql_trigger_value: SELECT FLOOR(((TIMESTAMP_DIFF(CURRENT_TIMESTAMP(),'1970-01-01 00:00:00',SECOND)) - 60*60*8)/(60*60*24));;
       sql: select
       oi.order_id as order_id,
+      oi.id as order_item_id,
       oi.subscription_id as subscription_id,
       oo.place as place,
       oo.status as status,
@@ -53,6 +54,11 @@ where oo.status in (1,5)
     sql: ${TABLE}.merchant_id ;;
   }
 
+  dimension: order_item_id {
+    type: number
+    sql: ${TABLE}.order_item_id ;;
+  }
+
   dimension: completed_subscription_orders {
     type: number
     sql: ${TABLE}.completed_subscription_orders ;;
@@ -66,5 +72,19 @@ where oo.status in (1,5)
   measure: Count_Orders {
     type: count_distinct
     sql: ${order_id} ;;
+  }
+
+  measure: 4th_Order_average_quantity {
+    type: average_distinct
+    sql_distinct_key: ${order_item_id} ;;
+    sql: case when ${completed_subscription_orders} in (4,9,14,19,24,29,34,39,44,49,54,59,64,69,74,79, 84,89,94,99,104,109,114,119) then ${order_item.Quantity_All} else null end ;;
+    value_format: "0.0"
+  }
+
+  measure: Not_4th_Order_average_quantity {
+    type: average_distinct
+    sql_distinct_key: ${order_item_id} ;;
+    sql: case when ${completed_subscription_orders} not in (4,9,14,19,24,29,34,39,44,49,54,59,64,69,74,79, 84,89,94,99,104,109,114,119) then ${order_item.Quantity_All} else null end ;;
+    value_format: "0.0"
   }
   }
