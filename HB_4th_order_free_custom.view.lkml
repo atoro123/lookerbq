@@ -2,7 +2,7 @@ view: hb_4th_order_free_custom {
     derived_table: {
       sql_trigger_value: SELECT FLOOR(((TIMESTAMP_DIFF(CURRENT_TIMESTAMP(),'1970-01-01 00:00:00',SECOND)) - 60*60*8)/(60*60*24));;
       sql:
-      select oi.subscription_id, date(oo.place) as place_date, oo.id as order_id,oo.status, pp.SKU, pp.name, oi.quantity, if(oi.quantity is null, ss.quantity, oi.quantity)  AS order_item_quantity_all, oi.total_price,round(a.Free_Order_Quantity_average,1) as Free_Order_Quantity_average,round(a.Non_Free_Order_Quantity_average,1) as Non_Free_Order_Quantity_average
+      select oi.subscription_id, oo.place, oo.id as order_id,oo.status, pp.SKU, pp.name, oi.quantity, if(oi.quantity is null, ss.quantity, oi.quantity)  AS order_item_quantity_all, oi.total_price,round(a.Free_Order_Quantity_average,1) as Free_Order_Quantity_average,round(a.Non_Free_Order_Quantity_average,1) as Non_Free_Order_Quantity_average
    FROM
           `production-202017.ogv2_production.order_item` AS oi
       LEFT JOIN `production-202017.ogv2_production.order_order` AS oo ON oo.id = oi.order_id
@@ -23,9 +23,16 @@ view: hb_4th_order_free_custom {
     sql: ${TABLE}.subscription_id ;;
   }
 
-  dimension: place_date {
-    sql: ${TABLE}.place_date ;;
-  }
+  dimension_group: place {
+    type: time
+    timeframes: [
+      date,
+      month,
+      quarter,
+      year
+    ]
+    sql: TIMESTAMP(${TABLE}.place) ;;
+     }
 
   dimension: order_id {
     sql: ${TABLE}.order_id ;;
