@@ -2,13 +2,13 @@ view: hb_4th_order_free_custom {
     derived_table: {
       sql_trigger_value: SELECT FLOOR(((TIMESTAMP_DIFF(CURRENT_TIMESTAMP(),'1970-01-01 00:00:00',SECOND)) - 60*60*8)/(60*60*24));;
       sql:
-      select oi.subscription_id, oo.place, oo.id as order_id,oo.status, pp.SKU, pp.name, oi.quantity, if(oi.quantity is null, ss.quantity, oi.quantity)  AS order_item_quantity_all, oi.total_price,round(a.Free_Order_Quantity_average,1) as Free_Order_Quantity_average,round(a.Non_Free_Order_Quantity_average,1) as Non_Free_Order_Quantity_average
+      select oi.subscription_id, oo.place, cc.merchant_user_id, oo.id as order_id,oo.status, pp.SKU, pp.name, oi.quantity, if(oi.quantity is null, ss.quantity, oi.quantity)  AS order_item_quantity_all, oi.total_price,round(a.Free_Order_Quantity_average,1) as Free_Order_Quantity_average,round(a.Non_Free_Order_Quantity_average,1) as Non_Free_Order_Quantity_average
    FROM
           `production-202017.ogv2_production.order_item` AS oi
       LEFT JOIN `production-202017.ogv2_production.order_order` AS oo ON oo.id = oi.order_id
       LEFT JOIN `production-202017.ogv2_production.subscription_subscription` AS ss ON oi.subscription_id = ss.id
       LEFT JOIN `production-202017.ogv2_production.product_product` AS pp ON ss.product_id = pp.id
-
+      LEFT JOIN `production-202017.ogv2_production.customer_customer` AS cc ON cc.id = ss.customer_id
       LEFT JOIN (select oi.subscription_id, AVG(case when total_price = 0 then if(oi.quantity is null, ss.quantity, oi.quantity) else null end) as Free_Order_Quantity_average, AVG(case when total_price <> 0 then if(oi.quantity is null, ss.quantity, oi.quantity) else null end) as Non_Free_Order_Quantity_average
    FROM
           `production-202017.ogv2_production.order_item` AS oi
@@ -66,6 +66,10 @@ view: hb_4th_order_free_custom {
 
   dimension: Non_Free_Order_Quantity_average {
     sql: ${TABLE}.Non_Free_Order_Quantity_average ;;
+  }
+
+  dimension: merchant_user_id{
+    sql: ${TABLE}.merchant_user_id ;;
   }
 
   dimension: Fraud_Alert {

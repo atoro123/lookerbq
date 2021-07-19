@@ -1662,7 +1662,7 @@ view: opportunity {
   measure: sum_weighted_acv {
     type: sum
     sql: ${weighted_acv__c} ;;
-    drill_fields: [id,name,closedate_date,account.name,annual_contract_value_acv__c]
+    drill_fields: [id,name,closedate_date,partner_account_c.name,account.name,annual_contract_value_acv__c,account.customer_segment_c]
   }
 
   dimension: weighted_implementation_fee__c {
@@ -1737,7 +1737,7 @@ view: opportunity {
 
   measure: count {
     type: count
-    drill_fields: [detail*]
+    drill_fields: [id,name,closedate_date,account.name,annual_contract_value_acv__c,account.customer_segment_c,record_type.name]
   }
 
   measure: sum_acv {
@@ -1757,7 +1757,8 @@ view: opportunity {
 
   measure: count_distinct {
     type: count_distinct
-    sql: ${id} ;;}
+    sql: ${id} ;;
+    drill_fields: [id,name,closedate_date,account.name,annual_contract_value_acv__c, weighted_acv__c,account.customer_segment__c,opportunity_record_type.name]}
 
   parameter: timeframe_picker {
     label: "Date Granularity"
