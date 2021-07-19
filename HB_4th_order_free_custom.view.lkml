@@ -51,10 +51,12 @@ view: hb_4th_order_free_custom {
   }
 
   dimension: order_item_quantity {
+    type: number
     sql: ${TABLE}.quantity ;;
   }
 
   dimension: order_item_quantity_all {
+    type: number
     sql: ${TABLE}.order_item_quantity_all ;;
   }
 
@@ -64,6 +66,11 @@ view: hb_4th_order_free_custom {
 
   dimension: Non_Free_Order_Quantity_average {
     sql: ${TABLE}.Non_Free_Order_Quantity_average ;;
+  }
+
+  dimension: Fraud_Alert {
+    type: string
+    sql: case when cast(${TABLE}.order_item_quantity_all as numeric) > cast(${TABLE}.Non_Free_Order_Quantity_average as numeric) then "Possible Fraud" else null end ;;
   }
 
 
