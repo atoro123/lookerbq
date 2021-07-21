@@ -1440,7 +1440,7 @@ view: account {
 
   measure: count {
     type: count
-    drill_fields: [id, name, account_history.count, current_subscription_provider__c,opportunity.count,current_risk__c,level_of_risk__c,client_status_tracker__c.original_expected_launch_date__c_date,client_status_tracker__c.current_estimated_launch_date__c_date,client_status_tracker__c.project_slippage__c, client_status_tracker__c.stage__c]
+    drill_fields: [id, name, account_history.count, current_subscription_provider__c,opportunity.count,current_risk__c,level_of_risk__c,client_status_tracker__c.original_expected_launch_date__c_date,client_status_tracker__c.current_estimated_launch_date__c_date,client_status_tracker__c.project_slippage__c, client_status_tracker__c.stage__c, partner_account__c.name, actual_launch_date__c_date, current_risk__c, surveys__c.nps_question__c]
   }
 
   measure: avg_original_acv__c {
@@ -1486,7 +1486,7 @@ view: account {
     sql_distinct_key: ${id} ;;
     sql: ${current_risk__c} ;;
     value_format: "$#,##0"
-    drill_fields: [id,name,original_acv__c,actual_launch_date__c_date,churn_date_date,partner_account__c.name, current_subscription_provider__c, customer_segment__c]
+    drill_fields: [id,name,original_acv__c,actual_launch_date__c_date,churn_date_date,partner_account__c.name, current_subscription_provider__c, customer_segment__c, level_of_risk__c, churn_date_date]
   }
 
   dimension: total_custom_features {

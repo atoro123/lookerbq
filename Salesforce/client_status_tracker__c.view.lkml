@@ -480,7 +480,7 @@ view: client_status_tracker__c {
 
   measure: count {
     type: count
-    drill_fields: [id, name]
+    drill_fields: [id, name, partner_account__c.name, surveys__c.nps_question__c, original_expected_launch_date__c_date,current_estimated_launch_date__c_date, project_slippage__c]
   }
 
   measure: Days_Since_start_of_Integration{
