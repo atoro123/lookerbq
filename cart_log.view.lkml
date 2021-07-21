@@ -279,4 +279,14 @@ view: cart_log {
     sql: case when ${offer_id} in (5700,5763) then "BOPIS"
       when ${offer_id} in (5701, 5761, 5762) then "STH" end;;
   }
+
+  measure: min_order {
+    type: date
+    sql: MIN(${logged_date}) ;;
+  }
+
+  measure: max_order {
+    type: date
+    sql: MAX(${logged_date}) ;;
+  }
 }

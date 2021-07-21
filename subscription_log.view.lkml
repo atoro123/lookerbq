@@ -511,7 +511,12 @@ measure: total_activation_revenue_forecast_this_month {
   }
 
   measure: min_logged {
-    type: min
-    sql: ${logged_date} ;;
+    type: date
+    sql: min(${logged_date}) ;;
+  }
+
+  measure: max_logged {
+    type: date
+    sql: max(${logged_date}) ;;
   }
 }
