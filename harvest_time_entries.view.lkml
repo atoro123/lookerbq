@@ -199,6 +199,18 @@ view: harvest_time_entries {
     value_format: "0.0"
   }
 
+  measure: Percent_to_Target_Hours {
+    type: number
+    sql: ${Implementation_Hours_Pre_Launch}/(case when if(${account.target_integration_hours} = 0, 100000,${account.target_integration_hours})  is not null then cast(if(${account.target_integration_hours} = 0, 100000,${account.target_integration_hours}) as FLOAT64) else null end) ;;
+    value_format: "0%"
+  }
+
+  measure: Percent_to_Contract_Hours {
+    type: number
+    sql: ${Implementation_Hours_Pre_Launch}/(case when if(${account.integration_hours_included__c} = 0, 100000,${account.integration_hours_included__c})  is not null then cast(if(${account.integration_hours_included__c} = 0, 100000,${account.integration_hours_included__c}) as FLOAT64) else null end) ;;
+    value_format: "0%"
+  }
+
   measure: Implementation_Hours_Strategy {
     group_label: "Implementation Hours"
     type: sum

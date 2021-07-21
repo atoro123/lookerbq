@@ -480,7 +480,7 @@ view: client_status_tracker__c {
 
   measure: count {
     type: count
-    drill_fields: [id, name]
+    drill_fields: [id, name, stage__c, harvest_time_entries.Implementation_Hours,account.integration_hours_included__c, harvest_time_entries.Percent_to_Contract_Hours,harvest_time_entries.Percent_to_Target_Hours]
   }
 
   measure: Days_Since_start_of_Integration{
