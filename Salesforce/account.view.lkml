@@ -1481,6 +1481,15 @@ view: account {
     sql: ${implementation_fee__c} ;;
   }
 
+  measure: Forecast_Churn_Risk {
+    type: sum_distinct
+    sql_distinct_key: ${id} ;;
+    sql: case when ${level_of_risk__c} = '4' then ${current_risk__c}*0.5
+         when ${level_of_risk__c} = '5 - High' then ${current_risk__c} end;;
+    value_format: "$#,##0"
+
+  }
+
   measure: sum_current_risk {
     type: sum_distinct
     sql_distinct_key: ${id} ;;
