@@ -1758,7 +1758,7 @@ view: opportunity {
   measure: count_distinct {
     type: count_distinct
     sql: ${id} ;;
-    drill_fields: [id,name,closedate_date,account.name,annual_contract_value_acv__c, weighted_acv__c,account.customer_segment__c,opportunity_record_type.name]}
+    drill_fields: [id,name,closedate_date,account.name,annual_contract_value_acv__c, weighted_acv__c,account.customer_segment__c,opportunity_record_type.name, current_subscriptions_provider__c, lead_source_detail__c]}
 
   parameter: timeframe_picker {
     label: "Date Granularity"
